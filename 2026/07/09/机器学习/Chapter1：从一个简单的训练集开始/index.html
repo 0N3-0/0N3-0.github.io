@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter1：从一个简单的训练集开始 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="首先，作为从零开始学习机器学习的第一步，我们不需要一开始就处理复杂的数据和模型。先从一个非常简单的训练集开始：    x y     $0$ $0$   $1$ $2$   $2$ $4$   $3$ $6$   $4$ $8$    这个训练集的规律很明显，我们一眼就能看出： $$ y &#x3D; 2x $$ 但是现在先假装我们不知道这个关系，而是尝试用机器学习的方式，让程序自己从数据中找到它。 为了让">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter1：从一个简单的训练集开始">
+<meta property="og:url" content="http://0n3-0.github.io/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="首先，作为从零开始学习机器学习的第一步，我们不需要一开始就处理复杂的数据和模型。先从一个非常简单的训练集开始：    x y     $0$ $0$   $1$ $2$   $2$ $4$   $3$ $6$   $4$ $8$    这个训练集的规律很明显，我们一眼就能看出： $$ y &#x3D; 2x $$ 但是现在先假装我们不知道这个关系，而是尝试用机器学习的方式，让程序自己从数据中找到它。 为了让">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-07-09T07:37:24.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.545Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="从零开始的机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '机器学习/Chapter1：从一个简单的训练集开始';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">Chapter1：从一个简单的训练集开始</h1>
+      <div class="post-meta">
+        <span>2026-07-09</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">从零开始的机器学习</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <p>首先，作为从零开始学习机器学习的第一步，我们不需要一开始就处理复杂的数据和模型。先从一个非常简单的训练集开始：</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>$1$</td>
+<td>$2$</td>
+</tr>
+<tr>
+<td>$2$</td>
+<td>$4$</td>
+</tr>
+<tr>
+<td>$3$</td>
+<td>$6$</td>
+</tr>
+<tr>
+<td>$4$</td>
+<td>$8$</td>
+</tr>
+</tbody>
+</table>
+<p>这个训练集的规律很明显，我们一眼就能看出：</p>
+<p>$$
+y = 2x
+$$</p>
+<p>但是现在先假装我们不知道这个关系，而是尝试用机器学习的方式，让程序自己从数据中找到它。</p>
+<p>为了让机器能够学习这个关系，我们先假设模型的形式为：</p>
+<p>$$
+\hat{y} = wx
+$$</p>
+<p>其中，$\hat{y}$ 表示模型预测出来的结果，$x$ 是输入，$w$ 是模型需要学习的参数。</p>
+<p>也就是说，模型当前并不知道 $x$ 和 $y$ 之间到底是什么关系，它只能先通过某个 $w$ 去计算预测值。我们的目标就是让程序不断调整 $w$，直到模型的预测结果尽可能接近训练数据中的真实结果。</p>
+<p>不过在开始训练之前，我们先让 $w$ 取一个随机值，看看此时模型会预测出什么结果。</p>
+<p>可以先写成下面这个简单的 C 程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">float</span> train_data[][<span class="number">2</span>] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>&#125;,</span><br><span class="line">    &#123;<span class="number">2</span>, <span class="number">4</span>&#125;,</span><br><span class="line">    &#123;<span class="number">3</span>, <span class="number">6</span>&#125;,</span><br><span class="line">    &#123;<span class="number">4</span>, <span class="number">8</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TRAIN_COUNT \</span></span><br><span class="line"><span class="meta">(int)(sizeof(train_data) / sizeof(train_data[0]))</span></span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">randf</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="keyword">return</span> (<span class="type">float</span>)rand() / (<span class="type">float</span>)RAND_MAX;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">srand(time(<span class="number">0</span>));</span><br><span class="line"><span class="comment">// 为了便于观察这里把 w 设置为 0~10 之间的随机数</span></span><br><span class="line"><span class="type">float</span> w = randf() * <span class="number">10.f</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;w : %f\n&quot;</span>, w);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; TRAIN_COUNT;++i)&#123;</span><br><span class="line"><span class="type">float</span> x = train_data[i][<span class="number">0</span>];</span><br><span class="line"><span class="type">float</span> y = w * x;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;y(%d) : %f\n&quot;</span>, i, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">w : 6.108053</span><br><span class="line">y(0) : 0.000000</span><br><span class="line">y(1) : 6.108053</span><br><span class="line">y(2) : 12.216105</span><br><span class="line">y(3) : 18.324158</span><br><span class="line">y(4) : 24.432211</span><br></pre></td></tr></table></figure>
+<p>可以看出，由于此时的 $w$ 只是随机生成的，模型的预测结果和真实结果相差很大。</p>
+<p>但是，“相差很大”只是一个直观感受。如果我们想让机器自己学习，就需要把这个差距变成一个可以计算的数值。这个数值就叫做<strong>损失</strong>。</p>
+<p>损失越大，说明模型预测得越不准确；损失越小，说明模型越接近训练数据中的规律。</p>
+<p>在这里，我们使用均方误差（Mean Squared Error, MSE）作为<strong>损失函数</strong>：</p>
+<p>$$
+cost = \frac{1}{n} \sum_{i = 0}^{n - 1} (y_i - \hat{y}_i)^2
+$$</p>
+<p>其中，$n$ 表示训练数据的数量，$y_i$ 表示第 $i$ 个样本的真实值，$\hat{y}_i$ 表示模型对第 $i$ 个样本预测出来的值。</p>
+<p>之所以要对误差进行平方，主要有两个原因：</p>
+<ol>
+<li>如果直接把误差相加，正误差和负误差可能会互相抵消。例如有些预测偏大，有些预测偏小，最后加起来可能接近 0，但这并不代表模型没有出错。</li>
+<li>平方会让误差始终变成非负数，并且会放大较大的误差。也就是说，预测得越离谱，损失增长得越明显。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> <span class="title function_">cost</span><span class="params">(<span class="type">float</span> w)</span> &#123;</span><br><span class="line">    <span class="type">float</span> c = <span class="number">0.f</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; TRAIN_COUNT; ++i) &#123;</span><br><span class="line">        <span class="type">float</span> x = train_data[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">float</span> y = w * x;</span><br><span class="line">        <span class="type">float</span> d = y - train_data[i][<span class="number">1</span>];</span><br><span class="line">        c += d * d;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c / TRAIN_COUNT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 <code>main</code> 中调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;cost : %f\n&quot;</span>, cost(w));</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">w : 6.860047</span><br><span class="line">y(0) : 0.000000</span><br><span class="line">y(1) : 6.860047</span><br><span class="line">y(2) : 13.720094</span><br><span class="line">y(3) : 20.580141</span><br><span class="line">y(4) : 27.440187</span><br><span class="line">cost : 141.720337</span><br></pre></td></tr></table></figure>
+<p>现在我们已经能够用一个具体的数值来衡量预测结果和真实结果之间的差距了。那么接下来的问题就是：如何减少这个差距？</p>
+<p>由于当前的损失函数本质上是一个关于 $w$ 的函数，所以我们可以观察：当 $w$ 发生一点点变化时，$cost$ 会如何变化。</p>
+<p>如果 $w$ 增大一点后，$cost$ 也变大了，说明我们应该让 $w$ 往反方向调整；如果 $w$ 增大一点后，$cost$ 变小了，说明这个方向是有利的。</p>
+<p>这个变化趋势可以用导数来描述。</p>
+<p>导数的定义是：</p>
+<p>$$
+f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}
+$$</p>
+<p>在程序中，我们不需要真的取极限，而是可以取一个很小的数 $\epsilon$，例如 $10^{-3}$，用下面的方式近似计算导数：</p>
+<p>$$
+f'(x) \approx \frac{f(x + \epsilon) - f(x)}{\epsilon}
+$$</p>
+<p>这就是<strong>有限差分</strong>。</p>
+<p>对于当前问题来说，就是：</p>
+<p>$$
+dcost = \frac{cost(w + \epsilon) - cost(w)}{\epsilon}
+$$</p>
+<p>有了这个值，我们就知道了 $cost$ 在当前 $w$ 附近的变化方向。</p>
+<p>接下来就可以按照下面的方式更新 $w$：</p>
+<p>$$
+w = w - rate \cdot dcost
+$$</p>
+<p>其中，$rate$ 表示学习率。</p>
+<p>学习率决定了每次调整参数时走多大一步。学习率太小，训练会很慢；学习率太大，则可能一步跨过最优位置，导致损失在最小值附近来回振荡，甚至无法收敛。</p>
+<p>在这里，我们先把学习率设置为：</p>
+<p>$$
+rate = 10^{-3}
+$$</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> eps = <span class="number">1e-3</span>;</span><br><span class="line"><span class="type">float</span> rate = <span class="number">1e-3</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;cost : %f\n&quot;</span>, cost(w));</span><br><span class="line"><span class="type">float</span> dcost = (cost(w + eps) - cost(w)) / eps;</span><br><span class="line">w -= dcost * rate;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;cost : %f\n&quot;</span>, cost(w));</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">w : 5.947466</span><br><span class="line">cost : 93.494949</span><br><span class="line">cost : 91.264824</span><br></pre></td></tr></table></figure>
+<p>可以看到，经过一次参数更新后，$cost$ 变小了。</p>
+<p>这说明我们的调整方向是有效的。不过只更新一次还远远不够，因此接下来我们可以把这个过程重复多次。例如，重复 500 次：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;cost : %f\n&quot;</span>, cost(w));</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="number">500</span>;++i)&#123;</span><br><span class="line">    <span class="type">float</span> dcost = (cost(w + eps) - cost(w)) / eps;</span><br><span class="line">    w -= dcost * rate;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;cost : %f\n&quot;</span>, cost(w));</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">w : 6.381645</span><br><span class="line">cost : 115.192894</span><br><span class="line">cost : 0.00059</span><br></pre></td></tr></table></figure>
+<p>可以看到，经过多次调整后，$cost$ 已经非常接近 0 了。</p>
+<p>这说明模型的预测结果已经非常接近训练数据中的真实结果。为了确认模型到底学到了什么，我们再把最终的 $w$ 打印出来：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;w : %f\n&quot;</span>, w);</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">w : 6.037195</span><br><span class="line">cost : 97.793640</span><br><span class="line">cost : 0.000503</span><br><span class="line">w : 2.009156</span><br></pre></td></tr></table></figure>
+<p>可以看到，最终得到的 $w$ 已经非常接近 2 了。</p>
+<p>这正好符合我们一开始观察到的规律：</p>
+<p>$$
+y = 2x
+$$</p>
+<p>我们的程序根据预测的误差，一次次调整 $w$，让模型逐渐逼近了这组数据背后的真实关系。</p>
+<p>这就是一个最简单的训练过程。</p>
+<p>最终代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">float</span> train_data[][<span class="number">2</span>] = &#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>&#125;,</span><br><span class="line">    &#123;<span class="number">2</span>, <span class="number">4</span>&#125;,</span><br><span class="line">    &#123;<span class="number">3</span>, <span class="number">6</span>&#125;,</span><br><span class="line">    &#123;<span class="number">4</span>, <span class="number">8</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TRAIN_COUNT \</span></span><br><span class="line"><span class="meta">(int)(sizeof(train_data) / sizeof(train_data[0]))</span></span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">randf</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">float</span>)rand() / (<span class="type">float</span>)RAND_MAX;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">cost</span><span class="params">(<span class="type">float</span> w)</span> &#123;</span><br><span class="line">    <span class="type">float</span> c = <span class="number">0.f</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; TRAIN_COUNT; ++i) &#123;</span><br><span class="line">        <span class="type">float</span> x = train_data[i][<span class="number">0</span>];</span><br><span class="line">        <span class="type">float</span> y = w * x;</span><br><span class="line">        <span class="type">float</span> d = y - train_data[i][<span class="number">1</span>];</span><br><span class="line">        c += d * d;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c / TRAIN_COUNT;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    srand(time(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> w = randf() * <span class="number">10.f</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;w : %f\n&quot;</span>, w);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> eps = <span class="number">1e-3</span>;</span><br><span class="line">    <span class="type">float</span> rate = <span class="number">1e-3</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;cost : %f\n&quot;</span>, cost(w));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="number">500</span>;++i)&#123;</span><br><span class="line">        <span class="type">float</span> dcost = (cost(w + eps) - cost(w)) / eps;</span><br><span class="line">        w -= dcost * rate;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;cost : %f\n&quot;</span>, cost(w));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;w : %f\n&quot;</span>, w);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">Chapter0.5：什么是机器学习</a>
+    
+    
+      <a class="next" href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/">Chapter0：启程</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <div class="toc-empty">暂无目录</div>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

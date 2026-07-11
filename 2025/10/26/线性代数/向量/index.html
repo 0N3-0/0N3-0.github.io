@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>向量 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="定义 由 $n$ 个数 $a_{1},a_{2},\dots,a_{n}$ 组成的 $n$ 元有序数组 $\boldsymbol{\alpha}&#x3D;(a_{1},a_{2},\dots a_{n})$ 或 $$ \boldsymbol{\alpha}&#x3D;\begin{pmatrix}a_{1} \\a_{2} \\\vdots \\a_{n}\end{pmatrix} $$ 称为 $n$ 维向量 其中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="向量">
+<meta property="og:url" content="http://0n3-0.github.io/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="定义 由 $n$ 个数 $a_{1},a_{2},\dots,a_{n}$ 组成的 $n$ 元有序数组 $\boldsymbol{\alpha}&#x3D;(a_{1},a_{2},\dots a_{n})$ 或 $$ \boldsymbol{\alpha}&#x3D;\begin{pmatrix}a_{1} \\a_{2} \\\vdots \\a_{n}\end{pmatrix} $$ 称为 $n$ 维向量 其中">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-10-26T11:01:04.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.554Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="线代">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '线性代数/向量';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">向量</h1>
+      <div class="post-meta">
+        <span>2025-10-26</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E7%BA%BF%E4%BB%A3/">线代</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>定义</h1>
+<p>由 $n$ 个数 $a_{1},a_{2},\dots,a_{n}$ 组成的 $n$ 元有序数组 $\boldsymbol{\alpha}=(a_{1},a_{2},\dots a_{n})$ 或</p>
+<p>$$
+\boldsymbol{\alpha}=\begin{pmatrix}a_{1} \\a_{2} \\\vdots \\a_{n}\end{pmatrix}
+$$</p>
+<p>称为 $n$ 维向量<br>
+其中 $a_{i}:\boldsymbol{\alpha}$ 的第 $i$ 个分量,$i=1,2,\dots,n$<br>
+$n:\boldsymbol{\alpha}$ 的维数</p>
+<p>向量可写为一行</p>
+<p>$$
+\boldsymbol{\alpha}=\begin{pmatrix}a_{1} & a_{2} & \dots & a_{n}\end{pmatrix}
+$$</p>
+<p>,称为<strong>行向量（行矩阵）</strong><br>
+也可写为一列</p>
+<p>$$
+\boldsymbol{\alpha}=\begin{pmatrix}a_{1} \\a_{2} \\  \vdots\\a_{n}\end{pmatrix}
+$$</p>
+<p>,称为<strong>列向量（列矩阵）</strong></p>
+<blockquote>
+<p>向量一般用小写黑体字母 $\boldsymbol{a,b,\alpha,\beta}$ 等表示</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>行向量和列向量是向量的两种不同写法，若无明确说明, 本书所提𝑛维向量均指列向量</li>
+<li>行向量也可看作 $1 × 𝑛$ 的矩阵,列向量也可看作 $𝑛 × 1$ 的矩阵.<br>
+故</li>
+</ol>
+</blockquote>
+<p>$$
+\boldsymbol{\alpha}=\begin{pmatrix}a_{1} \\a_{2} \\\vdots\\a_{n}\end{pmatrix}=\begin{pmatrix}a_{1} & a_{2} & \dots& a_{n}\end{pmatrix}^{\boldsymbol{T}}
+$$</p>
+<h1>特殊向量</h1>
+<ol>
+<li><strong>零向量 $\boldsymbol{0(\theta)}$</strong>:所有分量都是零的向量</li>
+<li><strong>实向量</strong>：所有分量都是实数的向量</li>
+<li><strong>复向量</strong>：分量是复数的向量</li>
+<li>$\mathbb{R}^n$:$n$ 维实向量的全体</li>
+<li><strong>$n$ 维基本(单位)向量</strong>：</li>
+</ol>
+<p>$$
+\boldsymbol{\varepsilon_{1}=\begin{pmatrix}1 \\0 \\\vdots \\0\end{pmatrix}},\boldsymbol{\varepsilon_{2}=\begin{pmatrix}0 \\1\\\vdots \\0\end{pmatrix}},\dots,\boldsymbol{\varepsilon_{n}=\begin{pmatrix}0\\0 \\\vdots \\n\end{pmatrix}}
+$$</p>
+<h1>向量的线性运算</h1>
+<p>设 $\boldsymbol{\alpha}=(a_{1},a_{2},\dots,a_{n})^{\boldsymbol{T}},\boldsymbol{\beta}=(b_{1},b_{2},\dots,b_{n})^{T},k\in \mathbb{R}$ 则</p>
+<ol>
+<li>$\boldsymbol{\alpha=\beta}\Leftrightarrow a_{i}=b_{i}(i=1,2,\dots,n)$</li>
+<li>$\boldsymbol{\alpha\pm \beta}=(a_{1}\pm b_{1},a_{2}\pm b_{2},\dots,a_{n}\pm b_{n})^{\boldsymbol{T}}$</li>
+<li>$k\boldsymbol{\alpha}=(ka_{1},ka_{2},\dots,ka_{n})^{\boldsymbol{T}}$</li>
+<li>$-\boldsymbol{\alpha}=(-a_{1},-a_{2},\dots,-a_{n})^{\boldsymbol{T}}$ 为 $\boldsymbol{\alpha}$ 的负向量</li>
+</ol>
+<h2 id="运算规律">运算规律</h2>
+<ol>
+<li><strong>交换律</strong>：$\boldsymbol{\alpha+\beta=\beta+\alpha}$</li>
+<li><strong>结合律</strong>：$\boldsymbol{\alpha+(\beta+\gamma)=(\alpha+\beta)+\gamma}$</li>
+<li><strong>加法零元</strong>：对任一向量 $\boldsymbol{\alpha}$，有 $\boldsymbol{\alpha+0=\alpha}$</li>
+<li><strong>加法负元</strong>：对任一向量 $\boldsymbol{\alpha}$，有 $\boldsymbol{\alpha+(-\alpha)=0}$</li>
+<li><strong>数乘单位元</strong>：对数 1,有 $1\cdot \boldsymbol{\alpha}=\boldsymbol{\alpha}$</li>
+<li><strong>数乘结合律</strong>：$(kl)\boldsymbol{\alpha}=k(l\boldsymbol{\alpha})$</li>
+<li><strong>分配律</strong>：$k(\boldsymbol{\alpha+\beta})=k\boldsymbol{\alpha}+k\boldsymbol{\beta}$, $(k+l)\boldsymbol{\alpha}=k\boldsymbol{\alpha}+l\boldsymbol{\alpha}$</li>
+</ol>
+<h1>$\mathbb{R}^n$ 中向量的内积</h1>
+<h2 id="定义">定义</h2>
+<p>设 $n$ 维向量</p>
+<p>$$
+\boldsymbol{\alpha}=\begin{pmatrix}a_{1} \\a_{2} \\\vdots \\a_{n}\end{pmatrix},\boldsymbol{\beta}=\begin{pmatrix}b_{1} \\b_{2} \\\vdots \\b_{n}\end{pmatrix}
+$$</p>
+<p>$\boldsymbol{\alpha}$ 与 $\boldsymbol{\beta}$ 的内积为 $(\boldsymbol{\alpha},\boldsymbol{\beta})=\boldsymbol{\alpha^T}\boldsymbol{\beta}=a_{1}b_{1}+a_{2}b_{2}+\cdots+a_{n}b_{n}$</p>
+<h2 id="性质">性质</h2>
+<p>设 $\boldsymbol{\alpha,\beta,\gamma}\in \mathbb{R}^n,\lambda\in \mathbb{R}$，则有</p>
+<ol>
+<li>$(\boldsymbol{\alpha},\boldsymbol{\beta})=(\boldsymbol{\beta,\alpha})$</li>
+<li>$(\lambda\boldsymbol{\alpha,\beta})=\lambda(\boldsymbol{\alpha,\beta})$</li>
+<li>$(\boldsymbol{\alpha+\beta,\gamma})=(\boldsymbol{\alpha,\gamma})+(\boldsymbol{\beta+\gamma})$</li>
+<li>$(\boldsymbol{\alpha,\alpha})\geq 0$，且 $(\boldsymbol{\alpha,\alpha})=0\Leftrightarrow\boldsymbol{\alpha}=\boldsymbol{0}$</li>
+</ol>
+<h1>$n$ 维向量的模</h1>
+<h2 id="定义-2">定义</h2>
+<p>对于 $n$ 维向量 $\boldsymbol{\alpha}=(a_{1},a_{2},\dots,a_{n})^T$，称 $\left\|\boldsymbol{\alpha}\right\|=\sqrt[]{ (\boldsymbol{\alpha,\alpha}) }=\sqrt[]{ a_{1}^2+a_{2}^2+\cdots+a_{n}^2 }$ 为向量 $\boldsymbol{\alpha}$ 的<strong>长度，模或范数</strong></p>
+<blockquote>
+<ol>
+<li>当 $\left \| \boldsymbol{\alpha} \right \|=1$ 时，称 $\boldsymbol{\alpha}$ 为单位向量</li>
+<li>单位向量不唯一</li>
+<li>当 $\boldsymbol{\alpha\neq 0}$ 时，称 $\frac{\boldsymbol{\alpha}}{\left \| \boldsymbol{\alpha} \right \|}$ 为向量 $\boldsymbol{\alpha}$ 的单位化</li>
+</ol>
+</blockquote>
+<h2 id="性质-2">性质</h2>
+<p>设 $\boldsymbol{\alpha,\beta}$ 是 $n$ 维向量，$\lambda$ 维实数，则有：</p>
+<ol>
+<li><strong>正定性</strong>：$\left \| \boldsymbol{\alpha} \right \|\geq 0$，且 $\left \| \boldsymbol{\alpha} \right \|=0\Leftrightarrow\boldsymbol{\alpha=0}$</li>
+<li><strong>齐次性</strong>：$\left \| \lambda \boldsymbol{\alpha} \right \|=|\lambda|\cdot \left \| \boldsymbol{\alpha} \right \|$</li>
+<li><strong>柯西-施瓦茨不等式</strong>：$|(\boldsymbol{\alpha,\beta})|\leq \left \| \boldsymbol{\alpha} \right \|\cdot \left \| \boldsymbol{\beta} \right \|$（在 $\boldsymbol{\alpha}$ 与 $\boldsymbol{\beta}$ 线性相关时取等）</li>
+<li><strong>三角不等式</strong>：$\left \| \boldsymbol{\alpha+\beta} \right \|\leq \left \| \boldsymbol{\alpha} \right \|+\left \| \boldsymbol{\beta} \right \|$</li>
+</ol>
+<h1>向量的夹角</h1>
+<h2 id="定义-3">定义</h2>
+<p>当 $\boldsymbol{\alpha\neq 0,\beta\neq 0}$ 时，称 $\theta=\widehat{(\boldsymbol{\alpha,\beta})}=\arccos \frac{(\boldsymbol{\alpha,\beta})}{\left \| \boldsymbol{\alpha} \right \|\cdot \left \| \boldsymbol{\beta} \right \|}$ 为向量 $\boldsymbol{\alpha}$ 与 $\boldsymbol{\beta}$ 的夹角</p>
+<p>当 $(\boldsymbol{\alpha,\beta})=0$ 时，称向量 $\boldsymbol{\alpha}$ 与 $\boldsymbol{\beta}$ 正交（垂直），记作 $\boldsymbol{\alpha}\perp \boldsymbol{\beta}$</p>
+<ul>
+<li>$\boldsymbol{0}$ 与任何向量正交</li>
+<li><strong>勾股定理</strong>：若 $\boldsymbol{\alpha}\perp \boldsymbol{\beta}$ 则 $\left \| \boldsymbol{\alpha +\beta} \right \|^2=\left \| \boldsymbol{\alpha} \right \|^2+\left \| \boldsymbol{\beta} \right \|^2$</li>
+</ul>
+<h1>向量组</h1>
+<h2 id="定义-4">定义</h2>
+<p>若干个同维的列向量（或行向量）所组成的集合称为<strong>向量组</strong><br>
+向量组中向量的个数可以是有限的，也可以是无限的</p>
+<h2 id="矩阵与向量组">矩阵与向量组</h2>
+<p>矩阵 $\boldsymbol{A}=(a_{ij})_{m\times n}$ 可以看作 $n$ 个 $m$ 维列向量：</p>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1j} & \dots & a_{1n} \\a_{21} & a_{22} & \dots & a_{2j} & \dots & a_{2n} \\\vdots & \vdots & \vdots & \vdots& \vdots & \vdots \\a_{m1} & a_{m2} & \dots & a_{mj} & \dots & a_{mn}\end{pmatrix}
+$$</p>
+<p>$$
+\boldsymbol{\alpha_{1}}=\begin{pmatrix}a_{11} \\a_{21} \\\vdots \\a_{m1}\end{pmatrix},\boldsymbol{\alpha_{2}}=\begin{pmatrix}a_{12} \\a_{22} \\\vdots \\a_{m2}\end{pmatrix}\boldsymbol{\alpha_{j}}=\begin{pmatrix}a_{1j} \\a_{2j} \\\vdots \\a_{mj}\end{pmatrix}\boldsymbol{\alpha_{n}}=\begin{pmatrix}a_{1n} \\a_{2n} \\\vdots \\a_{mn}\end{pmatrix}:\boldsymbol{A}
+$$</p>
+<p>的<strong>列向量组</strong><br>
+<strong>行向量组</strong>同理</p>
+<p>同时，含有限个（同维数的）向量的向量组可以构成一个矩阵</p>
+<h2 id="向量组的线性组合与线性表示">向量组的线性组合与线性表示</h2>
+<h3 id="定义-5">定义</h3>
+<p>对给定的向量组 $(\boldsymbol{A}):\boldsymbol{\alpha_{1},\boldsymbol{\alpha_{2},\dots,\boldsymbol{\alpha_{s}}}}$ 和任意一组实数 $\lambda_{1},\lambda_{2},\dots,\lambda_{s}$ 称 $\lambda_{1}\boldsymbol{\alpha}_{1}+\lambda_{2}\boldsymbol{\alpha}_{2}+\dots+\lambda_{s} \boldsymbol{\alpha}_{s}$ 为向量组 $(\boldsymbol{A})$ 的一个<strong>线性组合</strong>，$\lambda_{1},\lambda_{2},\dots,\lambda_{s}$ 称为该线性组合的<strong>系数</strong></p>
+<p>设 $\boldsymbol{\alpha_{1},\boldsymbol{\alpha_{2},\dots,\boldsymbol{\alpha_{n}}}}$ 为一组向量，若存在一组实数 $k_{1},k_{2},\dots,k_{n}$，使得 $\boldsymbol{\alpha}=k_{1}\boldsymbol{\alpha}_{1}+k_{2}\boldsymbol{\alpha}_{2}+\dots+k_{n} \boldsymbol{\alpha}_{n}$ 则称 $\boldsymbol{\alpha}$ 是向量组 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha},\dots,\boldsymbol{\alpha_{n}}$ 的<strong>线性组合</strong>，也称 $\boldsymbol{\alpha}$ 可由向量组 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha},\dots,\boldsymbol{\alpha_{n}}$**线性表示</p>
+<h3 id="定理">定理</h3>
+<p>$$
+\begin{aligned}
+&向量\boldsymbol{\beta}  能由向量组  \boldsymbol{\alpha}_{1}, \boldsymbol{\alpha}_{2}, \cdots, \boldsymbol{\alpha}_{n}  线性表示．
+ \\&\Leftrightarrow  存在一组常数  c_{1}, c_{2}, \cdots, c_{n}  使得关系式
+
+c_{1} \boldsymbol{\alpha}_{1}+c_{2} \boldsymbol{\alpha}_{2}+\cdots+c_{n} \boldsymbol{\alpha}_{n}=\boldsymbol{\beta} \text { 成立 }
+
+\\ &\Leftrightarrow  线性方程组  x_{1} \boldsymbol{\alpha}_{1}+x_{2} \boldsymbol{\alpha}_{2}+\cdots+x_{n} \boldsymbol{\alpha}_{n}=\boldsymbol{\beta}  有解．
+\\ &\Leftrightarrow  线性方程组  \boldsymbol{A x}=\boldsymbol{\beta}  有解．\\&这里  \boldsymbol{A}=\left(\boldsymbol{\alpha}_{1}, \boldsymbol{\alpha}_{2}, \cdots, \boldsymbol{\alpha}_{n}\right) 
+\end{aligned}
+$$</p>
+<h2 id="向量组间的线性表示与等价">向量组间的线性表示与等价</h2>
+<h3 id="定义-6">定义</h3>
+<p>设有两个向量组 $(A):\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{s}},(B):\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{t}}$ 若(B)组中的每一个向量都能由向量组 $(A)$ 线性表示, 则称<strong>向量组 $(B)$ 能由向量组 $(A)$ 线性表示</strong>,若向量组 $(A)$ 与 $(B)$ 能<strong>相互线性表示</strong>, 则称这两个<strong>向量组等价</strong></p>
+<h3 id="性质-3">性质</h3>
+<ol>
+<li><strong>自反性</strong>：任意向量组与其自身等价</li>
+<li><strong>对称性</strong>：若向量组 $(A)$ 与向量组 $(B)$ 等价，则向量组 $(B)$ 与 $(A)$ 等价</li>
+<li><strong>传递性</strong>：若向量组 $(A)$ 与向量组 $(B)$ 等价,且向量组 $(B)$ 与 $(C)$ 等价,则向量组 $(A)$ 与 $(C)$ 等价</li>
+</ol>
+<h2 id="向量组间的线性表示的等价描述">向量组间的线性表示的等价描述</h2>
+<p>$$
+\begin{aligned}
+&向量组（B）：  \boldsymbol{\beta}_{1}, \boldsymbol{\beta}_{2}, \cdots, \boldsymbol{\beta}_{t}  能由向量组（A）：  \boldsymbol{\alpha}_{1}, \boldsymbol{\alpha}_{2}, \cdots, \boldsymbol{\alpha}_{s}  线性表示
+\\
+&\Leftrightarrow 对每个  \boldsymbol{\beta}_{j}(j=1,2, \cdots, t)  ，存在数  k_{1 j}, k_{2 j}, \cdots, k_{s j}  ，使得\boldsymbol{\beta}_{\boldsymbol{j}}=k_{1 j} \boldsymbol{\alpha}_{1}+k_{2 j} \boldsymbol{\alpha}_{2}+\cdots+k_{s j} \boldsymbol{\alpha}_{s}
+\\
+ &\Leftrightarrow \left(\boldsymbol{\beta}_{1}, \boldsymbol{\beta}_{2}, \cdots, \boldsymbol{\beta}_{t}\right)=\left(\boldsymbol{\alpha}_{1}, \boldsymbol{\alpha}_{2}, \cdots, \boldsymbol{\alpha}_{s}\right)\begin{pmatrix}
+k_{11} & k_{12} & \cdots & k_{1 t} \\
+k_{21} & k_{22} & \cdots & k_{2 t} \\
+\vdots & \vdots & & \vdots \\
+k_{\mathrm{s} 1} & k_{\mathrm{s} 2} & \cdots & k_{s t}
+\end{pmatrix}\\
+&\Leftrightarrow \boldsymbol{B}=\boldsymbol{A} \boldsymbol{X} \text { 有解. 这里 } \boldsymbol{A}=\left(\boldsymbol{\alpha}_{1}, \boldsymbol{\alpha}_{2}, \cdots, \boldsymbol{\alpha}_{s}\right), \boldsymbol{B}=\left(\boldsymbol{\beta}_{1}, \boldsymbol{\beta}_{2}, \cdots, \boldsymbol{\beta}_{t}\right)
+\end{aligned}
+$$</p>
+<h2 id="向量组的线性相关性">向量组的线性相关性</h2>
+<h3 id="定义-7">定义</h3>
+<p>设有向量组 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{m}}$，若存在一组不全为零的数 $\lambda_{1},\lambda_{2},\dots,\lambda_{m}$ 使得 $\lambda_{1}\boldsymbol{\alpha}_{1}+\lambda_{2}\boldsymbol{\alpha}_{2}+\dots+\lambda_{m} \boldsymbol{\alpha}_{m}=\boldsymbol{0}$ 则称向量组 $\boldsymbol{\alpha_{1},\boldsymbol{\alpha_{2},\dots,\boldsymbol{\alpha_{m}}}}$ 是<strong>线性相关</strong>的，否则称向量组 $\boldsymbol{\alpha_{1},\boldsymbol{\alpha_{2},\dots,\boldsymbol{\alpha_{m}}}}$ 是<strong>线性无关</strong>的</p>
+<blockquote>
+<ol>
+<li>若 $\boldsymbol{\alpha_{1},\boldsymbol{\alpha_{2},\dots,\boldsymbol{\alpha_{m}}}}$ 线性无关，则 $\lambda_{1}\boldsymbol{\alpha}_{1}+\lambda_{2}\boldsymbol{\alpha}_{2}+\dots+\lambda_{m} \boldsymbol{\alpha}_{m}=\boldsymbol{0}\Leftrightarrow\lambda_{1}=\lambda_{2}=\dots=\lambda_{m}=0$</li>
+<li>任一向量组，不是线性相关就是线性无关</li>
+<li>向量组的线性相关性与向量组中向量的次序无关</li>
+</ol>
+</blockquote>
+<h3 id="向量组线性相关性的等价描述">向量组线性相关性的等价描述</h3>
+<p>$$
+\begin{aligned}
+&已知向量组\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}},记\boldsymbol{A}=(\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}),\boldsymbol{x}=(x_{1},x_{2},\dots,x_{n})^{\boldsymbol{T}} \\
+&若\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}线性相关 \\
+&\Leftrightarrow x_{1}\boldsymbol{\alpha_{1}}+x_{2}\boldsymbol{\alpha_{2}},\dots,x_{n}\boldsymbol{\alpha_{n}}=\boldsymbol{0}有非零解 \\
+& \Leftrightarrow \boldsymbol{Ax=0}有非零解 \\
+&若\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}线性无关 \\
+&\Leftrightarrow x_{1}\boldsymbol{\alpha_{1}}+x_{2}\boldsymbol{\alpha_{2}},\dots,x_{n}\boldsymbol{\alpha_{n}}=\boldsymbol{0}仅有零解 \\
+& \Leftrightarrow \boldsymbol{Ax=0}仅有零解
+\end{aligned}
+$$</p>
+<h3 id="向量组线性相关的判别方法">向量组线性相关的判别方法</h3>
+<ol>
+<li>$n$ 个 $n$ 维向量 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}$ 线性相关</li>
+</ol>
+<p>$$
+\Leftrightarrow \begin{vmatrix}\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}\end{vmatrix}=0
+$$</p>
+<p>线性无关</p>
+<p>$$
+\Leftrightarrow \begin{vmatrix}\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}\end{vmatrix}\neq 0
+$$</p>
+<ol start="2">
+<li>当 $m>n$ 时，$m$ 个 $n$ 维向量一定线性相关<br>
+向量的个数 $\leftrightarrow$ 未知数的个数;向量的维数 $\leftrightarrow$ 方程的个数</li>
+<li>设有两个向量组 $\alpha_{i}=(a_{i1},a_{i2},\dots,a_{ir})^{\boldsymbol{T}}$, $\beta_{i}=(a_{i1},a_{i2},\dots,a_{ir},a_{i(r+1)})^{\boldsymbol{T}}$</li>
+<li>若 $r$ 维向量组 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}$ 线性无关，则 $r+1$ 维向量组 $\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{m}}$ 也线性无关</li>
+<li>若 $r+1$ 维向量组 $\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{m}}$ 线性相关，则 $r$ 维向量组 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}$ 也线性相关<br>
+即：短的无关⟹长的无关,长的相关⟹短的相关</li>
+</ol>
+<h3 id="向量组线性相关性的结论">向量组线性相关性的结论</h3>
+<ol>
+<li>向量组中仅单个向量的情况</li>
+<li>若向量 $\boldsymbol{\alpha} = \boldsymbol{0}$，则线性相关；</li>
+<li>若向量 $\boldsymbol{\alpha} \ne \boldsymbol{0}$，则线性无关。</li>
+<li>向量组中仅两个向量的情况<br>
+$\boldsymbol{\alpha}, \boldsymbol{\beta} \text{ 线性相关}\iff\boldsymbol{\beta} = k \boldsymbol{\alpha}\iff \text{对应分量成比例。}$<br>
+两个向量线性相关的几何意义 $\iff$ 两个向量共线</li>
+<li>三个向量的几何意义<br>
+$\text{三个向量线性相关} \iff \text{三个向量共面。}$</li>
+<li>包含零向量的情况<br>
+任何包含 $\boldsymbol{0}$ 的向量组都是线性相关的。</li>
+<li>部分与整体的关系</li>
+<li>若部分向量组线性相关，则整体向量组也线性相关。<br>
+（部分相关 $\Rightarrow$ 整体相关）</li>
+<li>若整体向量组线性无关，则任意部分向量组也线性无关。<br>
+（整体无关 $\Rightarrow$ 部分无关）</li>
+</ol>
+<h3 id="向量组线性相关性的几何含义">向量组线性相关性的几何含义</h3>
+<ul>
+<li>若向量组线性相关，表示其中某些向量可以由其他向量线性表示。<br>
+换句话说，它们之间<strong>没有提供新的方向</strong></li>
+<li>几何上，这意味着这些向量<strong>共线、共面或共属于某个低维子空间</strong>。</li>
+<li>若线性无关，则向量组中任何一个向量都不能由其余向量线性表示。<br>
+<strong>不同维度下的直观理解：</strong></li>
+<li><strong>二维空间（2D）</strong>：<br>
+若 $\mathbf{a}, \mathbf{b}$ 线性相关，则存在常数 $k$ 使 $\mathbf{b} = k\mathbf{a},$ 即两向量共线。</li>
+<li><strong>三维空间（3D）</strong>：<br>
+若 $\mathbf{a}, \mathbf{b}, \mathbf{c}$ 线性相关，则存在常数 $\alpha, \beta$ 使  $\mathbf{c} = \alpha\mathbf{a} + \beta\mathbf{b}$ 即三向量共面。</li>
+<li><strong>n 维空间（nD）</strong>：<br>
+若一组向量线性相关，则其中某些向量落在其他向量张成的<strong>低维子空间</strong>中。<br>
+<strong>总结：</strong><br>
+$\text{线性相关} \iff \text{向量组没有张出新的维度。}$<br>
+$\text{线性无关} \iff \text{每个向量都提供一个新的方向。}$</li>
+</ul>
+<h2 id="正交向量组">正交向量组</h2>
+<h3 id="定义-8">定义</h3>
+<p>已知 $m$ 个非零向量 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{m}}$ 若 $(\boldsymbol{\alpha_{i},\alpha_{j}})=0(i,j=1,2,\dots,m,i\neq j)$ 则称 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{m}}$ 为<strong>正交向量组</strong></p>
+<p>若 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{m}}$ 为正交向量组，且 $\left \| \boldsymbol{\alpha_{i}} \right \|=1(i=1,2,\dots,m)$ 则称 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{m}}$ 为<strong>标准（规范、单位）正交向量组</strong></p>
+<h3 id="性质-4">性质</h3>
+<p>若 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{m}}$ 为正交向量组，则 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{m}}$ 线性无关</p>
+<h2 id="极（最）大线性无关组">极（最）大线性无关组</h2>
+<h3 id="定义-9">定义</h3>
+<p>在向量组 $(A):\alpha_{1},\alpha_{2},\dots,\alpha_{s}$ 中, 若存在它的一个部分组 $(A_{0}):\alpha_{i_{1}},\alpha_{i_{2}},\dots,\alpha_{i_{r}}$, 满足：</p>
+<ol>
+<li>向量组 $(A_{0}):\alpha_{i_{1}},\alpha_{i_{2}},\dots,\alpha_{i_{r}}$ 线性无关;</li>
+<li>$(A)$ 中任一向量都可以由向量组 $A_{0}$ 线性表示;<br>
+则称 $(A_{0})$ 为 $(A)$ 的一个<strong>极（最）大线性无关组</strong>，简称<strong>极（最）大无关组</strong></li>
+</ol>
+<blockquote>
+<ol>
+<li>向量组的极大无关组(一般)不唯一,但其中向量的个数唯一</li>
+<li>只含零向量的向量组没有极大无关组</li>
+<li>向量组的极大无关组具有：无关性, 极大性，极小性</li>
+<li>若向量组 $(A_{0})$ 是 $(A)$ 的极大无关组, 则 $(A_{0})$ 是 $(A)$ 的全权代表, 是生成 $L(A)$ 的必须元, 且 $(A_{0})$ 中向量的个数不会超过 $(A)$ 中向量的个数.</li>
+</ol>
+</blockquote>
+<h3 id="结论">结论</h3>
+<ol>
+<li>任一向量组线性无关⟺其极大无关组是它本身.</li>
+<li>设 $\alpha_{i_{1}},\alpha_{i_{2}},\dots,\alpha_{i_{r}}$ 是向量组 $\alpha_{1},\alpha_{2},\dots,\alpha_{m}$ 的一个极大无关组,则 $\alpha_{1},\alpha_{2},\dots,\alpha_{m}$ 中的任一向量均可由 $\alpha_{i_{1}},\alpha_{i_{2}},\dots,\alpha_{i_{r}}$ 线性表示, 且表示方法唯一</li>
+<li>设 $\alpha_{i_{1}},\alpha_{i_{2}},\dots,\alpha_{i_{r}}$ 是向量组 $\alpha_{1},\alpha_{2},\dots,\alpha_{m}$ 的一个线性无关组,则它成为极大无关组 $\Leftrightarrow$ $\alpha_{1},\alpha_{2},\dots,\alpha_{m}$ 中的任一向量都可由 $\alpha_{i_{1}},\alpha_{i_{2}},\dots,\alpha_{i_{r}}$ 线性表示.</li>
+<li>向量组与其任一极大无关组等价.</li>
+<li>向量组的任意两个极大无关组等价,从而所含向量个数也相等</li>
+</ol>
+<h2 id="向量组的秩">向量组的秩</h2>
+<h3 id="定义-10">定义</h3>
+<p>向量组 $(A):\alpha_{1},\alpha_{2},\dots,\alpha_{s}$ 的极大无关组所含向量的个数𝑟称为该向量组的秩，记为 $r(\alpha_{1},\alpha_{2},\dots,\alpha_{s})=r$</p>
+<p>规定：仅含零向量的向量组的秩为零</p>
+<h3 id="结论-2">结论</h3>
+<ol>
+<li>
+<p>仅含零向量的向量组的秩为 0</p>
+</li>
+<li>
+<p>设 $\alpha_{1},\alpha_{2},\dots,\alpha_{s}$ 为非零向量组, 则 $0<r(\alpha_{1},\alpha_{2},\dots,\alpha_{s})<s$</p>
+</li>
+<li>
+<p>$\because n$ 维基本单位向量组 $\varepsilon_{1},\varepsilon_{2},\dots,\varepsilon_{n}$ 线性无关, 且任意 $n+1$ 个 $n$ 维向量线性相关<br>
+$\therefore \varepsilon_{1},\varepsilon_{2},\dots,\varepsilon_{n}$ 为 $\mathbb{R}^n$ 的一个极大无关组，且 $r(\mathbb{R}^n)=n$</p>
+</li>
+<li>
+<p>向量组 $\alpha_{1},\alpha_{2},\dots,\alpha_{s}$ 线性相关 $\Leftrightarrow r(\alpha_{1},\alpha_{2},\dots,\alpha_{s})<s$</p>
+<p>向量组 $\alpha_{1},\alpha_{2},\dots,\alpha_{s}$ 线性无关 $\Leftrightarrow r(\alpha_{1},\alpha_{2},\dots,\alpha_{s})=s$</p>
+</li>
+</ol>
+<h3 id="性质-5">性质</h3>
+<ol>
+<li>若向量组 $A$ 可由向量组 $B$ 线性表示, 则 $r(A)\leq r(B)$</li>
+<li>等价向量组具有相等的秩</li>
+<li>若向量组 $(A):\alpha_{1},\alpha_{2},\dots,\alpha_{s}$ 可由向量组 $(B):\beta_{1},\beta_{2},\dots,\beta_{t}$ 线性表示, 且 $r(A)=r(B)$，则向量组 $A$ 与 $B$ 等价</li>
+</ol>
+<h1>$n$ 维向量空间</h1>
+<h2 id="定义-11">定义</h2>
+<p>设 $V$ 是数域 $\mathbb{F}$ 上的所有 $n$ 维向量构成的集合，且对于向量的线性运算封闭的，即：$\forall \boldsymbol{\alpha,\beta}\in V,k\in \mathbb{F}$,有 $\boldsymbol{\alpha+\beta}\in V,k\cdot \boldsymbol{\alpha}\in V$ 则称 $V$ 为数域 $\mathbb{F}$ 上的 $n$ 维向量空间，记为 $\mathbb{F}^n$</p>
+<blockquote>
+<ol>
+<li>$\mathbb{F}$ 可以是 $\mathbb{R},\mathbb{C},\mathbb{Q}$，相应地称 $V$ 为数域 $\mathbb{R},\mathbb{C},\mathbb{Q}$ 上的 $n$ 维向量空间，若无特别说明 $\mathbb{F}$ 是指 $\mathbb{R}$,此时称 $V$ 为数域 $\mathbb{R}$ 上的 $n$ 实向量空间,记为 $\mathbb{R}^n$</li>
+<li>线性运算满足 8 条运算规律 $\Leftrightarrow$ 对线性运算封闭</li>
+<li>空间=集合+结构</li>
+<li>向量空间也称为线性空间</li>
+</ol>
+</blockquote>
+<p>1 维向量空间 $\mathbb{R}\rightarrow$ 数轴</p>
+<p>2 维向量空间 $\mathbb{R}^2\rightarrow$ 平面</p>
+<p>3 维向量空间 $\mathbb{R}^3\rightarrow$ 三维几何空间</p>
+<h2 id="基和维数">基和维数</h2>
+<h3 id="定义-12">定义</h3>
+<p>设 $V$ 为数域 $\mathbb{F}$ 上的向量空间, 若 $V$ 中的 $r$ 个向量 $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 满足：</p>
+<ol>
+<li>$\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 线性无关;</li>
+<li>$V$ 中任一向量可由 $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 线性表示,<br>
+则称 $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 是向量空间 $V$ 的一组基, $r$ 称为向量空间 $V$ 的维数,<br>
+记作 $\dim V=r$.</li>
+</ol>
+<blockquote>
+<ol>
+<li>把 $V$ 看作一向量组, 则 $V$ 的基就是该向量组的极大无关组,$V$ 的维数就是该向量组的秩.</li>
+<li>只含 $\boldsymbol{0}$ 的向量空间没有基, 维数等于 $0$</li>
+<li>若 $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 是向量空间𝑉的一组基,则 $𝑉 = {k_{1}\alpha_{1} + k_{2}\alpha_{2} + ⋯ + k_{r}\alpha_{r}: 𝑘_{i} \in \mathbb{F}}$<br>
+即:向量空间 $V=$ 由 $V$ 的基所生成的向量空间.</li>
+</ol>
+</blockquote>
+<h3 id="举例">举例</h3>
+<ol>
+<li>向量组</li>
+</ol>
+<p>$$
+\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}
+$$</p>
+<p>是 $\mathbb{R}^2$ 的一组基, $\mathbb{R}^2$ 是 2 维向量空间.<br>
+2. 向量组</p>
+<p>$$
+\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}1\\1\end{pmatrix}
+$$</p>
+<p>也是 $\mathbb{R}^2$ 的一组基.<br>
+3. $n$ 维基本向量组 $\varepsilon_{1}=(1,0,\dots,0)^T,\varepsilon_{2}=(0,1,\dots,0)^\mathbf{T},\dots,\varepsilon_{n}=(0,0,\dots,1)^T$ 是 $\mathbb{R}^n$ 的一组基, $\mathbb{R}^n$ 是 $n$ 维向量空间.向量空间的一组基向量空间的坐标系</p>
+<h2 id="子空间">子空间</h2>
+<h3 id="定义-13">定义</h3>
+<p>设 $V$ 是数域 $\mathbb{F}$ 上的 $n$ 维向量构成的<strong>非空集合</strong>，即：$\forall \boldsymbol{\alpha,\beta}\in V,k\in \mathbb{F}$,有 $\boldsymbol{\alpha+\beta}\in V,k\cdot \boldsymbol{\alpha}\in V$ 则称 $V$ 为数域 $\mathbb{F}$ 上的 $n$ 维向量空间，称 $V$ 为 $\mathbb{F}^n$ 的<strong>子空间</strong></p>
+<p>设 $V_{1},V_{2}$ 是 $\mathbb{F}$ 上的向量空间，且 $V_{1}\subset V_{2}$,则 $V_{1}$ 为 $V_{2}$ 的子空间</p>
+<h3 id="子空间举例">子空间举例</h3>
+<ol>
+<li>$\quad V_1 = \{ \mathbf{0} \}, \quad V_2 = \mathbb{F}^n \text{ 是 } \mathbb{F}^n \text{ 的两个子空间，称为 } \mathbb{F}^n$ 的平凡子空间</li>
+<li>$\quad V = \{ \mathbf{x} : \mathbf{x} = (0, y, z),\; y, z \in \mathbb{R} \} \text{ 是 } \mathbb{R}^3$ 的子空间</li>
+<li>$\quad V = \{ \mathbf{x} : \mathbf{x} = (1, y, z),\; y, z \in \mathbb{R} \}$ 不是 $\mathbb{R}^3$ 的子空间。一般地，设 $V$ 是数域 $\mathbb{F}$ 上的向量空间，$\alpha_1, \alpha_2, \dots, \alpha_s \subset V$ 则 $L(\alpha_1, \alpha_2, \dots, \alpha_s)= \{ \lambda_1 \alpha_1 + \lambda_2 \alpha_2 + \cdots + \lambda_s \alpha_s \mid \lambda_i \in \mathbb{F} \}$ 构成 $V$ 的一个线性子空间，称 $L(\alpha_1, \alpha_2, \dots, \alpha_s)$ 为由 $\alpha_1, \alpha_2, \dots, \alpha_s$ 生成的线性子空间，称 $\alpha_1, \alpha_2, \dots, \alpha_s$ 为<strong>生成元</strong></li>
+<li>设 $n$ 元线性方程组 $A_{m\times n}x = 0$ 的全体解向量构成的集合为 $S$,即 $S = \{\, x \mid A_{m\times n}x = 0,\ x \in \mathbb{R}^n \,\}\forall \alpha, \beta \in S,\, k \in \mathbb{R},\quad A(\alpha + \beta) = A\alpha + A\beta = 0; \quad$ 故 $\alpha + \beta \in S; \quad k\alpha \in S$ 即 $A\alpha = 0,\ A\beta = 0,\quad A(k\alpha) = kA\alpha = k0 = 0.$ 因此 $S$ 为一向量空间, 称之为 $A_{m\times n}x = 0$ 的解空间，又 $S \subset \mathbb{R}^n$，故 $S$ 为 $\mathbb{R}^n$ 的一个子空间</li>
+<li>$W = \{\, x \mid A_{m\times n}x = b \ne 0 \,\}$ 不是 $\mathbb{R}^n$ 的子空间，显然当 $x \in W \text{ 时，} 2x \notin W.$</li>
+</ol>
+<h2 id="向量在给定基下的坐标">向量在给定基下的坐标</h2>
+<h3 id="定义-14">定义</h3>
+<p>设有序向量组 $(A):\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 是向量空间 $V$ 中给定的一组基,$\forall \alpha\in V$ 可由 $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 线性表示, 即</p>
+<p>$$
+\boldsymbol{\alpha}=k_{1}\alpha_{1}+k_{2}\alpha_{2}+\dots+k_{r}\alpha_{r}=\begin{pmatrix}\alpha_{1},\alpha_{2},\dots,\alpha_{r}\end{pmatrix}\begin{pmatrix}k_{1}\\k_{2}\\\vdots\\\alpha_{r}\end{pmatrix}
+$$</p>
+<p>称有序数组 $(k_{1},k_{2},\dots,k_{r})^T$ 是向量 $\boldsymbol{\alpha}$ 在基 $(A)$ 下的坐标.</p>
+<p>$\uparrow$ 因为 $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 线性无关, $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$, $\boldsymbol{\alpha}$ 线性相关, 所以 $\boldsymbol{\alpha}$ 由 $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 唯一线性表示, 即 $\boldsymbol{\alpha}$ 在基 $\alpha_{1},\alpha_{2},\dots,\alpha_{r}$ 下的坐标唯一</p>
+<blockquote>
+<ol>
+<li>$V$ 的基就是 $V$ 的一个极大无关组, 基不是唯一的.</li>
+<li>基是有序的向量组.例如 ${𝒊, 𝒋, 𝒌}$ 和 ${𝒊, 𝒌, 𝒋}$ 是 $\mathbb{R}^3$ 的两个不同的基.</li>
+<li>向量 $\boldsymbol{\alpha}$ 在给定基下的坐标是唯一确定的.以下用 $A:(\alpha_{1},\alpha_{2},\dots,\alpha_{n})$ 表示 $\mathbb{R}^n$ 的一组基, 也表示矩阵.要求向量 $\boldsymbol{\alpha}$ 在基下 $\alpha_{1},\alpha_{2},\dots,\alpha_{n}$ 的坐标,就是求解方程组 $\boldsymbol{Ax=\alpha}$.此方程组一定是有唯一解 $\boldsymbol{x=A^{-1}\alpha}$.</li>
+<li>由 $\mathbb{R}^n$ 中 $n$ 个单位向量 $\boldsymbol{\varepsilon_{1},\varepsilon_{2},\dots,\varepsilon_{n}}$ 构成的基称为自然基.一般地，$\mathbb{R}^n$ 中的向量 $\boldsymbol{\alpha}=(a_{1},a_{2},\dots,a_{n})^T$ 在自然基 $\boldsymbol{A=(\varepsilon_{1},\varepsilon_{2},\dots,\varepsilon_{n})}$ 下的坐标向量就是 $\boldsymbol{\alpha}$ 本身</li>
+<li>约定基中的向量及向量在基下的坐标都是<strong>列向量</strong></li>
+</ol>
+</blockquote>
+<h2 id="基与坐标的关系">基与坐标的关系</h2>
+<h3 id="矩阵的可逆性与向量组的线性无关性">矩阵的可逆性与向量组的线性无关性</h3>
+<p>设 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}$ 是 $\mathbb{R}^n$ 的一组基，$\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{n}}$ 是 $\mathbb{R}^n$ 的一组向量若</p>
+<p>$$
+\begin{cases}\boldsymbol{\beta_{1}=k_{11}\alpha_{1}+k_{21}\alpha_{2}+\cdots+k_{n1}\alpha_{n}} \\ \boldsymbol{\beta_{2}=k_{12}\alpha_{1}+k_{22}\alpha_{2}+\cdots+k_{n2}\alpha_{n}}\\ \quad\quad\quad\quad\dots\dots\dots\dots\dots \\ \boldsymbol{\beta_{n}=k_{1n}\alpha_{1}+k_{2n}\alpha_{2}+\cdots+k_{nn}\alpha_{n}}\end{cases}
+$$</p>
+<p>即</p>
+<p>$$
+(\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{n}})=(\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}})\begin{pmatrix}k_{11} & k_{12} & \dots & k_{1n} \\k_{21} & k_{22} & \dots & k_{2n} \\\vdots & \vdots & \ddots & \vdots \\ k_{n1} & k_{n2} & \dots & k_{nn}\end{pmatrix}
+$$</p>
+<p>则 $\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{n}}$ 是 $\mathbb{R}^n$ 的基</p>
+<p>$$
+\Leftrightarrow\det \boldsymbol{K}=\begin{vmatrix}k_{11} & k_{12} & \dots & k_{1n} \\k_{21} & k_{22} & \dots & k_{2n} \\\vdots & \vdots & \ddots & \vdots \\ k_{n1} & k_{n2} & \dots & k_{nn}\end{vmatrix}\neq 0
+$$</p>
+<p>向量组线性无关 $\Leftrightarrow$ 该向量组被某组基表示的系数矩阵可逆</p>
+<h3 id="过渡矩阵">过渡矩阵</h3>
+<p>设 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}和\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{n}}$ 是 $\mathbb{R}^n$ 的两组基，且</p>
+<p>$$
+(\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{n}})=(\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}})\begin{pmatrix}k_{11} & k_{12} & \dots & k_{1n} \\k_{21} & k_{22} & \dots & k_{2n} \\\vdots & \vdots & \ddots & \vdots \\ k_{n1} & k_{n2} & \dots & k_{nn}\end{pmatrix}
+$$</p>
+<p>则称矩阵 $\boldsymbol{K}=(k_{ij})_{n\times n}$ 为由基 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}$ 变为基 $\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{n}}$ 的<strong>过渡矩阵</strong>（变换矩阵）</p>
+<ol>
+<li>过渡矩阵 $\boldsymbol{K}$ 的第 $j$ 列是 $\beta_{j}$ 在基 $\{\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}\}$ 下的坐标</li>
+<li>过渡矩阵可逆</li>
+<li>$\boldsymbol{B=AK}$：<strong>基变换公式</strong>（新基矩阵=旧基矩阵 $\times$ 过渡矩阵）</li>
+</ol>
+<h3 id="坐标变换公式">坐标变换公式</h3>
+<p>设向量 $\boldsymbol{\alpha}$ 在基 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}和基\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{n}}$ 下坐标分别是 $\boldsymbol{x}$ 与 $\boldsymbol{y}$，且从基 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}}$ 到基 $\boldsymbol{\beta_{1}},\boldsymbol{\beta_{2}},\dots,\boldsymbol{\beta_{n}}$ 的过渡矩阵为 $\boldsymbol{K}$ 则 $\boldsymbol{x=Ky}$（旧坐标=过渡矩阵 $\times$ 新坐标）</p>
+<h2 id="标准正交基">标准正交基</h2>
+<h3 id="定义-15">定义</h3>
+<p>设 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 是向量空间 $V(\subseteq \mathbb{R}^{n})$ 的一组基，若 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 是正交向量组，且都是单位向量，则称 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 为 $V$ 的一组<strong>标准（规范）正交基</strong></p>
+<p>若 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 是 $V$ 的一组标准正交基，则</p>
+<p>$$
+(\boldsymbol{\alpha_{i},\alpha_{j}})=\delta_{ij}=\begin{cases}1,i=j\\0,i\neq j\end{cases}
+$$</p>
+<p>在向量空间里，基 $\leftrightarrow$ 坐标系；标准正交基 $\leftrightarrow$ 直角坐标系</p>
+<h3 id="性质-6">性质</h3>
+<ol>
+<li>设 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 是 $V$ 的一组<strong>标准正交基</strong>，$\boldsymbol{\beta}\in V$，且 $\boldsymbol{\beta}$ 在标准正交基 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 下的坐标为 $\boldsymbol{x}=(x_{1},x_{2},\dots,x_{r})^T$，则 $x_{i}=(\boldsymbol{\beta,\alpha_{i}}),i=1,2,\dots,r$</li>
+</ol>
+<ul>
+<li>向量在标准正交基中的坐标易求，因此常取向量空间的标准正交基</li>
+<li>若 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 是 $V$ 的<strong>正交基</strong>，$\boldsymbol{\beta}$ 在该基下的坐标为 $\boldsymbol{x}=(x_{1},x_{2},\dots,x_{r})^T$，则 $x_{i}=\frac{(\boldsymbol{\beta,\alpha_{i}})}{(\boldsymbol{\alpha_{i},\alpha_{i}})}$</li>
+</ul>
+<ol start="2">
+<li><strong>施密特正交化方法</strong>：</li>
+</ol>
+<ul>
+<li><strong>理论基础</strong>：在 $\mathbb{R}^n$ 中，若 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{m}}(m\geq 2)$ 线性无关，则存在某个正交向量组 $\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{m}}$，对任意 $1\leq t\leq m$ 有 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{t}}$ 与 $\boldsymbol{\beta_{1},\beta_{2},\dots,\beta_{t}}$ 等价（即 $\boldsymbol{\beta_{t}}$ 表示的是由 $\boldsymbol{\alpha_{t}}$ 所引入的、前 $t-1$ 个向量张成的子空间之外新增的一维正交方向）。</li>
+<li><strong>具体方法</strong>：取 $\boldsymbol{\beta_{1}=\alpha_{1}}$，则有 $\boldsymbol{\beta_{r}}=\boldsymbol{\alpha_{r}}-\frac{(\boldsymbol{\alpha_{r},\beta_{1}})}{(\boldsymbol{\beta_{1},\beta_{1}})}\boldsymbol{\beta_{1}}-\frac{(\boldsymbol{\alpha_{r},\beta_{2}})}{(\boldsymbol{\beta_{2},\beta_{2}})}\boldsymbol{\beta_{2}}-\cdots-\frac{(\boldsymbol{\alpha_{r},\beta_{r-1}})}{(\boldsymbol{\beta_{r-1},\beta_{r-1}})}\boldsymbol{\beta_{r-1}}(r=2,3,\dots,m)$</li>
+<li><strong>证明：</strong></li>
+</ul>
+<p>$$
+\begin{aligned}
+&取 \boldsymbol{\beta_1 = \alpha_1}，再令 0 \neq \beta_2 = \alpha_2 + k_{12}\beta_1，\\ 
+&由 0 = (\beta_2, \beta_1) = (\alpha_2 + k_{12}\beta_1, \beta_1) = (\alpha_2, \beta_1) + k_{12}(\beta_1, \beta_1) \\
+&\Rightarrow k_{12} = -\frac{(\alpha_2, \beta_1)}{(\beta_1, \beta_1)}, \text{ 且 } \alpha_1, \alpha_2 \text{ 与 } \beta_1, \beta_2 \text{ 等价}. \\
+&再令 0 \neq \beta_3 = \alpha_3 + k_{13}\beta_1 + k_{23}\beta_2，且 (\beta_3, \beta_1) = (\beta_3, \beta_2) = 0，\\
+&由 0 = (\beta_3, \beta_1) = (\alpha_3 + k_{13}\beta_1 + k_{23}\beta_2, \beta_1)\\
+&= (\alpha_3, \beta_1) + k_{13}(\beta_1, \beta_1) + k_{23}(\beta_2, \beta_1)\\
+&\Rightarrow k_{13} = -\frac{(\alpha_3, \beta_1)}{(\beta_1, \beta_1)}.  \\
+&\text{ 类似地由 } (\beta_3, \beta_2) = 0 \Rightarrow k_{23} = -\frac{(\alpha_3, \beta_2)}{(\beta_2, \beta_2)}. \\
+& \text{剩下的同理}
+\end{aligned}
+$$</p>
+<ul>
+<li><strong>几何解释</strong>：施密特正交化就是不断求投影向量再做差的过程，例如求 $\boldsymbol{\beta_{2}}$ 时，有 $\boldsymbol{\beta_{2}}=\boldsymbol{\alpha_{2}}-\frac{(\boldsymbol{\alpha_2, \beta_1})}{(\boldsymbol{\beta_1, \beta_1})}\boldsymbol{\beta_{1}}$，其中由于 $\boldsymbol{\beta_1 = \alpha_1}$ 因此 $\frac{(\boldsymbol{\alpha_2, \beta_1})}{(\boldsymbol{\beta_1, \beta_1})}\boldsymbol{\beta_{1}}$ 就是 $\boldsymbol{\alpha_{2}}$ 在 $\boldsymbol{\alpha_{1}}$ 上的投影向量，而两者之差就是正交于 $\boldsymbol{\alpha_{1}}$ 的向量，即剔除了 $\boldsymbol{\alpha_{2}}$ 中 $\boldsymbol{\alpha_{1}}$ 的方向上的分量，后续就是在重复这个过程，不断剔除新加入的向量中已有的方向上的分量。</li>
+</ul>
+<h1>内积空间</h1>
+<h2 id="定义-16">定义</h2>
+<p>设 $V$ 是 $\mathbb{R}$ 上的线性空间，$\forall \boldsymbol{\alpha,\beta}\in V$，若能给定某种规则使得 $\boldsymbol{\alpha,\beta}$ 对应一个实数 $(\boldsymbol{\alpha,\beta})$，且满足下列条件（其中 $\boldsymbol{\alpha,\beta,\gamma}\in V,\lambda \in \mathbb{R}$</p>
+<ol>
+<li>$(\boldsymbol{\alpha},\boldsymbol{\beta})=(\boldsymbol{\beta,\alpha})$</li>
+<li>$(\lambda\boldsymbol{\alpha,\beta})=\lambda(\boldsymbol{\alpha,\beta})$</li>
+<li>$(\boldsymbol{\alpha+\beta,\gamma})=(\boldsymbol{\alpha,\gamma})+(\boldsymbol{\beta+\gamma})$</li>
+<li>$(\boldsymbol{\alpha,\alpha})\geq 0$，且 $(\boldsymbol{\alpha,\alpha})=0\Leftrightarrow\boldsymbol{\alpha}=\boldsymbol{0}$<br>
+则称 $(\boldsymbol{\alpha,\beta})$ 为向量 $\boldsymbol{\alpha}$ 与 $\boldsymbol{\beta}$ 的内积</li>
+</ol>
+<p>定义了内积的线性空间称为<strong>内积空间</strong>，或者<strong>欧式空间</strong></p>
+<p>内积空间与线性空间的差别在与它多了内积这一结构，所以内积空间是线性空间的特例</p>
+<p><strong>eg</strong>:</p>
+<ol>
+<li>
+<p>在 $\mathbb{R}^n$ 中，定义 $(\boldsymbol{\alpha, \beta}) = a_1b_1 + a_2b_2 + \cdots + a_nb_n$（<strong>标准内积</strong>），其中 $\boldsymbol{\alpha} = (a_1, a_2, \cdots, a_n)^T$, $\boldsymbol{\beta} = (b_1, b_2, \cdots, b_n)^T$，则 $\mathbb{R}^n$ 为内积空间。</p>
+</li>
+<li>
+<p>在 $\mathbb{R}^n$ 中，定义 $(\boldsymbol{\alpha, \beta}) = a_1b_1 + 2a_2b_2 + \cdots + na_nb_n$，其中 $\boldsymbol{\alpha, \beta}$ 同上，可以验证 $\mathbb{R}^n$ 关于此内积也构成内积空间。</p>
+</li>
+<li>
+<p>在 $\mathbb{R}^2$ 中，定义 $(\boldsymbol{\alpha, \beta}) = a_1b_1 - a_2b_1 - a_1b_2 + 4a_2b_2$，其中 $\boldsymbol{\alpha}= (a_1, a_2)^T$, $\boldsymbol{\beta} = (b_1, b_2)^T$，则 $\mathbb{R}^2$ 关于此内积也构成内积空间。</p>
+</li>
+<li>
+<p>在 $\mathbb{R}^2$ 中，若定义 $(\boldsymbol{\alpha, \beta}) = a_1 + a_2 + b_1 + b_2$，其中 $\boldsymbol{\alpha, \beta}$ 同上，则 $\mathbb{R}^2$ 不构成内积空间。</p>
+</li>
+<li>
+<p>在线性空间 $C[a,b]$ 中，若定义</p>
+</li>
+</ol>
+<p>$$
+(f(x), g(x)) = \int_a^b f(x)g(x)\,dx
+$$</p>
+<p>（<strong>标准内积</strong>），则 $C[a,b]$ 构成内积空间。</p>
+<h2 id="性质-7">性质</h2>
+<p>设 $V$ 为数域 $\mathbb{F}$ 上的线性空间，$\boldsymbol{\alpha,\beta,\gamma,\alpha_{i},\beta_{j}}\in V,k,x_{i},y_{j}\in \mathbb{F}$</p>
+<ol>
+<li>$(\boldsymbol{O,\alpha})=0$</li>
+<li>$k(\boldsymbol{\alpha,\beta})=(\boldsymbol{\alpha},k\boldsymbol{\beta})$</li>
+<li>$(\boldsymbol{\alpha+\beta,\gamma})=(\boldsymbol{\alpha,\gamma})+(\boldsymbol{\beta+\gamma})$</li>
+<li></li>
+</ol>
+<p>$$
+\left( \sum^s_{i=1}x_{i}\boldsymbol{\alpha_{i}},\sum^t_{j=1}y_{j}\boldsymbol{\beta_{j}} \right)=\sum^s_{i=1}\sum^t_{j=1}x_{i}y_{j}\boldsymbol{\alpha_{i}\beta_{j}}
+$$</p>
+<p>与内积空间 $\mathbb{R}^n$ 类似，在一般的内积空间中利用内积可以定义向量的长度，夹角，也满足柯西-施瓦茨不等式，三角不等式，勾股定理及其推广等</p>
+<p>如内积空间 $C[-1,1]$ 中，定义标准内积，对 $P_{1}(x)=x,P_{2}(x)=\frac{1}{2}(3x^{2}-1)$ 则有：</p>
+<p>$$
+\begin{aligned}
+&\because \int ^1_{-1}P_{1}(x)P_{2}(x) \, dx =\int ^1_{-1} \frac{1}{2}x(3x^{2}-1) \, dx = 0 \\
+&\therefore P_{1}(x)\perp P_{2}(x) \\
+&\left \| P_{1}(x) \right \| =\sqrt[]{ \int ^1_{-1}x^{2} \, dx  }=\frac{\sqrt[]{ 6 }}{3} \\
+&\left \| P_{2}(x) \right \| =\sqrt[]{ \int ^1_{-1}\frac{1}{2}(3x^{2}-1) \, dx  } = \frac{\sqrt[]{ 10 }}{5}
+\end{aligned}
+$$</p>
+<h2 id="度量矩阵">度量矩阵</h2>
+<p>设 $V$ 是 $n$ 维内积空间，$\boldsymbol{\varepsilon_{1},\varepsilon_{2},\dots,\varepsilon_{n}}$ 是 $V$ 的一组基，记 $a_{ij}=(\boldsymbol{\varepsilon_{i},\varepsilon_{j}})(i,j=1,2,\dots,n)$ 称 $\boldsymbol{A}=(a_{ij})_{n\times n}$ 为基 $\boldsymbol{\varepsilon_{1},\varepsilon_{2},\dots,\varepsilon_{n}}$ 的<strong>度量矩阵</strong></p>
+<p>设 $\boldsymbol{\alpha,\beta}\in V$ 在基 $\boldsymbol{\varepsilon_{1},\varepsilon_{2},\dots,\varepsilon_{n}}$ 下的坐标分别为 $\boldsymbol{x}=(x_{1},x_{2},\dots,x_{n})^T$ 和 $\boldsymbol{y}=(y_{1},y_{2},\dots,y_{n})^T$，于是</p>
+<p>$$
+(\boldsymbol{\alpha,\beta})=\left( \sum^n_{i=1}x_{i}\boldsymbol{\varepsilon_{i}},\sum^n_{j=1}y_{j}\boldsymbol{\varepsilon_{j}} \right)=\sum^n_{i=1}\sum^n_{j=1}x_{i}y_{j}a_{ij}=\boldsymbol{x^TAy}
+$$</p>
+<blockquote>
+<p>[! tip]<br>
+若 $V=\mathbb{R}^n，\boldsymbol{\varepsilon_{1},\varepsilon_{2},\dots,\varepsilon_{n}}$ 为 $\mathbb{R}^n$ 的自然基，则 $\boldsymbol{A=E}$，从而 $(\boldsymbol{a,b})=\boldsymbol{a^TEb}=\boldsymbol{a^Tb}$</p>
+</blockquote>
+<h1>正交矩阵</h1>
+<h2 id="定义-17">定义</h2>
+<p>若 $n$ 阶方阵 $\boldsymbol{A}$ 满足 $\boldsymbol{A^TA=E}$(即 $\boldsymbol{A^{-1}=A^T}$)，则称 $\boldsymbol{A}$ 为<strong>正交矩阵</strong>（列或行向量组为一组标准正交基）</p>
+<h2 id="性质-8">性质</h2>
+<ol>
+<li>$\boldsymbol{A^TA=E}\Leftrightarrow\boldsymbol{AA^T=E}$</li>
+<li>$\boldsymbol{A}$ 为正交矩阵 $\Leftrightarrow$ 方阵 $\boldsymbol{A}$ 的列（行）向量组是<strong>标准正交向量组</strong></li>
+<li>若 $\boldsymbol{A}$ 为正交矩阵，则 $\boldsymbol{A^{-1}，A^T，A^*}$ 也是正交矩阵，且 $|\boldsymbol{A}|=\pm 1$</li>
+<li>若 $\boldsymbol{A,B}$ 均为 $n$ 阶为正交矩阵，则 $\boldsymbol{AB}$ 也是正交矩阵</li>
+</ol>
+<h2 id="正交变换">正交变换</h2>
+<p>设 $\boldsymbol{P}$ 为 $n$ 阶正交矩阵，则线性变换 $T:\mathbb{R}^n\to \mathbb{R}^n,\boldsymbol{x\mapsto Px}$ 为正交变换</p>
+<ol>
+<li>正交矩阵对应的线性变换为正交变换，正交变换在标准正交基下的表示矩阵为正交矩阵</li>
+<li>从标准正交基到标准正交基的过渡矩阵为正交矩阵</li>
+<li>若向量 $\boldsymbol{x,y}\in \mathbb{R}^n$ 在 $n$ 阶正交矩阵 $\boldsymbol{P}$ 的作用下变换为 $\boldsymbol{Px,Py}\in \mathbb{R}^n$，则向量的内积、长度及向量之间的夹角保持不变</li>
+</ol>
+<h2 id="判定">判定</h2>
+<ol>
+<li>设 $T$ 是 $n$ 维内积空间 $V$ 上的线性变换，若 $(T\boldsymbol{\alpha},T\boldsymbol{\alpha})=(\boldsymbol{\alpha,\alpha})$，则 $T$ 为正交变换（$T$ 保持向量长度）</li>
+<li>内积空间 $V$ 上的线性变换 $T$ 是正交变换 $\Leftrightarrow(T\boldsymbol{\alpha},T\boldsymbol{\beta})=(\boldsymbol{\alpha,\beta})(\forall \boldsymbol{\alpha,\beta}\in V)$（$T$ 保持向量内积）</li>
+<li>内积空间 $V$ 上的线性变换 $T$ 是正交变换 $\Leftrightarrow T$ 把标准正交基变为标准正交基</li>
+<li>内积空间 $V$ 上的线性变换 $T$ 是正交变换 $\Leftrightarrow T$ 在标准正交基下的表示矩阵是正交矩阵</li>
+</ol>
+<h1>线性空间</h1>
+<blockquote>
+<p>这里主要是对上文向量空间的概念进行拓展，线性空间和向量空间就是同一个东西</p>
+</blockquote>
+<h2 id="定义-18">定义</h2>
+<p>设 $V\neq \emptyset$，$\mathbb{F}$：数域，在 $V$ 中定义有加法&quot;$+$&quot;和数乘&quot;$\cdot$&quot;两种运算，使得：$\forall \boldsymbol{\alpha,\beta}\in V,k\in \mathbb{F}$ 有 $\boldsymbol{\alpha+\beta}\in V,k\cdot \boldsymbol{\alpha}\in V$，并且这两种运算满足以下运算规律：</p>
+<ol>
+<li><strong>加法交换律</strong>：$\boldsymbol{\alpha+\beta=\beta+\alpha}$</li>
+<li><strong>加法结合律</strong>：$(\boldsymbol{\alpha+\beta})+\boldsymbol{\gamma}=\boldsymbol{\alpha}+(\boldsymbol{\beta+\gamma})$</li>
+<li><strong>零元</strong>：$\exists \boldsymbol{\theta}\in V$，使得 $\forall \boldsymbol{\alpha}\in V$ 有 $\boldsymbol{\alpha+\theta=\alpha}$</li>
+<li><strong>负元</strong>：$\forall \boldsymbol{\alpha}\in V,\exists \boldsymbol{\beta}\in V$，使得 $\boldsymbol{\alpha+\beta=\theta}$，记 $\boldsymbol{\beta=-\alpha}$</li>
+<li><strong>单位元</strong>：对数 $1$,有 $1\cdot \boldsymbol{\alpha}=\boldsymbol{\alpha}$</li>
+<li><strong>数乘结合律</strong>：$(kl)\boldsymbol{\alpha}=k(l\boldsymbol{\alpha})=l(k\boldsymbol{\alpha})$</li>
+<li><strong>分配律</strong>：$(k+l)\boldsymbol{\alpha}=k\boldsymbol{\alpha}+l\boldsymbol{\alpha}$</li>
+<li><strong>分配律</strong>：$k(\boldsymbol{\alpha+\beta})=k\boldsymbol{\alpha}+k\boldsymbol{\beta}$<br>
+则称 $V$ 为数域 $\mathbb{F}$ 上的<strong>线性空间</strong>（<strong>向量空间</strong>）<br>
+$V$ 中元素称为向量，加法和数乘两种运算称为<strong>线性运算</strong></li>
+</ol>
+<p><strong>eg</strong>:</p>
+<ol>
+<li>$V$：全体 $n$ 维实向量，$\mathbb{F} = \mathbb{R}$，按<strong>通常</strong>向量的加法和数乘，构成 $\mathbb{R}$ 上的线性空间，记为 $\mathbb{R}^n$。</li>
+</ol>
+<ul>
+<li>若 $V = \mathbb{R}^n , \mathbb{F} = \mathbb{C}$，则 $V$ <strong>不是</strong>线性空间。</li>
+<li>若 $V = \mathbb{C}^n , \mathbb{F} = \mathbb{R}$，则 $V$ 是线性空间，记作 $\mathbb{C}_{\mathbb{R}}^n$。</li>
+</ul>
+<ol start="2">
+<li>$V : m \times n$ 实矩阵全体，$\mathbb{F} = \mathbb{R}$，按<strong>通常</strong>矩阵的加法和数乘，构成 $\mathbb{R}$ 上的线性空间，记为 $\mathbb{R}^{m \times n}$。</li>
+<li>数域 $\mathbb{F}$ 上的线性空间 $\mathbb{F}[x]$：$V : \mathbb{F}$ 上的一元多项式全体（包括零多项式），按通常多项式的加法和数与多项式的乘法。</li>
+</ol>
+<ul>
+<li>$\mathbb{R}[x]_{n+1}$：实数域 $\mathbb{R}$ 上的次数不超过 $n$ 的多项式全体。</li>
+</ul>
+<ol start="4">
+<li>$V$：区间 $[a, b]$ 上的全体连续函数，按通常函数的加法和数乘，构成线性空间。</li>
+<li>$V: \boldsymbol{Ax=0}$ 的全体解（向量），按通常向量的加法和数乘，构成线性空间，称为 $\boldsymbol{Ax=0}$ 的<strong>解空间</strong>。</li>
+<li>$V: \boldsymbol{Ax=b\neq 0}$ 的全体解（向量），按通常向量的加法和数乘，<strong>不构成线性空间</strong>（因为不含零向量，且对加法不封闭）</li>
+</ol>
+<blockquote>
+<ol>
+<li>线性空间不仅与集合 $V$ 中的<strong>元素</strong>有关，也与 $V$ 上定义的<strong>线性运算</strong>（加法、数乘）有关，因此，线性空间常记作 $(V, +, \cdot)$。</li>
+<li>线性空间 $V$ 是向量空间的推广，也可以称为向量空间，其中的元素可能是矩阵，也可能是函数，这些元素也可称为“向量”</li>
+<li>线性空间 $V$ 的两种线性运算称为“加法”和“数乘”，但是它们可能不是通常的加法和数乘运算</li>
+<li>线性空间的两种线性运算必须满足线性运算的 $8$ 条运算规律</li>
+</ol>
+</blockquote>
+<h2 id="性质-9">性质</h2>
+<p>在线性空间 $V$ 中</p>
+<ol>
+<li>零元 $\boldsymbol{\theta}$ 是唯一的</li>
+<li>任一元素的负元是唯一的</li>
+<li>$k(\boldsymbol{\alpha-\beta})=k\boldsymbol{\alpha}-k\boldsymbol{\beta}；(k-l)\boldsymbol{\alpha}=k\boldsymbol{\alpha}-l\boldsymbol{\alpha}$</li>
+<li>若 $k\boldsymbol{\alpha =\theta}$ 则 $k=0$ 或者 $\boldsymbol{\alpha=\theta}$</li>
+</ol>
+<h2 id="线性子空间">线性子空间</h2>
+<h3 id="定义-19">定义</h3>
+<p>设 $V=(V,+,\cdot)$ 是数域 $\mathbb{F}$ 上的线性空间，$\emptyset\neq S\subseteq V$，若 $S$ 对 $V$ 中定义的加法和数乘也构成数域 $\mathbb{F}$ 上的线性空间，则称 $S$ 为 $V$ 的<strong>线性子空间</strong>，简称<strong>子空间</strong></p>
+<p><strong>eg</strong>:</p>
+<ol>
+<li>设 $V$ 是任一线性空间，$\{\boldsymbol{\theta}\}$ 和 $V$ 本身都是 $V$ 的子空间（<strong>平凡子空间</strong>），其中 $\{\boldsymbol{\theta}\}$ 称为 <strong>零子空间</strong>。</li>
+<li>设 $V$ 是全体实函数构成的线性空间，则 $\mathbb{R}[x]_n$（次数不超过 $n$ 的实系数多项式全体）是 $V$ 的线性子空间</li>
+<li>$W = \{ \boldsymbol{x} : \boldsymbol{A}_{m \times n} \boldsymbol{x} = \boldsymbol{\theta} \}$ 是 $\mathbb{R}^n$ 的子空间，称为 $\boldsymbol{A}_{m \times n} \boldsymbol{x} = \boldsymbol{\theta}$ 的<strong>解空间</strong>，也称为矩阵 $\boldsymbol{A}$ 的<strong>零空间</strong> $N(\boldsymbol{A})$ 或<strong>核空间</strong> $\ker(\boldsymbol{A})$。<br>
+而 $\widetilde{W} = \{ \boldsymbol{x} : \boldsymbol{A}_{m \times n} \boldsymbol{x} = \boldsymbol{b} \neq \boldsymbol{\theta} \}$ <strong>不是</strong> $\mathbb{R}^n$ 的子空间</li>
+<li>在向量空间 $\mathbb{R}^3$ 中，过原点的平面 $\pi$ 上的所有向量构成 $\mathbb{R}^3$ 的一个线性子空间</li>
+</ol>
+<h3 id="判定-2">判定</h3>
+<p>线性空间 $V$ 的<strong>非空子集</strong>$S$ 构成 $V$ 的线性子空间 $\Leftrightarrow S$ 对 $V$ 中的线性运算<strong>封闭</strong>，即 $\forall \boldsymbol{\alpha,\beta}\in S,\lambda,\mu \in \mathbb{F}$，有 $\lambda \boldsymbol{\alpha}+\mu \boldsymbol{\beta}\in S$</p>
+<h1>线性变换</h1>
+<h2 id="定义-20">定义</h2>
+<p>设 $X,Y$ 都是数域 $\mathbb{F}$ 上的线性空间，映射 $T:X \to Y$ 满足：$\forall \boldsymbol{x_{1},x_{2}}\in X,\forall\lambda \in \mathbb{F}$ 都有 $T(x_{1}+x_{2})=T(x_{1})+T(x_{2});T(\lambda x_{1})=\lambda T(x_{1})$</p>
+<p>则称 $T$ 是从 $X$ 到 $Y$ 的<strong>线性映射（变换，算子）</strong></p>
+<p><strong>eg</strong>:</p>
+<ol>
+<li>恒等变换（单位变换：</li>
+</ol>
+<p>$$
+E(\boldsymbol{\alpha}) = \boldsymbol{\alpha},\quad \forall \boldsymbol{\alpha} \in X
+$$</p>
+<ol start="2">
+<li>零变换 $0^*$：</li>
+</ol>
+<p>$$
+0^*(\boldsymbol{\alpha}) = \boldsymbol{0},\quad \forall \boldsymbol{\alpha}\in X
+$$</p>
+<ol start="3">
+<li>数乘变换 ：</li>
+</ol>
+<p>$$
+T(\boldsymbol{\alpha}) = k\boldsymbol{\alpha},\quad \forall \boldsymbol{\alpha} \in X;\ k \in \mathbb{F} \text{ 为常数}
+$$</p>
+<ol start="4">
+<li>$T: \mathbb{R}^2 \to \mathbb{R}^2$，定义为：</li>
+</ol>
+<p>$$
+T(\boldsymbol{\alpha}) = 
+\begin{pmatrix}
+\cos\varphi & -\sin\varphi \\
+\sin\varphi & \cos\varphi
+\end{pmatrix}
+\boldsymbol{\alpha},\quad \forall \boldsymbol{\alpha} \in \mathbb{R}^2
+$$</p>
+<p>令</p>
+<p>$$
+\alpha = \begin{pmatrix} r\cos\theta \\ r\sin\theta \end{pmatrix}
+$$</p>
+<p>则</p>
+<p>$$
+T(\boldsymbol{\alpha}) = \begin{pmatrix} r\cos(\theta + \varphi) \\ r\sin(\theta + \varphi) \end{pmatrix}
+$$</p>
+<p>$\to$<strong>旋转变换</strong>：将向量 $\boldsymbol{\alpha}$ 按逆时针方向旋转 $\varphi$ 角。</p>
+<ol start="5">
+<li>$T: \mathbb{R}^2 \to \mathbb{R}^2$：</li>
+</ol>
+<p>$$
+T(x, y) = (kx, y),\quad \forall (x, y) \in \mathbb{R}^2;\ k \text{ 为常数}
+$$</p>
+<ol start="6">
+<li>在线性空间 $\mathbb{R}[x]_n$ 中，定义变换 $A, B, C$ 如下：<br>
+对任意 $f(x) \in \mathbb{R}[x]_n$，</li>
+</ol>
+<ul>
+<li>$A(f(x)) = f'(x)\to$<strong>求导变换</strong></li>
+<li>$B(f(x)) = f(0)\to$<strong>赋值变换</strong></li>
+<li>$C(f(x)) = 1\to$<strong>常值变换</strong><br>
+则：<strong>$A, B$ 为线性变换，$C$ 不是线性变换。</strong></li>
+</ul>
+<h2 id="性质-10">性质</h2>
+<p>设 $T$ 是线性空间 $X$ 到 $Y$ 的线性变换，则</p>
+<ol>
+<li>$T(\boldsymbol{0})=\boldsymbol{0}$</li>
+<li></li>
+</ol>
+<p>$$
+T\left( \sum^m_{k=1}l_{k}\boldsymbol{\alpha}_{k} \right)=\sum^m_{k=1}l_{k}T(\boldsymbol{\alpha}_{k})
+$$</p>
+<ol start="3">
+<li>若 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 线性相关，则 $T(\boldsymbol{\alpha_{1}}),T(\boldsymbol{\alpha_{2}}),\dots,T(\boldsymbol{\alpha_{r}})$ 也线性相关</li>
+<li>若 $T(\boldsymbol{\alpha_{1}}),T(\boldsymbol{\alpha_{2}}),\dots,T(\boldsymbol{\alpha_{r}})$ 线性无关，则 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 也线性无关</li>
+</ol>
+<h2 id="运算">运算</h2>
+<p>设 $X,Y$ 是数域 $\mathbb{F}$ 上的线性空间，$T_{1},T_{2}$ 都是从 $X$ 到 $Y$ 的线性变换，$\lambda \in \mathbb{F}$</p>
+<ol>
+<li>$T_{1}=T_{2}$：$\forall \boldsymbol{x}\in X$，都有 $T_{1}(\boldsymbol{x})=T_{2}(\boldsymbol{x})$</li>
+<li>$T=T_{1}+T_{2}$：$\forall \boldsymbol{x}\in X$，都有 $T(\boldsymbol{x})=T_{1}(\boldsymbol{x})+T_{2}(\boldsymbol{x})$</li>
+<li>$T=\lambda T_{1}$：$\forall \boldsymbol{x}\in X$，都有 $T(\boldsymbol{x})=\lambda[T_{1}(\boldsymbol{x})]$</li>
+</ol>
+<blockquote>
+<p>若 $T_{1},T_{2}$ 都是从 $X$ 到 $Y$ 的映射，则 $T_{1}+T_{2}$ 与 $\lambda T_{1}$ 也是从 $X$ 到 $Y$ 的映射<br>
+线性变换的线性运算的结果仍然是线性变换<br>
+$L(X,Y)$：从 $X$ 到 $Y$ 的全体线性变换的集合，构成数域 $\mathbb{F}$ 上的一个线性空间</p>
+</blockquote>
+<h3 id="线性变换的积">线性变换的积</h3>
+<p>设 $T:X\to Y,S:Y\to Z$ 若 $\forall \boldsymbol{x}\in X$，都有 $G(\boldsymbol{x})=S(T(\boldsymbol{x}))$，则称 $G=ST$</p>
+<blockquote>
+<p>$ST=TS$ 一般不成立</p>
+</blockquote>
+<h3 id="线性变换的逆">线性变换的逆</h3>
+<p>设 $T,S:X\to X$ 若 $TS=ST=E$，则称 $T$ 可逆，且 $T^{-1}=S$</p>
+<h3 id="线性变换的-$k$-次方和多项式">线性变换的 $k$ 次方和多项式</h3>
+<p>设 $T:X\to X$，定义：</p>
+<ol>
+<li>$T^0=E,T^k=T(T^{k-1}),k\in \mathbb{Z}^+$</li>
+<li>若 $T$ 可逆则 $T^{-k}=(T^{-1})^k$</li>
+<li>$g(T)=a_{0}E+a_{1}T+a_{2}T^2+\dots+a_{m}T^m$</li>
+</ol>
+<h2 id="线性变换的矩阵表示">线性变换的矩阵表示</h2>
+<h3 id="定义-21">定义</h3>
+<p>设 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{r}}$ 是线性空间 $V$ 的一组基，$T$ 是 $V$ 上的线性变换，若 $T(\boldsymbol{\alpha_{1}}),T(\boldsymbol{\alpha_{2}}),\dots,T(\boldsymbol{\alpha_{r}})=(\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}})\boldsymbol{P}$，则称 $\boldsymbol{P}$ 为线性变换 $T$ 在基 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}}$ 下的矩阵（$T$ 的矩阵 $\boldsymbol{P}$ 的第 $j$ 列是 $T(\boldsymbol{\alpha_{j}})$ 在基 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}}$ 下的坐标）</p>
+<p>若线性变换 $T$ 在 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}}$ 下的矩阵是 $\boldsymbol{A}$，向量 $\boldsymbol{\alpha}$ 在基 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}}$ 下的坐标向量为 $\boldsymbol{x}=(x_{1},x_{2},\dots,x_{n})^T$，$T(\boldsymbol{\alpha})$ 在基 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}}$ 喜爱的坐标向量为 $\boldsymbol{y}=(y_{1},y_{2},\dots,y_{n})^T$，则 $\boldsymbol{y=Ax}$</p>
+<h2 id="同一线性变换在不同基下的矩阵的关系">同一线性变换在不同基下的矩阵的关系</h2>
+<p>设 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}}$ 与 $\boldsymbol{\beta_{1}},\boldsymbol{\beta_{2}},\dots,\boldsymbol{\beta_{n}}$ 是线性空间的两组基，$\boldsymbol{P}$ 为由基 $\boldsymbol{\alpha_{1}},\boldsymbol{\alpha_{2}},\dots,\boldsymbol{\alpha_{n}}$ 到基 $\boldsymbol{\beta_{1}},\boldsymbol{\beta_{2}},\dots,\boldsymbol{\beta_{n}}$ 的过渡矩阵，$T$ 为 $V$ 上的线性变换，且 $T$ 在这两组基下的矩阵分别为 $\boldsymbol{A}$ 和 $\boldsymbol{B}$，则 $\boldsymbol{B=P^{-1}AP}$</p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/">线性方程组</a>
+    
+    
+      <a class="next" href="/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/">行列式</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">特殊向量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">向量的线性运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E8%A7%84%E5%BE%8B"><span class="toc-text">运算规律</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">$\mathbb{R}^n$ 中向量的内积</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">$n$ 维向量的模</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">向量的夹角</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">向量组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%8E%E5%90%91%E9%87%8F%E7%BB%84"><span class="toc-text">矩阵与向量组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E7%9A%84%E7%BA%BF%E6%80%A7%E7%BB%84%E5%90%88%E4%B8%8E%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%A4%BA"><span class="toc-text">向量组的线性组合与线性表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E7%90%86"><span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E9%97%B4%E7%9A%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%A4%BA%E4%B8%8E%E7%AD%89%E4%BB%B7"><span class="toc-text">向量组间的线性表示与等价</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-6"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-3"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E9%97%B4%E7%9A%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%A4%BA%E7%9A%84%E7%AD%89%E4%BB%B7%E6%8F%8F%E8%BF%B0"><span class="toc-text">向量组间的线性表示的等价描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E7%9A%84%E7%BA%BF%E6%80%A7%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="toc-text">向量组的线性相关性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-7"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E7%BA%BF%E6%80%A7%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9A%84%E7%AD%89%E4%BB%B7%E6%8F%8F%E8%BF%B0"><span class="toc-text">向量组线性相关性的等价描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E7%BA%BF%E6%80%A7%E7%9B%B8%E5%85%B3%E7%9A%84%E5%88%A4%E5%88%AB%E6%96%B9%E6%B3%95"><span class="toc-text">向量组线性相关的判别方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E7%BA%BF%E6%80%A7%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9A%84%E7%BB%93%E8%AE%BA"><span class="toc-text">向量组线性相关性的结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E7%BA%BF%E6%80%A7%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9A%84%E5%87%A0%E4%BD%95%E5%90%AB%E4%B9%89"><span class="toc-text">向量组线性相关性的几何含义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E4%BA%A4%E5%90%91%E9%87%8F%E7%BB%84"><span class="toc-text">正交向量组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-8"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-4"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%EF%BC%88%E6%9C%80%EF%BC%89%E5%A4%A7%E7%BA%BF%E6%80%A7%E6%97%A0%E5%85%B3%E7%BB%84"><span class="toc-text">极（最）大线性无关组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-9"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BB%84%E7%9A%84%E7%A7%A9"><span class="toc-text">向量组的秩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-10"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-5"><span class="toc-text">性质</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">$n$ 维向量空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-11"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E5%92%8C%E7%BB%B4%E6%95%B0"><span class="toc-text">基和维数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-12"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-text">举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E7%A9%BA%E9%97%B4"><span class="toc-text">子空间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-13"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E7%A9%BA%E9%97%B4%E4%B8%BE%E4%BE%8B"><span class="toc-text">子空间举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%9C%A8%E7%BB%99%E5%AE%9A%E5%9F%BA%E4%B8%8B%E7%9A%84%E5%9D%90%E6%A0%87"><span class="toc-text">向量在给定基下的坐标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-14"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%B8%8E%E5%9D%90%E6%A0%87%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">基与坐标的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8F%AF%E9%80%86%E6%80%A7%E4%B8%8E%E5%90%91%E9%87%8F%E7%BB%84%E7%9A%84%E7%BA%BF%E6%80%A7%E6%97%A0%E5%85%B3%E6%80%A7"><span class="toc-text">矩阵的可逆性与向量组的线性无关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%B8%A1%E7%9F%A9%E9%98%B5"><span class="toc-text">过渡矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2%E5%85%AC%E5%BC%8F"><span class="toc-text">坐标变换公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E6%AD%A3%E4%BA%A4%E5%9F%BA"><span class="toc-text">标准正交基</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-15"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-6"><span class="toc-text">性质</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">内积空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-16"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-7"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%A6%E9%87%8F%E7%9F%A9%E9%98%B5"><span class="toc-text">度量矩阵</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">正交矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-17"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-8"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E4%BA%A4%E5%8F%98%E6%8D%A2"><span class="toc-text">正交变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E5%AE%9A"><span class="toc-text">判定</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">线性空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-18"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-9"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%AD%90%E7%A9%BA%E9%97%B4"><span class="toc-text">线性子空间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-19"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E5%AE%9A-2"><span class="toc-text">判定</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">线性变换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-20"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-10"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97"><span class="toc-text">运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E7%9A%84%E7%A7%AF"><span class="toc-text">线性变换的积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E7%9A%84%E9%80%86"><span class="toc-text">线性变换的逆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E7%9A%84-$k$-%E6%AC%A1%E6%96%B9%E5%92%8C%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="toc-text">线性变换的 $k$ 次方和多项式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E7%9A%84%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA"><span class="toc-text">线性变换的矩阵表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-21"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E5%9C%A8%E4%B8%8D%E5%90%8C%E5%9F%BA%E4%B8%8B%E7%9A%84%E7%9F%A9%E9%98%B5%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">同一线性变换在不同基下的矩阵的关系</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

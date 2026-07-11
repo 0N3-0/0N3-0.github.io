@@ -1,0 +1,271 @@
+/* ===== Article List (Home / Archive) ===== */
+
+.article-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.article-item:first-child {
+  padding-top: 0;
+}
+
+.article-item-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+.article-item-title a {
+  color: var(--heading);
+  text-decoration: none;
+}
+.article-item-title a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.article-item-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+.article-tags {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ===== Single Post ===== */
+
+.post-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 0.25rem;
+}
+
+.post-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.post-meta a {
+  color: var(--accent);
+  margin: 0 0.2rem;
+}
+
+/* ===== Post Body ===== */
+
+.post-content {
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.post-content video {
+  max-width: 100%;
+}
+
+/* ===== Pagination ===== */
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.pagination a {
+  color: var(--accent);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.pagination .prev::before { content: "← "; }
+.pagination .next::after { content: " →"; }
+
+/* ===== Archive / Category / Tag Pages ===== */
+
+.archive-year {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin: 1.5rem 0 0.5rem;
+}
+.archive-year:first-child {
+  margin-top: 0;
+}
+
+.archive-post {
+  display: flex;
+  align-items: baseline;
+  line-height: 2;
+}
+.archive-post .date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  min-width: 8em;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+}
+.archive-post .title a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.archive-post .title a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Tag cloud */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 1rem 0;
+}
+.tag-cloud-item {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  background: var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  text-decoration: none;
+}
+.tag-cloud-item:hover {
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+}
+
+/* Tag page 3D sphere */
+.tag-page .main-inner {
+  max-width: 1000px;
+}
+#tag-sphere {
+  margin: 0 auto;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#tag-sphere:active {
+  cursor: grabbing;
+}
+#tag-sphere .tagcloud {
+  margin: 0 auto;
+}
+#tag-sphere .tagcloud--item {
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+#tag-sphere .tagcloud--item:hover {
+  color: var(--heading);
+}
+
+/* ===== Directory Browser (Homepage) ===== */
+
+.dir-browser {
+  font-size: 2.2rem;
+}
+
+.dir-path {
+  margin-bottom: 0.8rem;
+}
+
+.dir-back {
+  display: inline-block;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 1.8rem;
+  padding: 0.2rem 0;
+  border-radius: 4px;
+}
+.dir-back:hover {
+  background: var(--code-bg);
+}
+
+.dir-list {
+  list-style: none;
+  padding: 0;
+}
+
+.dir-entry {
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  cursor: default;
+}
+.dir-folder {
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.dir-folder:hover {
+  text-decoration: underline;
+}
+
+.dir-file {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 2rem;
+}
+.dir-file:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ===== MathJax ===== */
+mjx-container {
+  color: var(--text);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+mjx-container[display="true"] {
+  display: block;
+  margin: 1em 0;
+  text-align: center;
+}
+
+/* ===== Page heading ===== */
+.page-heading {
+  color: var(--heading);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ===== Tag cloud count ===== */
+.tag-cloud-count {
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+}

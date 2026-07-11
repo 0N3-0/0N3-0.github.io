@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>微分 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="定义 设函数 $y&#x3D;f(x)$ 在点 $x_{0}$ 的某邻域 $U(x_{0})$ 内有定义，$x_{0}+\Delta x \in U(x_{0})$，如果函数增量 $\Delta y&#x3D;f(x_{0}+\Delta x)-f(x_{0})$,可表示为 $\Delta y&#x3D;A\Delta x+o(\Delta x)$，其中 $A$ 只和 $x_{0}$ 有关，与 $\Delta x$ 无关，而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微分">
+<meta property="og:url" content="http://0n3-0.github.io/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="定义 设函数 $y&#x3D;f(x)$ 在点 $x_{0}$ 的某邻域 $U(x_{0})$ 内有定义，$x_{0}+\Delta x \in U(x_{0})$，如果函数增量 $\Delta y&#x3D;f(x_{0}+\Delta x)-f(x_{0})$,可表示为 $\Delta y&#x3D;A\Delta x+o(\Delta x)$，其中 $A$ 只和 $x_{0}$ 有关，与 $\Delta x$ 无关，而">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-01-02T14:51:16.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.581Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="高数">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '高等数学/微分';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">微分</h1>
+      <div class="post-meta">
+        <span>2026-01-02</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E9%AB%98%E6%95%B0/">高数</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>定义</h1>
+<p>设函数 $y=f(x)$ 在点 $x_{0}$ 的某邻域 $U(x_{0})$ 内有定义，$x_{0}+\Delta x \in U(x_{0})$，如果函数增量 $\Delta y=f(x_{0}+\Delta x)-f(x_{0})$,可表示为 $\Delta y=A\Delta x+o(\Delta x)$，其中 $A$ 只和 $x_{0}$ 有关，与 $\Delta x$ 无关，而 $o(\Delta x)$ 是比 $\Delta x$ 高阶的无穷小，则称 $y=f(x)$ 在点 $x_{0}$<strong>可微</strong>，称 $A\Delta x$ 为函数 $y=f(x)$ 在点 $x_{0}$ 相应于自变量增量 $\Delta x$ 的<strong>微分</strong>，记作 $dy$，即 $dy=A(x)\Delta x$ 或 $df(x)=A\Delta x$</p>
+<p>若 $y=f(x)$ 在区间 $I$ 上每一点都可微，则称 $y=f(x)$ 为 $I$ 上的可微函数，任一点的微分记作 $dy=A(x)\Delta x,x \in I(A(x)实际上就是f'(x))$</p>
+<p>函数 $y=f(x)$ 在点 $x_{0}$ 可微 $\Leftrightarrow$ 在 $x_{0}$ 点可导</p>
+<h1>常见微分公式及运算法则</h1>
+<ol>
+<li>$d(x^n) = n x^{n-1}dx, \quad n \neq 0$</li>
+<li>$d(e^x) = e^xdx$</li>
+<li>$d(a^x) = a^x \ln adx$</li>
+<li>$d(\ln x) = \frac{1}{x}dx$</li>
+<li>$d(\log_a x) = \frac{1}{x \ln a}dx$</li>
+<li>$d(\sin x) = \cos xdx$</li>
+<li>$d(\cos x) = -\sin xdx$</li>
+<li>$d(\tan x) = \sec^2 xdx$</li>
+<li>$d(\cot x) = -\csc^2 xdx$</li>
+<li>$d(\sec x) = \sec x \tan xdx$</li>
+<li>$d(\csc x) = -\csc x \cot xdx$</li>
+<li>$d(\arcsin x) = \frac{1}{\sqrt{1-x^2}}dx$</li>
+<li>$d(\arccos x) = -\frac{1}{\sqrt{1-x^2}}dx$</li>
+<li>$d(\arctan x) = \frac{1}{1+x^2}dx$</li>
+<li>$d(\operatorname{arccot} x) = -\frac{1}{1+x^2}dx$</li>
+<li>$d(\operatorname{arcsec} x) = \frac{1}{|x| \sqrt{x^2-1}}dx$</li>
+<li>$d(\operatorname{arccsc} x) = -\frac{1}{|x| \sqrt{x^2-1}}dx$</li>
+<li>$\sinh x= \frac{e^x-e^{-x}}{2},d(\sinh x) = \cosh xdx$</li>
+<li>$\cosh x= \frac{e^x+e^{-x}}{2},d(\cosh x) = \sinh xdx$</li>
+<li>$\tanh=\frac{e^x-e^{-x}}{e^x+e^{-x}},d(\tanh x) = \operatorname{sech}^2 xdx$</li>
+<li>$\operatorname{arcsinh} x=\ln(x+\sqrt{ 1+x^2 }),d(\operatorname{arcsinh} x)= \frac{1}{\sqrt{ 1+x^2 }}dx$</li>
+<li>$\operatorname{arccosh} x=\ln(x+\sqrt{ x^2-1 }),d(\operatorname{arccosh} x)= \frac{1}{\sqrt{ x^2-1 }}dx$</li>
+<li>$\operatorname{arctanh} x= \frac{1}{2}\ln \frac{1+x}{1-x},d(\operatorname{arctanh} x)= \frac{1}{1-x^2}dx$</li>
+<li>$d(\coth x) = -\operatorname{csch}^2 xdx$</li>
+<li>$d(\operatorname{sech} x) = -\operatorname{sech} x \tanh xdx$</li>
+<li>$d(\operatorname{csch} x) = -\operatorname{csch} x \coth xdx$</li>
+</ol>
+<p>设函数 $u=u(x),v=v(x)$ 均可微，则有</p>
+<ol>
+<li>$d(u\pm v)=du\pm dv$</li>
+<li>$d(uv)=vdu+udv$</li>
+<li>$d(Cu)=Cdu$</li>
+<li>$d\left( \frac{u}{v} \right)= \frac{vdu+udv}{v^2}$</li>
+</ol>
+<p>对于复合函数<br>
+设 $y=f(u)$ 及 $u=\varphi(x)$ 都可导，则复合函数 $y=f[\varphi(x)]$ 的微分为 $dy=y_{x}'dx=f'(u)\varphi'(x)dx$，由于 $du=\varphi'(x)dx$，所以，也可写成 $dy=f'(u)du$</p>
+<p>可见，无论 $u$ 为自变量还是中间变量，微分形式 $dy=f'(u)du$ 保持不变，这一性质称为<strong>一阶微分形式的不变性</strong></p>
+<h1>高阶微分</h1>
+<p>函数 $y=f(x)$ 的一阶微分为 $dy=f'(x)dx$,现将 $dy$ 只作为自变量 $x$ 的函数（把 $dx$ 视为完全不变)，此时若 $f$ 二阶可导，那么 $dy$ 对 $x$ 的微分为 $d(dy)=d(f'(x)dx)=d(f'(x))\cdot dx=f''(x)dx\cdot dx=f''(x)(dx)^2$ 称之为函数 $f$ 的二阶微分，记作 $d^2y=f''(x)(dx)^2$ 或 $d^2y=f''(x)dx^2$，一般地，$n$ 阶微分是 $n-1$ 阶微分的微分，记作 $d^ny$，即 $d^ny=d(d^{n-1}y)=d(f^{(n-1)}(x)dx^{n-1})=f^{(n)}(x)dx^n$</p>
+<p>可以发现 $n$ 阶导数 $f^{(n)}(x)= \frac{d^ny}{dx^n}$ 可由 $n$ 阶微分推导得到</p>
+<h1>微分在近似计算中的应用</h1>
+<h2 id="函数的近似计算">函数的近似计算</h2>
+<p>当函数 $y=f(x_{0})$ 在点 $x_{0}$ 可微时，有 $\Delta y=f'(x_{0})\Delta x+o(\Delta x)$，变形后可得 $f(x_{0}+\Delta x)\approx f(x_{0})+f'(x_{0})\Delta x$，即可用微分近似计算出函数值</p>
+<p>令 $x=x_{0}+\Delta x$，即 $\Delta x=x-x_{0}$，则有 $f(x)\approx f(x_{0})+f'(x)(x-x_{0})$，特别地，当 $x_{0}=0$，$|x|$ 很小时，有 $f(x)\approx f(0)+f'(0)x$</p>
+<h2 id="常用近似公式">常用近似公式</h2>
+<ol>
+<li>$\sqrt[n]{x+1}\approx 1+ \frac{1}{n}x$</li>
+<li>$\sin x \approx x$</li>
+<li>$\tan x\approx x$</li>
+<li>$e^x\approx 1+x$</li>
+<li>$\ln(1+x)\approx x$<br>
+实际上是泰勒展开式的简化版</li>
+</ol>
+<h2 id="误差估计">误差估计</h2>
+<p>设某个量的精确值是 $A$，它的由观测或计算得到的近似值为 $a$，那么 $|A-a|$ 叫作 $a$ 的<strong>绝对误差</strong>（一个值），而绝对误差与 $|a|$ 的比值 $\frac{|A-a|}{|a|}$ 叫作 $a$ 的<strong>相对误差</strong>（一个比例）</p>
+<p>在实际中有时能确定误差在某一范围内，设某个量的精确值是 $A$，测得它的近似值为 $a$，又知它的误差不超过 $\delta_{A}$，即 $|A-a|\leq\delta_{A}$，那么 $\delta_{A}$ 叫作 $A$ 的<strong>绝对误差限</strong>，而 $\frac{\delta_{A}}{|a|}$ 叫作 $A$ 的<strong>相对误差限</strong></p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/">空间解析几何</a>
+    
+    
+      <a class="next" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">微分方程</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">常见微分公式及运算法则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">高阶微分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">微分在近似计算中的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97"><span class="toc-text">函数的近似计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E8%BF%91%E4%BC%BC%E5%85%AC%E5%BC%8F"><span class="toc-text">常用近似公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AF%E5%B7%AE%E4%BC%B0%E8%AE%A1"><span class="toc-text">误差估计</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

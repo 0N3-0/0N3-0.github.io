@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>极限 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="数列极限 定义 给定数列 $\{x_{n}\}$，如果存在常数 $A$，使得 $\forall \varepsilon&gt;0$(无论它多么小)，$\exists N\in \mathbb{Z}^+$,使得当 $n&gt;N$ 时，绝对值不等式 $| x_{n}-A|0$，则 $\exists N\in \mathbb{Z}^+$,使得当 $n&gt;N$ 时，有 $x_{n}&gt; \frac{A}{2}&gt;0$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="极限">
+<meta property="og:url" content="http://0n3-0.github.io/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="数列极限 定义 给定数列 $\{x_{n}\}$，如果存在常数 $A$，使得 $\forall \varepsilon&gt;0$(无论它多么小)，$\exists N\in \mathbb{Z}^+$,使得当 $n&gt;N$ 时，绝对值不等式 $| x_{n}-A|0$，则 $\exists N\in \mathbb{Z}^+$,使得当 $n&gt;N$ 时，有 $x_{n}&gt; \frac{A}{2}&gt;0$">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-01-02T14:51:16.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.594Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="高数">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '高等数学/极限';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">极限</h1>
+      <div class="post-meta">
+        <span>2026-01-02</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E9%AB%98%E6%95%B0/">高数</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>数列极限</h1>
+<h2 id="定义">定义</h2>
+<p>给定数列 $\{x_{n}\}$，如果存在常数 $A$，使得 $\forall \varepsilon>0$(无论它多么小)，$\exists N\in \mathbb{Z}^+$,使得当 $n>N$ 时，绝对值不等式 $| x_{n}-A|<\varepsilon$ 恒成立，则称数列 ${x_{n}}$ 以 $A$ 为<strong>极限</strong>，记为</p>
+<p>$$
+\lim_{ n \to \infty }x_{n}=A
+$$</p>
+<p>或 $x_{n}\to A(n\to \infty)$</p>
+<p>若数列存在极限则称<strong>此数列收敛</strong>，否则称此<strong>数列发散</strong>或不收敛，上面的定义也称为数列极限定义的“$\varepsilon-N$”语言</p>
+<h2 id="性质">性质</h2>
+<ol>
+<li><strong>唯一性</strong>：若数列 $\{x_{n}\}$ 收敛，则 $\{x_{n}\}$ 的极限是唯一的</li>
+<li><strong>有界性</strong>：若数列 $\{x_{n}\}$ 收敛，则 $\{x_{n}\}$ 必有界</li>
+<li><strong>保号性</strong>：若</li>
+</ol>
+<p>$$
+\lim_{ n \to \infty }x_{n}=A
+$$</p>
+<p>,且 $A>0$，则 $\exists N\in \mathbb{Z}^+$,使得当 $n>N$ 时，有 $x_{n}> \frac{A}{2}>0$</p>
+<ol>
+<li>若</li>
+</ol>
+<p>$$
+\lim_{ n \to \infty }x_{n}=A
+$$</p>
+<p>,且 $A>0$，则 $\exists N\in \mathbb{Z}^+$,使得当 $n>N$ 时，有 $| x_{n}|> \frac{| A|}{2}>0$<br>
+2. 若对数列 $\{x_{n}\}$，$\exists N\in \mathbb{Z}^+$，使得当 $n>N$ 时，$x_{n}\geq 0$,且</p>
+<p>$$
+\lim_{ n \to \infty }x_{n}=A
+$$</p>
+<p>则 $A\geq 0$<br>
+4. <strong>归并性</strong>：数列 $\{x_{n}\}$ 收敛于 $A$ 的充分必要条件是 $\{x_{n}\}$ 的任一子集也收敛于 $A$</p>
+<h2 id="四则运算">四则运算</h2>
+<p>设</p>
+<p>$$
+\lim_{ n \to \infty }x_{n}=A,\lim_{ n \to \infty }y_{n}=B
+$$</p>
+<p>则<br>
+1.</p>
+<p>$$
+\lim_{ n \to \infty }(x_{n}\pm y_{n})=\lim_{ n \to \infty }x_{n}\pm \lim_{ n \to \infty }y_{n}=A\pm B
+$$</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>$$
+\lim_{ n \to \infty }(x_{n}y_{n})=\lim_{ n \to \infty }x_{n}\lim_{ n \to \infty }y_{n}=AB
+$$</p>
+<p>特别地，有</p>
+<p>$$
+\lim_{ n \to \infty }(k\cdot x_{n})=k\lim_{ n \to \infty }x_{n}=kA
+$$</p>
+<ol start="3">
+<li></li>
+</ol>
+<p>$$
+\lim_{ n \to \infty } \frac{x_{n}}{y_{n}}=\frac{\lim_{ n \to \infty }x_{n}}{\lim_{ n \to \infty }y_{n}}= \frac{A}{B}
+$$</p>
+<p>（这里 $B\neq 0$）</p>
+<h2 id="数列极限存在的判别定理">数列极限存在的判别定理</h2>
+<ol>
+<li><strong>夹逼准则</strong>：如果数列 $\{x_{n}\}$, $\{y_{n}\}$, $\{z_{n}\}$ 满足：$\exists N\in \mathbb{Z}^+$,使得当 $n>N$ 时有 $y_{n}\leq x_{n}\leq z_{n}$，且</li>
+</ol>
+<p>$$
+\lim_{ n \to \infty }y_{n}=\lim_{ n \to \infty }z_{n}=A
+$$</p>
+<p>,则</p>
+<p>$$
+\lim_{ n \to \infty }x_{n}=A
+$$</p>
+<ol start="2">
+<li><strong>单调有界原理</strong>：若数列单调增加且有上界（或单调递减且有下界），则此数列必存在极限</li>
+<li><strong>柯西收敛准则</strong>：数列 $\{x_{n}\}$ 收敛的充分必要条件是：$\forall \varepsilon>0,\exists N_{0}\in \mathbb{Z}^+$,只要 $m,n>N_{0}$ 时，就有 $| x_{m}-x_{n}| <\varepsilon$，也可以说成 $\forall \varepsilon>0,\exists N_{0}\in \mathbb{Z}^+$,只要 $n>N_{0}$ 时，就有 $| x_{n+p}-x_{n}| <\varepsilon$ 对所有 $p\in \mathbb{Z}^+$ 成立</li>
+</ol>
+<h2 id="数列极限证明的常见格式">数列极限证明的常见格式</h2>
+<p>要证：</p>
+<p>$$
+ \lim_{n\to\infty} a_n = A 
+$$</p>
+<p>证明：<br>
+令 $ \varepsilon>0 $<br>
+需要找到 $ N\in \mathbb{Z}^+$，使得 $n>N \Rightarrow | a_n-A|<\varepsilon$.<br>
+对 $| a_n-A|$ 作代数变形： $| a_n-A| =\cdots $(便于下一步进行)<br>
+由 $| a_n-A| <\varepsilon $ 得到对 $ n $ 的限制： $n > \cdots(\varepsilon\ 的表达式)$<br>
+取 $ N = [ \cdots(\varepsilon\ 的表达式) ]$<br>
+于是当 $n>N$,有 $| a_n-A| <\varepsilon$.<br>
+因此</p>
+<p>$$
+\lim_{n\to\infty} a_n = A
+$$</p>
+<h2 id="常见极限">常见极限</h2>
+<ol>
+<li></li>
+</ol>
+<p>$$
+\lim_{ n \to \infty }\left( 1 + \frac{1}{n} \right)^{n+k}=e
+$$</p>
+<p>($k$ 为常数)<br>
+2.</p>
+<p>$$
+\lim_{ n \to \infty }\left( 1 + \frac{k}{n} \right)^n=e^k
+$$</p>
+<p>($k$ 为常数)<br>
+3.</p>
+<p>$$
+\lim_{ n \to \infty }\sqrt[n]{a}=1
+$$</p>
+<p>($a>0$ 且为常数)<br>
+4.</p>
+<p>$$
+\lim_{ n \to \infty }\sqrt[n]{n}=1
+$$</p>
+<h1>函数极限</h1>
+<h2 id="定义-2">定义</h2>
+<h3 id="自变量趋于无穷大时">自变量趋于无穷大时</h3>
+<p>设函数 $y=f(x)$ 在 $|x|\geq a$ 有定义，$A$ 为实数，若 $\forall \varepsilon>0,\exists X>a>0$，使得当 $|x|>X$ 时有 $| f(x)-A|<\varepsilon$ 成立，则称常数 $A$ 为函数 $y=f(x)$ 当 $x\to \infty$ 时的<strong>极限</strong>，记作</p>
+<p>$$
+\lim_{ x \to \infty }f(x)=A
+$$</p>
+<p>或 $f(x)\to A(当x\to \infty)$</p>
+<p>以上定义也称作函数极限定义的“$\varepsilon-X$”语言，如果这样的常数不存在，则称当 $x\to \infty$ 时函数 $f(x)$ 的极限不存在</p>
+<p>有</p>
+<p>$$
+\lim_{ x \to \infty }f(x)=A\Leftrightarrow\lim_{ x \to +\infty }f(x)=A且\lim_{ x \to -\infty }f(x)=A
+$$</p>
+<h3 id="自变量趋于有限值时">自变量趋于有限值时</h3>
+<p>设函数 $y=f(x)$ 在 $x_{0}$ 的某一去心邻域 $\mathring{U}(x_{0})$ 有定义，若 $\forall \varepsilon>0,\exists \delta>0$，使得当 $0<|x-x_{0}|<\delta$ 时有 $| f(x)-A|<\varepsilon$ 成立，则称常数 $A$ 为函数 $f(x)$ 当 $x\to x_{0}$ 时的<strong>极限</strong>，记作</p>
+<p>$$
+\lim_{ x \to x_{0}}f(x)=A
+$$</p>
+<p>或 $f(x)\to A(当x\to x_{0})$</p>
+<p>以上定义也称作函数极限定义的“$\varepsilon-\delta$”语言</p>
+<h2 id="单侧极限">单侧极限</h2>
+<h3 id="定义-3">定义</h3>
+<p>设函数 $y=f(x)$ 在 $(x_{0},x_{0}+\delta_{1})$ 有定义，若 $\forall \varepsilon>0,\exists \delta_{1}>\delta>0$，使得当 $x_{0}<x<x_{0}+\delta$ 时有 $| f(x)-A|<\varepsilon$ 成立，则称常数 $A$ 为函数 $f(x)$ 当 $x\to x_{0}$ 时的<strong>右极限</strong>，记作</p>
+<p>$$
+\lim_{ x \to x_{0}^+}f(x)=A
+$$</p>
+<p>或 $f(x)\to A(当x\to x_{0}^+)$ 或 $f(x_{0}+0)=A$</p>
+<p>设函数 $y=f(x)$ 在 $(x_{0}-\delta_{2},x_{0})$ 有定义，若 $\forall \varepsilon>0,\exists \delta_{2}>\delta>0$，使得当 $x_{0}-\delta<x<x_{0}$ 时有 $| f(x)-A|<\varepsilon$ 成立，则称常数 $A$ 为函数 $f(x)$ 当 $x\to x_{0}$ 时的<strong>左极限</strong>，记作</p>
+<p>$$
+\lim_{ x \to x_{0}^-}f(x)=A
+$$</p>
+<p>或 $f(x)\to A(当x\to x_{0}^-)$ 或 $f(x_{0}-0)=A$</p>
+<p>左极限和右极限统称为<strong>单侧极限</strong></p>
+<p>有</p>
+<p>$$
+\lim_{ x \to x_{0}^+}f(x)=A\Leftrightarrow\lim_{ x \to x_{0}^-}f(x)=\lim_{ x \to x_{0}}f(x)=A
+$$</p>
+<h2 id="性质-2">性质</h2>
+<ol>
+<li><strong>极限的唯一性</strong>：如果</li>
+</ol>
+<p>$$
+\lim_{ x \to x_{0}}f(x)
+$$</p>
+<p>存在，则极限唯一<br>
+2. <strong>函数局部有界性</strong>：若极限</p>
+<p>$$
+\lim_{ x \to x_{0} }f(x)
+$$</p>
+<p>存在，则在点 $x_{0}$ 的某个去心邻域 $\mathring{U}(x_{0},\delta)$ 内，函数 $f(x)$ 有界，即存在正数 $\delta和M$，使得 $|f(x)|\leq M,\forall x\in \mathring{U}(x_{0},\delta)$<br>
+3. <strong>函数局部保号性</strong>：</p>
+<ol>
+<li>若极限</li>
+</ol>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=A>0(A<0)
+$$</p>
+<p>则存在 $x_{0}$ 的某去心邻域 $\mathring{U}(x_{0},\delta)$，使得当 $x\in \mathring{U}(x_{0},\delta)$ 时，有 $f(x)>0(f(x)<0)$<br>
+2. 若 $f(x)\geq0(f(x)\leq 0)$，且</p>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=A
+$$</p>
+<p>则必有 $A\geq 0(A\leq 0)$</p>
+<h2 id="运算法则">运算法则</h2>
+<h3 id="四则运算-2">四则运算</h3>
+<p>设</p>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=A
+$$</p>
+<p>$$
+\lim_{ x \to x_{0} }g(x)=B
+$$</p>
+<p>则有<br>
+1.</p>
+<p>$$
+\lim_{ x \to x_{0} }[f(x)\pm g(x)]
+$$</p>
+<p>存在，且</p>
+<p>$$
+\lim_{ x \to x_{0} }[f(x)\pm g(x)]=\lim_{ x \to x_{0} }f(x)\pm \lim_{ x \to x_{0} }g(x)=A\pm B
+$$</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>$$
+\lim_{ x \to x_{0} }[f(x)g(x)]
+$$</p>
+<p>存在，且</p>
+<p>$$
+\lim_{ x \to x_{0} }[f(x)g(x)]=\lim_{ x \to x_{0} }f(x)\cdot \lim_{ x \to x_{0} }g(x)=AB
+$$</p>
+<ol start="3">
+<li>若</li>
+</ol>
+<p>$$
+\lim_{ x \to x_{0} }g(x)=B\neq 0
+$$</p>
+<p>则</p>
+<p>$$
+\lim_{ x \to x_{0} } \frac{f(x)}{g(x)}=\frac{\lim_{ x \to x_{0} }f(x)}{\lim_{ x \to x_{0} }g(x)}=\frac{A}{B}
+$$</p>
+<h3 id="复合函数的极限运算法则">复合函数的极限运算法则</h3>
+<p>设</p>
+<p>$$
+\lim_{ t \to t_{0} }\varphi(t)=x_{0}，\lim_{ x \to x_{0} }f(x)=A
+$$</p>
+<p>且在点 $t_{0}$ 的某去心邻域内有 $\varphi(t)\neq x_{0}$（保证在 $x_{0}$ 的<strong>去心</strong>邻域内），则</p>
+<p>$$
+\lim_{ t \to t_{0} }f[\varphi(t)]=A
+$$</p>
+<h2 id="函数极限存在的条件">函数极限存在的条件</h2>
+<ol>
+<li><strong>归结原理（海涅原理）</strong>：设 $y=f(x)$ 在点 $x_{0}$ 的某个去心邻域 $\mathring{U}(x_{0})$ 内有定义，则极限</li>
+</ol>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=A
+$$</p>
+<p>的充分必要条件是：对任何含于 $\mathring{U}(x_{0})$ 且以 $x_{0}$ 为极限的数列 $\{x_{n}\}$ 都有</p>
+<p>$$
+\lim_{ n \to \infty }f(x_{n})=A
+$$</p>
+<ol>
+<li><strong>对单侧极限</strong>：设 $y=f(x)$ 在点 $x_{0}$ 的某个去心邻域 $\mathring{U}_{+}(x_{0})$ 内有定义，则极限</li>
+</ol>
+<p>$$
+\lim_{ x \to x_{0}^+ }f(x)=A
+$$</p>
+<p>的充分必要条件是：对任何以 $x_{0}$ 为极限的递减数列 $\{x_{n}\}\subseteq \mathring{U}_{+}(x_{0})$ 有</p>
+<p>$$
+\lim_{ n \to \infty }f(x_{n})=A
+$$</p>
+<ol start="2">
+<li><strong>夹逼准则</strong>：如果函数 $f(x),g(x),h(x)$ 满足：当 $x\in \mathring{U}(x_{0})$ 时，有 $g(x)\leq f(x)\leq h(x)$；当 $x\to x_{0}$ 时，有 $g(x)\to A,h(x)\to A$，则当 $x\to x_{0}$ 时，$f(x)$ 的极限存在，且等于 $A$</li>
+<li><strong>柯西收敛原则</strong>：设函数 $f$ 在 $\mathring{U}(x_{0},\delta')$ 有定义，</li>
+</ol>
+<p>$$
+\lim_{ x \to x_{0} }f(x)
+$$</p>
+<p>存在的充分必要条件是：$\forall \varepsilon>0,\exists\delta(<\delta')>0$ 使得 $\forall x',x''\in \mathring{U}(x_{0},\delta)$，有 $|f(x')-f(x'')|<\varepsilon$</p>
+<h1>无穷小与无穷大</h1>
+<h2 id="无穷小">无穷小</h2>
+<h3 id="定义-4">定义</h3>
+<p>若</p>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=0
+$$</p>
+<p>则称 $f(x)$ 为 $x\to x_{0}$ 时的无穷小量，简称为<strong>无穷小</strong></p>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=A
+$$</p>
+<p>的充分必要条件是：$f(x)=A+\alpha(x)$，其中 $\alpha(x)$ 在 $x\to x_{0}$ 时为无穷小</p>
+<h3 id="性质-3">性质</h3>
+<ol>
+<li><strong>有限个</strong>无穷小的和仍然是无穷小</li>
+<li>有界函数与无穷小之积仍然是无穷小，从而常数与无穷小之积仍然是无穷小</li>
+<li><strong>有限个</strong>无穷小之积仍然是无穷小</li>
+</ol>
+<h2 id="无穷大">无穷大</h2>
+<h3 id="定义-5">定义</h3>
+<p>设函数 $f(x)$ 在 $\mathring{U}(x_{0})$ 内有定义，若 $\forall M>0,\exists \delta>0$，当 $0<|x-x_{0}|<\delta$ 有 $|f(x)|>M$，则称 $f(x)$ 是 $x\to x_{0}$ 的无穷大量，简称为<strong>无穷大</strong>，记作</p>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=\infty
+$$</p>
+<p>将上面定义中的不等式 $|f(x)|>M$ 分别改为 $f(x)>M$ 和 $f(x)<-M$，则分别称 $f(x)$ 在 $x\to x_{0}$ 时为<strong>正无穷大</strong>和<strong>负无穷大</strong>，记作</p>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=+\infty
+$$</p>
+<p>和</p>
+<p>$$
+\lim_{ x \to x_{0} }f(x)=-\infty
+$$</p>
+<h3 id="性质-4">性质</h3>
+<p>在同一极限过程中，如果 $f(x)$ 为无穷大，则 $\frac{1}{f(x)}$ 必为无穷小；在同一极限过程中，如果 $f(x)$ 为无穷小，且 $f(x)\neq 0$，则 $\frac{1}{f(x)}$ 必为无穷大；</p>
+<h2 id="无穷小的比较">无穷小的比较</h2>
+<p>设 $\alpha(x)$ 和 $\beta(x)$ 为自变量 $x$ 的同一极限过程中的两个无穷小</p>
+<ol>
+<li>若 $\lim \frac{\beta}{\alpha}=0$，则称 $\beta(x)$ 是比 $\alpha(x)$ 高阶无穷小，记为 $\beta=o(\alpha)$，或称 $\alpha$ 是比 $\beta$ 低阶的无穷小</li>
+<li>若 $\lim \frac{\beta}{\alpha}=C\neq 0$，则称 $\beta(x)$ 是 $\alpha(x)$ 同阶的无穷小，记为 $\beta=O(\alpha)$</li>
+<li>若 $\lim \frac{\beta}{\alpha}=1$，则称 $\beta(x)$ 是比 $\alpha(x)$<strong>等价无穷小</strong>，记为 $\beta \sim \alpha$</li>
+<li>若</li>
+</ol>
+<p>$$
+\lim \begin{vmatrix}\frac{\beta}{\alpha^k}\end{vmatrix}=C\neq 0(k>0)
+$$</p>
+<p>则称 $\beta(x)$ 是 $\alpha(x)$ 的 $k$ 阶无穷小</p>
+<h3 id="等价无穷小的性质">等价无穷小的性质</h3>
+<ol>
+<li>若 $\beta(x)$ 和 $\alpha(x)\neq0$ 都是同一个极限过程中的无穷小，则有 $\alpha\sim\beta\Leftrightarrow\beta=\alpha+o(\alpha)$</li>
+<li>设 $\alpha,\beta,\alpha',\beta'$ 均为 $x$ 的同一极限过程中的无穷小，且 $\alpha\sim\alpha'$, $\beta\sim\beta'$，若 $\lim \frac{\beta'}{\alpha'}$ 存在，则 $\lim \frac{\beta}{\alpha}$ 存在，且 $\lim \frac{\beta}{\alpha}=\lim \frac{\beta'}{\alpha'}$</li>
+</ol>
+<blockquote>
+<ol>
+<li>代换必须在极限方向上一致</li>
+</ol>
+<ul>
+<li>当 $x\to 0$ 时，只能用与 $x\to 0$ 同阶的无穷小去代换</li>
+<li>当 $x\to \infty$ 时，只能用与 $x\to \infty$ 同阶的无穷小去代换</li>
+<li>其余同理</li>
+</ul>
+<ol start="2">
+<li>代换只能在乘法或函数组合中使用，对于加减法需要注意高阶无穷小不能忽略</li>
+</ol>
+</blockquote>
+<h2 id="常见等价无穷小">常见等价无穷小</h2>
+<p>当 $x\to 0$ 时</p>
+<ol>
+<li>$\sin x\sim x$</li>
+<li>$x-\sin x\sim \frac{1}{6}x^3$</li>
+<li>$\arcsin x\sim x$</li>
+<li>$\arcsin x-x\sim \frac{1}{6}x^3$</li>
+<li>$1-\cos x\sim \frac{1}{2}x^2$</li>
+<li>$\tan x\sim x$</li>
+<li>$\tan x-x\sim \frac{1}{3}x^3$</li>
+<li>$x-\arctan x\sim \frac{1}{3}x^3$</li>
+<li>$\arctan x\sim x$</li>
+<li>$\tan x-\sin x\sim \frac{1}{2}x^3$</li>
+<li>$\log_{a}(1+x)\sim \frac{x}{\ln a}$</li>
+<li>$(1+x)^a-1\sim ax$</li>
+<li>$e^x-1\sim x$</li>
+<li>$x-\ln(1+x)\sim \frac{1}{2}x^2$</li>
+<li>$\ln(x+\sqrt{ 1+x^2 })\sim x$</li>
+<li>$\ln(1+x)\sim x$</li>
+<li>$(1+x)^{\alpha}-1\sim\alpha x$</li>
+<li>$\alpha^x-1\sim x\ln \alpha$</li>
+</ol>
+<h1>洛必达法则</h1>
+<p>如果 $x\to a(x\to \infty)$ 时，两个函数 $f(x)$ 与 $g(x)$ 都趋于零或都趋于无穷大，那么极限</p>
+<p>$$
+\lim_{\underset{ (x\to \infty) }{  x \to a  }} \frac{f(x)}{g(x)}
+$$</p>
+<p>可能存在，也可能不存在，通常把这种极限叫作<strong>未定式</strong>，简记为 $\frac{0}{0}, \frac{\infty}{\infty}$</p>
+<p>这样的不定式可以用</p>
+<p>$$
+\lim_{ \underset{ (x\to \infty) }{ x \to a } } \frac{f(x)}{g(x)}=\lim_{ \underset{ (x\to \infty) }{ x \to a }} \frac{f'(x)}{g'(x)}
+$$</p>
+<p>来进行求导</p>
+<h2 id="不定式处理方法">不定式处理方法</h2>
+<table>
+<thead>
+<tr>
+<th><strong>不定型类型</strong></th>
+<th><strong>处理思路</strong></th>
+<th><strong>核心公式</strong></th>
+<th><strong>典型例子</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\frac{0}{0}$</td>
+<td>洛必达、泰勒</td>
+<td>——</td>
+<td>$\lim\frac{\sin x}{x}=1$</td>
+</tr>
+<tr>
+<td>$\frac{\infty}{\infty}$</td>
+<td>洛必达 、化简 、泰勒</td>
+<td>——</td>
+<td>$\lim\frac{e^x}{x^2}=\infty$</td>
+</tr>
+<tr>
+<td>$0\cdot \infty$</td>
+<td>变形为 $\frac{0}{0}$、或、$\frac{\infty}{\infty}$</td>
+<td>——</td>
+<td>$x\ln x = \frac{\ln x}{1/x}$</td>
+</tr>
+<tr>
+<td>$\infty - \infty$</td>
+<td>合并成单分式</td>
+<td>——</td>
+<td>$\lim(\sqrt{x^2+1}-x)$</td>
+</tr>
+<tr>
+<td>$0^0$</td>
+<td>指数化、转 exp</td>
+<td>$\exp(\lim g(x)\ln f(x))$</td>
+<td>$\lim x^x=1$</td>
+</tr>
+<tr>
+<td>$1^\infty$</td>
+<td>指数化、转 exp</td>
+<td>$\exp(\lim g(x)(f(x)-1))$</td>
+<td>$\lim(1+\frac{1}{x})^x=e$</td>
+</tr>
+<tr>
+<td>$\infty^0$</td>
+<td>指数化、转 exp</td>
+<td>$\exp(\lim g(x)\ln f(x))$</td>
+<td>$\lim x^{1/x}=1$</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/">积分</a>
+    
+    
+      <a class="next" href="/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/">空间解析几何</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">数列极限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97"><span class="toc-text">四则运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90%E5%AD%98%E5%9C%A8%E7%9A%84%E5%88%A4%E5%88%AB%E5%AE%9A%E7%90%86"><span class="toc-text">数列极限存在的判别定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%88%97%E6%9E%81%E9%99%90%E8%AF%81%E6%98%8E%E7%9A%84%E5%B8%B8%E8%A7%81%E6%A0%BC%E5%BC%8F"><span class="toc-text">数列极限证明的常见格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%9E%81%E9%99%90"><span class="toc-text">常见极限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">函数极限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8F%98%E9%87%8F%E8%B6%8B%E4%BA%8E%E6%97%A0%E7%A9%B7%E5%A4%A7%E6%97%B6"><span class="toc-text">自变量趋于无穷大时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8F%98%E9%87%8F%E8%B6%8B%E4%BA%8E%E6%9C%89%E9%99%90%E5%80%BC%E6%97%B6"><span class="toc-text">自变量趋于有限值时</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%A7%E6%9E%81%E9%99%90"><span class="toc-text">单侧极限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="toc-text">运算法则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97-2"><span class="toc-text">四则运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="toc-text">复合函数的极限运算法则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%9E%81%E9%99%90%E5%AD%98%E5%9C%A8%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-text">函数极限存在的条件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">无穷小与无穷大</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E7%A9%B7%E5%B0%8F"><span class="toc-text">无穷小</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-3"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E7%A9%B7%E5%A4%A7"><span class="toc-text">无穷大</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-4"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E7%A9%B7%E5%B0%8F%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">无穷小的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%89%E4%BB%B7%E6%97%A0%E7%A9%B7%E5%B0%8F%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-text">等价无穷小的性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%AD%89%E4%BB%B7%E6%97%A0%E7%A9%B7%E5%B0%8F"><span class="toc-text">常见等价无穷小</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">洛必达法则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%AE%9A%E5%BC%8F%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-text">不定式处理方法</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

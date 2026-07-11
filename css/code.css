@@ -1,0 +1,160 @@
+/* ===== Code ===== */
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--code-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  color: var(--text);
+}
+
+pre {
+  background: var(--code-bg);
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-family: var(--font-mono);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Hexo figure.highlight */
+figure.highlight {
+  background: var(--code-bg);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1em 0;
+  position: relative;
+}
+
+figure.highlight figcaption { display: none; }
+
+figure.highlight .highlight-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.3em 0.85em;
+  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  background: var(--code-bg);
+  border-bottom-left-radius: 4px;
+  cursor: pointer;
+  border: none;
+  z-index: 2;
+  transition: color 0.15s;
+}
+figure.highlight .highlight-bar:hover {
+  color: var(--accent);
+}
+figure.highlight .highlight-bar.copied {
+  color: var(--accent);
+}
+
+figure.highlight table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+figure.highlight td {
+  border: none;
+  padding: 0;
+  text-align: left;
+}
+
+figure.highlight .gutter {
+  width: 2.5em;
+  text-align: right;
+  padding: 0.6em 0.5em 0.6em 0;
+  color: var(--text-muted);
+  user-select: none;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  vertical-align: top;
+}
+
+figure.highlight .gutter pre {
+  margin: 0;
+  background: none;
+  border-radius: 0;
+}
+
+figure.highlight .code {
+  padding: 0.6em 1em;
+  line-height: 1.6;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  vertical-align: top;
+}
+
+figure.highlight .code pre {
+  margin: 0;
+  background: none;
+  border-radius: 0;
+}
+
+figure.highlight .comment,
+figure.highlight .quote { color: var(--hl-comment); }
+figure.highlight .keyword,
+figure.highlight .selector-tag,
+figure.highlight .addition { color: var(--hl-keyword); }
+figure.highlight .string,
+figure.highlight .number,
+figure.highlight .literal { color: var(--hl-string); }
+figure.highlight .title,
+figure.highlight .section,
+figure.highlight .name { color: var(--hl-function); }
+
+/* ===== Code collapse ===== */
+figure.highlight .code-body {
+  max-height: 300px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.3s ease;
+}
+figure.highlight .code-body.expanded {
+  max-height: none;
+}
+figure.highlight .code-body.collapsible:not(.expanded)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(transparent 0%, var(--bg) 85%);
+  pointer-events: none;
+}
+figure.highlight .code-expand {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  z-index: 3;
+  transition: color 0.15s;
+}
+figure.highlight .code-expand:hover {
+  color: var(--accent);
+}
+figure.highlight .code-expand.hidden {
+  display: none;
+}

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>行列式 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="定义 将 $n^{2}$ 个数 $a_{ij}（i，j&#x3D;1,2,\dots,n）$ 排列成 $n$ 行 $n$ 列，记为 $$D&#x3D;\begin{vmatrix} a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n}\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{n1} &amp; a_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="行列式">
+<meta property="og:url" content="http://0n3-0.github.io/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="定义 将 $n^{2}$ 个数 $a_{ij}（i，j&#x3D;1,2,\dots,n）$ 排列成 $n$ 行 $n$ 列，记为 $$D&#x3D;\begin{vmatrix} a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\ a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n}\\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ a_{n1} &amp; a_">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-10-26T11:01:04.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.570Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="线代">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '线性代数/行列式';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">行列式</h1>
+      <div class="post-meta">
+        <span>2025-10-26</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E7%BA%BF%E4%BB%A3/">线代</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>定义</h1>
+<p>将 $n^{2}$ 个数 $a_{ij}（i，j=1,2,\dots,n）$ 排列成 $n$ 行 $n$ 列，记为</p>
+<p>$$D=\begin{vmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n}\\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} & a_{n2} & \dots & a_{nn} \end{vmatrix}$$</p>
+<p>其值定义为</p>
+<p>$$
+\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}a_{2j_{2}}\dots a_{nj_{n}}
+$$</p>
+<p>($\boldsymbol{\tau}$ 表示排列的<a href="https://0n3-0.github.io/2025/10/26/n%E5%85%83%E6%8E%92%E5%88%97">逆序数</a>)简记作</p>
+<p>$$
+D=\begin{vmatrix}a_{ij}\end{vmatrix}_{n\times n}
+$$</p>
+<p>或</p>
+<p>$$
+\begin{vmatrix}a_{ij}\end{vmatrix}^{n}_{1}
+$$</p>
+<p>或 $\det(a_{ij})$</p>
+<blockquote>
+<p>（1）n 阶行列式是一个<strong>数</strong>或一个<strong>式子</strong><br>
+（2）$(-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}a_{2j_{2}}\dots a_{nj_{n}}$ 是行列式的<strong>一般项</strong>，其中 $a_{1j_{1}}a_{2j_{2}}\dots a_{nj_{n}}$ 表示取自不同行不同列的 n 个元素的积<br>
+（3）</p>
+</blockquote>
+<p>$$
+\sum_{j_{1}j_{2}\dots j_{n}}
+$$</p>
+<p>表示对所有 n 元排列 $j_{1}j_{2}\dots j_{n}$ 对应项<strong>求和</strong>，共 $n!$ 项，当不会引起混淆时可简写为 $\sum$</p>
+<blockquote>
+<p>（4）当 n=1 时，规定</p>
+</blockquote>
+<p>$$
+\begin{vmatrix}a\end{vmatrix}=a
+$$</p>
+<p><em><strong>由定义可以得到：<br>
+（1）若行列式的某行或某列元素全为 0，则该行列式值为 0<br>
+（2）若行列式中 0 元素的个数多于 $n^{2}-n$ 个则行列式的值为 0，或者说若行列式中非 0 元素的个数少于 $n$ 个则行列式的值为 0</strong></em></p>
+<h1>转置行列式</h1>
+<p>将</p>
+<p>$$
+D=\begin{vmatrix}a_{ij}\end{vmatrix}
+$$</p>
+<p>的行与列互换得到的新行列式称为<strong>转置行列式</strong>记为 $D^{T}$，即如果</p>
+<p>$$
+D=\begin{vmatrix}a_{11}& a_{12} & \dots & a_{1n} \\a_{21} & a_{22} & \dots & a_{2n} \\\vdots & \vdots & \ddots & \vdots \\a_{n1} & a_{n2} & \dots & a_{nn}\end{vmatrix}
+$$</p>
+<p>则</p>
+<p>$$
+D^{T}=\begin{vmatrix}a_{11}& a_{21} & \dots & a_{n1} \\a_{12} & a_{22} & \dots & a_{2n} \\\vdots & \vdots & \ddots & \vdots \\a_{1n} & a_{2n} & \dots & a_{nn}\end{vmatrix}
+$$</p>
+<h1>性质</h1>
+<h2 id="性质一：行列式与它的转置行列式的值相等，即-MIcuidH-TSIGk7KnXRzH7iFROzQX76"><strong>性质一</strong>：行列式与<strong>它的转置行列式的值相等</strong>，即 $D=D^{T}$</h2>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{vmatrix}2 & 0 & 1 \\1 & -4 & -1 \\-1 & 8 & 3\end{vmatrix}=\begin{vmatrix}2 & 1 & -1 \\0 & -4 & 8 \\1 & -1 & 3\end{vmatrix}=-4
+$$</p>
+<blockquote>
+<p>行列式中行与列具有相同的地位，因此行列式的性质凡是对行成立的对列也成立。</p>
+</blockquote>
+<p><strong>证明</strong>：</p>
+<p>$$
+\begin{aligned}
+&设D=\begin{vmatrix}a_{ij}\end{vmatrix}的转置行列式为D^{T}=\begin{vmatrix}b_{ij}\end{vmatrix}，则\boldsymbol{b_{ij}=a_{ji}}(i,j=1,2,\dots,n)\\&于是D^{T}=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}b_{1j_{1}}b_{2j_{2}}\dots b_{nj_{n}}=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{j_{1}1}a_{j_{2}2}\dots a_{j_{n}n}\\&对换因子的位置使得a_{j_{1}1}a_{j_{2}2}\dots a_{j_{n}n}=a_{p_{1}1}a_{p_{2}2}\dots a_{p_{n}n}\\&假设共对换了m次，即m次对换将排列j_{1}j_{2}\dots j_{n}变成12\dots n\\&同时也将12\dots n变成了p_{1}p_{2}\dots p_{n}\\&从而\tau(j_{1}j_{2}\dots j_{n})与\tau(p_{1}p_{2}\dots p_{n})具有相同的奇偶性\\&于是D^{T}=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{j_{1}1}a_{j_{2}2}\dots a_{j_{n}n}=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(p_{1}p_{2}\dots p_{n})}a_{1p_{1}}a_{2p_{2}}\dots a_{np_{n}}\\&所以D^{T}=D
+\end{aligned}
+$$</p>
+<h2 id="性质二：互换行列式中任意两行（列）的位置，行列式变号"><strong>性质二</strong>：互换行列式中任意两行（列）的位置，行列式变号</h2>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{vmatrix}2 & 0 & 1 \\1 & -4 & -1 \\-1 & 8 & 3\end{vmatrix}=-4 \; \begin{vmatrix}1 & -4 & -1 \\2 & 0 & 1 \\-1 & 8 & 3\end{vmatrix}=4
+$$</p>
+<p><strong>证明：</strong></p>
+<p>$$
+\begin{aligned}
+&设D=\begin{vmatrix}a_{11} & a_{22} & \dots & \dots & \dots & \dots & a_{1n} \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\a_{t1} & a_{t2} & \dots & \dots & \dots & \dots & a_{tn} \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\a_{s1} & a_{s2} & \dots & \dots & \dots & \dots & a_{sn}  \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\a_{n1} & a_{n2} & \dots & \dots & \dots & \dots & a_{nn} \end{vmatrix} \\
+&互换D第s行和第t行，得到新的行列式 \\
+&D_{1}=\begin{vmatrix}a_{11} & a_{22} & \dots & \dots & \dots & \dots & a_{1n} \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\a_{s1} & a_{s2} & \dots & \dots & \dots & \dots & a_{sn} \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\a_{t1} & a_{t2} & \dots & \dots & \dots & \dots & a_{tn}  \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\a_{n1} & a_{n2} & \dots & \dots & \dots & \dots & a_{nn} \end{vmatrix}  \\
+&由行列式的定义有： \\
+&D=\sum_{p_{1}\dots p_{s} \dots p_{t}\dots p_{n}} (-1)^{\tau(p_{1}\dots p_{s} \dots p_{t}\dots p_{n})}a_{1p_{1}}\dots a_{sp_{s}}\dots a_{tp_{t}}\dots a_{np_{n}} \\
+&D_{1}=\sum_{p_{1}\dots p_{t} \dots p_{s}\dots p_{n}} (-1)^{\tau(p_{1}\dots p_{t} \dots p_{s}\dots p_{n})}a_{1p_{1}}\dots a_{tp_{t}}\dots a_{sp_{s}}\dots a_{np_{n}} \\
+&\because\tau(p_{1}\dots p_{s} \dots p_{t}\dots p_{n})=-\tau(p_{1}\dots p_{t} \dots p_{s}\dots p_{n}) \\
+&a_{1p_{1}}\dots a_{sp_{s}}\dots a_{tp_{t}}=a_{1p_{1}}\dots a_{tp_{t}}\dots a_{sp_{s}} \\
+&\therefore D=-D_{1}
+\end{aligned}
+$$</p>
+<h3 id="推论一：若行列式-MIcuidH-TSIGk7KnXRzH7iFROzQX77-有两行（列）对应元素相同，则-MIcuidH-TSIGk7KnXRzH7iFROzQX78">推论一：若行列式 $D$ 有两行（列）对应元素相同，则 $D=0$</h3>
+<p>证明：互换 $D$ 中相同的两行，有 $D=-D\Rightarrow D=0$</p>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{vmatrix}2 & 0 & 1 \\2 & 0 & 1 \\-1 & 8 & 3\end{vmatrix}=0
+$$</p>
+<h2 id="性质三：-用数-k-乘行列式的某一行（列）的各元素，等于用数-k-乘此行列"><strong>性质三：</strong> 用数 k 乘行列式的某一行（列）的各元素，等于用数 k 乘此行列</h2>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{vmatrix}a_{11} & a_{12} & \dots & \dots & a_{1n} \\\vdots & \vdots & \vdots & \vdots & \vdots\\ ka_{s1} & ka_{s2} & \dots & \dots & ka_{sn} \\\vdots & \vdots & \vdots & \vdots & \vdots \\ a_{n1} & a_{n2} & \dots & \dots & a_{nn}\end{vmatrix}=k\begin{vmatrix}a_{11} & a_{12} & \dots & \dots & a_{1n} \\\vdots & \vdots & \vdots & \vdots & \vdots\\ a_{s1} & a_{s2} & \dots & \dots & a_{sn} \\\vdots & \vdots & \vdots & \vdots & \vdots \\ a_{n1} & a_{n2} & \dots & \dots & a_{nn}\end{vmatrix}
+$$</p>
+<p><strong>证明:</strong></p>
+<p>$$
+\begin{aligned}
+&由行列式的定义： \\
+&左式=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}\dots ka_{sj_{s}}\dots a_{nj_{n}} \\
+&=k\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}\dots a_{sj_{s}}\dots a_{nj_{n}}=右式
+\end{aligned}
+$$</p>
+<h3 id="推论一：行列式某一行（列）的所有元素的公因子可以提到行列式的外面">推论一：行列式某一行（列）的所有元素的公因子可以提到行列式的外面</h3>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{vmatrix}2 &  4\\3 & 4\end{vmatrix}=2\begin{vmatrix}1 & 2 \\3 & 4\end{vmatrix}
+$$</p>
+<h3 id="推论二：若行列式中有两行（列）的对应元素成比例，则此行列式等于-0">推论二：若行列式中有两行（列）的对应元素成比例，则此行列式等于 0</h3>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{vmatrix}1 & 2 & 1 \\2 & 4 & 2 \\-1 & 8 & 3\end{vmatrix}=0
+$$</p>
+<h2 id="性质四：若行列式中某一行（列）的元素都是两个数之和，则它等于除改行外其余元素不变的两个行列式之和"><strong>性质四</strong>：若行列式中某一行（列）的元素都是两个数之和，则它等于除改行外其余元素不变的两个行列式之和</h2>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&\begin{vmatrix}a_{11} & a_{12} & \dots & \dots & a_{1n}\\\vdots & \vdots & \vdots & \vdots & \vdots \\a_{i1}+b_{i1} & a_{i_{2}}+b_{i2} & \dots & \dots & a_{in}+b_{in} \\\vdots &\vdots & \vdots & \vdots & \vdots \\a_{n1} & a_{n2} & \dots & \dots & a_{nn}\end{vmatrix} \\
+&=\begin{vmatrix}a_{11} & a_{12} & \dots & \dots & a_{1n}\\\vdots & \vdots & \vdots & \vdots & \vdots \\a_{i1} & a_{i_{2}} & \dots & \dots & a_{in} \\\vdots &\vdots & \vdots & \vdots & \vdots \\a_{n1} & a_{n2} & \dots & \dots & a_{nn}\end{vmatrix}+\begin{vmatrix}a_{11} & a_{12} & \dots & \dots & a_{1n}\\\vdots & \vdots & \vdots & \vdots & \vdots \\b_{i1} & b_{i2} & \dots & \dots & b_{in} \\\vdots &\vdots & \vdots & \vdots & \vdots \\a_{n1} & a_{n2} & \dots & \dots & a_{nn}\end{vmatrix}
+\end{aligned}
+$$</p>
+<p><strong>证明：</strong></p>
+<p>$$
+\begin{aligned}
+&左式=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}\dots (a_{i1}+b_{i1})\dots a_{nj_{n}} \\
+&=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}\dots a_{i1}\dots a_{nj_{n}} \\
+&+\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}\dots b_{i1}\dots a_{nj_{n}}=右式
+\end{aligned}
+$$</p>
+<blockquote>
+<p>（1）该性质可以拓展至 n 个数之和，即若存在某一行（列）的元素均为 n 个数之和，那么行列式可以写成 n 个行列式之和</p>
+<p>（2）若行列式的某 m 行（列）的元素均为 n 个数之和，那么该行列式可以写成 $n^{m}$ 个行列式之和</p>
+</blockquote>
+<h2 id="性质五：把行列式中某一行（列）k-倍加到另一行（列）的对应元素上，行列式不变"><strong>性质五</strong>：把行列式中某一行（列）k 倍加到另一行（列）的对应元素上，行列式不变</h2>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&\begin{vmatrix}a_{11} & a_{12} & \dots & \dots & \dots & \dots & a_{1n} \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\ a_{i1}+ka_{j1} & a_{i2}+ka_{j2} & \dots & \dots & \dots & \dots & a_{in}+ka_{jn} \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\ a_{j1} & a_{j2} & \dots & \dots & \dots & \dots & a_{jn} \\\vdots & \vdots &\vdots & \vdots & \vdots & \vdots & \vdots \\ a_{n1} & a_{n2} & \dots & \dots & \dots & \dots & a_{nn}\end{vmatrix} \\
+&=\begin{vmatrix}a_{11} & a_{12} & \dots & \dots & \dots & \dots & a_{1n} \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\ a_{i1} & a_{i2} & \dots & \dots & \dots & \dots & a_{in} \\\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\ a_{j1} & a_{j2} & \dots & \dots & \dots & \dots & a_{jn} \\\vdots & \vdots &\vdots & \vdots & \vdots & \vdots & \vdots \\ a_{n1} & a_{n2} & \dots & \dots & \dots & \dots & a_{nn}\end{vmatrix}
+\end{aligned}
+$$</p>
+<h1>计算</h1>
+<h2 id="三角形行列式——三角化法">三角形行列式——三角化法</h2>
+<p><strong>下三角形行列式</strong>，形如：</p>
+<p>$$
+D=\begin{vmatrix} a_{11}&0&\dots&0 \\ a_{21}&a_{22}&\dots&0 \\\vdots &\vdots&\ddots&\vdots\\ a_{n1}&a_{n2}&\dots&a_{nn}\end{vmatrix}
+$$</p>
+<p>即主对角线以上的元素全为 0 的行列式。</p>
+<p>求解过程：</p>
+<p>$$
+\begin{aligned}
+&D=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}a_{2j_{2}}\dots a_{nj_{n}} \\
+&要使a_{1j_{1}}a_{2j_{2}}\dots a_{nj_{n}}不为零，必须\\
+&j_{1}=1,j_{2}=2,\dots,j_{n}=n\\
+&\because\tau(12\dots n)=0,\therefore D=a_{11}a_{22}\dots a_{nn}
+\end{aligned}
+$$</p>
+<p>同理，<strong>上三角形行列式</strong>：</p>
+<p>$$
+D=\begin{vmatrix} a_{11}&a_{12}&\dots&a_{1n} \\ 0&a_{22}&\dots&a_{2n} \\\vdots &\vdots&\ddots&\vdots \\0&0&\dots&a_{nn}\end{vmatrix}=a_{11}a_{22}\dots a_{nn}
+$$</p>
+<p><strong>对角行列式</strong>：</p>
+<p>$$
+D=\begin{vmatrix}a_{11}&0&\dots&0 \\ 0&a_{22}&\dots&0\\\vdots&\vdots&\ddots&\vdots\\0&0&\dots&a_{nn}\end{vmatrix}=a_{11}a_{22}\dots a_{nn}
+$$</p>
+<p>特殊地，<strong>副对角行列式</strong>：</p>
+<p>$$
+D_{n}=\begin{vmatrix} 0 & 0 & \cdots &\lambda _{1} \\ 0 & \cdots & \lambda_{2} & 0 \\ \vdots &\text{⋰}& \vdots & \vdots \\ \lambda_{n} & 0 & \cdots & 0 \end{vmatrix}
+$$</p>
+<p>求解过程：</p>
+<p>$$
+\begin{aligned}
+&由行列式的定义D_{n}=\sum_{j_{1}j_{2}\dots j_{n}} (-1)^{\tau(j_{1}j_{2}\dots j_{n})}a_{1j_{1}}a_{2j_{2}}\dots a_{nj_{n}} \\&要使得a_{1j_{1}}a_{2j_{2}}\dots a_{nj_{n}}不为0，只有\\&j_{1}=n, j_{2}=n-1, \dots,j_{n}=1\\&故D_{n}=(-1)^{\tau(j_{1}j_{2}\dots j_{n})a_{n1}a_{n-1,2}\dots a_{1n}}=(-1)^{\frac{n(n-1)}{2}}\lambda_{1}\lambda_{2}\dots\lambda_{n}
+\end{aligned}
+$$</p>
+<h2 id="行列式的展开——降阶法">行列式的展开——降阶法</h2>
+<h3 id="余子式和代数余子式">余子式和代数余子式</h3>
+<p>定义：在</p>
+<p>$$
+D_{n}=\begin{vmatrix}a_{ij}\end{vmatrix}
+$$</p>
+<p>中, 去掉元素 $a_{ij}$ 所在的第𝑖行和第𝑗列,<br>
+余下的元素按照原来的次序构成的𝑛−1 阶行列式, 称为</p>
+<p>$$
+\begin{vmatrix}a_{ij}\end{vmatrix}
+$$</p>
+<p>的<strong>余子式</strong>，记作 $M_{ij}$，称 $A_{ij}=(-1)^{i+j}M_{ij}$ 为</p>
+<p>$$
+\begin{vmatrix}a_{ij}\end{vmatrix}
+$$</p>
+<p>的<strong>代数余子式</strong></p>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&在D=\begin{vmatrix}a_{11} & a_{12} & a_{13} & a_{14} \\ a_{21} & a_{22} & a_{23} & a_{24} \\ a_{31} & a_{32} & a_{33} & a_{34} \\ a_{41} & a_{42} & a_{43} & a_{44}\end{vmatrix}中 \\
+&M_{33}=\begin{vmatrix}a_{11} & a_{12} & a_{14} \\a_{21} & a_{22} & a_{24}\\ a_{41}& a_{42} & a_{44}\end{vmatrix},A_{33}=(-1)^{3+3}M_{33}=M_{33} \\
+&M_{23}=\begin{vmatrix}a_{11} & a_{12} & a_{14} \\a_{31} & a_{32} & a_{34}\\a_{41} & a_{42} & a_{44}\end{vmatrix},A_{23}=(-1)^{2+3}M_{23}=-M_{23}
+\end{aligned}
+$$</p>
+<blockquote>
+<p>1 .行列式 $D$ 中每个元素 $a_{ij}$ 分别对应着一个余子式 $M_{ij}$ 和一个代数余子式 $A_{ij}$</p>
+<p>2 . $M_{ij},A_{ij}$ 与行列式 $D$ 的第 $i$ 行和第 $j$ 列的元素无关</p>
+</blockquote>
+<p>在</p>
+<p>$$
+D_{n}=\begin{vmatrix}a_{ij}\end{vmatrix}
+$$</p>
+<p>中任取 $k$ 行 $k$ 列 $(1\leq k\leq n)$，位于其交叉点的 $k^2$ 个元素<strong>按原来的相对位置</strong>构成一个 $k$ 阶行列式 $M$，称 $M$ 为 $D$ 的<strong>一个 $k$ 阶子式</strong>，$D$ 中剩下的所有元素<strong>按原来的相对位置</strong>构成的 $n-k$ 阶行列式 $M^*$<strong>称为 $M$ 的余子式</strong>，若 $M$ 中元素在 $D$ 中的行标和列标分别为 $i_{1},i_{2},\dots,i_{k}$ 和 $j_{1},j_{2},\dots,j_{k}$<strong>则称 $(-1)^{(i_{1}+i_{2}+\dots+i_{k})+(j_{1}+j_{2}+\dots+j_{k})}M^*$ 为 $M$ 的代数余子式</strong>，例如：</p>
+<p>$$
+\begin{aligned}
+&在D=\begin{vmatrix}a_{11} & a_{12} & a_{13} & a_{14} \\a_{21} & a_{22} & a_{23} & a_{24} \\a_{31} & a_{32} & a_{33} & a_{34} \\a_{41} & a_{42} & a_{43} & a_{44}\end{vmatrix}中， \\
+&M=\begin{vmatrix}a_{11} & a_{13} \\a_{21} & a_{23}\end{vmatrix}是D的一个2阶子式\\
+&M^*=\begin{vmatrix}a_{32} & a_{34} \\a_{42} & a_{44}\end{vmatrix}是M的余子式 \\
+&(-1)^(1+2+1+3)M^*=-M^*为M的代数余子式
+\end{aligned}
+$$</p>
+<h3 id="行列式按行（列）展开定理">行列式按行（列）展开定理</h3>
+<p>利用余子式和代数余子式，有</p>
+<p>$$
+\begin{aligned}
+D&=\begin{vmatrix}a_{11} & a_{12} & a_{13} \\a_{21} & a_{22} & a_{23} \\a_{31} & a_{32} & a_{33}\end{vmatrix} \\
+&=a_{11}\begin{vmatrix}a_{22} & a_{23} \\a_{32} & a_{33}\end{vmatrix}+a_{12}\begin{vmatrix}a_{21} & a_{13}\\a_{31} & a_{33}\end{vmatrix}+a_{13}\begin{vmatrix}a_{21} & a_{22}\\a_{31} & a_{33}\end{vmatrix} \\
+&=a_{11}A_{11}+a_{12}A_{12}+a_{13}A_{13}
+\end{aligned}
+$$</p>
+<p>即</p>
+<p>$$
+D_{n}=\begin{vmatrix}a_{ij}\end{vmatrix}
+$$</p>
+<p>等于它的任意一行的各元素与其对应的<strong>代数余子式</strong>乘积之和，即 $D=a_{i1}A_{i1}+a_{i2}A_{i2}+\dots+a_{in}A_{in}(i=1,2,\dots,n)$ 或 $D=a_{1j}A_{1j}+a_{2j}A_{2j}+\dots+a_{nj}A_{nj}(j=1,2,\dots,n)$</p>
+<p>推论：n 阶行列式</p>
+<p>$$
+D=\begin{vmatrix}a_{ij}\end{vmatrix}
+$$</p>
+<p>的某一行（列）的各元素与另一行（列）的对应元素的代数余子式乘积之和等于零，即<br>
+$a_{i1}A_{j1}+a_{i2}A_{j2}+\dots+a_{in}A_{jn}=0(i\neq j)$ 或 $D=a_{1i}A_{1j}+a_{2i}A_{2j}+\dots+a_{ni}A_{nj}(i\neq j)$</p>
+<p><strong>证明：</strong></p>
+<p>$$
+\begin{aligned}
+&将D=\begin{vmatrix}a_{ij}\end{vmatrix}按第j行展开，得 \\
+&D=a_{i1}A_{i1}+a_{i2}A_{i2}+\dots+a_{in}A_{in}=\begin{vmatrix}a_{11} & \dots & a_{1n} \\\vdots &  & \vdots \\a_{i1} & \dots & a_{in} \\\vdots &  & \vdots \\a_{j1} & \dots & a_{jn} \\\vdots &  &  \vdots\\a_{n1}& \dots & a_{nn}\end{vmatrix} \\
+&把D中a_{ik}换成a_{jk}(k=1,2,\dots,n)，当i\neq j时，可得 \\
+&a_{j1}A_{i1}+a_{j2}A_{i2}+\dots+a_{jn}A_{in}=\begin{vmatrix}a_{11} & \dots & a_{1n} \\\vdots &  & \vdots \\a_{j1} & \dots & a_{jn} \\\vdots &  & \vdots \\a_{j1} & \dots & a_{jn} \\\vdots &  &  \vdots\\a_{n1}& \dots & a_{nn}\end{vmatrix} \\
+&所以a_{j1}A_{i1}+a_{j2}A_{i2}+\dots+a_{jn}A_{in}=0
+\end{aligned}
+$$</p>
+<hr>
+<p><em><strong>定理和推论合起来可写作：</strong></em></p>
+<p>$$
+\begin{aligned}
+\sum_{k=1}^n a_{ {\color{red}i}k}A_{ {\color{red}j}k}=D\delta_{ij} \\
+\sum_{k=1}^n a_{k{\color{red}i} }A_{k{\color{red}j} }=D\delta_{ij}
+\end{aligned}
+$$</p>
+<p>其中</p>
+<p>$$
+\delta_{ij}=\begin{cases}1,i=j\\0,i\neq j\end{cases}
+$$</p>
+<p>为 Kronecker 符号</p>
+<h3 id="降阶法">降阶法</h3>
+<p>利用性质 2,3,5 将行列式的某行(列)化为只有尽量少的非零元(最好只有一个), 再按该行(列)展开</p>
+<p><strong>eg1</strong>:</p>
+<p>$$
+\begin{aligned}
+计算行&列式D = \begin{vmatrix} 3 & 1 & -1 & 2 \\ -5 & 1 & 3 & -4 \\ 2 & 0 & 1 & -1 \\ 1 & -5 & 3 & -3 \end{vmatrix} \\
+解：D &= \begin{vmatrix} 3 & 1 & -1 & 2 \\ -5 & 1 & 3 & -4 \\ 2 & 0 & 1 & -1 \\ 1 & -5 & 3 & -3 \end{vmatrix}\xrightarrow[\text{c}_4 + \text{c}_3]{\text{c}_1 - 2\text{c}_3}\begin{vmatrix} 5 & 1 & -1 & 1 \\ -11 & 1 & 3 & -1 \\ 0 & 0 & 1 & 0 \\ -5 & -5 & 3 & 0 \end{vmatrix} \\
+&= (-1)^{3+3} \begin{vmatrix} 5 & 1 & 1 \\ -11 & 1 & -1 \\ -5 & -5 & 0 \end{vmatrix}
+\xrightarrow{\text{r}_2 + \text{r}_1}
+\begin{vmatrix} 5 & 1 & 1 \\ -6 & 2 & 0 \\ -5 & -5 & 0 \end{vmatrix}
+= (-1)^4 \begin{vmatrix} -6 & 2 \\ -5 & -5 \end{vmatrix} = 40.
+\end{aligned}
+$$</p>
+<p><strong>eg2</strong>:</p>
+<p>$$
+\begin{aligned}
+&证明：行列式D_{2n} = \begin{vmatrix} a & & & & & & & b \\ & a & & & & & b & \\ & & \ddots & & & \text{⋰} & & \\ & & & a & b & & & \\ & & & c & d & & & \\ & & \text{⋰} & & & \ddots & & \\ & c & & & & & d & \\ c & & & & & & & d \end{vmatrix} = (ad - bc)^n \\
+&解一：原式=a \cdot \begin{vmatrix} a & & & & & b & 0 \\ & \ddots & & & \text{⋰} & & \\ & & a & b & & & \\ & & c & d & & & \\ & \text{⋰} & & &\ddots & & \\ c & & & & & d & 0 \\ 0 & & & & & 0 & d \end{vmatrix}
++ c \cdot (-1)^{1+2n} \begin{vmatrix} 0 & & & & & 0 & b \\ a & & & & & b & 0 \\ & \ddots & & & \text{⋰} & & \\ & & a & b & & & \\ & & c & d & & & \\ & \text{⋰} & & & \ddots & & \\ c & & & & & d & 0 \end{vmatrix} \\
+&= adD_{2n-2} + c \cdot (-1)^{1+2n} \cdot b \cdot (-1)^{2n} D_{2n-2} = (ad - bc)D_{2n-2} = \cdots \\
+&解二：将D_{2n}的第2n行依次与第2n-1, 2n-2,\cdots 3,2行交换，共换(2n-2)次，换至第2行， \\
+&再将D_{2n}的第2n列依次与第2n-1, 2n-2, \cdots 3,2列交换，共换(2n-2)次，换至第2列，得 \\
+&D_{2n} = (-1)^{2(2n-2)} \cdot \begin{vmatrix} a & b & 0 & \cdots & \cdots & \cdots & \cdots & 0 \\ c & d & 0 & \cdots & \cdots & \cdots & \cdots & 0 \\ 0 & 0 & a & & & & & b \\ \vdots & \vdots & & \ddots & & & \text{⋰} & \\ \vdots & \vdots & & & a & b & \\ \vdots & \vdots & & & c & d & \\ \vdots & \vdots & & \text{⋰} & & & \ddots & \\  0 & 0 & c & & & & & d \end{vmatrix} \\
+&= D_2 \cdot D_{2n-2} = (ad - bc) \cdot D_{2n-2} = (ad - bc)^n
+\end{aligned}
+$$</p>
+<h2 id="加边法">加边法</h2>
+<ol>
+<li>
+<p><strong>构造高一阶行列式</strong><br>
+在原 $n$ 阶行列式基础上，<strong>增加一行一列</strong>，形成 $(n+1)$ 阶行列式 $D_{n+1}$。</p>
+<ul>
+<li>加边方式需使 $D_{n+1}$ 具有<strong>易计算结构</strong>（如范德蒙德、三角形、对角形等）。</li>
+<li>可引入辅助变量（如 $y$）或直接添加常数/参数行/列。</li>
+</ul>
+</li>
+<li>
+<p><strong>建立与原行列式的关系</strong><br>
+确保原行列式 $D_n$ 是 $D_{n+1}$ 的某个<strong>代数余子式</strong>（或通过展开可直接提取）。</p>
+</li>
+<li>
+<p><strong>计算高阶行列式</strong><br>
+利用其特殊结构（如范德蒙德公式、三角阵行列式=对角积等）求出 $D_{n+1}$ 的表达式。</p>
+</li>
+<li>
+<p><strong>通过展开或系数比较还原 $D_n$</strong></p>
+<ul>
+<li>若引入变量（如 $y$），将 $D_{n+1}$ 表示为多项式，<strong>比较特定幂次项系数</strong>。</li>
+<li>若未引入变量，常通过<strong>初等行/列变换</strong>化简 $D_{n+1}$ 为三角阵，再按加边行/列展开，直接得到 $D_n$。</li>
+</ul>
+</li>
+</ol>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&计算D_4 = \begin{vmatrix}
+x_1 & b_1 a_2 & b_1 a_3 & b_1 a_4 \\
+b_2 a_1 & x_2 & b_2 a_3 & b_2 a_4 \\
+b_3 a_1 & b_3 a_2 & x_3 & b_3 a_4 \\
+b_4 a_1 & b_4 a_2 & b_4 a_3 & x_4 \\
+\end{vmatrix}, \quad (x_i - a_i b_i \neq 0, i=1,2,3,4).\\
+&D_4 = \begin{vmatrix}
+x_1 & b_1 a_2 & b_1 a_3 & b_1 a_4 \\
+b_2 a_1 & x_2 & b_2 a_3 & b_2 a_4 \\
+b_3 a_1 & b_3 a_2 & x_3 & b_3 a_4 \\
+b_4 a_1 & b_4 a_2 & b_4 a_3 & x_4 \\
+\end{vmatrix}
+= \begin{vmatrix}
+1 & a_1 & a_2 & a_3 & a_4 \\
+0 & x_1 & b_1 a_2 & b_1 a_3 & b_1 a_4 \\
+0 & b_2 a_1 & x_2 & b_2 a_3 & b_2 a_4 \\
+0 & b_3 a_1 & b_3 a_2 & x_3 & b_3 a_4 \\
+0 & b_4 a_1 & b_4 a_2 & b_4 a_3 & x_4 \\
+\end{vmatrix} \\
+&\underset{i=1,2,3,4}{\xlongequal{r_{i+1} - b_i \times r_1}}
+\begin{vmatrix}
+1 & a_1 & a_2 & a_3 & a_4 \\
+-b_1 & x_1 - a_1 b_1 & 0 & 0 & 0 \\
+-b_2 & 0 & x_2 - a_2 b_2 & 0 & 0 \\
+-b_3 & 0 & 0 & x_3 - a_3 b_3 & 0 \\
+-b_4 & 0 & 0 & 0 & x_4 - a_4 b_4 \\
+\end{vmatrix}\\
+&\underset{i=1,2,3,4}{\xlongequal{c_1 + \frac{b_i}{x_i - a_i b_i} \times c_{i+1}}}
+\begin{vmatrix}
+1 + \sum_{i=1}^{4} \frac{a_i b_i}{x_i - a_i b_i} & a_1 & a_2 & a_3 & a_4 \\
+0 & x_1 - a_1 b_1 & 0 & 0 & 0 \\
+0 & 0 & x_2 - a_2 b_2 & 0 & 0 \\
+0 & 0 & 0 & x_3 - a_3 b_3 & 0 \\
+0 & 0 & 0 & 0 & x_4 - a_4 b_4 \\
+\end{vmatrix}\\
+&= \left(1 + \sum_{i=1}^{4} \frac{a_i b_i}{x_i - a_i b_i}\right) (x_1 - a_1 b_1)(x_2 - a_2 b_2)(x_3 - a_3 b_3)(x_4 - a_4 b_4).
+\end{aligned}
+$$</p>
+<h2 id="递推公式法">递推公式法</h2>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&计算三对角行列式D_n = \begin{vmatrix} a & b & 0 & \cdots & 0 & 0 \\ c & a & b & \cdots & 0 & 0 \\ 0 & c & a & \cdots & 0 & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\ 0 & 0 & 0 & \cdots & a & b \\ 0 & 0 & 0 & \cdots & c & a \end{vmatrix} \\
+&解：将行列式按第一列展开，得：\\
+&D_n = aD_{n-1} - c \cdot \begin{vmatrix} b & 0 & \cdots & 0 & 0 \\ c & a & \cdots & 0 & 0 \\ \vdots & \vdots & \ddots & \vdots & \vdots \\ 0 & 0 & \cdots & a & b \\ 0 & 0 & \cdots & c & a \end{vmatrix}
+= aD_{n-1} - bcD_{n-2}, \text{ 且 } D_1 = a,D_2 = a^2 - bc. \\
+&设 D_n - \alpha D_{n-1} = \beta (D_{n-1} - \alpha D_{n-2}), 将它与已知的递推公式比较可得：\\
+&\alpha + \beta = a, \alpha\beta = bc, 即\alpha, \beta是方程x^2 - ax + bc = 0的两个根. 即\alpha, \beta = \dfrac{a \pm \sqrt{a^2 - 4bc}}{2} \\
+&由D_n - \alpha D_{n-1} = \beta (D_{n-1} - \alpha D_{n-2}) = \beta^2 (D_{n-2} - \alpha D_{n-3}) \\
+&= \cdots = \beta^{n-2} (D_2 - \alpha D_1) = \beta^{n-2} (a^2 - bc - \alpha a) = \beta^n \\
+&\implies D_n = \beta^n + \alpha D_{n-1} = \beta^n + \alpha(\beta^{n-1} + \alpha D_{n-2}) = \beta^n + \alpha\beta^{n-1} + \alpha^2 D_{n-2} = \cdots
+= \beta^n + \alpha\beta^{n-1} + \cdots + \alpha^{n-2}\beta^2 + \alpha^{n-1} D_1 \\
+&= \beta^n + \alpha\beta^{n-1} + \cdots + \alpha^{n-2}\beta^2 + \alpha^{n-1} (\alpha + \beta) \\
+&解得D_n = \begin{cases} \dfrac{\alpha^{n+1} - \beta^{n+1}}{\alpha - \beta}, & a^2 \ne 4bc \\ \dfrac{(n+1)a^n}{2^n}, & a^2 = 4bc \end{cases}其中\alpha, \beta 为x^2 - ax + bc = 0的两个根
+\end{aligned}
+$$</p>
+<h2 id="Vandermonde-行列式">Vandermonde 行列式</h2>
+<p>$$
+D_{n}=\begin{vmatrix}1 & 1 & 1 & \dots & 1 \\a_{1} & a_{2} & a_{3} & \dots & a_{n} \\a_{1}^{2} & a_{2}^{2} & a_{3}^{2} & \dots & a_{n}^{2} \\\vdots & \vdots & \vdots & \ddots & \vdots \\a_{1}^{n-1} & a_{2}^{n-1} & a_{3}^{n-1} & \dots & a_{n}^{n-1}\end{vmatrix}=\prod_{1\leq j<i\leq n} (a_{i}-a_{j})
+$$</p>
+<h2 id="Laplace-定理">Laplace 定理</h2>
+<p>定理：设在 $D$ 中取定某 $k(1\leq k\leq n)$ 行（列），得到的所有 $k$ 阶子式为 $M_{1},M_{2},\dots,M_{t}$，对应的代数余子式分别为 $A_{1},A_{2},\dots,A_{t}$ 这里 $t=C_{n}^{k}$，则 $D=M_{1}A_{1}+M_{2}A_{2}+\dots+M_{t}A_{t}$</p>
+<p><strong>eg</strong>:</p>
+<p>如：</p>
+<p>$$
+D = \begin{vmatrix} a_{11} & \cdots & a_{1k} & & & \\ \vdots & & \vdots & & \textbf{0} & \\ a_{k1} & \cdots & a_{kk} & & & \\ c_{11} & \cdots & c_{1k} & b_{11} & \cdots & b_{1n} \\ \vdots & & \vdots & \vdots & & \vdots \\ c_{n1} & \cdots & c_{nk} & b_{n1} & \cdots & b_{nn} \end{vmatrix}
+$$</p>
+<p>.</p>
+<p>在 $D$ 中<strong>取定前 $k$ 行</strong>, 得到的非零子式仅有</p>
+<p>$$
+M = \begin{vmatrix} a_{11} & \cdots & a_{1k} \\ \vdots & & \vdots \\ a_{k1} & \cdots & a_{kk} \end{vmatrix}
+$$</p>
+<p>, 对应的代数余子式为</p>
+<p>$$
+A = (-1)^{(1+2+\cdots+k)+(1+2+\cdots+k)} \begin{vmatrix} b_{11} & \cdots & b_{1n} \\ \vdots & & \vdots \\ b_{n1} & \cdots & b_{nn} \end{vmatrix} = \begin{vmatrix} b_{11} & \cdots & b_{1n} \\ \vdots & & \vdots \\ b_{n1} & \cdots & b_{nn} \end{vmatrix}
+$$</p>
+<p>由 Laplace 定理得</p>
+<p>$$
+D = MA = \begin{vmatrix} a_{11} & \cdots & a_{1k} \\ \vdots & & \vdots \\ a_{k1} & \cdots & a_{kk} \end{vmatrix} \cdot \begin{vmatrix} b_{11} & \cdots & b_{1n} \\ \vdots & & \vdots \\ b_{n1} & \cdots & b_{nn} \end{vmatrix}
+$$</p>
+<h2 id="线性方程组">线性方程组</h2>
+<p>含有 $n$ 个未知数的 $n$ 个方程的线性方程组的形式是：</p>
+<p>$$
+\begin{cases}
+a_{11}x_{1}+a_{12}x_{2}+..+a_{1n}x_{n}=b_{1} \\
+a_{21}x_{1}+a_{22}x_{2}+..+a_{2n}x_{n}=b_{2} \\ 
+\dots\dots\dots\dots\dots\dots\dots\dots\dots\\
+a_{n1}x_{1}+a_{n2}x_{2}+..+a_{nn}x_{n}=b_{n}
+\end{cases}
+$$</p>
+<p>其中 $a_{ij}(i,j=1,2,\dots,n)$ 为系数，$b_{1},b_{2},\dots,b_{n}$ 为常数项<br>
+若常数项 $b_{1},b_{2},\dots,b_{n}$<strong>不全为零</strong>则称方程组为<strong>非齐次线性方程组</strong><br>
+若常数项 $b_{1},b_{2},\dots,b_{n}$<strong>全为零</strong>则称方程组为<strong>齐次线性方程组</strong></p>
+<h3 id="Cramer-法则">Cramer 法则</h3>
+<p>如果 $n$ 元线性方程组</p>
+<p>$$
+\begin{cases}
+a_{11}x_{1}+a_{12}x_{2}+..+a_{1n}x_{n}=b_{1} \\
+a_{21}x_{1}+a_{22}x_{2}+..+a_{2n}x_{n}=b_{2} \\ 
+\dots\dots\dots\dots\dots\dots\dots\dots\dots\\
+a_{n1}x_{1}+a_{n2}x_{2}+..+a_{nn}x_{n}=b_{n}
+\end{cases} \tag{1}
+$$</p>
+<p>的系数行列式不等于零，即</p>
+<p>$$
+D=\begin{vmatrix}a_{11} & a_{12} & \dots & a_{1n} \\a_{21} & a_{22} & \dots & a_{2n} \\\vdots & \vdots & \ddots & \vdots \\a_{n1} & a_{n2} & \dots & a_{nn}\end{vmatrix}\neq 0
+$$</p>
+<p>那么线性方程组(1)有唯一解:$x_{1}=\frac{D_{1}}{D},x_{2}=\frac{D_{2}}{D},\dots,x_{n}=\frac{D_{n}}{D}$<br>
+其中 $D_{j}$ 是将系数行列式 $D$ 中第 $j$ 列的元素用方程组右段端的常数项代替后所得到的 $n$ 阶行列式，即</p>
+<p>$$
+\begin{array}{}
+D=\begin{vmatrix}a_{11} & \dots & a_{1,j} & \dots & a_{1n} \\a_{21} & \dots & a_{2,j} & \dots & a_{2n} \\\vdots &  & \vdots &  & \vdots \\a_{n1} & \dots & a_{n,j} & \dots & a_{nn}\end{vmatrix} \\
+\phantom{a_{11} \dots} \downarrow \\
+D_{j}=\begin{vmatrix}a_{11} & \dots & b_{1} & \dots & a_{1n} \\a_{21} & \dots & b_{2} & \dots & a_{2n} \\\vdots &  & \vdots &  & \vdots \\a_{n1} & \dots & b_{n} & \dots & a_{nn}\end{vmatrix} \\
+\end{array}
+$$</p>
+<p><strong>证明:</strong></p>
+<p>$$
+\begin{aligned}
+&用D中第j列元素的代数余子式A_{1j},A_{2j},\dots,A_{nj}依次乘以方程组(1)中的n个方程得： \\
+&\begin{cases}
+(a_{11}x_{1}+a_{12}x_{2}+..+a_{1n}x_{n})A_{1j}=b_{1}A_{1j} \\
+(a_{21}x_{1}+a_{22}x_{2}+..+a_{2n}x_{n})A_{2j}=b_{2}A_{2j} \\ 
+\dots\dots\dots\dots\dots\dots\dots\dots\dots\\
+(a_{n1}x_{1}+a_{n2}x_{2}+..+a_{nn}x_{n})A_{nj}=b_{n}A_{nj}
+\end{cases}  \\
+&再把上述n个方程相加，得 \\ 
+&\left( \sum_{k=1}^n a_{k1}A_{kj} \right)x_{1}+\dots+\left( \sum_{k=1}^n a_{kj}A_{kj} \right)+\dots+\left( \sum_{k=1}^n a_{kn}A_{kj} \right)= \sum_{k=1}^n b_{k}A_{kj}  \\
+&仅\sum_{k=1}^n a_{kj}A_{kj}\neq 0 \\
+&即有Dx_{j}=D_{j}(j=1,2,..,n) \\
+&当D\neq 0时，方程组有唯一解： \\
+&x_{1}=\frac{D_{1}}{D},x_{2}=\frac{D_{2}}{D},\dots,x_{n}=\frac{D_{n}}{D}
+\end{aligned}
+$$</p>
+<blockquote>
+<p>（1）Cramer 法则仅适用于方程个数与未知量个数相等的情形，且要求系数行列式 $D\neq 0$</p>
+<p>（2）Cramer 法则的理论意义是：给出了解与系数的解析关系</p>
+<p>（3）用 Crammer 法则求解线性方程组计算量大，不可取</p>
+<p>（4）Cramer 法则的逆否命题为：如果 n 元线性方程组（1）无解或有解但不唯一，则系数行列式 $D$ 必为 $0$</p>
+</blockquote>
+<h3 id="齐次线性方程组的解">齐次线性方程组的解</h3>
+<p>对于齐次线性方程组</p>
+<p>$$
+\begin{cases}
+a_{11}x_{1}+a_{12}x_{2}+..+a_{1n}x_{n}=0 \\
+a_{21}x_{1}+a_{22}x_{2}+..+a_{2n}x_{n}=0 \\ 
+\dots\dots\dots\dots\dots\dots\dots\dots\dots\\
+a_{n1}x_{1}+a_{n2}x_{2}+..+a_{nn}x_{n}=0
+\end{cases}\tag{2}
+$$</p>
+<p>显然 $x_{1}=x_{2}=\dots=x_{n}=0$ 一定是(2)的解，称之为齐次线性方程组的<strong>零解</strong>，若有一组不全为零的数是(2)的解，则称其为齐次线性方程组的<strong>非零解</strong></p>
+<p>Cramer 法则的结论也适用于齐次线性方程组，且由 $D_{j}=0$ 可知当 $D\neq 0$ 时，齐次线性方程组只有零解，即</p>
+<ol>
+<li>如果齐次线性方程组（2）的系数行列式 $D \neq 0$，则方程组只有零解</li>
+<li>若齐次线性方程组（2）有非零解则其系数行列式 $D=0$</li>
+</ol>
+<p><strong>齐次线性方程组（2）有非零解 $\Leftrightarrow$ 它的系数行列式 $D=0$</strong></p>
+<h1>行列式为零的判定条件总结</h1>
+<p>设 $A$ 为 $n \times n$ 方阵</p>
+<h2 id="一、等价充要条件（核心）">一、等价充要条件（核心）</h2>
+<ul>
+<li>$A$ <strong>不可逆</strong>（奇异矩阵）</li>
+<li>$\operatorname{rank}(A) < n$（不满秩）</li>
+<li>$A$ 的<strong>行向量组线性相关</strong></li>
+<li>$A$ 的<strong>列向量组线性相关</strong></li>
+<li>齐次线性方程组 $A\mathbf{x} = \mathbf{0}$ 有<strong>非零解</strong></li>
+<li>$0$ 是 $A$ 的一个<strong>特征值</strong></li>
+<li>$A$ 的行（或列）空间维数小于 $n$</li>
+</ul>
+<h2 id="二、常见充分情形">二、常见充分情形</h2>
+<ol>
+<li>含零行或零列</li>
+</ol>
+<p>$$
+\begin{pmatrix}
+1 & 2 & 3 \\
+0 & 0 & 0 \\
+4 & 5 & 6
+\end{pmatrix}
+\quad
+\begin{pmatrix}
+1 & 0 & 2 \\
+3 & 0 & 4 \\
+5 & 0 & 6
+\end{pmatrix}
+$$</p>
+<ol start="2">
+<li>两行（或两列）相同</li>
+</ol>
+<p>$$
+\begin{pmatrix}
+1 & 2 & 3 \\
+1 & 2 & 3 \\
+4 & 5 & 6
+\end{pmatrix}
+\quad
+\begin{pmatrix}
+1 & 2 & 2 \\
+3 & 4 & 4 \\
+5 & 6 & 6
+\end{pmatrix}
+$$</p>
+<ol start="3">
+<li>两行（或两列）成比例</li>
+</ol>
+<p>$$
+\begin{pmatrix}
+2 & 4 & 6 \\
+1 & 2 & 3 \\
+0 & 1 & 1
+\end{pmatrix}
+\quad
+\begin{pmatrix}
+1 & 3 & 2 \\
+2 & 6 & 4 \\
+0 & 1 & 1
+\end{pmatrix}
+$$</p>
+<ol start="4">
+<li>一行（列）为其他行（列）的线性组合</li>
+</ol>
+<p>$$
+\begin{pmatrix}
+1 & 2 & 3 \\
+0 & 1 & 1 \\
+1 & 3 & 4
+\end{pmatrix}
+\quad (\text{第3行} = \text{第1行} + \text{第2行})
+$$</p>
+<p>$$
+\begin{pmatrix}
+1 & 0 & 1 \\
+2 & 1 & 3 \\
+3 & 1 & 4
+\end{pmatrix}
+\quad (\text{第3列} = \text{第1列} + \text{第2列})
+$$</p>
+<ol start="5">
+<li>秩小于阶数</li>
+</ol>
+<p>$$
+\begin{pmatrix}
+1 & 2 & 3 \\
+2 & 4 & 6 \\
+3 & 6 & 9
+\end{pmatrix}
+\quad (\operatorname{rank} = 1 < 3)
+$$</p>
+<ol start="6">
+<li>特征值含 $0$</li>
+</ol>
+<p>$$
+\begin{pmatrix}
+0 & 1 \\
+0 & 2
+\end{pmatrix}
+\quad (\text{特征值 } 0, 2)
+$$</p>
+<ol start="7">
+<li>幂零矩阵</li>
+</ol>
+<p>$$
+\begin{pmatrix}
+0 & 1 \\
+0 & 0
+\end{pmatrix}
+\quad \left( A^2 = 0 \right)
+$$</p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/">向量</a>
+    
+    
+      <a class="next" href="/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/">n元排列</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">转置行列式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">性质</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8%E4%B8%80%EF%BC%9A%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%8E%E5%AE%83%E7%9A%84%E8%BD%AC%E7%BD%AE%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%80%BC%E7%9B%B8%E7%AD%89%EF%BC%8C%E5%8D%B3-%EE%80%81MIcuidH-TSIGk7KnXRzH7iFROzQX76%EE%80%82"><span class="toc-text">性质一：行列式与它的转置行列式的值相等，即 $D&#x3D;D^{T}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8%E4%BA%8C%EF%BC%9A%E4%BA%92%E6%8D%A2%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E4%BB%BB%E6%84%8F%E4%B8%A4%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E7%9A%84%E4%BD%8D%E7%BD%AE%EF%BC%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E5%8F%98%E5%8F%B7"><span class="toc-text">性质二：互换行列式中任意两行（列）的位置，行列式变号</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%E4%B8%80%EF%BC%9A%E8%8B%A5%E8%A1%8C%E5%88%97%E5%BC%8F-%EE%80%81MIcuidH-TSIGk7KnXRzH7iFROzQX77%EE%80%82-%E6%9C%89%E4%B8%A4%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E5%AF%B9%E5%BA%94%E5%85%83%E7%B4%A0%E7%9B%B8%E5%90%8C%EF%BC%8C%E5%88%99-%EE%80%81MIcuidH-TSIGk7KnXRzH7iFROzQX78%EE%80%82"><span class="toc-text">推论一：若行列式 $D$ 有两行（列）对应元素相同，则 $D&#x3D;0$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8%E4%B8%89%EF%BC%9A-%E7%94%A8%E6%95%B0-k-%E4%B9%98%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E6%9F%90%E4%B8%80%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E7%9A%84%E5%90%84%E5%85%83%E7%B4%A0%EF%BC%8C%E7%AD%89%E4%BA%8E%E7%94%A8%E6%95%B0-k-%E4%B9%98%E6%AD%A4%E8%A1%8C%E5%88%97"><span class="toc-text">性质三： 用数 k 乘行列式的某一行（列）的各元素，等于用数 k 乘此行列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%E4%B8%80%EF%BC%9A%E8%A1%8C%E5%88%97%E5%BC%8F%E6%9F%90%E4%B8%80%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E7%9A%84%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9A%84%E5%85%AC%E5%9B%A0%E5%AD%90%E5%8F%AF%E4%BB%A5%E6%8F%90%E5%88%B0%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%A4%96%E9%9D%A2"><span class="toc-text">推论一：行列式某一行（列）的所有元素的公因子可以提到行列式的外面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%E4%BA%8C%EF%BC%9A%E8%8B%A5%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E6%9C%89%E4%B8%A4%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%83%E7%B4%A0%E6%88%90%E6%AF%94%E4%BE%8B%EF%BC%8C%E5%88%99%E6%AD%A4%E8%A1%8C%E5%88%97%E5%BC%8F%E7%AD%89%E4%BA%8E-0"><span class="toc-text">推论二：若行列式中有两行（列）的对应元素成比例，则此行列式等于 0</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8%E5%9B%9B%EF%BC%9A%E8%8B%A5%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E6%9F%90%E4%B8%80%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E7%9A%84%E5%85%83%E7%B4%A0%E9%83%BD%E6%98%AF%E4%B8%A4%E4%B8%AA%E6%95%B0%E4%B9%8B%E5%92%8C%EF%BC%8C%E5%88%99%E5%AE%83%E7%AD%89%E4%BA%8E%E9%99%A4%E6%94%B9%E8%A1%8C%E5%A4%96%E5%85%B6%E4%BD%99%E5%85%83%E7%B4%A0%E4%B8%8D%E5%8F%98%E7%9A%84%E4%B8%A4%E4%B8%AA%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B9%8B%E5%92%8C"><span class="toc-text">性质四：若行列式中某一行（列）的元素都是两个数之和，则它等于除改行外其余元素不变的两个行列式之和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8%E4%BA%94%EF%BC%9A%E6%8A%8A%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E6%9F%90%E4%B8%80%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89k-%E5%80%8D%E5%8A%A0%E5%88%B0%E5%8F%A6%E4%B8%80%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%83%E7%B4%A0%E4%B8%8A%EF%BC%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%8D%E5%8F%98"><span class="toc-text">性质五：把行列式中某一行（列）k 倍加到另一行（列）的对应元素上，行列式不变</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E8%A7%92%E5%BD%A2%E8%A1%8C%E5%88%97%E5%BC%8F%E2%80%94%E2%80%94%E4%B8%89%E8%A7%92%E5%8C%96%E6%B3%95"><span class="toc-text">三角形行列式——三角化法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%B1%95%E5%BC%80%E2%80%94%E2%80%94%E9%99%8D%E9%98%B6%E6%B3%95"><span class="toc-text">行列式的展开——降阶法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%99%E5%AD%90%E5%BC%8F%E5%92%8C%E4%BB%A3%E6%95%B0%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">余子式和代数余子式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8C%89%E8%A1%8C%EF%BC%88%E5%88%97%EF%BC%89%E5%B1%95%E5%BC%80%E5%AE%9A%E7%90%86"><span class="toc-text">行列式按行（列）展开定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%8D%E9%98%B6%E6%B3%95"><span class="toc-text">降阶法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E8%BE%B9%E6%B3%95"><span class="toc-text">加边法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E6%8E%A8%E5%85%AC%E5%BC%8F%E6%B3%95"><span class="toc-text">递推公式法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vandermonde-%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">Vandermonde 行列式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Laplace-%E5%AE%9A%E7%90%86"><span class="toc-text">Laplace 定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="toc-text">线性方程组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cramer-%E6%B3%95%E5%88%99"><span class="toc-text">Cramer 法则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E8%A7%A3"><span class="toc-text">齐次线性方程组的解</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">行列式为零的判定条件总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AD%89%E4%BB%B7%E5%85%85%E8%A6%81%E6%9D%A1%E4%BB%B6%EF%BC%88%E6%A0%B8%E5%BF%83%EF%BC%89"><span class="toc-text">一、等价充要条件（核心）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B8%B8%E8%A7%81%E5%85%85%E5%88%86%E6%83%85%E5%BD%A2"><span class="toc-text">二、常见充分情形</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

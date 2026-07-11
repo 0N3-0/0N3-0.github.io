@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>微分方程 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="定义 含有位置函数的导数或微分的等式称为微分方程，未知函数是一元函数的微分方程称为常微分方程 微分方程中未知函数的导数的最高阶数，称为微分方程的阶 一般的 $n$ 阶微分方程可表示为 $F(x,y,y&#39;,\dots,y^{(n)})&#x3D;0$，其中 $y^{(n)}$ 必须出现，其他项可以不出现 关于未知函数及其各阶导数均为一次的方程称为线性微分方程，$n$ 阶微分方程的一般形式为 $\frac{d^">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微分方程">
+<meta property="og:url" content="http://0n3-0.github.io/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="定义 含有位置函数的导数或微分的等式称为微分方程，未知函数是一元函数的微分方程称为常微分方程 微分方程中未知函数的导数的最高阶数，称为微分方程的阶 一般的 $n$ 阶微分方程可表示为 $F(x,y,y&#39;,\dots,y^{(n)})&#x3D;0$，其中 $y^{(n)}$ 必须出现，其他项可以不出现 关于未知函数及其各阶导数均为一次的方程称为线性微分方程，$n$ 阶微分方程的一般形式为 $\frac{d^">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-01-02T14:51:16.000Z">
+<meta property="article:modified_time" content="2026-07-11T14:03:46.526Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="高数">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '高等数学/微分方程';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">微分方程</h1>
+      <div class="post-meta">
+        <span>2026-01-02</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E9%AB%98%E6%95%B0/">高数</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>定义</h1>
+<p>含有位置函数的导数或微分的等式称为<strong>微分方程</strong>，未知函数是一元函数的微分方程称为<strong>常微分方程</strong></p>
+<p>微分方程中未知函数的导数的最高阶数，称为微分方程的<strong>阶</strong></p>
+<p>一般的 $n$ 阶微分方程可表示为 $F(x,y,y',\dots,y^{(n)})=0$，其中 $y^{(n)}$ 必须出现，其他项可以不出现</p>
+<p>关于未知函数及其各阶导数均为一次的方程称为<strong>线性微分方程</strong>，$n$ 阶微分方程的一般形式为 $\frac{d^ny}{dx^n}+a_{n-1}(x)\frac{d^{n-1}y}{dx^{n-1}}+\cdots+a_{1}(x)\frac{dy}{dx}+a_{0}y=f(x)$，其中 $a_{i}(i=0,1\dots,n-1)$，$f(x)$ 为已知函数</p>
+<p>若函数 $y=\varphi(x)$ 在区间 $I$ 上有 $n$ 阶导数，且满足 $F[x,\varphi(x),\varphi'(x),\dots,\varphi^{(n)}(x)]\equiv 0$ 则函数 $y=\varphi(x)$ 就叫作微分方程 $F(x,y,y',\dots,y^{(n)})=0$ 在区间 $I$ 上的<strong>解</strong></p>
+<p>若方程的解中含有与方程阶数相同个数的相互独立的任意常数，则称这样的解为方程的<strong>通解</strong>；确定微分方程通解中任意常数的值的条件称为<strong>初值条件</strong>或<strong>定解条件</strong>；方程通解中任意常数被确定后的适合定解条件的解称为微分方程的<strong>特解</strong></p>
+<p>例如 $y=x^2+2$ 是 $y'=2x$ 的解，$y=x^2+C$ 则是其通解，而 $y=x^2+1$ 是满足 $y(0)=1$ 的特解</p>
+<p>对于 $n$ 阶微分方程 $F(x,y,y',\dots,y^{(n)})=0$,其通解为带有 $n$ 个相互独立的任意常数的函数 $y=y(x,C_{1},C_{2},\dots,C_{n})$，若给出如下初值条件 $y(x_{0})=y_{0},y'(x_{0})=y_{1},\dots,y^{(n-1)}(x_{0})=y_{n-1}$ 就能确定任意常数 $C_{1},C_{2},\dots,C_{n}$ 的值而得到一个特解。求微分方程 $F(x,y,y',\dots,y^{(n)})=0$ 满足上述初值条件的特解的问题，称为<strong>初值问题</strong>或<strong>柯西问题</strong>记作 $$\begin{cases}F(x,y,y',\dots,y^{(n)})=0\\y(x_{0})=y_{0},y'(x_{0})=y_{1},\dots,y^{(n-1)}(x_{0})=y_{n-1}\end{cases}$$<br>
+特别地，一阶微分方程的初值问题为</p>
+<p>$$
+\begin{cases}F(x,y,y')=0\\y(x_{0})=y_{0}\end{cases}
+$$</p>
+<p>还有其他的一些初值条件，例如对于二阶常微分方程 $y''=f(x,y,y')$ 的初值条件为 $y(a)=y_{1},y(b)=y_{2}$,称为<strong>边值条件</strong></p>
+<p>常微分方程的解的图形是一条曲线，称为微分方程的<strong>积分曲线</strong>。初值问题</p>
+<p>$$
+\begin{cases}F(x,y,y')=0\\y(x_{0})=y_{0}\end{cases}
+$$</p>
+<p>的几何意义是求微分方程通过点 $(x_{0},y_{0})$ 的那条积分曲线</p>
+<h1>一阶微分方程</h1>
+<h2 id="可分离变量的微分方程">可分离变量的微分方程</h2>
+<p>若一阶微分方程可写为 $\frac{dy}{dx}=g(x)h(x)$ 或 $M(y)dy=N(x)dx$，则称它为<strong>可分离变量的方程</strong>，对已分离变量的方程 $M(y)dy=N(x)dx$，则有 $\int M(y) \, dy =\int N(x) \, dx$</p>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+x\sqrt[]{ 1+y^2 }dx+y\sqrt[]{ 1+x^2 }dy&=0 \\
+\frac{xdx}{\sqrt[]{ 1+x^2 }}+ \frac{ydy}{\sqrt[]{ 1+y^2 }}&=0 \\
+\int \frac{x}{\sqrt[]{ 1+x^2 }} \, dx +\int \frac{y}{\sqrt[]{ 1+y^2 }} \, dy&=0 \\
+\sqrt[]{ 1+y^2 }+\sqrt[]{ 1+x^2 }&=C
+\end{aligned}
+$$</p>
+<h2 id="可化为可分离变量型的方程">可化为可分离变量型的方程</h2>
+<p>形如 $y'=\varphi\left( \frac{y}{x} \right)$ 的方程，称为<strong>齐次型方程</strong>，例如 $\frac{dy}{dx}=\frac{x-y}{x+y},\frac{dy}{dx}=\frac{xy}{x^2+y^2}$，利用代换 $u=\frac{y}{x}$，可以将这类方程化为可分离变量的方程</p>
+<p>令 $y=ux$，则 $\frac{dy}{dx}=u+x\frac{du}{dx}$，带入原方程得 $u+x\frac{du}{dx}=\varphi(u)$，即可以可分离变量的微分方程的方式求解</p>
+<h2 id="一阶线性微分方程">一阶线性微分方程</h2>
+<p>形如 $\frac{dy}{dx}+P(x)y=Q(x)$，若 $Q(x)\equiv 0$，则称为<strong>一阶齐次线性微分方程</strong>；若 $Q(x)\not\equiv 0$，则称为<strong>一阶非齐次线性微分方程</strong></p>
+<p>为求一阶非齐次线性微分方程的通解，先求他所对应的齐次线性方程 $\frac{dy}{dx}+P(x)y=0$ 的通解，这是一个可分离变量的方程，分离变量得 $\frac{dy}{y}=-P(x)dx$，积分得 $\ln|y|=-\int P(x) \, dx +\ln|C|$（用 $\ln|C|$ 而不是 $C$ 是为了后续的计算更方便），即 $y=Ce^{-\int P(x) \, dx}$</p>
+<p>接着使用<strong>常数变易法</strong>来求解非齐次线性方程的解。</p>
+<p>将 $C$ 变成一个待定函数 $C(x)$。</p>
+<p>将 $y=C(x)e^{-\int P(x) \, dx}$ 带入原方程中，得到</p>
+<p>$$
+C'(x)e^{-\int P(x) \, dx}-P(x)C(x)e^{-\int P(x) \, dx}+P(x)C(x)e^{-\int P(x) \, dx}=Q(x)
+$$</p>
+<p>即</p>
+<p>$$
+C'(x)e^{-\int P(x) \, dx}=Q(x)
+$$</p>
+<p>故</p>
+<p>$$
+C'(x)=Q(x)e^{\int P(x) \, dx}
+$$</p>
+<p>积分得</p>
+<p>$$
+C(x)=\int Q(x)e^{\int P(x) \, dx} \, dx + C
+$$</p>
+<p>再将 $C(x)$ 带回，得到</p>
+<p>$$
+y=Ce^{-\int P(x) \, dx}+e^{\int P(x) \, dx}\int Q(x)e^{\int P(x) \, dx} \, dx
+$$</p>
+<p>若令 $C=0$ 则可得到一阶非齐次方程的一个特解 $y=e^{\int P(x) \, dx}\int Q(x)e^{\int P(x) \, dx} \, dx$，而一阶齐次线性方程的通解为 $y=Ce^{-\int P(x) \, dx}$，由此可看出，<strong>一阶非齐次方程的通解为其的一个特解与其对应的齐次线性方程的通解之和</strong></p>
+<h2 id="伯努利方程">伯努利方程</h2>
+<p>形如</p>
+<p>$$
+\frac{dy}{dx}+P(x)y=Q(x)y^\alpha (\alpha\neq 0,1)
+$$</p>
+<p>的微分方程，称为<strong>伯努利(Bernouli)方程</strong>，他是一阶非线性微分方程，但可以化为一阶线性微分方程，</p>
+<p>在两端同时乘 $y^{-\alpha}$，得到</p>
+<p>$$
+y^{-\alpha}\frac{dy}{dx}+y^{1-\alpha}P(x)=Q(x)
+$$</p>
+<p>令 $z=y^{1-\alpha}$，则 $\frac{dz}{dx}=(1-\alpha)y^{-\alpha}\frac{dy}{dx}$，带入得</p>
+<p>$$
+\frac{dz}{dx}+(1-\alpha)P(x)z=(1-\alpha)Q(x)
+$$</p>
+<p>求出其通解后将 $z=y^{1-\alpha}$ 带回即可得到原方程的通解</p>
+<h1>高阶微分方程</h1>
+<h2 id="$y^{(n)}=f(x)$">$y^{(n)}=f(x)$</h2>
+<p>对微分方程 $y^{(n)}=f(x)$，只需对两边进行 $n$ 次积分，即可得到 $y^{(n)}=f(x)$ 的通解</p>
+<h2 id="$y'' = f(x,y')$">$y'' = f(x,y')$</h2>
+<p>微分方程 $y''=f(x,y')$ 的特点是不含未知函数 $y$。令 $y'=p(x),y''(x)=p'(x)$，则方程变成 $p'=f(x,p)$，即以 $p$ 为未知函数的一阶微分方程，若能求出其通解 $y'=p=\varphi(x,C_{1})$，则再对两边积分可得原方程通解 $y=\int \varphi(x,C_{1}) \, dx +C_{2}$</p>
+<h2 id="其他情形">其他情形</h2>
+<p>对特殊的二阶微分方程，可根据其形式采取一些特殊的简便解法，例如：对方程 $y''=f(y)$，两边同时乘 $2y'$，有 $2y'y''=2y'f(y)$，即 $\frac{d}{dx}(y'^2)=2f(y)\cdot \frac{dy}{dx}$，可得 $d(y'^2)=2f(y)dy$，故 $y'^2=2\int f(y) \, dy + C_{1}$，再两边积分即可得到通解</p>
+<h1>线性微分方程解的结构</h1>
+<p>$n$ 阶线性方程的一般形式为 $y^{(n)}+p_{1}(x)y^{(n-1)}+\cdots+p_{n-1}y'+p_{n}(x)y=f(x)$，其中 $p_{1}(x)、\dots、p_{n}(x)、f(x)$ 都是定义在某个区间 $I$ 上的已知连续函数，若 $f(x)\equiv 0$，则称方程为齐次线性微分方程，若 $f(x)\not\equiv 0$，则称为非齐次微分方程</p>
+<p>设 $y_{i}(x),i=1,\dots,n$ 为定义在区间 $I$ 上的 $n$ 个函数，若存在 $n$ 个<strong>不全等于零</strong>的常数 $k_{i},i=1,\dots,n$ 使得</p>
+<p>$$
+\sum^n_{i=1} k_{i}y_{i}(x)=0,\forall x \in I
+$$</p>
+<p>则称 $y_{i}(x),i=1,\dots,n$ 在区间 $I$ 上<strong>线性相关</strong>，否则称其在区间 $I$ 上<strong>线性无关</strong></p>
+<h2 id="二阶齐次线性微分方程的结构">二阶齐次线性微分方程的结构</h2>
+<p>二阶齐次线性微分方程的一般形式为 $y''+p(x)y'+q(x)y=0$，其中 $p(x),q(x)$ 都是区间 $I$ 上的已知连续函数</p>
+<h3 id="性质">性质</h3>
+<ol>
+<li><strong>叠加原理</strong>：若函数 $y_{1}(x),y_{2}(x)$ 是二阶齐次线性微分方程的两个解则函数 $y=C_{1}y_{1}(x)+C_{2}y_{2}(x)$ 也是方程的解，其中 $C_{1},C_{2}$ 为任意常数</li>
+<li>若 $y_{1}(x),y_{2}(x)$ 时二阶齐次线性微分方程的两个线性无关解，则方程的通解为 $y=C_{1}y_{1}(x)+C_{2}y_{2}(x)$，其中 $C_{1},C_{2}$ 为任意常数</li>
+</ol>
+<h2 id="二阶非齐次线性微分方程的结构">二阶非齐次线性微分方程的结构</h2>
+<p>二阶非齐次线性微分方程的一般形式为 $y''+p(x)y'+q(x)y=f(x)$，其中 $p(x),q(x)$ 都是区间 $I$ 上的已知连续函数</p>
+<h3 id="性质-2">性质</h3>
+<ol>
+<li>二阶非齐次线性微分方程的通解为它所对应的齐次线性微分方程的通解与它本身的一个特解之和</li>
+<li>设二阶非齐次线性微分方程的右端项 $f(x)$ 是几个函数之和，如 $y''+p(x)y'+q(x)y=f_{1}(x)+f_{2}(x)$，而 $y_{1}^*(x)$ 和 $y_{2}^*(x)$ 分别是方程 $y''+p(x)y'+q(x)y=f_{1}(x)$ 和 $y''+p(x)y'+q(x)y=f_{2}(x)$ 的特解，则 $y^*=y_{1}^*(x)+y_{2}^*(x)$ 是原方程的特解</li>
+</ol>
+<h2 id="解线性微分方程的常数变易法">解线性微分方程的常数变易法</h2>
+<h3 id="已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解-$y_{1}(x)$">已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解 $y_{1}(x)$</h3>
+<p>令 $y(x)=y_{1}(x)u(x)$，则有</p>
+<p>$$
+y_{1}u''+(2y_{1}'+py_{1})u'+(y_{1}''+py_{1}'+qy_{1})u=f
+$$</p>
+<p>因为 $y_{1}''+py_{1}'+qy_{1}\equiv 0$，得</p>
+<p>$$
+y_{1}u''+(2y_{1}'+py_{1})u'=f
+$$</p>
+<p>令 $u'=v$，则有</p>
+<p>$$
+v'+\left( \frac{2y_{1}'}{y_{1}}+p \right)v=\frac{f}{y_{1}}
+$$</p>
+<p>按照一阶线性微分方程的解法，可得通解为 $v=C_{1}V(x)+v^*(x)$。</p>
+<p>对左右两端积分得 $u=C_{1}U(x)y_{1}(x)+C_{2}+u^*(x)$。</p>
+<p>于是可得二阶非齐次线性方程的通解为</p>
+<p>$$
+y=C_{1}U(x)y_{1}(x)+C_{2}y_{1}(x)+u^*(x)y_{1}(x)
+$$</p>
+<h1>常系数线性微分方程</h1>
+<h2 id="二阶常系数齐次线性微分方程">二阶常系数齐次线性微分方程</h2>
+<p>形如 $y''+py'+qy=0$ 即二阶常系数齐次线性微分方程，由二阶齐次线性微分方程的性质可知：若 $y_{1}(x),y_{2}(x)$ 时二阶齐次线性微分方程的两个线性无关解，则方程的通解为 $y=C_{1}y_{1}(x)+C_{2}y_{2}(x)$，其中 $C_{1},C_{2}$ 为任意常数。即只需找出二阶常系数齐次线性微分方程的两个线性无关解即可求出其通解</p>
+<p>根据该方程的特点（常系数、齐次、线性）和指数函数 $e^{\lambda x}$ 的导数仍是指数函数，将指数函数 $e^{\lambda x}$ 代入上述方程试算，即 $(e^{\lambda x})''+p(e^{\lambda x})'+q(e^{\lambda x})=(\lambda^2+p\lambda+q)e^{\lambda x}=0$，可见当且仅当 $\lambda$ 是代数方程 $\lambda^2+p\lambda+q$ 的根时，函数 $y=e^{\lambda x}$ 是方程 $y''+py'+qy=0$ 的解。</p>
+<p>这个代数方程的系数正好是微分方程 $y''+py'+qy=0$ 的系数。因此，就称它为常系数齐次线性微分方程 $y''+py'+qy=0$ 的<strong>特征方程</strong>，关于这个特征方程的根（称为<strong>特征根</strong>），只可能是下面的三种情形之一：</p>
+<ol>
+<li>两个不同的实根 $\lambda_{1},\lambda_{2}$</li>
+<li>二重根 $\lambda$</li>
+<li>复数根 $\alpha\pm i\beta$</li>
+</ol>
+<h3 id="两个不同实根">两个不同实根</h3>
+<p>若有特征方程有两个不同实根 $\lambda_{1},\lambda_{2}$，则 $y_{1}=e^{\lambda_{1}x},y_{2}=e^{\lambda_{2}x}$ 都是原方程的解，而且 $\{e^{\lambda_{1}x},e^{\lambda_{2}x}\}$ 线性无关，因此原方程通解为 $y=C_{1}e^{\lambda_{1}x}+C_{2}e^{\lambda_{2}x}$</p>
+<h3 id="二重根">二重根</h3>
+<p>若特征方程有二重根 $\lambda=-\frac{p}{2}$，此时 $y_{1}=e^{\lambda x}$ 是原方程的一个解，为得到另一个与 $y_{1}$ 线性无关的解，可采用常数变易法，设 $y_{2}=u(x)e^{\lambda x}$，代入原方程并化简、整理，得 $u''+(2\lambda+p)u'+(\lambda^2+p\lambda+q)u=0$，由于 $\lambda^2+p\lambda+q=0,2\lambda+p=0$，可得 $u''=0$，为了计算方便可取 $u(x)=x$，即 $y_{2}=xe^{\lambda x}$ 也是原方程的解，显然 $y_{1},y_{2}$ 无关，故原方程通解为 $y=C_{1}e^{\lambda x}+C_{2}xe^{\lambda x}$</p>
+<h3 id="复数根">复数根</h3>
+<p>若特征方程有复数根 $\lambda=\alpha\pm i\beta$，则 $y_{1,2}=e^{\alpha x\pm i\beta x}=e^{\alpha x}\cos \beta x\pm ie^{\alpha x}\sin \beta x(欧拉公式)$，由叠加原理可知 $\overline{y_{1}}=\frac{1}{2}(y_{1}+y_{2})=e^{\alpha x}\cos\beta x,\overline{y_{2}}=\frac{1}{2}(y_{1}-y_{2})=e^{\alpha x}\sin\beta x$ 也是原方程的解，且 $\frac{\overline{y_{2}}}{\overline{y_{1}}}=\tan\beta x$ 不恒等于常数，故原方程通解为 $y=C_{1}e^{\alpha x}\cos\beta x+C_{2}e^{\alpha x}\sin\beta x$</p>
+<p><strong>eg：</strong><br>
+<strong>(1)</strong> 齐次方程 $y'' - 2y' - 3y = 0$ 的特征方程为 $\lambda^2 - 2\lambda - 3 = 0$，它有两个不相等的实根 $\lambda_1 = -1$，$\lambda_2 = 3$，故原方程的通解为</p>
+<p>$$
+y = C_1 e^{-x} + C_2 e^{3x}.
+$$</p>
+<p><strong>(2)</strong> 齐次方程 $y'' - 3y' = 0$ 的特征方程为 $\lambda^2 - 3\lambda = 0$，它有两个不相等的实根 $\lambda_1 = 0$，$\lambda_2 = 3$，故原方程的通解为</p>
+<p>$$
+y = C_1 + C_2 e^{3x}.
+$$</p>
+<p><strong>(3)</strong> 齐次方程 $y'' + 4y' + 4y = 0$ 的特征方程为 $\lambda^2 + 4\lambda + 4 = 0$，它有二重根 $\lambda = -2$，故原方程的通解为</p>
+<p>$$
+y = C_1 e^{-2x} + C_2 x e^{-2x}.
+$$</p>
+<p><strong>(4)</strong> 齐次方程 $y'' + 4y' + 29y = 0$ 的特征方程为 $\lambda^2 + 4\lambda + 29 = 0$，它有复数根 $\lambda = -2 \pm 5i$，故原方程的通解为</p>
+<p>$$
+y = (C_1 \cos 5x + C_2 \sin 5x) e^{-2x}.
+$$</p>
+<p>二阶常系数齐次线性微分方程的上述结论可以推广到一般 $n$ 阶常系数齐次线性微分方程</p>
+<p>$$
+y^{(n)} + a_1 y^{(n-1)} + \cdots + a_{n-1} y' + a_n y = 0, \tag{1}
+$$</p>
+<p>其中 $a_1, a_2, \cdots, a_n$ 为实常数，与之对应的特征方程为</p>
+<p>$$
+\lambda^n + a_1 \lambda^{n-1} + \cdots + a_{n-1} \lambda + a_n = 0. \tag{2}
+$$</p>
+<p>根据特征方程模块 $(1)$ 的根的不同情况，可得到微分方程 $(2)$ 的相对应的解，现将其列表如下：</p>
+<table>
+<thead>
+<tr>
+<th>特征方程的根</th>
+<th>微分方程相应的线性无关的解项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单根</td>
+<td>实根 $\lambda$：给出一项：$e^{\lambda x}$</td>
+</tr>
+<tr>
+<td></td>
+<td>复根 $\alpha \pm i\beta$：给出两项：$e^{\alpha x} \cos \beta x$，$e^{\alpha x} \sin \beta x$</td>
+</tr>
+<tr>
+<td>$k$ 重根 ($k>1$)</td>
+<td>实根 $\lambda$：给出 $k$ 项：$e^{\lambda x}, x e^{\lambda x}, \cdots, x^{k-1} e^{\lambda x}$</td>
+</tr>
+<tr>
+<td></td>
+<td>复根 $\alpha \pm i\beta$：给出 $2k$ 项：<br>$e^{\alpha x} \cos \beta x$, $e^{\alpha x} \sin \beta x$,<br>$x e^{\alpha x} \cos \beta x$, $x e^{\alpha x} \sin \beta x$, $\cdots$,<br>$x^{k-1} e^{\alpha x} \cos \beta x$, $x^{k-1} e^{\alpha x} \sin \beta x$（分别取实部与虚部形成）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二阶常系数非齐次线性微分方程">二阶常系数非齐次线性微分方程</h2>
+<p>形如 $y''+py'+qy=f(x)$ 即二阶常系数非齐次线性微分方程</p>
+<p>由线性微分方程的解的结构可知，只需求出非齐次线性微分方程的一个特解与对应齐次线性微分方程的通解，即可得到非齐次线性微分方程的通解。上一段已经讨论过如何求 $y''+py'+qy=f(x)$ 对应齐次微分方程的通解，故现在的关键问题在于如何求 $y''+py'+qy=f(x)$ 的一个特解</p>
+<p>由于 $y''+py'+qy=f(x)$ 的特解形式与 $f(x)$ 密切相关，没有对一般形式的 $f(x)$ 求特解的通用公式，故仅针对 $f(x)$ 的两种常见形式讨论求特解的方式</p>
+<h3 id="情形一">情形一</h3>
+<p>$f(x)=P_{m}(x)e^{\lambda^* x},P_{m}(x)=a_{0}x^m+a_{1}x^{m-1}+\cdots +a_{m-1}x+a_{m}$，其中 $\lambda$ 是常数</p>
+<p>由于多项式与指数函数的乘积的导数仍是多项式与指数函数的乘积（只是多项式发生变化），故在此情形下可以假设方程 $y''+py'+qy=f(x)$ 有特解 $y^* = Q(x) e^{\lambda x}$，其中 $Q(x)$ 是一多项式。有<br>
+$(y^*)' = e^{\lambda^* x} \left[ \lambda^* Q(x) + Q'(x) \right], \quad(y^*)'' = e^{\lambda^* x} \left[ {\lambda^*}^2 Q(x) + 2\lambda^* Q'(x) + Q''(x) \right]$<br>
+代入方程，消去 $e^{\lambda^* x}$，得 $Q''(x) + (2\lambda^* + p) Q'(x) + ({\lambda^*}^2 + p\lambda^* + q) Q(x) = P_m(x)$<br>
+为使此式成立，其左端必须为 $m$ 次多项式，且它的各次幂的系数应等于 $P_m(x)$ 中相应次幂的系数。由于 $m$ 次多项式中含有 $m+1$ 个系数（包括常数项），故由此式可以建立多项式系数间的 $m+1$ 个等式。在一定范围内，只要 $Q(x)$ 中含有 $m+1$ 个待定系数，就可以通过此式建立一个含 $m+1$ 个方程的代数方程组，并由此唯一地确定出各系数的值，从而得到方程 $y''+py'+qy=f(x)$ 的一个特解，这种求解方法称为待定系数法。下面分三种情形讨论 $Q(x)$ 的形式：</p>
+<ol>
+<li>
+<p>若 $\lambda^*$ 不是 $\lambda^2 + p\lambda + q = 0$ 的根，则此式左端是一个次数与 $Q(x)$ 相同的多项式，于是为了使此式两端多项式次数相等，$Q(x)$ 应当是一个与 $P_m(x)$ 次数相同的多项式 $Q(x) = Q_m(x) = b_0 x^m + \cdots + b_m, \quad y^* = Q_m(x) e^{\lambda^* x}$</p>
+</li>
+<li>
+<p>若 $\lambda^*$ 是 ${\lambda^*}^2 + p\lambda^* + q = 0$ 的单根，即 ${\lambda^*}^2 + p\lambda + q = 0$，$2\lambda + p \ne 0$。此式左端是一个次数与 $Q'(x)$ 相同的多项式，于是为了使此式两端多项式次数相等，$Q(x)$ 应当是一个比 $P_m(x)$ 次数高 $1$ 次的多项式。此时可以取 $Q(x) = x Q_m(x) = x(b_0 x^m + \cdots + b_m), \quad y^* = x Q_m(x) e^{\lambda^* x}$</p>
+</li>
+<li>
+<p>若 $\lambda^*$ 是的 ${\lambda^*}^2 + p\lambda^* + q = 0$ 重根，即 ${\lambda^*}^2 + p\lambda^* + q = 0$，$2\lambda + p = 0$。此式左端是一个次数与 $Q''(x)$ 相同的多项式。于是为了使此式两端多项式次数相等，$Q''(x)$ 应当是一个比 $P_{m}(x)$ 次数高 $2$ 次的多项式。此时可以取 $Q(x) = x^2 Q_m(x) = x^2(b_0 x^m + \cdots + b_m), \quad y^* = x^2 Q_m(x) e^{\lambda^* x}$</p>
+</li>
+</ol>
+<p><strong>eg：</strong></p>
+<p>求方程 $y'' + 6y' + 9y = 2x e^{-3x}$ 的通解。</p>
+<p><strong>解</strong>：这里 $P_m(x) = 2x$，$\lambda = -3$。因特征方程 $\lambda^2 + 6\lambda + 9 = 0$ 有二重根 $\lambda = -3$，故对应齐次方程的通解为 $Y = C_1 e^{-3x} + C_2 x e^{-3x}$，并且可令非齐次方程的特解为</p>
+<p>$$
+y^* = x^2 (ax + b) e^{-3x} = (a x^3 + b x^2) e^{-3x}
+$$</p>
+<p>有</p>
+<p>$$
+\begin{aligned}
+(y^*)' &= (3a x^2 + 2b x - 3a x^3 - 3b x^2) e^{-3x}, \\
+(y^*)'' &= (6a x + 2b - 9a x^2 - 6b x - 9a x^2 - 6b x + 9a x^3 + 9b x^2) e^{-3x}
+\end{aligned}
+$$</p>
+<p>代入得</p>
+<p>$$
+\begin{aligned}
+&(9a x^3 + 9b x^2 - 18a x^2 + 6a x - 12b x + 2b) e^{-3x} + \\
+&(18a x^2 + 12b x - 18a x^3 - 18b x^2) e^{-3x} + (9a x^3 + 9b x^2) e^{-3x} \\
+&= 2x e^{-3x}
+\end{aligned}
+$$</p>
+<p>比较系数得 $6a - 12b + 12b = 2$，$2b = 0$，从而有 $a = \frac{1}{3}$，$b = 0$。</p>
+<p>故 $y^* = \frac{1}{3} x^3 e^{-3x}$，原非齐次方程的通解为</p>
+<p>$$
+y = C_1 e^{-3x} + C_2 x e^{-3x} + \frac{1}{3} x^3 e^{-3x}
+$$</p>
+<h3 id="情形二">情形二</h3>
+<p>$f(x)=e^{\lambda x}[P_{l}(x)\cos \omega x+P_{n}(x)\sin\omega x]$，其中 $\lambda,\omega$ 为常数，$P_{l}(x),P_{n}(x)$ 分别为 $x$ 的 $l,n$ 次多项式</p>
+<p>记 $m=max\{l,n\}$，则有</p>
+<ol>
+<li>当 $\lambda\pm i\omega$ 不是特征方程的根时，可令特解为 $y^*=e^{\lambda x}[P_{m}(x)\cos\omega x+Q_{m}(x)\sin\omega x]$，其中 $P_{m}(x),Q_{m}(x)$ 为 $x$ 的 $m$ 次多项式</li>
+<li>当 $\lambda\pm i\omega$ 是特征方程的单根时，$y^*=e^{\lambda x}[P_{m}(x)\cos\omega x+Q_{m}(x)\sin\omega x]$ 存在于齐次解中，不可令为特解，故可令特解为 $y^*=xe^{\lambda x}[P_{m}(x)\cos\omega x+Q_{m}(x)\sin\omega x]$</li>
+</ol>
+<p><strong>eg</strong>:</p>
+<p>求方程 $y'' + y = x \cos 2x$ 的一个特解。</p>
+<p><strong>解</strong>：这里 $P_l(x) = x$，$P_n(x) = 0$，$\lambda = 0$，$\omega = 2$。因特征方程 $\lambda^2 + 1 = 0$ 有单根 $\lambda_{1,2} = \pm i$，而 $\lambda + i\omega = 2i$ 不是特征方程的根，故可令特解为</p>
+<p>$$
+y^* = (ax + b) \cos 2x + (cx + d) \sin 2x
+$$</p>
+<p>求出 $(y^*)'$，$(y^*)''$，代入方程，得</p>
+<p>$$
+(-3ax - 3b + 4c) \cos 2x - (3cx + 3d + 4a) \sin 2x = x \cos 2x
+$$</p>
+<p>从而 $a = -\frac{1}{3}$，$b = 0$，$c = 0$，$d = \frac{4}{9}$。</p>
+<p>故特解为</p>
+<p>$$
+y^* = -\frac{1}{3} x \cos 2x + \frac{4}{9} \sin 2x
+$$</p>
+<p>二阶常系数非齐次线性微分方程的上述结论也可以推广到一般的 $n$ 阶常系数非齐次线性微分方程</p>
+<p>$$
+y^{(n)} + a_1 y^{(n-1)} + \cdots + a_{n-1} y' + a_n y = f(x). \tag{1}
+$$</p>
+<p>根据 $f(x)$ 的不同情形，可得到微分方程 $(1)$ 相对应的特解，下面仅给出两个特殊但很有用的情形下特解的形式</p>
+<ol>
+<li>
+<p>$f(x) = P_m(x) e^{\lambda x}$，$P_m(x) = a_0 x^m + a_1 x^{m-1} + \cdots + a_{m-1} x + a_m$<br>
+若 $\lambda$ 不是特征方程的根，可取特解形式为 $y^* = Q_m(x) e^{\lambda x}, \quad Q_m(x) = b_0 x^m + \cdots + b_m.$<br>
+若 $\lambda$ 是特征方程的 $k$ 重根，可取特解形式为 $y^* = x^k Q_m(x) e^{\lambda x}, \quad Q_m(x) = b_0 x^m + \cdots + b_m.$</p>
+</li>
+<li>
+<p>$f(x) = e^{\lambda x} [P_l(x) \cos \omega x + P_n(x) \sin \omega x]$，记 $m = \max\{l, n\}$。<br>
+当 $\lambda \pm i\omega$ 不是特征方程的根时，可取特解形式为 $y^* = e^{\lambda x} [P_m(x) \cos \omega x + Q_m(x) \sin \omega x].$ 其中 $P_m(x)$，$Q_m(x)$ 均为 $x$ 的 $m$ 次多项式。<br>
+当 $\lambda \pm i\omega$ 是特征方程的 $k$ 重根，取特解形式为 $y^* = x^k e^{\lambda x} [P_m(x) \cos \omega x + Q_m(x) \sin \omega x].$</p>
+</li>
+</ol>
+<h2 id="欧拉方程">欧拉方程</h2>
+<p>形如</p>
+<p>$$
+x^n \frac{d^n y}{dx^n} + p_1 x^{n-1} \frac{d^{n-1} y}{dx^{n-1}} + \cdots + p_{n-1} x \frac{dy}{dx} + p_n y = f(x) \tag{1}
+$$</p>
+<p>的方程称为欧拉方程，其中 $p_1, p_2, \cdots, p_n$ 为常数。这类特殊的变系数线性微分方程，可通过自变量变换转换为常系数线性微分方程。</p>
+<p>事实上，令 $x = e^t$（当 $x < 0$ 时，令 $x = -e^t$），则 $t = \ln x$，$\frac{dt}{dx} = \frac{1}{x}$，</p>
+<p>$$
+y' = \frac{dy}{dx} = \frac{dy}{dt} \frac{dt}{dx} = \frac{1}{x} \frac{dy}{dt},
+$$</p>
+<p>$$
+y'' = \frac{d}{dx}(y') = \frac{d}{dx}\left( \frac{1}{x} \frac{dy}{dt} \right) = -\frac{1}{x^2} \frac{dy}{dt} + \frac{1}{x} \frac{d^2 y}{dt^2} \frac{dt}{dx} = -\frac{1}{x^2} \frac{dy}{dt} + \frac{1}{x^2} \frac{d^2 y}{dt^2},
+$$</p>
+<p>从而 $x y' = \frac{dy}{dt}$，$x^2 y'' = \frac{d^2 y}{dt^2} - \frac{dy}{dt}$。一般地，用数学归纳法可以推出</p>
+<p>$$
+x^k y^{(k)} = D(D-1)\cdots(D-k+1)y, \tag{2}
+$$</p>
+<p>其中 $D = \frac{d}{dt}$ 是微分算子，$D^k = \frac{d^k}{dt^k}$。</p>
+<p>把 $x = e^t$ 及 $(2)$ 式代入欧拉方程 $(1)$，则欧拉方程可变为关于自变量 $t$ 的常系数线性微分方程</p>
+<p>$$
+\begin{aligned}
+&[D(D-1)\cdots(D-n+1) + p_1 D(D-1)\cdots(D-n+2)  \\
+&+ \cdots + p_{n-1} D + p_n I] y = f(e^t),  \tag{3}\\
+
+\end{aligned} 
+$$</p>
+<p>求出 $(3)$ 式的通解后再将 $t = \ln x$ 回代即得到原方程 $(1)$ 的通解。注意 $(3)$ 式中的 $I$ 是恒等算子，即 $Iy = y$。</p>
+<p><strong>eg</strong>:</p>
+<p>求微分方程 $x^3 y''' + x^2 y'' - 4x y' = 3x^2$ 的通解。</p>
+<p><strong>解</strong>：令 $x = e^t$，代入上述方程得到关于 $t$ 的常系数线性微分方程</p>
+<p>$$
+[D(D-1)(D-2) + D(D-1) - 4D] y = 3e^{2t}
+$$</p>
+<p>即</p>
+<p>$$
+(D^3 - 2D^2 - 3D) y = 3e^{2t}
+$$</p>
+<p>对应的齐次方程的通解为</p>
+<p>$$
+Y = C_1 + C_2 e^{3t} + C_3 e^{-t}
+$$</p>
+<p>可求出非齐次方程的一个特解为 $y^* = -\frac{1}{2} e^{2t}$。</p>
+<p>换回原变量，得原方程的通解为</p>
+<p>$$
+y = C_1 + C_2 x^3 + C_3 \frac{1}{x} - \frac{1}{2} x^2
+$$</p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/">微分</a>
+    
+    
+      <a class="next" href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/">无穷级数</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">一阶微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E7%9A%84%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">可分离变量的微分方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%8C%96%E4%B8%BA%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E5%9E%8B%E7%9A%84%E6%96%B9%E7%A8%8B"><span class="toc-text">可化为可分离变量型的方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">一阶线性微分方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%96%B9%E7%A8%8B"><span class="toc-text">伯努利方程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">高阶微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#$y%5E%7B(n)%7D=f(x)$"><span class="toc-text">$y^{(n)}&#x3D;f(x)$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#$y''%20=%20f(x,y')$"><span class="toc-text">$y&#39;&#39; &#x3D; f(x,y&#39;)$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%83%85%E5%BD%A2"><span class="toc-text">其他情形</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">线性微分方程解的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">二阶齐次线性微分方程的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">二阶非齐次线性微分方程的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E5%B8%B8%E6%95%B0%E5%8F%98%E6%98%93%E6%B3%95"><span class="toc-text">解线性微分方程的常数变易法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B2%E7%9F%A5%E4%BA%8C%E9%98%B6%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%AF%B9%E5%BA%94%E7%9A%84%E4%BA%8C%E9%98%B6%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E4%B8%8D%E6%81%92%E4%B8%BA%E9%9B%B6%E7%9A%84%E8%A7%A3-$y_%7B1%7D(x)$"><span class="toc-text">已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解 $y_{1}(x)$</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">常系数线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">二阶常系数齐次线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AE%9E%E6%A0%B9"><span class="toc-text">两个不同实根</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%87%8D%E6%A0%B9"><span class="toc-text">二重根</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%95%B0%E6%A0%B9"><span class="toc-text">复数根</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">二阶常系数非齐次线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%BD%A2%E4%B8%80"><span class="toc-text">情形一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%BD%A2%E4%BA%8C"><span class="toc-text">情形二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E6%96%B9%E7%A8%8B"><span class="toc-text">欧拉方程</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

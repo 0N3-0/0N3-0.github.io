@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>导数 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="定义 设 $y&#x3D;f(x)$ 在点 $x_{0}$ 的某个邻域 $U(x_{0})$ 内有定义，$x_{0}+\Delta x\in U(x_{0})$，对于函数的增量 $\Delta y&#x3D;f(x_{0}+\Delta x)-f(x_{0})$，如果极限 $$ \lim_{ \Delta x \to 0 } \frac{\Delta y}{\Delta x}&#x3D;\lim_{ \Delta x \to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="导数">
+<meta property="og:url" content="http://0n3-0.github.io/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="定义 设 $y&#x3D;f(x)$ 在点 $x_{0}$ 的某个邻域 $U(x_{0})$ 内有定义，$x_{0}+\Delta x\in U(x_{0})$，对于函数的增量 $\Delta y&#x3D;f(x_{0}+\Delta x)-f(x_{0})$，如果极限 $$ \lim_{ \Delta x \to 0 } \frac{\Delta y}{\Delta x}&#x3D;\lim_{ \Delta x \to">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-01-02T14:51:16.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.579Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="高数">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '高等数学/导数';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">导数</h1>
+      <div class="post-meta">
+        <span>2026-01-02</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E9%AB%98%E6%95%B0/">高数</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>定义</h1>
+<p>设 $y=f(x)$ 在点 $x_{0}$ 的某个邻域 $U(x_{0})$ 内有定义，$x_{0}+\Delta x\in U(x_{0})$，对于函数的增量 $\Delta y=f(x_{0}+\Delta x)-f(x_{0})$，如果极限</p>
+<p>$$
+\lim_{ \Delta x \to 0 } \frac{\Delta y}{\Delta x}=\lim_{ \Delta x \to 0 } \frac{f(x_{0}+\Delta x)-f(x_{0})}{\Delta x}
+$$</p>
+<p>存在，则称 $y=f(x)$ 在点 $x=x_{0}$<strong>可导</strong>或<strong>有导数</strong>，或<strong>导数存在</strong>，此极限称为 $y=f(x)$ 在点 $x=x_{0}$ 的<strong>导数</strong>，记作 $f'(x_{0}),y'(x_{0}),y'\Big|_{x=x_{0}},\frac{dy}{dx}\Big|_{x=x_{0}},\frac{df}{dx}\Big|_{x=x_{0}}$，即</p>
+<p>$$
+f'(x)=\lim_{ \Delta x \to 0} \frac{f(x_{0}+\Delta x)-f(x_{0})}{\Delta x}
+$$</p>
+<p>根据函数在点 $x_{0}$ 处的导数 $f'(x_{0})$ 的定义，</p>
+<p>$$
+f'(x_{0})=\lim_{ h \to 0 } \frac{f(x_{0}+h)-f(x_{0})}{h}
+$$</p>
+<p>是一个极限，而极限存在的充分必要条件是左右极限都存在且相等，因此 $f'(x_{0})$ 存在即 $f(x)$ 在点 $x_{0}$ 处可导的充分必要条件是</p>
+<p>$$
+\lim_{ h \to 0^- } \frac{f(x_{0}+h)-f(x_{0})}{h}=\lim_{ h \to 0^+ } \frac{f(x_{0}+h)-f(x_{0})}{h}
+$$</p>
+<p>都存在且相等，这两个极限分别称为函数 $f(x)$ 在点 $x_{0}$ 处的<strong>左导数</strong>和<strong>右导数</strong>，记作 $f'_{-}(x_{0})及f'_{+}(x_{0})$</p>
+<p>左右导数统称为<strong>单侧导数</strong></p>
+<h1>函数的求导法则</h1>
+<h2 id="和、差、积、商">和、差、积、商</h2>
+<ol>
+<li>$(u\pm v)'=u'\pm v'$</li>
+<li>$(u v)' = u' v + u v'$</li>
+<li>$\left(\frac{u}{v}\right)' = \frac{u' v - u v'}{v^2}$</li>
+</ol>
+<h2 id="反函数">反函数</h2>
+<p>设 $x=\varphi(x)$ 单调、可导，且 $\varphi'(y)\neq 0$,则其反函数 $y=f(x)$ 存在且可导，有 $\frac{dy}{dx}= \frac{1}{\frac{dx}{dy}}$,或 $f'(x)= \frac{1}{\varphi'(y)}$，反函数的导数等于直接函数的导数的倒数</p>
+<h2 id="复合函数">复合函数</h2>
+<p>$(f(g(h(\dots))))' = f'(g(h(\dots))) \cdot g'(h(\dots))\cdot h'(\dots)\cdot\dots$（链式法则）</p>
+<h2 id="常见函数导数">常见函数导数</h2>
+<p>$(x^n)' = n x^{n-1}, \quad n \neq 0$<br>
+$(c)' = 0$<br>
+$(e^x)' = e^x$<br>
+$(a^x)' = a^x \ln a$<br>
+$(\ln x)' = \frac{1}{x}$<br>
+$(\log_a x)' = \frac{1}{x \ln a}$<br>
+$(\sin x)' = \cos x$<br>
+$(\cos x)' = -\sin x$<br>
+$(\tan x)' = \sec^2 x$<br>
+$(\cot x)' = -\csc^2 x$<br>
+$(\sec x)' = \sec x \tan x$<br>
+$(\csc x)' = -\csc x \cot x$<br>
+$(\arcsin x)' = \frac{1}{\sqrt{1-x^2}}$<br>
+$(\arccos x)' = -\frac{1}{\sqrt{1-x^2}}$<br>
+$(\arctan x)' = \frac{1}{1+x^2}$<br>
+$(\operatorname{arccot} x)' = -\frac{1}{1+x^2}$<br>
+$(\operatorname{arcsec} x)' = \frac{1}{|x| \sqrt{x^2-1}}$<br>
+$(\operatorname{arccsc} x)' = -\frac{1}{|x| \sqrt{x^2-1}}$<br>
+$\sinh x= \frac{e^x-e^{-x}}{2},(\sinh x)' = \cosh x$<br>
+$\cosh x= \frac{e^x+e^{-x}}{2},(\cosh x)' = \sinh x$<br>
+$\tanh=\frac{e^x-e^{-x}}{e^x+e^{-x}}(\tanh x)' = \operatorname{sech}^2 x$<br>
+$\operatorname{arcsinh} x=\ln(x+\sqrt{ 1+x^2 }),(\operatorname{arcsinh} x)'= \frac{1}{\sqrt{ 1+x^2 }}$<br>
+$\operatorname{arccosh} x=\ln(x+\sqrt{ x^2-1 }),(\operatorname{arccosh} x)'= \frac{1}{\sqrt{ x^2-1 }}$<br>
+$\operatorname{arctanh} x= \frac{1}{2}\ln \frac{1+x}{1-x},(\operatorname{arctanh} x)'= \frac{1}{1-x^2}$<br>
+$(\coth x)' = -\operatorname{csch}^2 x$<br>
+$(\operatorname{sech} x)' = -\operatorname{sech} x \tanh x$<br>
+$(\operatorname{csch} x)' = -\operatorname{csch} x \coth x$</p>
+<h1>函数的可导性和连续性之间的关系</h1>
+<p>若函数 $y=f(x)$ 在点 $x_{0}$ 可导，则必然在点 $x_{0}$ 连续</p>
+<h1>隐函数求导</h1>
+<p>在方程 $F(x,y)$ 中，当 $x$ 取某区间 $I$ 内的任意一值时，相应地总有满足该方程的唯一的 $y$ 值存在，那么就说明方程 $F(x,y)=0$ 在该区间 $I$ 内确定了一个<strong>隐函数</strong>，若将他记为 $y=f(x),x\in I$，则在 $I$ 上有 $F[x,f(x)]\equiv 0$</p>
+<p>把一个隐函数化为显函数，即把 $y$ 解出来，写成自变量 $x$ 的显函数，叫作<strong>隐函数的显化</strong></p>
+<p>显化相关将在下册中提到</p>
+<p>无须通过显化求导：若可导函数 $y=f(x)$ 由 $F(x,y)=0$ 给定，则对恒等式 $F[x,f(x)]\equiv 0$ 关于 $x$ 求导，通过复合函数求导法则解出 $y'$ 或 $\frac{dy}{dx}$，即得到隐函数的导数</p>
+<h1>由参数方程所确定的函数的导数</h1>
+<p>一般地，若参数方程</p>
+<p>$$\begin{cases}x=\varphi(t)\\ y=\psi(t)\end{cases}$$</p>
+<p>表示 $y$ 与 $x$ 间的函数关系，则称此函数关系所表达的函数为<strong>由参数方程所确定的函数</strong><br>
+设参数方程</p>
+<p>$$\begin{cases}x=\varphi(t)\\ y=\psi(t)\end{cases},\alpha\leq t\leq\beta;\varphi(x),\psi(x)$$</p>
+<p>均可导，且 $x=\varphi(t)$ 严格单调，$\varphi'(x)\neq 0$，则有 $\frac{dy}{dx}= \frac{\psi'(t)}{\varphi'(t)}$ 或 $\frac{dy}{dx}= \frac{\frac{dy}{dt}}{\frac{dx}{dt}}$</p>
+<h1>高阶导数</h1>
+<h2 id="定义">定义</h2>
+<p>若 $y'=f'(x)$ 在区间 $I$ 内可导，则称 $y'=f'(x)$ 的导数 $(f'(x))'$ 为函数 $y=f(x)$ 的<strong>二阶导数</strong>，记作 $y''$ 或 $\frac{d^2y}{dx^2}$，即 $y''=(y')'$ 或 $\frac{d^2y}{dx^2}=\frac{d}{dx}\left( \frac{dy}{dx} \right)$，即</p>
+<p>$$
+f''(x)=\lim_{ \Delta x \to 0 } \frac{f'(x+\Delta x)-f'(x)}{\Delta x}=\lim_{ h \to 0 } \frac{f'(x+h)-f'(x)}{h}
+$$</p>
+<p>二阶及二阶以上的导数称为<strong>高阶导数</strong>，$n$ 阶导数与 $n$ 阶导函数分别记为 $f^{(n)}(x_{0}),y^{(n)}(x_{0}),\frac{d^ny}{dx^n}\bigg|_{x=x_{0}}或\frac{d^nf}{dx^n}\bigg|_{x=x_{0}}$ 与 $f^{(n)}(x),y^{(n)}(x),\frac{d^ny}{dx^n}或\frac{d^nf}{dx^n}$</p>
+<h2 id="运算法则">运算法则</h2>
+<p>如果函数 $u=u(x)$ 及 $v=v(x)$ 都在点 $x$ 处具有 $n$ 阶导数，那么显然 $u(x)\pm v(x)$ 也在点 $x$ 处具有 $n$ 阶导数，且 $(u\pm v)^{(n)}=u^{(n)}\pm v^{(x)}$</p>
+<p>但是乘积 $u(x)v(x)$ 的 $n$ 阶导数并不如此简单</p>
+<p>$$
+\begin{aligned}
+(u\cdot v)'&=u'c+uv' \\
+(u\cdot v)''&=u''v+2u'v'+uv'' \\
+(u\cdot v)'''&=u'''v+3u''v'+3u'v''+v'''u
+\end{aligned}
+$$</p>
+<p>用数学归纳法，可得 $(u\cdot v)^{(n)}=C^0_{n}u^{(n)}v+C^1_{n}u^{(n-1)}v'+C^2_{n}u^{(n-2)}v''+\cdots+C^{n-1}_{n}u'v^{(n-1)}+C^n_{n}uv^{(n)}$<br>
+即有求两个函数的高阶导数公式</p>
+<p>$$
+(u\cdot v)^{(n)}=\sum^n_{k=0}C^k_{n}u^{(n-k)}v^{(k)}
+$$</p>
+<p>称为<strong>莱布尼茨公式</strong>，可类比于二项式定理</p>
+<p>$$
+(a+b)^n=\sum^n_{k=0}C^k_{n}a^{n-k}b^k
+$$</p>
+<h1>中值定理</h1>
+<h2 id="费马定理">费马定理</h2>
+<p>设函数 $f(x)$ 在点 $x_{0}$ 取得极值，若 $f'(x_{0})$ 存在，则必有 $f'(x_{0})=0$</p>
+<p>若 $f'(x_{0})=0$，那么称 $x_{0}$ 是函数 $f(x)$ 的一个<strong>驻点</strong>（或称为<strong>稳态点、临界点</strong>）费马定理指出：可微函数 $f(x)$ 的极值点必为驻点，即是驻点为是极值点的必要条件（不是充要条件）</p>
+<h2 id="罗尔中值定理">罗尔中值定理</h2>
+<p>设函数 $f(x)$ 在闭区间 $[a,b]$ 上连续，在开区间 $(a,b)$ 内可导，并且满足 $f(a)=f(b)$，则 $\exists\xi \in(a,b)$，使得 $f'(\xi)=0$</p>
+<p>定理中的三个条件有一个不满足则结论不成立</p>
+<h2 id="拉格朗日中值定理">拉格朗日中值定理</h2>
+<p>设函数 $f(x)$ 在闭区间 $[a,b]$ 上连续，在开区间 $(a,b)$ 内可导，则 $\exists\xi \in(a,b)$，使得 $f'(\xi)= \frac{f(b)-f(a)}{b-a}$</p>
+<p>拉格朗日中值定理是对罗尔中值定理的泛化，去除了 $f(a)=f(b)$ 的条件</p>
+<h2 id="柯西中值定理">柯西中值定理</h2>
+<p>设函数 $f(x)$ 和 $F(x)$ 在闭区间 $[a,b]$ 上连续，在开区间 $(a,b)$ 内可导，且 $F'(x)$ 在 $(a,b)$ 内每一点处均不为零，则 $\exists\xi \in(a,b)$，使得 $\frac{f(b)-f(a)}{F(b)-F(a)}= \frac{f'(\xi)}{F'(\xi)}$</p>
+<p>柯西中值定理是对拉格朗日中值定理的推广</p>
+<h1>泰勒公式</h1>
+<p>如果函数 $f(x)$ 在含有 $x_{0}$ 的某个开区间 $(a,b)$ 内具有直到 $(n+1)$ 阶的导数，则对任一 $x \in(a,b)$，有 $f(x)=f(x_{0})+f'(x_{0})(x-x_{0})+ \frac{f''(x_{0})}{2!}(x-x_{0})^2+\dots+ \frac{f^{(n)}(x_{0})}{n!}(x-x_{0})+R_{n}(x)$ 其中 $R_{n}(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_{0})^{n+1}$，称为<strong>拉格朗日型余项</strong>，其中 $\xi$ 为 $x$ 与 $x_{0}$ 间某值</p>
+<p>若取 $x_{0}=0$，则 $\xi$ 在 $0$ 与 $x$ 之间，因此可令 $\xi=\theta x(0<\theta<1)$，从而泰勒公式变成较简单的形式，即所谓<strong>麦克劳林公式</strong>$f(x)=f(0)+f'(0)x+ \frac{f''(0)}{2!}x^2+\dots+\frac{f^{(n)}(x)}{n!}x^n+\frac{f^{(n+1)}(\theta x)}{(n+1)!}x^{n+1}$</p>
+<p>在不需要余项的精确表达式时，$n$ 阶泰勒公式也可写为 $f(x)=f(x_{0})+f'(x_{0})(x-x_{0})+ \frac{f''(x_{0})}{2!}(x-x_{0})^2+\dots+ \frac{f^{(n)}(x_{0})}{n!}(x-x_{0})+o[(x-x_{0})^n]$，其中 $R_{n}(x)$ 的表达式称为<strong>佩亚诺型余项</strong></p>
+<h3 id="常见泰勒展开式">常见泰勒展开式</h3>
+<p>$$
+\begin{aligned}
+&(1+x)^\alpha = 1 + \alpha x + \frac{\alpha(\alpha-1)}{2}x^2 + \cdots + \frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}x^n + o(x^n) \\
+&e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots + \frac{x^n}{n!} + o(x^n) \\
+&a^x = 1 + (\ln a)x + \frac{(\ln a)^2}{2!}x^2 + \frac{(\ln a)^3}{3!}x^3 + \cdots + \frac{(\ln a)^n}{n!}x^n + o(x^n) \\
+&\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \cdots + (-1)^{n-1}\frac{x^n}{n} + o(x^n) \\
+&\log_a(1+x) = \frac{1}{\ln a}\left(x - \frac{x^2}{2} + \frac{x^3}{3} - \cdots + (-1)^{n-1}\frac{x^n}{n}\right) + o(x^n) \\
+&\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \cdots + (-1)^{k}\frac{x^{2k+1}}{(2k+1)!} + o(x^{2k+1}) \\
+&\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \cdots + (-1)^{k}\frac{x^{2k}}{(2k)!} + o(x^{2k}) \\
+&\tan x = x + \frac{x^3}{3} + \frac{2x^5}{15} + \frac{17x^7}{315} + \cdots + \sum_{m=1}^k c_m x^{2m-1} + o(x^{2k-1}) \quad(\text{通项用 Bernoulli 数表述}) \\
+&\sec x = 1 + \frac{x^2}{2} + \frac{5x^4}{24} + \frac{61x^6}{720} + \cdots + \sum_{m=0}^k E_{2m}\frac{x^{2m}}{(2m)!} + o(x^{2k}) \\
+&\arcsin x = x + \frac{x^3}{6} + \frac{3x^5}{40} + \frac{5x^7}{112} + \cdots + \sum_{m=0}^k \frac{(2m)!}{4^m (m!)^2 (2m+1)} x^{2m+1} + o(x^{2k+1}) \\
+&\arccos x = \frac{\pi}{2} - \arcsin x = \frac{\pi}{2} - \left(x + \frac{x^3}{6} + \frac{3x^5}{40} + \cdots\right) + o(x^{2k+1}) \\
+&\arctan x = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots + \sum_{m=0}^k (-1)^m\frac{x^{2m+1}}{2m+1} + o(x^{2k+1}) \\
+&\sinh x = x + \frac{x^3}{3!} + \frac{x^5}{5!} + \frac{x^7}{7!} + \cdots + \frac{x^{2k+1}}{(2k+1)!} + o(x^{2k+1}) \\
+&\cosh x = 1 + \frac{x^2}{2!} + \frac{x^4}{4!} + \frac{x^6}{6!} + \cdots + \frac{x^{2k}}{(2k)!} + o(x^{2k}) \\
+&\tanh x = x - \frac{x^3}{3} + \frac{2x^5}{15} - \frac{17x^7}{315} + \cdots + \sum_{m=1}^k g_m x^{2m-1} + o(x^{2k-1}) \\
+&\operatorname{arcsinh} x = x - \frac{x^3}{6} + \frac{3x^5}{40} - \frac{5x^7}{112} + \cdots + \sum_{m=0}^k (-1)^m\frac{(2m)!}{4^m (m!)^2 (2m+1)} x^{2m+1} + o(x^{2k+1}) \\
+&\operatorname{arccosh}(1+x) = \sqrt{2x}\left(1 - \frac{x}{12} + \frac{3x^2}{160} - \frac{5x^3}{896} + \cdots \right) + o(x^{k+1/2}) \\
+&\operatorname{arctanh} x = x + \frac{x^3}{3} + \frac{x^5}{5} + \frac{x^7}{7} + \cdots + \sum_{m=0}^k \frac{x^{2m+1}}{2m+1} + o(x^{2k+1})
+\end{aligned}
+$$</p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/">重积分</a>
+    
+    
+      <a class="next" href="/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/">多元函数</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">函数的求导法则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%92%8C%E3%80%81%E5%B7%AE%E3%80%81%E7%A7%AF%E3%80%81%E5%95%86"><span class="toc-text">和、差、积、商</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%87%BD%E6%95%B0"><span class="toc-text">反函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0"><span class="toc-text">复合函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B0"><span class="toc-text">常见函数导数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">函数的可导性和连续性之间的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">隐函数求导</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">由参数方程所确定的函数的导数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">高阶导数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="toc-text">运算法则</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">中值定理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%B9%E9%A9%AC%E5%AE%9A%E7%90%86"><span class="toc-text">费马定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%97%E5%B0%94%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">罗尔中值定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">拉格朗日中值定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%AF%E8%A5%BF%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">柯西中值定理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">泰勒公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%B3%B0%E5%8B%92%E5%B1%95%E5%BC%80%E5%BC%8F"><span class="toc-text">常见泰勒展开式</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

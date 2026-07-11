@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>重积分 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="二重积分的定义 设 $f(x,y)$ 是有界闭区域 $D\subset \mathbb{R}^2$ 上的有界函数，将区域 $D$ 任意划分成 $n$ 个小区域 $\Delta\sigma_i$，其面积也记为 $\Delta\sigma_i$。 在每个小区域 $\Delta\sigma_i$ 上任取点 $(\xi_i,\eta_i)$，作和式 $$ \sum_{i&#x3D;1}^{n}f(\xi_i,\et">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重积分">
+<meta property="og:url" content="http://0n3-0.github.io/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="二重积分的定义 设 $f(x,y)$ 是有界闭区域 $D\subset \mathbb{R}^2$ 上的有界函数，将区域 $D$ 任意划分成 $n$ 个小区域 $\Delta\sigma_i$，其面积也记为 $\Delta\sigma_i$。 在每个小区域 $\Delta\sigma_i$ 上任取点 $(\xi_i,\eta_i)$，作和式 $$ \sum_{i&#x3D;1}^{n}f(\xi_i,\et">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-06-23T13:10:47.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.613Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="高数">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '高等数学/重积分';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">重积分</h1>
+      <div class="post-meta">
+        <span>2026-06-23</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E9%AB%98%E6%95%B0/">高数</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>二重积分的定义</h1>
+<p>设 $f(x,y)$ 是有界闭区域 $D\subset \mathbb{R}^2$ 上的有界函数，将区域 $D$ 任意划分成 $n$ 个小区域 $\Delta\sigma_i$，其面积也记为 $\Delta\sigma_i$。<br>
+在每个小区域 $\Delta\sigma_i$ 上任取点 $(\xi_i,\eta_i)$，作和式</p>
+<p>$$
+\sum_{i=1}^{n}f(\xi_i,\eta_i)\Delta\sigma_i
+$$</p>
+<p>若当 $\Delta\sigma_{max} \to 0$ 时，极限</p>
+<p>$$
+\lim_{\Delta\sigma_{max} \to 0}\sum_{i=1}^{n}f(\xi_i,\eta_i)\Delta\sigma_i
+$$</p>
+<p>存在，且与区域 $D$ 的划分方式以及点 $(\xi_i,\eta_i)$ 的选取方式无关，则称函数 $f(x,y)$ 在 $D$ 上可积。<br>
+该极限称为函数 $f(x,y)$ 在闭区域 $D$ 上的<strong>二重积分</strong>，记作</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\lim_{\Delta\sigma_{max} \to 0}\sum_{i=1}^{n}f(\xi_i,\eta_i)\Delta\sigma_i
+$$</p>
+<p>其中：</p>
+<ul>
+<li>$f(x,y)$ 为被积函数</li>
+<li>$f(x,y)\,d\sigma$ 为积分表达式</li>
+<li>$D$ 为积分区域</li>
+<li>$d\sigma$ 为面积元素</li>
+<li>$x,y$ 为积分变量</li>
+<li>$\Delta\sigma_{max}$ 为各小区域中面积最大者</li>
+</ul>
+<blockquote>
+<p>需注意：</p>
+<ol>
+<li>有界闭区域 $D$ 的划分以及区域内点 $(\xi_i,\eta_i)$ 的取法是任意的。</li>
+<li>极限值与 $D$ 的划分方式和点 $(\xi_i,\eta_i)$ 的取法无关。</li>
+</ol>
+</blockquote>
+<p><strong>几何意义</strong><br>
+当 $f(x,y)\ge 0$ 时，</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+$$</p>
+<p>表示以区域 $D$ 为底、以 $f(x,y)$ 为高的曲顶柱体体积。</p>
+<p><strong>可积的充分条件</strong></p>
+<ol>
+<li>有界闭区域上的连续函数必可积。</li>
+<li>有界闭区域上的分片连续函数必可积。</li>
+</ol>
+<h1>三重积分的定义</h1>
+<p>设 $f(x,y,z)$ 是有界闭区域 $\Omega$ 上的有界函数，将 $\Omega$ 任意分成 $n$ 个小区域 $\Delta\Omega_i$，其体积为 $\Delta v_i$。<br>
+在每个小区域 $\Delta\Omega_i$ 内任取一点 $(\xi_i,\eta_i,\zeta_i)$，作和式</p>
+<p>$$
+\sum_{i=1}^{n}f(\xi_i,\eta_i,\zeta_i)\Delta v_i
+$$</p>
+<p>若当 $\Delta\Omega_{max} \to 0$ 时，极限</p>
+<p>$$
+\lim_{\Delta\Omega_{max} \to 0}\sum_{i=1}^{n}f(\xi_i,\eta_i,\zeta_i)\Delta v_i
+$$</p>
+<p>存在，且与区域 $\Omega$ 的划分方式以及点 $(\xi_i,\eta_i,\zeta_i)$ 的选取方式无关，则称该极限为函数 $f(x,y,z)$ 在区域 $\Omega$ 上的<strong>三重积分</strong>，记作</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\lim_{\Delta\Omega_{max} \to 0}\sum_{i=1}^{n}f(\xi_i,\eta_i,\zeta_i)\Delta v_i
+$$</p>
+<p>其中：</p>
+<ul>
+<li>$\Omega$ 为积分区域</li>
+<li>$f(x,y,z)$ 为被积函数</li>
+<li>$dV$ 为体积元素</li>
+<li>$x,y,z$ 为积分变量</li>
+<li>$\Delta\Omega_{max}$ 为各小区域中体积最大者</li>
+</ul>
+<p>质量公式<br>
+设空间物体占有区域 $\Omega$，其体密度函数为 $\mu(x,y,z)$，且 $\mu(x,y,z)$ 在 $\Omega$ 上连续，则该物体的质量为</p>
+<p>$$
+M=\iiint_\Omega \mu(x,y,z)\,dV
+$$</p>
+<h1>重积分的性质</h1>
+<p>以下以二重积分为例，设 $f,g$ 在闭区域 $D$ 上均可积。</p>
+<h2 id="线性性质">线性性质</h2>
+<p>若 $a,b$ 为常数，则</p>
+<p>$$
+\iint_D [af(x,y)+bg(x,y)]\,d\sigma
+=
+a\iint_D f(x,y)\,d\sigma
++
+b\iint_D g(x,y)\,d\sigma
+$$</p>
+<h2 id="对积分区域的可加性">对积分区域的可加性</h2>
+<p>若区域 $D$ 被划分为两个区域 $D_1,D_2$，且二者至多只有公共边界点，则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\iint_{D_1} f(x,y)\,d\sigma
++
+\iint_{D_2} f(x,y)\,d\sigma
+$$</p>
+<h2 id="积分不等式">积分不等式</h2>
+<p>若对任意 $(x,y)\in D$，有 $f(x,y)\ge 0$，则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma\ge 0
+$$</p>
+<p>若对任意 $(x,y)\in D$，有 $f(x,y)\le g(x,y)$，则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+\le
+\iint_D g(x,y)\,d\sigma
+$$</p>
+<h2 id="绝对可积性">绝对可积性</h2>
+<p>若 $f(x,y)$ 在 $D$ 上可积，则 $|f(x,y)|$ 在 $D$ 上也可积，且</p>
+<p>$$
+\left|
+\iint_D f(x,y)\,d\sigma
+\right|
+\le
+\iint_D |f(x,y)|\,d\sigma
+$$</p>
+<h2 id="估值定理">估值定理</h2>
+<p>设 $f(x,y)$ 在 $D$ 上存在最大值 $M$ 与最小值 $m$，区域 $D$ 的面积为 $A$，则</p>
+<p>$$
+mA
+\le
+\iint_D f(x,y)\,d\sigma
+\le
+MA
+$$</p>
+<h2 id="积分中值定理">积分中值定理</h2>
+<p>若 $f,g$ 均在 $D$ 上连续，且 $g$ 在 $D$ 上不变号，则在 $D$ 内至少存在一点 $(\xi,\eta)$，使</p>
+<p>$$
+\iint_D f(x,y)g(x,y)\,d\sigma
+=
+f(\xi,\eta)
+\iint_D g(x,y)\,d\sigma
+$$</p>
+<p>特别地，当 $g(x,y)=1$ 时，存在一点 $(\xi,\eta)\in D$，使</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+f(\xi,\eta)A
+$$</p>
+<p>其中 $A$ 为区域 $D$ 的面积。</p>
+<p>以上性质可类似推广到三重积分。</p>
+<h1>直角坐标系下二重积分的计算</h1>
+<p>设区域 $D$ 位于直角坐标系中，将 $D$ 用平行于坐标轴的网线划分成小矩形，则面积元素为</p>
+<p>$$
+d\sigma=dxdy
+$$</p>
+<p>因此二重积分可写为</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma=\iint_D f(x,y)\,dxdy
+$$</p>
+<p><strong>先对 $x$ 积分，后对 $y$ 积分</strong><br>
+若区域 $D$ 可表示为</p>
+<p>$$
+D=\{(x,y)\mid \psi_1(y)\le x\le \psi_2(y),\ c\le y\le d\}
+$$</p>
+<p>则固定 $y$，有截面面积</p>
+<p>$$
+A(y)=\int_{\psi_1(y)}^{\psi_2(y)}f(x,y)\,dx
+$$</p>
+<p>所以</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\int_c^d\left[\int_{\psi_1(y)}^{\psi_2(y)}f(x,y)\,dx\right]dy
+$$</p>
+<p>也可记作</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\int_c^d dy\int_{\psi_1(y)}^{\psi_2(y)}f(x,y)\,dx
+$$</p>
+<p><strong>先对 $y$ 积分，后对 $x$ 积分</strong><br>
+若区域 $D$ 可表示为</p>
+<p>$$
+D=\{(x,y)\mid \varphi_1(x)\le y\le \varphi_2(x),\ a\le x\le b\}
+$$</p>
+<p>则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\int_a^b\left[\int_{\varphi_1(x)}^{\varphi_2(x)}f(x,y)\,dy\right]dx
+$$</p>
+<p>也可记作</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\int_a^b dx\int_{\varphi_1(x)}^{\varphi_2(x)}f(x,y)\,dy
+$$</p>
+<h2 id="积分区域类型">积分区域类型</h2>
+<h3 id="X-型区域">X 型区域</h3>
+<p>若</p>
+<p>$$
+D=\{(x,y)\mid \varphi_1(x)\le y\le \varphi_2(x),\ a\le x\le b\}
+$$</p>
+<p>则称 $D$ 为 <strong>X 型区域</strong>。<br>
+特点：穿过区域内部且与 $y$ 轴平行的直线，与区域边界的交点不多于两个。</p>
+<h3 id="Y-型区域">Y 型区域</h3>
+<p>若</p>
+<p>$$
+D=\{(x,y)\mid \psi_1(y)\le x\le \psi_2(y),\ c\le y\le d\}
+$$</p>
+<p>则称 $D$ 为 <strong>Y 型区域</strong>。<br>
+特点：穿过区域内部且与 $x$ 轴平行的直线，与区域边界的交点不多于两个。</p>
+<h3 id="一般区域的处理">一般区域的处理</h3>
+<p>若积分区域既不是 X 型区域，也不是 Y 型区域，可将区域划分为若干部分，使每一部分都是 X 型区域或 Y 型区域。<br>
+再分别计算每一部分上的二重积分，最后利用积分区域的可加性相加。</p>
+<h2 id="化为二次积分的步骤">化为二次积分的步骤</h2>
+<ol>
+<li>画出积分区域 $D$ 的草图，根据区域形状和被积函数确定积分次序。</li>
+<li>用不等式组表示积分区域中点 $(x,y)$ 的取值范围。</li>
+<li>根据积分次序写出积分限，将二重积分化为二次积分。</li>
+</ol>
+<h1>利用极坐标计算二重积分</h1>
+<h2 id="极坐标变换">极坐标变换</h2>
+<p>平面直角坐标与极坐标的关系为</p>
+<p>$$
+x=\rho\cos\theta,\quad y=\rho\sin\theta
+$$</p>
+<p>其中</p>
+<p>$$
+\rho\ge 0
+$$</p>
+<p>极坐标下的面积元素为</p>
+<p>$$
+d\sigma=\rho\,d\rho\,d\theta
+$$</p>
+<p>因此</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\iint_{D'} f(\rho\cos\theta,\rho\sin\theta)\rho\,d\rho\,d\theta
+$$</p>
+<p>其中 $D'$ 是区域 $D$ 在极坐标下对应的区域。</p>
+<h2 id="面积元素的来源">面积元素的来源</h2>
+<p>在极坐标中，小区域近似为一个扇形小块，其面积近似为</p>
+<p>$$
+\Delta\sigma\approx \rho\,\Delta\rho\,\Delta\theta
+$$</p>
+<p>因此取极限后有</p>
+<p>$$
+d\sigma=\rho\,d\rho\,d\theta
+$$</p>
+<p>这里多出的因子 $\rho$ 来自极坐标变换的面积伸缩。</p>
+<h2 id="常见积分区域">常见积分区域</h2>
+<p><strong>先对 $\rho$ 积分，后对 $\theta$ 积分</strong><br>
+若区域可表示为</p>
+<p>$$
+D'=\{(\rho,\theta)\mid \varphi_1(\theta)\le \rho\le \varphi_2(\theta),\ \alpha\le \theta\le \beta\}
+$$</p>
+<p>则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\int_\alpha^\beta
+\left[
+\int_{\varphi_1(\theta)}^{\varphi_2(\theta)}
+f(\rho\cos\theta,\rho\sin\theta)\rho\,d\rho
+\right]d\theta
+$$</p>
+<p>也可写为</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\int_\alpha^\beta d\theta
+\int_{\varphi_1(\theta)}^{\varphi_2(\theta)}
+f(\rho\cos\theta,\rho\sin\theta)\rho\,d\rho
+$$</p>
+<p><strong>先对 $\theta$ 积分，后对 $\rho$ 积分</strong><br>
+若区域可表示为</p>
+<p>$$
+D'=\{(\rho,\theta)\mid \psi_1(\rho)\le \theta\le \psi_2(\rho),\ a\le \rho\le b\}
+$$</p>
+<p>则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\int_a^b
+\left[
+\int_{\psi_1(\rho)}^{\psi_2(\rho)}
+f(\rho\cos\theta,\rho\sin\theta)\rho\,d\theta
+\right]d\rho
+$$</p>
+<p>也可写为</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+\int_a^b d\rho
+\int_{\psi_1(\rho)}^{\psi_2(\rho)}
+f(\rho\cos\theta,\rho\sin\theta)\rho\,d\theta
+$$</p>
+<p>若区域为圆或圆的一部分，通常优先考虑极坐标。<br>
+例如圆</p>
+<p>$$
+x^2+y^2\le R^2
+$$</p>
+<p>可表示为</p>
+<p>$$
+0\le \rho\le R,\quad 0\le \theta\le 2\pi
+$$</p>
+<h2 id="使用极坐标的常见场景">使用极坐标的常见场景</h2>
+<ol>
+<li>积分区域含有 $x^2+y^2$、圆、圆环、扇形等结构。</li>
+<li>被积函数中含有 $x^2+y^2$。</li>
+<li>区域边界用极坐标表示更简单。</li>
+</ol>
+<h2 id="对称性结论">对称性结论</h2>
+<p>若区域 $D$ 关于 $x$ 轴对称，且 $f(x,y)$ 关于 $y$ 为奇函数，则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma=0
+$$</p>
+<p>若区域 $D$ 关于 $x$ 轴对称，且 $f(x,y)$ 关于 $y$ 为偶函数，则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+2\iint_{D_1} f(x,y)\,d\sigma
+$$</p>
+<p>其中 $D_1$ 为 $D$ 在 $x$ 轴一侧的部分。<br>
+若区域 $D$ 关于 $y$ 轴对称，且 $f(x,y)$ 关于 $x$ 为奇函数，则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma=0
+$$</p>
+<p>若区域 $D$ 关于 $y$ 轴对称，且 $f(x,y)$ 关于 $x$ 为偶函数，则</p>
+<p>$$
+\iint_D f(x,y)\,d\sigma
+=
+2\iint_{D_2} f(x,y)\,d\sigma
+$$</p>
+<p>其中 $D_2$ 为 $D$ 在 $y$ 轴一侧的部分。</p>
+<h1>二重积分的换元法</h1>
+<h2 id="坐标变换">坐标变换</h2>
+<p>设变换</p>
+<p>$$
+\begin{cases}
+x=x(u,v) \\
+y=y(u,v)
+\end{cases}
+\quad (u,v)\in D'
+$$</p>
+<p>将 $uOv$ 平面上的闭区域 $D'$ 一一对应地映射为 $xOy$ 平面上的闭区域 $D$。<br>
+若函数 $x=x(u,v),y=y(u,v)$ 在 $D'$ 上具有一阶连续偏导数，且雅可比行列式</p>
+<p>$$
+J(u,v)
+=
+\frac{\partial(x,y)}{\partial(u,v)}
+=
+\begin{vmatrix}
+x_u & x_v \\
+y_u & y_v
+\end{vmatrix}
+\ne 0
+$$</p>
+<p>则二重积分的换元公式为</p>
+<p>$$
+\iint_D f(x,y)\,dxdy
+=
+\iint_{D'} f(x(u,v),y(u,v))
+\left|
+\frac{\partial(x,y)}{\partial(u,v)}
+\right|dudv
+$$</p>
+<p>其中</p>
+<p>$$
+dxdy
+=
+\left|
+\frac{\partial(x,y)}{\partial(u,v)}
+\right|dudv
+$$</p>
+<p><strong>雅可比行列式的意义</strong><br>
+雅可比行列式表示坐标变换下的面积伸缩倍数。<br>
+因为面积只取大小，所以换元公式中使用绝对值：</p>
+<p>$$
+\left|
+\frac{\partial(x,y)}{\partial(u,v)}
+\right|
+$$</p>
+<p>二重积分换元的目的是把原来复杂的积分区域 $D$ 转化为较简单的区域 $D'$。<br>
+换元时需要同时改变：</p>
+<ol>
+<li>被积函数：</li>
+</ol>
+<p>$$
+f(x,y)\to f(x(u,v),y(u,v))
+$$</p>
+<ol start="2">
+<li>积分区域：</li>
+</ol>
+<p>$$
+D\to D'
+$$</p>
+<ol start="3">
+<li>面积元素：</li>
+</ol>
+<p>$$
+dxdy\to
+\left|
+\frac{\partial(x,y)}{\partial(u,v)}
+\right|dudv
+$$</p>
+<p><strong>极坐标是换元法的特例</strong><br>
+令</p>
+<p>$$
+x=\rho\cos\theta,\quad y=\rho\sin\theta
+$$</p>
+<p>则</p>
+<p>$$
+\frac{\partial(x,y)}{\partial(\rho,\theta)}
+=
+\begin{vmatrix}
+\cos\theta & -\rho\sin\theta \\
+\sin\theta & \rho\cos\theta
+\end{vmatrix}
+=
+\rho
+$$</p>
+<p>所以</p>
+<p>$$
+dxdy=\rho\,d\rho d\theta
+$$</p>
+<p>因此极坐标下的二重积分为</p>
+<p>$$
+\iint_D f(x,y)\,dxdy
+=
+\iint_{D'} f(\rho\cos\theta,\rho\sin\theta)\rho\,d\rho d\theta
+$$</p>
+<h2 id="换元步骤">换元步骤</h2>
+<ol>
+<li>选择合适的坐标变换</li>
+</ol>
+<p>$$
+x=x(u,v),\quad y=y(u,v)
+$$</p>
+<ol start="2">
+<li>将原积分区域 $D$ 转化为新区域 $D'$。</li>
+<li>计算雅可比行列式</li>
+</ol>
+<p>$$
+J(u,v)=\frac{\partial(x,y)}{\partial(u,v)}
+$$</p>
+<ol start="4">
+<li>替换被积函数和面积元素，写成新变量下的二重积分。</li>
+</ol>
+<h1>直角坐标系下三重积分的计算</h1>
+<p>在直角坐标系下，将区域 $\Omega$ 用分别平行于三个坐标面的平面划分为小长方体，其体积元素为</p>
+<p>$$
+dV=dxdydz
+$$</p>
+<p>因此</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\iiint_\Omega f(x,y,z)\,dxdydz
+$$</p>
+<p>三重积分的计算本质是将其化为三次积分，关键在于确定积分区域 $\Omega$ 中点的坐标取值范围。</p>
+<h2 id="先对-$z$-积分">先对 $z$ 积分</h2>
+<p>将区域 $\Omega$ 投影到 $xOy$ 平面，得投影区域 $D_{xy}$。<br>
+若过 $D_{xy}$ 内任一点 $(x,y)$ 作平行于 $z$ 轴的直线，与 $\Omega$ 的边界交于两点</p>
+<p>$$
+z=z_1(x,y),\quad z=z_2(x,y)
+$$</p>
+<p>且</p>
+<p>$$
+z_1(x,y)\le z\le z_2(x,y)
+$$</p>
+<p>则</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\iint_{D_{xy}}
+\left[
+\int_{z_1(x,y)}^{z_2(x,y)}
+f(x,y,z)\,dz
+\right]dxdy
+$$</p>
+<p>若</p>
+<p>$$
+D_{xy}=\{(x,y)\mid y_1(x)\le y\le y_2(x),\ a\le x\le b\}
+$$</p>
+<p>则</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\int_a^b dx
+\int_{y_1(x)}^{y_2(x)}dy
+\int_{z_1(x,y)}^{z_2(x,y)}
+f(x,y,z)\,dz
+$$</p>
+<p>习惯上也写作</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\int_a^b
+\int_{y_1(x)}^{y_2(x)}
+\int_{z_1(x,y)}^{z_2(x,y)}
+f(x,y,z)\,dz\,dy\,dx
+$$</p>
+<p>此时积分区域可表示为</p>
+<p>$$
+\Omega=
+\{(x,y,z)\mid z_1(x,y)\le z\le z_2(x,y),\ y_1(x)\le y\le y_2(x),\ a\le x\le b\}
+$$</p>
+<h2 id="先对-$x$-积分">先对 $x$ 积分</h2>
+<p>若将区域 $\Omega$ 投影到 $yOz$ 平面，且</p>
+<p>$$
+\Omega=
+\{(x,y,z)\mid x_1(y,z)\le x\le x_2(y,z),\ y_1(z)\le y\le y_2(z),\ c\le z\le d\}
+$$</p>
+<p>则</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\int_c^d dz
+\int_{y_1(z)}^{y_2(z)}dy
+\int_{x_1(y,z)}^{x_2(y,z)}
+f(x,y,z)\,dx
+$$</p>
+<h2 id="先对-$y$-积分">先对 $y$ 积分</h2>
+<p>若将区域 $\Omega$ 投影到 $xOz$ 平面，且</p>
+<p>$$
+\Omega=
+\{(x,y,z)\mid y_1(x,z)\le y\le y_2(x,z),\ z_1(x)\le z\le z_2(x),\ a\le x\le b\}
+$$</p>
+<p>则</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\int_a^b dx
+\int_{z_1(x)}^{z_2(x)}dz
+\int_{y_1(x,z)}^{y_2(x,z)}
+f(x,y,z)\,dy
+$$</p>
+<h2 id="化为三次积分的步骤">化为三次积分的步骤</h2>
+<ol>
+<li>画出空间区域 $\Omega$ 的草图。</li>
+<li>选择合适的投影面，确定最内层积分变量。</li>
+<li>用不等式组表示 $\Omega$ 中点 $(x,y,z)$ 的取值范围。</li>
+<li>按积分次序写出积分限，将三重积分化为三次积分。</li>
+</ol>
+<h1>利用柱面坐标计算三重积分</h1>
+<p>柱面坐标可以看作平面极坐标在空间中的推广。<br>
+设点 $M(x,y,z)$ 在空间中，其在 $xOy$ 平面上的投影为 $P$。若点 $P$ 的极坐标为 $(\rho,\theta)$，则点 $M$ 的<strong>柱面坐标</strong>为</p>
+<p>$$
+(\rho,\theta,z)
+$$</p>
+<p>其中：</p>
+<ul>
+<li>$\rho$ 表示点 $M$ 到 $z$ 轴的距离</li>
+<li>$\theta$ 表示点 $P$ 在 $xOy$ 平面内的极角</li>
+<li>$z$ 表示点 $M$ 的竖坐标</li>
+</ul>
+<p>直角坐标与柱面坐标的关系为</p>
+<p>$$
+x=\rho\cos\theta,\quad y=\rho\sin\theta,\quad z=z
+$$</p>
+<p>取值范围通常为</p>
+<p>$$
+0\le \rho<+\infty,\quad 0\le \theta<2\pi,\quad -\infty<z<+\infty
+$$</p>
+<p><strong>坐标面</strong><br>
+柱面坐标中的三个坐标面分别为：</p>
+<ol>
+<li>$\rho=\rho_0$：以 $z$ 轴为轴、半径为 $\rho_0$ 的圆柱面</li>
+<li>$\theta=\theta_0$：过 $z$ 轴的半平面</li>
+<li>$z=z_0$：平行于 $xOy$ 平面的平面</li>
+</ol>
+<p><strong>体积元素</strong><br>
+在柱面坐标中，小体积元素近似为</p>
+<p>$$
+dV=\rho\,d\rho\,d\theta\,dz
+$$</p>
+<p>其中多出的因子 $\rho$ 来自极坐标下的面积伸缩：</p>
+<p>$$
+dxdy=\rho\,d\rho\,d\theta
+$$</p>
+<p>因此</p>
+<p>$$
+dV=dxdy\,dz=\rho\,d\rho\,d\theta\,dz
+$$</p>
+<p><strong>三重积分公式</strong><br>
+若空间区域 $\Omega$ 在柱面坐标下对应区域为 $\Omega'$，则</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\iiint_{\Omega'}
+f(\rho\cos\theta,\rho\sin\theta,z)
+\rho\,d\rho\,d\theta\,dz
+$$</p>
+<h2 id="使用柱面坐标的常见场景">使用柱面坐标的常见场景</h2>
+<ol>
+<li>积分区域含有 $x^2+y^2$、圆柱面、圆锥面、旋转体等结构。</li>
+<li>被积函数中含有 $x^2+y^2$。</li>
+<li>区域绕 $z$ 轴具有对称性。</li>
+<li>投影到 $xOy$ 平面后，用极坐标表示更简单。</li>
+</ol>
+<h1>球面坐标系下三重积分的计算</h1>
+<p><strong>球面坐标</strong><br>
+空间中点 $M(x,y,z)$ 可用球面坐标表示为</p>
+<p>$$
+(r,\varphi,\theta)
+$$</p>
+<p>其中：</p>
+<ul>
+<li>$r$：点 $M$ 到原点 $O$ 的距离</li>
+<li>$\varphi$：向径 $OM$ 与 $z$ 轴正向的夹角</li>
+<li>$\theta$：点 $M$ 在 $xOy$ 平面上的投影与 $x$ 轴正向的夹角</li>
+</ul>
+<p>通常取值范围为</p>
+<p>$$
+0\le r<+\infty,\quad 0\le \varphi\le \pi,\quad 0\le \theta\le 2\pi
+$$</p>
+<p><strong>与直角坐标的关系</strong><br>
+设点 $M$ 在 $xOy$ 平面上的投影为 $P$，则</p>
+<p>$$
+|OP|=r\sin\varphi,\quad z=r\cos\varphi
+$$</p>
+<p>因此</p>
+<p>$$
+x=r\sin\varphi\cos\theta
+$$</p>
+<p>$$
+y=r\sin\varphi\sin\theta
+$$</p>
+<p>$$
+z=r\cos\varphi
+$$</p>
+<p><strong>坐标面</strong><br>
+球面坐标中的三个坐标面分别为：</p>
+<ol>
+<li>$r=r_0$：以原点为球心、半径为 $r_0$ 的球面</li>
+<li>$\varphi=\varphi_0$：顶点在原点、轴为 $z$ 轴的圆锥面</li>
+<li>$\theta=\theta_0$：过 $z$ 轴的半平面</li>
+</ol>
+<p><strong>体积元素</strong><br>
+在球面坐标中，体积元素为</p>
+<p>$$
+dV=r^2\sin\varphi\,drd\varphi d\theta
+$$</p>
+<p>其中因子 $r^2\sin\varphi$ 来自球面坐标变换下的体积伸缩。</p>
+<p><strong>三重积分公式</strong><br>
+若空间区域 $\Omega$ 在球面坐标下对应区域为 $\Omega'$，则</p>
+<p>$$
+\iiint_\Omega f(x,y,z)\,dV
+=
+\iiint_{\Omega'}
+f(r\sin\varphi\cos\theta,\ r\sin\varphi\sin\theta,\ r\cos\varphi)
+r^2\sin\varphi\,drd\varphi d\theta
+$$</p>
+<h2 id="常见使用场景">常见使用场景</h2>
+<ol>
+<li>积分区域含有球面、圆锥面，或边界形如 $x^2+y^2+z^2=R^2$。</li>
+<li>被积函数中含有 $x^2+y^2+z^2$。</li>
+<li>区域关于原点或某坐标轴具有球面对称性。</li>
+<li>区域用直角坐标描述复杂，而用 $r,\varphi,\theta$ 描述更简单。</li>
+</ol>
+<h1>曲线积分</h1>
+<h2 id="对弧长的曲线积分">对弧长的曲线积分</h2>
+<h3 id="定义">定义</h3>
+<p>设 $L$ 为 $xOy$ 面上的光滑曲线，函数 $f(x,y)$ 定义在 $L$ 上。将 $L$ 任意分成 $n$ 段小弧，每段弧长为 $\Delta s_i$，并在第 $i$ 段小弧上任取一点 $(\xi_i,\eta_i)$，作和式：</p>
+<p>$$
+\sum_{i=1}^{n} f(\xi_i,\eta_i)\Delta s_i
+$$</p>
+<p>若当 $\lambda=\max\limits_{1\le i\le n}{\Delta s_i}\to 0$ 时，上式极限存在，且与曲线的分法和取点方式无关，则称该极限为函数 $f(x,y)$ 在曲线 $L$ 上<strong>对弧长的曲线积分</strong>，记作：</p>
+<p>$$
+\int_L f(x,y),ds
+$$</p>
+<p>即：</p>
+<p>$$
+\int_L f(x,y),ds=\lim_{\lambda\to 0}\sum_{i=1}^{n} f(\xi_i,\eta_i)\Delta s_i
+$$</p>
+<p>其中：</p>
+<ul>
+<li>$L$：积分曲线</li>
+<li>$f(x,y)$：被积函数</li>
+<li>$ds$：弧长元素，也称弧微分</li>
+<li>对弧长的曲线积分也称为<strong>第一类曲线积分</strong></li>
+</ul>
+<p>特别地：</p>
+<p>$$
+\int_L ds=s
+$$</p>
+<p>即当被积函数为 $1$ 时，对弧长的曲线积分等于曲线 $L$ 的弧长。</p>
+<p>三维空间中，若 $\Gamma$ 为空间曲线，则可类似定义：</p>
+<p>$$
+\int_\Gamma f(x,y,z)ds\quad\lim_{\lambda\to 0}\sum_{i=1}^{n} f(\xi_i,\eta_i,\zeta_i)\Delta s_i
+$$</p>
+<h3 id="几何意义">几何意义</h3>
+<p>若 $L$ 是 $xOy$ 面上的曲线，且母线平行于 $z$ 轴，$f(x,y)$ 表示柱面上点的高度，则：</p>
+<p>$$
+\int_L f(x,y),ds
+$$</p>
+<p>表示该柱面面积的代数和。</p>
+<p>当 $f(x,y)\ge 0$ 时，面积取正；当 $f(x,y)\le 0$ 时，面积取负。</p>
+<h3 id="基本性质">基本性质</h3>
+<p><strong>线性性</strong></p>
+<p>若 $\alpha,\beta$ 为常数，则：</p>
+<p>$$
+\int_L [\alpha f(x,y)+\beta g(x,y)]ds=\alpha\int_L f(x,y),ds+\beta\int_L g(x,y)ds
+$$</p>
+<p><strong>积分区域可加性</strong></p>
+<p>若曲线 $L$ 由两段光滑曲线 $L_1,L_2$ 组成，则：</p>
+<p>$$
+\int_L f(x,y)ds=\int_{L_1} f(x,y)ds+\int_{L_2} f(x,y)ds
+$$</p>
+<p><strong>单调性</strong></p>
+<p>若在 $L$ 上有 $f(x,y)\le g(x,y)$，则：</p>
+<p>$$
+\int_L f(x,y),ds
+\le
+\int_L g(x,y),ds
+$$</p>
+<p><strong>绝对可积性</strong></p>
+<p>若 $f(x,y)$ 在 $L$ 上可积，则 $|f(x,y)|$ 也可积，且：</p>
+<p>$$
+\left|
+\int_L f(x,y),ds
+\right|
+\le
+\int_L |f(x,y)|,ds
+$$</p>
+<p><strong>积分中值定理</strong></p>
+<p>若 $f(x,y)$ 在 $L$ 上连续，则存在一点 $(\xi,\eta)\in L$，使得：</p>
+<p>$$
+\int_L f(x,y)ds=f(\xi,\eta)s
+$$</p>
+<p>其中 $s$ 为曲线 $L$ 的弧长。</p>
+<h3 id="对弧长的曲线积分的计算">对弧长的曲线积分的计算</h3>
+<h4 id="平面曲线的计算公式">平面曲线的计算公式</h4>
+<p>设平面光滑曲线 $L$ 的参数方程为</p>
+<p>$$
+\begin{cases}
+x=x(t),\\
+y=y(t),
+\end{cases}
+\quad t\in[\alpha,\beta]
+$$</p>
+<p>若 $x'(t),y'(t)$ 在 $[\alpha,\beta]$ 上连续，且</p>
+<p>$$
+[x'(t)]^2+[y'(t)]^2\ne 0
+$$</p>
+<p>函数 $f(x,y)$ 在曲线 $L$ 上连续，则</p>
+<p>$$
+\begin{aligned}
+\int_L f(x,y)\,ds
+&=
+\int_\alpha^\beta
+f[x(t),y(t)]
+\sqrt{[x'(t)]^2+[y'(t)]^2}\,dt
+\end{aligned}
+$$</p>
+<p>其中弧长元素为</p>
+<p>$$
+ds=
+\sqrt{[x'(t)]^2+[y'(t)]^2}\,dt
+$$</p>
+<h4 id="空间曲线的计算公式">空间曲线的计算公式</h4>
+<p>设空间曲线 $\Gamma$ 的参数方程为</p>
+<p>$$
+\begin{cases}
+x=x(t),\\
+y=y(t),\\
+z=z(t),
+\end{cases}
+\quad t\in[\alpha,\beta]
+$$</p>
+<p>则</p>
+<p>$$
+\begin{aligned}
+\int_\Gamma f(x,y,z)\,ds
+&=
+\int_\alpha^\beta
+f[x(t),y(t),z(t)]
+\sqrt{[x'(t)]^2+[y'(t)]^2+[z'(t)]^2}\,dt
+\end{aligned}
+$$</p>
+<p>其中弧长元素为</p>
+<p>$$
+ds=
+\sqrt{[x'(t)]^2+[y'(t)]^2+[z'(t)]^2}\,dt
+$$</p>
+<p><strong>计算步骤</strong></p>
+<ol>
+<li>写出曲线的参数方程；</li>
+<li>将 $x,y$ 或 $x,y,z$ 代入被积函数；</li>
+<li>求弧长元素 $ds$；</li>
+<li>将曲线积分化为定积分计算。</li>
+</ol>
+<h2 id="对坐标的曲线积分">对坐标的曲线积分</h2>
+<h3 id="定义-2">定义</h3>
+<p>设 $L$ 为一段有向光滑曲线，起点为 $A$，终点为 $B$。平面向量场为</p>
+<p>$$
+\boldsymbol{F}(x,y)=P(x,y)\boldsymbol{i}+Q(x,y)\boldsymbol{j}
+$$</p>
+<p>若曲线上一点的单位切向量为</p>
+<p>$$
+\boldsymbol{e}_{\tau}(x,y)
+$$</p>
+<p>则力沿曲线方向的分量为</p>
+<p>$$
+\boldsymbol{F}(x,y)\cdot \boldsymbol{e}_{\tau}(x,y)
+$$</p>
+<p>将曲线 $L$ 分成若干小段，在第 $i$ 段上取点 $(\xi_i,\eta_i)$，小弧长为 $\Delta s_i$，则总功可近似为</p>
+<p>$$
+\sum_{i=1}^{n}
+\boldsymbol{F}(\xi_i,\eta_i)\cdot
+\boldsymbol{e}_{\tau}(\xi_i,\eta_i)
+\Delta s_i
+$$</p>
+<p>当分割无限加细且极限存在时，定义</p>
+<p>$$
+W=
+\int_L \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
+$$</p>
+<p>即</p>
+<p>$$
+\int_L \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
+=
+\int_L
+\boldsymbol{F}(x,y)\cdot
+\boldsymbol{e}_{\tau}(x,y)\,ds
+$$</p>
+<p>这种积分称为<strong>对坐标的曲线积分</strong>，也称为<strong>第二类曲线积分</strong>。</p>
+<h3 id="坐标形式">坐标形式</h3>
+<p>设</p>
+<p>$$
+\boldsymbol{F}(x,y)=P(x,y)\boldsymbol{i}+Q(x,y)\boldsymbol{j}
+$$</p>
+<p>曲线切向量与 $x$ 轴、$y$ 轴的夹角分别为 $\alpha,\beta$，则</p>
+<p>$$
+\boldsymbol{e}_{\tau}(x,y)
+=
+(\cos\alpha,\cos\beta)
+$$</p>
+<p>所以</p>
+<p>$$
+\boldsymbol{F}(x,y)\cdot \boldsymbol{e}_{\tau}(x,y)
+=
+P(x,y)\cos\alpha+Q(x,y)\cos\beta
+$$</p>
+<p>因此</p>
+<p>$$
+\int_L \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
+=
+\int_L P(x,y)\cos\alpha\,ds
++
+\int_L Q(x,y)\cos\beta\,ds
+$$</p>
+<p>由于</p>
+<p>$$
+dx=\cos\alpha\,ds,\qquad
+dy=\cos\beta\,ds,\qquad
+$$</p>
+<p>于是得到第二类曲线积分的常用形式：</p>
+<p>$$
+\int_L \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
+=
+\int_L P(x,y)\,dx+Q(x,y)\,dy
+$$</p>
+<p>其中</p>
+<p>$$
+\int_L P(x,y)\,dx
+=
+\int_L P(x,y)\cos\alpha\,ds
+$$</p>
+<p>$$
+\int_L Q(x,y)\,dy
+=
+\int_L Q(x,y)\cos\beta\,ds
+$$</p>
+<p>在空间中，设</p>
+<p>$$
+\boldsymbol{F}(x,y,z)
+=
+P(x,y,z)\boldsymbol{i}
++
+Q(x,y,z)\boldsymbol{j}
++
+R(x,y,z)\boldsymbol{k}
+$$</p>
+<p>空间曲线 $\Gamma$ 的单位切向量为</p>
+<p>$$
+\boldsymbol{e}_{\tau}
+=
+(\cos\alpha,\cos\beta,\cos\gamma)
+$$</p>
+<p>则</p>
+<p>$$
+\int_\Gamma \boldsymbol{F}(x,y,z)\cdot d\boldsymbol{r}
+=
+\int_\Gamma
+\boldsymbol{F}(x,y,z)\cdot
+\boldsymbol{e}_{\tau}\,ds
+$$</p>
+<p>即</p>
+<p>$$
+\int_\Gamma \boldsymbol{F}(x,y,z)\cdot d\boldsymbol{r}
+=
+\int_\Gamma
+[P(x,y,z)\cos\alpha
++
+Q(x,y,z)\cos\beta
++
+R(x,y,z)\cos\gamma]\,ds
+$$</p>
+<p>由于</p>
+<p>$$
+dx=\cos\alpha\,ds,\qquad
+dy=\cos\beta\,ds,\qquad
+dz=\cos\gamma\,ds
+$$</p>
+<p>所以空间中的第二类曲线积分也可写为</p>
+<p>$$
+\int_\Gamma \boldsymbol{F}(x,y,z)\cdot d\boldsymbol{r}
+=
+\int_\Gamma
+P(x,y,z)\,dx
++
+Q(x,y,z)\,dy
++
+R(x,y,z)\,dz
+$$</p>
+<h3 id="物理意义">物理意义</h3>
+<p>对坐标的曲线积分通常表示向量场沿有向曲线所做的功：</p>
+<p>$$
+W=
+\int_L \boldsymbol{F}\cdot d\boldsymbol{r}
+$$</p>
+<p>其中 $\boldsymbol{F}$ 表示力，$d\boldsymbol{r}$ 表示沿曲线方向的微小位移。</p>
+<h3 id="基本性质-2">基本性质</h3>
+<p><strong>方向性</strong></p>
+<p>若 $L^{-}$ 表示与 $L$ 方向相反的曲线，则</p>
+<p>$$
+\int_L \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
+=
+-
+\int_{L^{-}} \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
+$$</p>
+<p>第二类曲线积分与曲线方向有关。</p>
+<p><strong>线性性</strong></p>
+<p>若 $\alpha,\beta$ 为常数，则</p>
+<p>$$
+\int_L
+[\alpha\boldsymbol{F}(x,y)+\beta\boldsymbol{G}(x,y)]
+\cdot d\boldsymbol{r}
+=
+\alpha
+\int_L \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
++
+\beta
+\int_L \boldsymbol{G}(x,y)\cdot d\boldsymbol{r}
+$$</p>
+<p><strong>积分区域可加性</strong></p>
+<p>若</p>
+<p>$$
+L=L_1\cup L_2
+$$</p>
+<p>且 $L_1,L_2$ 方向与 $L$ 的方向一致，则</p>
+<p>$$
+\int_L \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
+=
+\int_{L_1} \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
++
+\int_{L_2} \boldsymbol{F}(x,y)\cdot d\boldsymbol{r}
+$$</p>
+<h3 id="对坐标的曲线积分的计算">对坐标的曲线积分的计算</h3>
+<h4 id="平面曲线的计算公式-2">平面曲线的计算公式</h4>
+<p>设有向光滑曲线 $AB$ 的参数方程为</p>
+<p>$$
+\begin{cases}
+x=x(t),\\
+y=y(t),
+\end{cases}
+\quad \alpha\le t\le \beta
+$$</p>
+<p>其中 $t=\alpha$ 对应起点 $A$，$t=\beta$ 对应终点 $B$。</p>
+<p>若 $x'(t),y'(t)$ 连续，且</p>
+<p>$$
+[x'(t)]^2+[y'(t)]^2\ne 0
+$$</p>
+<p>函数 $P(x,y),Q(x,y)$ 在曲线 $AB$ 上连续，则</p>
+<p>$$
+\begin{aligned}
+\int_{AB} P(x,y)\,dx+Q(x,y)\,dy
+&=
+\int_\alpha^\beta
+\left[
+P(x(t),y(t))x'(t)
++
+Q(x(t),y(t))y'(t)
+\right]\,dt
+\end{aligned}
+$$</p>
+<p>第二类曲线积分与曲线方向有关。<br>
+若 $BA$ 表示与 $AB$ 方向相反的曲线，则</p>
+<p>$$
+\int_{BA} P(x,y)\,dx+Q(x,y)\,dy
+=
+-
+\int_{AB} P(x,y)\,dx+Q(x,y)\,dy
+$$</p>
+<p>在参数方程中，方向由参数 $t$ 的增加方向决定。</p>
+<p>若反向积分，只需交换积分上下限：</p>
+<p>$$
+\int_{BA} P(x,y)\,dx+Q(x,y)\,dy
+=
+\int_\beta^\alpha
+\left[
+P(x(t),y(t))x'(t)
++
+Q(x(t),y(t))y'(t)
+\right]\,dt
+$$</p>
+<p><strong>计算步骤</strong></p>
+<ol>
+<li>写出有向曲线的参数方程；</li>
+<li>确定参数变化区间和曲线方向；</li>
+<li>代入公式</li>
+</ol>
+<p>$$
+\begin{aligned}
+\int_{AB} P(x,y)\,dx+Q(x,y)\,dy
+&=
+\int_\alpha^\beta
+\left[
+P(x(t),y(t))x'(t)
++
+Q(x(t),y(t))y'(t)
+\right]\,dt
+\end{aligned}
+$$</p>
+<ol start="4">
+<li>计算所得定积分。</li>
+</ol>
+<h4 id="空间曲线的计算公式-2">空间曲线的计算公式</h4>
+<p>设空间有向光滑曲线 $AB$ 的参数方程为</p>
+<p>$$
+\begin{cases}
+x=x(t),\\
+y=y(t),\\
+z=z(t),
+\end{cases}
+\quad \alpha\le t\le \beta
+$$</p>
+<p>其中 $t=\alpha$ 对应起点 $A$，$t=\beta$ 对应终点 $B$。</p>
+<p>若 $P(x,y,z),Q(x,y,z),R(x,y,z)$ 在曲线上连续，则</p>
+<p>$$
+\begin{aligned}
+\int_{AB} P(x,y,z)\,dx+Q(x,y,z)\,dy+R(x,y,z)\,dz
+&=
+\int_\alpha^\beta
+\left[
+P(x(t),y(t),z(t))x'(t)
++
+Q(x(t),y(t),z(t))y'(t)
++
+R(x(t),y(t),z(t))z'(t)
+\right]\,dt
+\end{aligned}
+$$</p>
+<h1>格林公式</h1>
+<h2 id="单连通区域与复连通区域">单连通区域与复连通区域</h2>
+<p>若区域 $D$ 是连通开集，且 $D$ 内任一闭曲线内部都属于 $D$，则称 $D$ 为<strong>单连通区域</strong>。</p>
+<p>若区域 $D$ 内存在闭曲线，其内部不完全属于 $D$，则称 $D$ 为<strong>复连通区域</strong>。</p>
+<p>直观地说：</p>
+<ul>
+<li>单连通区域：没有“洞”的区域；</li>
+<li>复连通区域：有“洞”的区域。</li>
+</ul>
+<h3 id="边界的正方向">边界的正方向</h3>
+<p>设平面区域 $D$ 的边界为 $\partial D$，当人沿边界 $\partial D$ 行走时，如果区域 $D$ 始终在人的左侧，则称 $\partial D$ 取<strong>正方向</strong>。</p>
+<ul>
+<li>对于单连通区域，正方向通常是逆时针方向。</li>
+<li>对于有洞区域，外边界取逆时针方向，内边界取顺时针方向。</li>
+</ul>
+<h2 id="格林公式">格林公式</h2>
+<p>设平面闭区域 $D$ 的边界 $\partial D$ 为分段光滑曲线，函数 $P(x,y),Q(x,y)$ 在 $D$ 上具有连续偏导数，则</p>
+<p>$$
+\oint_{\partial D} P\,dx+Q\,dy
+=
+\iint_D
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)
+dxdy
+$$</p>
+<p>其中 $\partial D$ 取正方向。</p>
+<p>这就是<strong>格林公式</strong>。</p>
+<p>格林公式也可写成</p>
+<p>$$
+\oint_{\partial D} P\,dx+Q\,dy
+=
+\iint_D
+\begin{vmatrix}
+\dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y}\\
+P & Q
+\end{vmatrix}
+dxdy
+$$</p>
+<h3 id="作用">作用</h3>
+<p>格林公式建立了平面区域 $D$ 上的二重积分与边界 $\partial D$ 上的第二类曲线积分之间的关系。</p>
+<p>它可以把某些第二类曲线积分转化为二重积分：</p>
+<p>$$
+\oint_{\partial D} P\,dx+Q\,dy
+\longrightarrow
+\iint_D
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)
+dxdy
+$$</p>
+<p>也可以反过来把某些二重积分转化为曲线积分。</p>
+<h3 id="适用条件">适用条件</h3>
+<p>使用格林公式时，需要满足：</p>
+<ol>
+<li>$D$ 是平面闭区域；</li>
+<li>$\partial D$ 是分段光滑闭曲线；</li>
+<li>$P(x,y),Q(x,y)$ 在 $D$ 上具有连续偏导数；</li>
+<li>$\partial D$ 取正方向。<br>
+格林公式既适用于单连通区域，也适用于复连通区域。</li>
+</ol>
+<h3 id="常用拆分公式">常用拆分公式</h3>
+<p>由格林公式可得到：</p>
+<p>$$
+\oint_{\partial D} P\,dx
+=
+-
+\iint_D
+\frac{\partial P}{\partial y}
+dxdy
+$$</p>
+<p>$$
+\oint_{\partial D} Q\,dy
+=
+\iint_D
+\frac{\partial Q}{\partial x}
+dxdy
+$$</p>
+<p>因此</p>
+<p>$$
+\oint_{\partial D} P\,dx+Q\,dy
+=
+\iint_D
+\frac{\partial Q}{\partial x}
+dxdy
+-
+\iint_D
+\frac{\partial P}{\partial y}
+dxdy
+$$</p>
+<h2 id="与牛顿—莱布尼茨公式的类比">与牛顿—莱布尼茨公式的类比</h2>
+<p>一元积分中有</p>
+<p>$$
+\int_a^b f(x)\,dx=F(b)-F(a)
+$$</p>
+<p>它反映了区间内部积分与边界端点取值之间的关系。</p>
+<p>格林公式是二维情形中的类似关系：</p>
+<p>$$
+\iint_D
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)
+dxdy
+=
+\oint_{\partial D} P\,dx+Q\,dy
+$$</p>
+<p>它把区域内部的积分与区域边界上的积分联系起来。</p>
+<h2 id="平面上曲线积分与路径无关">平面上曲线积分与路径无关</h2>
+<p>设 $D$ 为平面单连通区域，$P(x,y),Q(x,y)$ 在 $D$ 上具有连续一阶偏导数，则以下命题等价：</p>
+<ol>
+<li>对 $D$ 内任一闭曲线 $L$，有</li>
+</ol>
+<p>$$
+\oint_L P\,dx+Q\,dy=0
+$$</p>
+<ol start="2">
+<li>对任一完全位于 $D$ 内的曲线弧 $AB$，积分</li>
+</ol>
+<p>$$
+\int_{AB}P\,dx+Q\,dy
+$$</p>
+<p>只与起点 $A$、终点 $B$ 有关，与路径形状无关。<br>
+3. 在 $D$ 内存在函数 $u(x,y)$，使得</p>
+<p>$$
+du=P\,dx+Q\,dy
+$$</p>
+<p>即</p>
+<p>$$
+\frac{\partial u}{\partial x}=P,\qquad \frac{\partial u}{\partial y}=Q
+$$</p>
+<ol start="4">
+<li>在 $D$ 内处处成立：</li>
+</ol>
+<p>$$
+\frac{\partial Q}{\partial x}=\frac{\partial P}{\partial y}
+$$</p>
+<p>实际判断路径无关时，最常用的是：</p>
+<p>$$
+\frac{\partial Q}{\partial x}=\frac{\partial P}{\partial y}
+$$</p>
+<h1>全微分方程</h1>
+<h2 id="定义-3">定义</h2>
+<p>若一阶微分方程</p>
+<p>$$
+P(x,y)\,dx+Q(x,y)\,dy=0
+$$</p>
+<p>的左端恰好是某个函数 $u=u(x,y)$ 的全微分，即</p>
+<p>$$
+d u(x,y)=P(x,y)\,dx+Q(x,y)\,dy
+$$</p>
+<p>则称该方程为<strong>全微分方程</strong>。</p>
+<p>此时方程可写成</p>
+<p>$$
+du=0
+$$</p>
+<p>所以它的隐式通解为</p>
+<p>$$
+u(x,y)=C
+$$</p>
+<h2 id="判定条件">判定条件</h2>
+<p>设 $P(x,y),Q(x,y)$ 在单连通区域 $D$ 内具有一阶连续偏导数。</p>
+<p>则</p>
+<p>$$
+P(x,y)\,dx+Q(x,y)\,dy=0
+$$</p>
+<p>是全微分方程的充要条件为</p>
+<p>$$
+\frac{\partial P}{\partial y}
+=
+\frac{\partial Q}{\partial x}
+$$</p>
+<p>在区域 $D$ 内恒成立。</p>
+<p>也就是说：</p>
+<p>若存在函数 $u(x,y)$，使得</p>
+<p>$$
+du=P\,dx+Q\,dy
+$$</p>
+<p>则必有</p>
+<p>$$
+\frac{\partial P}{\partial y}
+=
+\frac{\partial Q}{\partial x}
+$$</p>
+<p>反过来，在单连通区域内，若</p>
+<p>$$
+\frac{\partial P}{\partial y}
+=
+\frac{\partial Q}{\partial x}
+$$</p>
+<p>则 $P\,dx+Q\,dy$ 一定是某个函数的全微分。</p>
+<h2 id="核心思路">核心思路</h2>
+<p>全微分方程的本质是：</p>
+<p>$$
+P(x,y)\,dx+Q(x,y)\,dy
+$$</p>
+<p>可以看成某个函数 $u(x,y)$ 的微分。</p>
+<p>因此解方程的关键是找到势函数 $u(x,y)$，使得</p>
+<p>$$
+\frac{\partial u}{\partial x}=P(x,y)
+$$</p>
+<p>$$
+\frac{\partial u}{\partial y}=Q(x,y)
+$$</p>
+<p>找到 $u(x,y)$ 后，通解就是</p>
+<p>$$
+u(x,y)=C
+$$</p>
+<h1>曲面积分</h1>
+<h2 id="对面积的曲面积分">对面积的曲面积分</h2>
+<h3 id="定义-4">定义</h3>
+<p>设曲面 $S$ 光滑，函数 $f(x,y,z)$ 定义在 $S$ 上。<br>
+将曲面 $S$ 任意分成 $n$ 个小块：</p>
+<p>$$
+\Delta S_1,\Delta S_2,\cdots,\Delta S_n
+$$</p>
+<p>其中 $\Delta S_i$ 也表示第 $i$ 个小块的面积。<br>
+在每个小块 $\Delta S_i$ 上任取一点 $(\xi_i,\eta_i,\zeta_i)$，作和式：</p>
+<p>$$
+\sum_{i=1}^{n} f(\xi_i,\eta_i,\zeta_i)\Delta S_i
+$$</p>
+<p>时，极限</p>
+<p>$$
+\lim_{\Delta S_{max} \to 0}
+\sum_{i=1}^{n} f(\xi_i,\eta_i,\zeta_i)\Delta S_i
+$$</p>
+<p>存在，且与曲面的分法和取点方式无关，则称该极限为函数 $f(x,y,z)$ 在曲面 $S$ 上<strong>对面积的曲面积分</strong>，记作：</p>
+<p>$$
+\iint_S f(x,y,z)\,dS
+$$</p>
+<p>即</p>
+<p>$$
+\iint_S f(x,y,z)\,dS
+=
+\lim_{\lambda\to 0}
+\sum_{i=1}^{n} f(\xi_i,\eta_i,\zeta_i)\Delta S_i
+$$</p>
+<p>其中：</p>
+<ul>
+<li>$f(x,y,z)$ 称为被积函数；</li>
+<li>$S$ 称为积分曲面；</li>
+<li>$dS$ 称为面积元素；</li>
+<li>对面积的曲面积分也称为<strong>第一类曲面积分</strong>。</li>
+</ul>
+<p><strong>存在性</strong><br>
+若 $f(x,y,z)$ 在光滑曲面 $S$ 上连续，则曲面积分</p>
+<p>$$
+\iint_S f(x,y,z)\,dS
+$$</p>
+<p>存在。</p>
+<p><strong>物理意义</strong></p>
+<p>若曲面 $S$ 的面密度为连续函数 $\mu(x,y,z)$，则曲面 $S$ 的质量为</p>
+<p>$$
+M=\iint_S \mu(x,y,z)\,dS
+$$</p>
+<p>也就是说，对面积的曲面积分可以理解为把曲面上每一点的函数值按面积累加。</p>
+<h3 id="光滑曲面">光滑曲面</h3>
+<p>曲面 $S$ 光滑，是指曲面上每点都有切平面，且切平面的法向量随点连续变化。</p>
+<p>例如，若曲面由方程</p>
+<p>$$
+z=z(x,y)
+$$</p>
+<p>给出，则其法向量可取为</p>
+<p>$$
+(-z_x(x,y),-z_y(x,y),1)
+$$</p>
+<p>因此法向量连续变化等价于 $z_x(x,y),z_y(x,y)$ 连续。</p>
+<h2 id="对面积的曲面积分的计算">对面积的曲面积分的计算</h2>
+<h3 id="显式曲面的面积元素">显式曲面的面积元素</h3>
+<p>设光滑曲面 $S$ 的方程为</p>
+<p>$$
+z=z(x,y),\quad (x,y)\in D_{xy}
+$$</p>
+<p>则曲面面积元素为</p>
+<p>$$
+dS=
+\sqrt{1+z_x^2+z_y^2}\,dxdy
+$$</p>
+<p>因此，若 $f(x,y,z)$ 在 $S$ 上连续，则</p>
+<p>$$
+\iint_S f(x,y,z)\,dS
+=
+\iint_{D_{xy}}
+f(x,y,z(x,y))
+\sqrt{1+z_x^2+z_y^2}\,dxdy
+$$</p>
+<p>这就是把对面积的曲面积分化为二重积分的基本公式。</p>
+<p>同理<br>
+若曲面可表示为</p>
+<p>$$
+x=x(y,z),\quad (y,z)\in D_{yz}
+$$</p>
+<p>则</p>
+<p>$$
+dS=
+\sqrt{1+x_y^2+x_z^2}\,dydz
+$$</p>
+<p>从而</p>
+<p>$$
+\iint_S f(x,y,z)\,dS
+=
+\iint_{D_{yz}}
+f(x(y,z),y,z)
+\sqrt{1+x_y^2+x_z^2}\,dydz
+$$</p>
+<p>若曲面可表示为</p>
+<p>$$
+y=y(x,z),\quad (x,z)\in D_{xz}
+$$</p>
+<p>则</p>
+<p>$$
+dS=
+\sqrt{1+y_x^2+y_z^2}\,dxdz
+$$</p>
+<p>从而</p>
+<p>$$
+\iint_S f(x,y,z)\,dS
+=
+\iint_{D_{xz}}
+f(x,y(x,z),z)
+\sqrt{1+y_x^2+y_z^2}\,dxdz
+$$</p>
+<h3 id="参数曲面的面积元素">参数曲面的面积元素</h3>
+<p>若曲面 $S$ 的参数方程为</p>
+<p>$$
+\boldsymbol{r}(u,v)
+=
+(x(u,v),y(u,v),z(u,v)),
+\quad (u,v)\in D
+$$</p>
+<p>则</p>
+<p>$$
+dS=
+\left|
+\boldsymbol{r}_u\times \boldsymbol{r}_v
+\right|\,dudv
+$$</p>
+<p>其中</p>
+<p>$$
+\boldsymbol{r}_u=
+\left(
+\frac{\partial x}{\partial u},
+\frac{\partial y}{\partial u},
+\frac{\partial z}{\partial u}
+\right),
+\quad
+\boldsymbol{r}_v=
+\left(
+\frac{\partial x}{\partial v},
+\frac{\partial y}{\partial v},
+\frac{\partial z}{\partial v}
+\right)
+$$</p>
+<p>于是</p>
+<p>$$
+\iint_S f(x,y,z)\,dS
+=
+\iint_D
+f(x(u,v),y(u,v),z(u,v))
+\left|
+\boldsymbol{r}_u\times \boldsymbol{r}_v
+\right|\,dudv
+$$</p>
+<p>展开后也可写为</p>
+<p>$$
+dS=
+\sqrt{
+\left(
+\frac{\partial(y,z)}{\partial(u,v)}
+\right)^2
++
+\left(
+\frac{\partial(z,x)}{\partial(u,v)}
+\right)^2
++
+\left(
+\frac{\partial(x,y)}{\partial(u,v)}
+\right)^2
+}\,dudv
+$$</p>
+<p>因此</p>
+<p>$$
+\iint_S f(x,y,z)\,dS
+=
+\iint_D
+f(x(u,v),y(u,v),z(u,v))
+\sqrt{
+\left(
+\frac{\partial(y,z)}{\partial(u,v)}
+\right)^2
++
+\left(
+\frac{\partial(z,x)}{\partial(u,v)}
+\right)^2
++
+\left(
+\frac{\partial(x,y)}{\partial(u,v)}
+\right)^2
+}\,dudv
+$$</p>
+<h3 id="计算步骤">计算步骤</h3>
+<ol>
+<li>判断曲面适合投影到哪个坐标面，或直接使用参数方程；</li>
+<li>写出对应的面积元素 $dS$；</li>
+<li>将曲面方程代入被积函数；</li>
+<li>将曲面积分化为二重积分计算。</li>
+</ol>
+<h2 id="对坐标的曲面积分">对坐标的曲面积分</h2>
+<h3 id="有向曲面">有向曲面</h3>
+<p>若曲面有两个侧面，且可以连续地区分其中一侧和另一侧，则称该曲面为<strong>双侧曲面</strong>，也称为<strong>有向曲面</strong>。</p>
+<p>指定曲面的一侧后，该曲面就有了确定的方向。通常用曲面上连续变化的单位法向量表示曲面的方向。</p>
+<p>若曲面没有办法连续地区分两侧，则称为<strong>不可定向曲面</strong>，如莫比乌斯带。</p>
+<h3 id="定义-5">定义</h3>
+<p>设 $S$ 是有向光滑曲面，向量场为</p>
+<p>$$
+\boldsymbol{F}(x,y,z)
+=
+P(x,y,z)\boldsymbol{i}
++
+Q(x,y,z)\boldsymbol{j}
++
+R(x,y,z)\boldsymbol{k}
+$$</p>
+<p>曲面 $S$ 上一点的单位法向量为</p>
+<p>$$
+\boldsymbol{e}_n(x,y,z)
+$$</p>
+<p>则向量场穿过曲面 $S$ 的通量定义为</p>
+<p>$$
+\iint_S \boldsymbol{F}(x,y,z)\cdot d\boldsymbol{S}
+=
+\iint_S
+\boldsymbol{F}(x,y,z)\cdot
+\boldsymbol{e}_n(x,y,z)\,dS
+$$</p>
+<p>这种积分称为<strong>对坐标的曲面积分</strong>，也称为<strong>第二类曲面积分</strong>。</p>
+<p>其中：</p>
+<p>$$
+d\boldsymbol{S}
+=
+\boldsymbol{e}_n\,dS
+$$</p>
+<p>将曲面 $S$ 分成若干小块 $\Delta S_i$，在每块上取一点 $(\xi_i,\eta_i,\zeta_i)$，若极限</p>
+<p>$$
+\lim_{\lambda\to 0}
+\sum_{i=1}^{n}
+\boldsymbol{F}(\xi_i,\eta_i,\zeta_i)
+\cdot
+\boldsymbol{e}_n(\xi_i,\eta_i,\zeta_i)
+\Delta S_i
+$$</p>
+<p>存在，则定义</p>
+<p>$$
+\iint_S \boldsymbol{F}\cdot d\boldsymbol{S}
+=
+\lim_{\Delta S_{max} \to 0}
+\sum_{i=1}^{n}
+\boldsymbol{F}(\xi_i,\eta_i,\zeta_i)
+\cdot
+\boldsymbol{e}_n(\xi_i,\eta_i,\zeta_i)
+\Delta S_i
+$$</p>
+<p><strong>坐标形式</strong></p>
+<p>设单位法向量的方向余弦为</p>
+<p>$$
+\boldsymbol{e}_n
+=
+(\cos\alpha,\cos\beta,\cos\gamma)
+$$</p>
+<p>则</p>
+<p>$$
+\boldsymbol{F}\cdot \boldsymbol{e}_n
+=
+P\cos\alpha
++
+Q\cos\beta
++
+R\cos\gamma
+$$</p>
+<p>因此</p>
+<p>$$
+\iint_S \boldsymbol{F}\cdot d\boldsymbol{S}
+=
+\iint_S
+(P\cos\alpha+Q\cos\beta+R\cos\gamma)\,dS
+$$</p>
+<p>记</p>
+<p>$$
+dydz=\cos\alpha\,dS,\qquad
+dzdx=\cos\beta\,dS,\qquad
+dxdy=\cos\gamma\,dS
+$$</p>
+<p>则第二类曲面积分可写成</p>
+<p>$$
+\iint_S \boldsymbol{F}\cdot d\boldsymbol{S}
+=
+\iint_S
+P\,dydz
++
+Q\,dzdx
++
+R\,dxdy
+$$</p>
+<p><strong>物理意义</strong></p>
+<p>若 $\boldsymbol{F}$ 表示流速场，则</p>
+<p>$$
+\iint_S \boldsymbol{F}\cdot d\boldsymbol{S}
+$$</p>
+<p>表示单位时间内穿过有向曲面 $S$ 的流量，也称为<strong>通量</strong>。</p>
+<p>若结果为正，表示流体总体沿指定法向量方向穿出曲面；若结果为负，表示流体总体沿相反方向穿过曲面。</p>
+<h3 id="基本性质-3">基本性质</h3>
+<p><strong>方向性</strong></p>
+<p>若 $S^{-}$ 表示与 $S$ 方向相反的曲面，则</p>
+<p>$$
+\iint_{S^{-}} \boldsymbol{F}\cdot d\boldsymbol{S}
+=
+-
+\iint_S \boldsymbol{F}\cdot d\boldsymbol{S}
+$$</p>
+<p>第二类曲面积分与曲面方向有关。<br>
+<strong>线性性</strong></p>
+<p>若 $a,b$ 为常数，则</p>
+<p>$$
+\iint_S
+[a\boldsymbol{F}+b\boldsymbol{G}]
+\cdot d\boldsymbol{S}
+=
+a\iint_S \boldsymbol{F}\cdot d\boldsymbol{S}
++
+b\iint_S \boldsymbol{G}\cdot d\boldsymbol{S}
+$$</p>
+<p><strong>曲面可加性</strong></p>
+<p>若 $S=S_1\cup S_2$，且 $S_1,S_2$ 方向与 $S$ 的方向一致，则</p>
+<p>$$
+\iint_S \boldsymbol{F}\cdot d\boldsymbol{S}
+=
+\iint_{S_1} \boldsymbol{F}\cdot d\boldsymbol{S}
++
+\iint_{S_2} \boldsymbol{F}\cdot d\boldsymbol{S}
+$$</p>
+<h2 id="对坐标的曲面积分的计算">对坐标的曲面积分的计算</h2>
+<p>设向量场</p>
+<p>$$
+\mathbf F=(P,Q,R)
+$$</p>
+<p>有向曲面 $S$ 的单位法向量方向余弦为</p>
+<p>$$
+(\cos\alpha,\cos\beta,\cos\gamma)
+$$</p>
+<p>则第二型曲面积分可化为第一型曲面积分：</p>
+<p>$$
+\iint_S P\,dy\,dz+Q\,dz\,dx+R\,dx\,dy
+=
+\iint_S (P\cos\alpha+Q\cos\beta+R\cos\gamma)\,dS
+$$</p>
+<p>但实际计算时，通常直接化为二重积分。</p>
+<h3 id="参数方程形式">参数方程形式</h3>
+<p>设光滑有向曲面 $S$ 的参数方程为</p>
+<p>$$
+x=x(u,v),\quad y=y(u,v),\quad z=z(u,v),\quad (u,v)\in D_{uv}
+$$</p>
+<p>则</p>
+<p>$$
+\begin{aligned}
+\iint_S \mathbf F\cdot d\mathbf S&=\iint_S P\,dy\,dz+Q\,dz\,dx+R\,dx\,dy \\
+&=\pm\iint_{D_{uv}}\left[P(x(u,v),y(u(v),z(u,v)))\frac{\partial(y,z)}{\partial(u,v)}+Q(x(u,v),y(u,v),z(u,v))\frac{\partial(z,x)}{\partial(u,v)}+R(x(u,v),y(u,v),z(u,v))\frac{\partial(x,y)}{\partial(u,v)}\right]du\,dv
+\end{aligned}
+$$</p>
+<p>其中</p>
+<p>$$
+\left(
+\frac{\partial(y,z)}{\partial(u,v)},
+\frac{\partial(z,x)}{\partial(u,v)},
+\frac{\partial(x,y)}{\partial(u,v)}
+\right)
+$$</p>
+<p>就是由参数方程给出的法向量，也等于</p>
+<p>$$
+\mathbf r_u\times \mathbf r_v
+$$</p>
+<p>若</p>
+<p>$$
+\left(
+\frac{\partial(y,z)}{\partial(u,v)},
+\frac{\partial(z,x)}{\partial(u,v)},
+\frac{\partial(x,y)}{\partial(u,v)}
+\right)
+$$</p>
+<ul>
+<li>与题目给定的曲面方向一致，则取 $+$</li>
+<li>与题目给定的曲面方向相反，则取 $-$</li>
+</ul>
+<p>也就是：</p>
+<p>$$
+\iint_S P\,dy\,dz+Q\,dz\,dx+R\,dx\,dy
+=
+\iint_{D_{uv}} \mathbf F(\mathbf r(u,v))\cdot(\mathbf r_u\times\mathbf r_v)\,du\,dv
+$$</p>
+<h3 id="显式方程形式">显式方程形式</h3>
+<p>设有向曲面 $S$ 由</p>
+<p>$$
+z=z(x,y),\quad (x,y)\in D_{xy}
+$$</p>
+<p>给出，其中 $D_{xy}$ 是 $S$ 在 $xOy$ 面上的投影区域，对其他面的投影也是同理。</p>
+<p>则</p>
+<p>$$
+\iint_S P\,dy\,dz+Q\,dz\,dx+R\,dx\,dy
+=
+\pm
+\iint_{D_{xy}}
+\left[
+P(x,y,z(x,y))(-z_x)+Q(x,y,z(x,y))(-z_y)+R(x,y,z(x,y))
+\right]dx\,dy
+$$</p>
+<p><strong>显式曲面的符号规则</strong></p>
+<p>曲面</p>
+<p>$$
+z=z(x,y)
+$$</p>
+<p>对应的参数方程为</p>
+<p>$$
+\mathbf r(x,y)=(x,y,z(x,y))
+$$</p>
+<p>因此</p>
+<p>$$
+\mathbf r_x\times\mathbf r_y=(-z_x,-z_y,1)
+$$</p>
+<p>若题目规定它指向曲面的上侧。<br>
+则：</p>
+<ul>
+<li>$S$ 取上侧，右端取 $+$</li>
+<li>$S$ 取下侧，右端取 $-$</li>
+</ul>
+<p><strong>微分替换法</strong></p>
+<p>计算时可记为：</p>
+<p>$$
+dy\,dz\to -z_x\,dx\,dy
+$$</p>
+<p>$$
+dz\,dx\to -z_y\,dx\,dy
+$$</p>
+<p>$$
+dx\,dy\to dx\,dy
+$$</p>
+<p>所以</p>
+<p>$$
+P\,dy\,dz+Q\,dz\,dx+R\,dx\,dy
+\to
+(-Pz_x-Qz_y+R)\,dx\,dy
+$$</p>
+<p>再根据曲面的方向决定整体正负号。</p>
+<p>这些替换本质上来自雅可比行列式：</p>
+<p>$$
+dy\,dz=
+\frac{\partial(y,z)}{\partial(x,y)}dx\,dy
+=
+-z_x\,dx\,dy
+$$</p>
+<p>$$
+dz\,dx=
+\frac{\partial(z,x)}{\partial(x,y)}dx\,dy
+=
+-z_y\,dx\,dy
+$$</p>
+<p>$$
+dx\,dy=
+\frac{\partial(x,y)}{\partial(x,y)}dx\,dy
+=
+dx\,dy
+$$</p>
+<p>这里的 $dy\,dz$、$dz\,dx$、$dx\,dy$ 要看成一个整体，而不是普通微分的乘法。</p>
+<h1>高斯公式</h1>
+<p>设闭区域 $V$ 由分片光滑的闭曲面 $S$ 围成，$S$ 取外侧为正向。若函数 $P(x,y,z)$、$Q(x,y,z)$、$R(x,y,z)$ 在 $V$ 上具有连续一阶偏导数，则</p>
+<p>$$
+\iint_S P\,dy\,dz+Q\,dz\,dx+R\,dx\,dy
+=
+\iiint_V
+\left(
+\frac{\partial P}{\partial x}
++
+\frac{\partial Q}{\partial y}
++
+\frac{\partial R}{\partial z}
+\right)dV
+$$</p>
+<p>其中 $S=\partial V$，表示 $S$ 是闭区域 $V$ 的边界曲面。</p>
+<p><strong>分量形式</strong><br>
+高斯公式可拆成三个基本公式：</p>
+<p>$$
+\iint_S P\,dy\,dz
+=
+\iiint_V \frac{\partial P}{\partial x}\,dV
+$$</p>
+<p>$$
+\iint_S Q\,dz\,dx
+=
+\iiint_V \frac{\partial Q}{\partial y}\,dV
+$$</p>
+<p>$$
+\iint_S R\,dx\,dy
+=
+\iiint_V \frac{\partial R}{\partial z}\,dV
+$$</p>
+<p>三式相加即得高斯公式。</p>
+<h2 id="使用条件">使用条件</h2>
+<p>使用高斯公式时要注意：</p>
+<ol>
+<li>曲面 $S$ 必须是闭曲面。</li>
+<li>曲面正向通常取外侧。</li>
+<li>$P,Q,R$ 在闭区域 $V$ 上具有连续一阶偏导数。</li>
+<li>若曲面不封闭，需要先补面，使其成为闭曲面。</li>
+<li>补面后要注意补面的方向，最后再减去补面积分。</li>
+</ol>
+<h1>斯托克斯公式</h1>
+<p>设有向曲面 $S$ 的边界曲线为 $\Gamma$，$\Gamma$ 的正向与 $S$ 的取向满足右手法则。若 $P(x,y,z)$、$Q(x,y,z)$、$R(x,y,z)$ 在包含 $S$ 的区域内具有连续一阶偏导数，则</p>
+<p>$$
+\oint_{\Gamma} P\,dx+Q\,dy+R\,dz
+=
+\iint_S
+\left(
+\frac{\partial R}{\partial y}
+-
+\frac{\partial Q}{\partial z}
+\right)dy\,dz
++
+\left(
+\frac{\partial P}{\partial z}
+-
+\frac{\partial R}{\partial x}
+\right)dz\,dx
++
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)dx\,dy
+$$</p>
+<p>若记</p>
+<p>$$
+\mathbf F=(P,Q,R)
+$$</p>
+<p>则</p>
+<p>$$
+\operatorname{curl}\mathbf F
+=
+\nabla\times\mathbf F
+=
+\left(
+\frac{\partial R}{\partial y}
+-
+\frac{\partial Q}{\partial z},
+\frac{\partial P}{\partial z}
+-
+\frac{\partial R}{\partial x},
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)
+$$</p>
+<p>所以斯托克斯公式可写成</p>
+<p>$$
+\oint_{\Gamma}\mathbf F\cdot d\mathbf r
+=
+\iint_S
+(\nabla\times\mathbf F)\cdot d\mathbf S
+$$</p>
+<p><strong>分量形式</strong></p>
+<p>斯托克斯公式可拆成三个基本公式：</p>
+<p>$$
+\oint_{\Gamma}P\,dx
+=
+\iint_S
+\left(
+\frac{\partial P}{\partial z}\,dz\,dx
+-
+\frac{\partial P}{\partial y}\,dx\,dy
+\right)
+$$</p>
+<p>$$
+\oint_{\Gamma}Q\,dy
+=
+\iint_S
+\left(
+\frac{\partial Q}{\partial x}\,dx\,dy
+-
+\frac{\partial Q}{\partial z}\,dy\,dz
+\right)
+$$</p>
+<p>$$
+\oint_{\Gamma}R\,dz
+=
+\iint_S
+\left(
+\frac{\partial R}{\partial y}\,dy\,dz
+-
+\frac{\partial R}{\partial x}\,dz\,dx
+\right)
+$$</p>
+<p>三式相加即得斯托克斯公式。</p>
+<h2 id="与格林公式的关系">与格林公式的关系</h2>
+<p>若曲面 $S$ 位于 $xOy$ 面内，并取上侧为正向，则</p>
+<p>$$
+dz=0
+$$</p>
+<p>且</p>
+<p>$$
+dx\,dy
+$$</p>
+<p>对应正向面积元。</p>
+<p>此时斯托克斯公式化为</p>
+<p>$$
+\oint_{\Gamma} P\,dx+Q\,dy
+=
+\iint_D
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)dx\,dy
+$$</p>
+<p>这正是格林公式。</p>
+<p>因此，斯托克斯公式可以看作是格林公式在空间曲面上的推广。</p>
+<h2 id="使用条件-2">使用条件</h2>
+<p>使用斯托克斯公式时要注意：</p>
+<ol>
+<li>曲线 $\Gamma$ 必须是曲面 $S$ 的边界。</li>
+<li>曲线 $\Gamma$ 必须是闭曲线。</li>
+<li>曲面 $S$ 必须有确定的取向。</li>
+<li>$\Gamma$ 的正向必须与 $S$ 的法向量方向满足右手法则。</li>
+<li>$P,Q,R$ 在包含 $S$ 的区域内具有连续一阶偏导数。</li>
+</ol>
+<h2 id="空间中曲线积分与路径无关">空间中曲线积分与路径无关</h2>
+<p>设 $V$ 是空间单连通区域，$P,Q,R$ 在 $V$ 内具有连续一阶偏导数，则以下条件等价：</p>
+<ol>
+<li>曲线积分</li>
+</ol>
+<p>$$
+\int_{\Gamma}P\,dx+Q\,dy+R\,dz
+$$</p>
+<p>与路径无关。<br>
+2. 对 $V$ 内任意闭曲线 $\Gamma$，有</p>
+<p>$$
+\oint_{\Gamma}P\,dx+Q\,dy+R\,dz=0
+$$</p>
+<ol start="3">
+<li>$P\,dx+Q\,dy+R\,dz$ 是某个函数 $u(x,y,z)$ 的全微分，即</li>
+</ol>
+<p>$$
+du=P\,dx+Q\,dy+R\,dz
+$$</p>
+<ol start="4">
+<li>满足</li>
+</ol>
+<p>$$
+\frac{\partial P}{\partial y}
+=
+\frac{\partial Q}{\partial x}
+$$</p>
+<p>$$
+\frac{\partial Q}{\partial z}
+=
+\frac{\partial R}{\partial y}
+$$</p>
+<p>$$
+\frac{\partial R}{\partial x}
+=
+\frac{\partial P}{\partial z}
+$$</p>
+<p>也就是</p>
+<p>$$
+\nabla\times\mathbf F=\mathbf 0
+$$</p>
+<h1>外微分式</h1>
+<p>把 $dx,dy,dz$ 看作外变量，满足反交换规律。<br>
+零次外微分式就是函数：</p>
+<p>$$
+\omega_0=f(x,y,z)
+$$</p>
+<p>一次外微分式：</p>
+<p>$$
+\omega_1=P(x,y,z)\,dx+Q(x,y,z)\,dy+R(x,y,z)\,dz
+$$</p>
+<p>二次外微分式：</p>
+<p>$$
+\omega_2=P(x,y,z)\,dy\wedge dz
++Q(x,y,z)\,dz\wedge dx
++R(x,y,z)\,dx\wedge dy
+$$</p>
+<p>三次外微分式：</p>
+<p>$$
+\omega_3=f(x,y,z)\,dx\wedge dy\wedge dz
+$$</p>
+<p>其中 $\wedge$ 表示外积。</p>
+<h2 id="外积运算法则">外积运算法则</h2>
+<p>外积满足反交换律：</p>
+<p>$$
+dx_i\wedge dx_j=-dx_j\wedge dx_i
+$$</p>
+<p>因此：</p>
+<p>$$
+dx\wedge dx=dy\wedge dy=dz\wedge dz=0
+$$</p>
+<p>特别地：</p>
+<p>$$
+dy\wedge dx=-dx\wedge dy
+$$</p>
+<p>$$
+dz\wedge dy=-dy\wedge dz
+$$</p>
+<p>$$
+dx\wedge dz=-dz\wedge dx
+$$</p>
+<p>外积还满足分配律和结合律：</p>
+<p>$$
+\alpha\wedge(\beta+\gamma)
+=
+\alpha\wedge\beta+\alpha\wedge\gamma
+$$</p>
+<p>$$
+(\alpha\wedge\beta)\wedge\gamma
+=
+\alpha\wedge(\beta\wedge\gamma)
+$$</p>
+<p>例如：</p>
+<p>$$
+(P_1\,dx+Q_1\,dy)\wedge(P_2\,dx+Q_2\,dy)
+=
+(P_1Q_2-Q_1P_2)\,dx\wedge dy
+$$</p>
+<h2 id="外微分">外微分</h2>
+<p>外微分会把 $p$ 次外微分式变成 $p+1$ 次外微分式。</p>
+<h3 id="零次外微分式的外微分">零次外微分式的外微分</h3>
+<p>若</p>
+<p>$$
+\omega_0=f(x,y,z)
+$$</p>
+<p>则</p>
+<p>$$
+d\omega_0=df
+=
+f_x\,dx+f_y\,dy+f_z\,dz
+$$</p>
+<h3 id="一次外微分式的外微分">一次外微分式的外微分</h3>
+<p>若</p>
+<p>$$
+\omega_1=P\,dx+Q\,dy+R\,dz
+$$</p>
+<p>则</p>
+<p>$$
+d\omega_1=dP\wedge dx+dQ\wedge dy+dR\wedge dz
+$$</p>
+<p>即</p>
+<p>$$
+d\omega_1
+=
+\left(
+\frac{\partial R}{\partial y}
+-
+\frac{\partial Q}{\partial z}
+\right)dy\wedge dz
++
+\left(
+\frac{\partial P}{\partial z}
+-
+\frac{\partial R}{\partial x}
+\right)dz\wedge dx
++
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)dx\wedge dy
+$$</p>
+<p>这正对应向量场</p>
+<p>$$
+\mathbf F=(P,Q,R)
+$$</p>
+<p>的旋度：</p>
+<p>$$
+d\omega_1
+\Longleftrightarrow
+\nabla\times\mathbf F
+$$</p>
+<h3 id="二次外微分式的外微分">二次外微分式的外微分</h3>
+<p>若</p>
+<p>$$
+\omega_2=P\,dy\wedge dz+Q\,dz\wedge dx+R\,dx\wedge dy
+$$</p>
+<p>则</p>
+<p>$$
+d\omega_2
+=
+dP\wedge dy\wedge dz
++
+dQ\wedge dz\wedge dx
++
+dR\wedge dx\wedge dy
+$$</p>
+<p>即</p>
+<p>$$
+d\omega_2
+=
+\left(
+\frac{\partial P}{\partial x}
++
+\frac{\partial Q}{\partial y}
++
+\frac{\partial R}{\partial z}
+\right)
+dx\wedge dy\wedge dz
+$$</p>
+<p>这正对应向量场</p>
+<p>$$
+\mathbf F=(P,Q,R)
+$$</p>
+<p>的散度：</p>
+<p>$$
+d\omega_2
+\Longleftrightarrow
+\nabla\cdot\mathbf F
+$$</p>
+<h2 id="外微分与三大公式">外微分与三大公式</h2>
+<h3 id="格林公式-2">格林公式</h3>
+<p>令</p>
+<p>$$
+\omega_1=P\,dx+Q\,dy
+$$</p>
+<p>则</p>
+<p>$$
+d\omega_1=
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)dx\wedge dy
+$$</p>
+<p>所以格林公式可写成：</p>
+<p>$$
+\int_{\partial D}\omega_1
+=
+\int_D d\omega_1
+$$</p>
+<p>即</p>
+<p>$$
+\oint_{\partial D}P\,dx+Q\,dy
+=
+\iint_D
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)dx\,dy
+$$</p>
+<h3 id="斯托克斯公式">斯托克斯公式</h3>
+<p>令</p>
+<p>$$
+\omega_1=P\,dx+Q\,dy+R\,dz
+$$</p>
+<p>则</p>
+<p>$$
+d\omega_1
+=
+\left(
+R_y-Q_z
+\right)dy\wedge dz
++
+\left(
+P_z-R_x
+\right)dz\wedge dx
++
+\left(
+Q_x-P_y
+\right)dx\wedge dy
+$$</p>
+<p>所以斯托克斯公式可写成：</p>
+<p>$$
+\int_{\partial S}\omega_1
+=
+\int_S d\omega_1
+$$</p>
+<p>即</p>
+<p>$$
+\oint_{\partial S}P\,dx+Q\,dy+R\,dz
+=
+\iint_S
+(R_y-Q_z)\,dy\,dz
++
+(P_z-R_x)\,dz\,dx
++
+(Q_x-P_y)\,dx\,dy
+$$</p>
+<h3 id="高斯公式">高斯公式</h3>
+<p>令</p>
+<p>$$
+\omega_2=P\,dy\wedge dz+Q\,dz\wedge dx+R\,dx\wedge dy
+$$</p>
+<p>则</p>
+<p>$$
+d\omega_2=
+(P_x+Q_y+R_z)\,dx\wedge dy\wedge dz
+$$</p>
+<p>所以高斯公式可写成：</p>
+<p>$$
+\int_{\partial V}\omega_2
+=
+\int_V d\omega_2
+$$</p>
+<p>即</p>
+<p>$$
+\iint_{\partial V}P\,dy\,dz+Q\,dz\,dx+R\,dx\,dy
+=
+\iiint_V
+(P_x+Q_y+R_z)\,dx\,dy\,dz
+$$</p>
+<h2 id="符号判断">符号判断</h2>
+<p>外积顺序决定方向：</p>
+<p>$$
+dy\wedge dz=-dz\wedge dy
+$$</p>
+<p>$$
+dz\wedge dx=-dx\wedge dz
+$$</p>
+<p>$$
+dx\wedge dy=-dy\wedge dx
+$$</p>
+<p>所以换序会变号。</p>
+<p>常用判断：</p>
+<ul>
+<li>$dy\wedge dz$ 对应法向量朝 $x$ 轴正向的面积元</li>
+<li>$dz\wedge dx$ 对应法向量朝 $y$ 轴正向的面积元</li>
+<li>$dx\wedge dy$ 对应法向量朝 $z$ 轴正向的面积元</li>
+</ul>
+<p>若曲面取反方向，则整体变号。</p>
+<h2 id="统一形式">统一形式</h2>
+<p>牛顿-莱布尼茨公式、格林公式、斯托克斯公式、高斯公式都可统一写为：</p>
+<p>$$
+\int_{\partial \Omega}\omega
+=
+\int_{\Omega}d\omega
+$$</p>
+<p>含义是：<br>
+边界上的积分，等于区域内部外微分的积分。</p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/">无穷级数</a>
+    
+    
+      <a class="next" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/">导数</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">二重积分的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">三重积分的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">重积分的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%80%A7%E8%B4%A8"><span class="toc-text">线性性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%8F%AF%E5%8A%A0%E6%80%A7"><span class="toc-text">对积分区域的可加性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="toc-text">积分不等式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E5%8F%AF%E7%A7%AF%E6%80%A7"><span class="toc-text">绝对可积性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%B0%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">估值定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">积分中值定理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">直角坐标系下二重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F%E7%B1%BB%E5%9E%8B"><span class="toc-text">积分区域类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#X-%E5%9E%8B%E5%8C%BA%E5%9F%9F"><span class="toc-text">X 型区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Y-%E5%9E%8B%E5%8C%BA%E5%9F%9F"><span class="toc-text">Y 型区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">一般区域的处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%96%E4%B8%BA%E4%BA%8C%E6%AC%A1%E7%A7%AF%E5%88%86%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">化为二次积分的步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">利用极坐标计算二重积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-text">极坐标变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-text">面积元素的来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F"><span class="toc-text">常见积分区域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9E%81%E5%9D%90%E6%A0%87%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF"><span class="toc-text">使用极坐标的常见场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%BB%93%E8%AE%BA"><span class="toc-text">对称性结论</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">二重积分的换元法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-text">坐标变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E5%85%83%E6%AD%A5%E9%AA%A4"><span class="toc-text">换元步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">直角坐标系下三重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-$z$-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $z$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-$x$-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $x$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-$y$-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $y$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%96%E4%B8%BA%E4%B8%89%E6%AC%A1%E7%A7%AF%E5%88%86%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">化为三次积分的步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">利用柱面坐标计算三重积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9F%B1%E9%9D%A2%E5%9D%90%E6%A0%87%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF"><span class="toc-text">使用柱面坐标的常见场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">球面坐标系下三重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">常见使用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%BC%A7%E9%95%BF%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86"><span class="toc-text">对弧长的曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="toc-text">几何意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8"><span class="toc-text">基本性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%BC%A7%E9%95%BF%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对弧长的曲线积分的计算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86"><span class="toc-text">对坐标的曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E5%BD%A2%E5%BC%8F"><span class="toc-text">坐标形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89"><span class="toc-text">物理意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8-2"><span class="toc-text">基本性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对坐标的曲线积分的计算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">格林公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%BF%9E%E9%80%9A%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%A4%8D%E8%BF%9E%E9%80%9A%E5%8C%BA%E5%9F%9F"><span class="toc-text">单连通区域与复连通区域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E7%9A%84%E6%AD%A3%E6%96%B9%E5%90%91"><span class="toc-text">边界的正方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F"><span class="toc-text">格林公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">适用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8B%86%E5%88%86%E5%85%AC%E5%BC%8F"><span class="toc-text">常用拆分公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E7%89%9B%E9%A1%BF%E2%80%94%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%85%AC%E5%BC%8F%E7%9A%84%E7%B1%BB%E6%AF%94"><span class="toc-text">与牛顿—莱布尼茨公式的类比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E4%B8%8A%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%8E%E8%B7%AF%E5%BE%84%E6%97%A0%E5%85%B3"><span class="toc-text">平面上曲线积分与路径无关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">全微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E5%AE%9A%E6%9D%A1%E4%BB%B6"><span class="toc-text">判定条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF"><span class="toc-text">核心思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%9D%A2%E7%A7%AF%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="toc-text">对面积的曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E6%BB%91%E6%9B%B2%E9%9D%A2"><span class="toc-text">光滑曲面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%9D%A2%E7%A7%AF%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对面积的曲面积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E6%9B%B2%E9%9D%A2%E7%9A%84%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0"><span class="toc-text">显式曲面的面积元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%9B%B2%E9%9D%A2%E7%9A%84%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0"><span class="toc-text">参数曲面的面积元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%AD%A5%E9%AA%A4"><span class="toc-text">计算步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="toc-text">对坐标的曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E6%9B%B2%E9%9D%A2"><span class="toc-text">有向曲面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8-3"><span class="toc-text">基本性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对坐标的曲面积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E5%BD%A2%E5%BC%8F"><span class="toc-text">参数方程形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E6%96%B9%E7%A8%8B%E5%BD%A2%E5%BC%8F"><span class="toc-text">显式方程形式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">高斯公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">使用条件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">斯托克斯公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">与格林公式的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6-2"><span class="toc-text">使用条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E4%B8%AD%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%8E%E8%B7%AF%E5%BE%84%E6%97%A0%E5%85%B3"><span class="toc-text">空间中曲线积分与路径无关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">外微分式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E7%A7%AF%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="toc-text">外积运算法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">外微分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">零次外微分式的外微分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">一次外微分式的外微分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">二次外微分式的外微分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E5%BE%AE%E5%88%86%E4%B8%8E%E4%B8%89%E5%A4%A7%E5%85%AC%E5%BC%8F"><span class="toc-text">外微分与三大公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F-2"><span class="toc-text">格林公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AF%E6%89%98%E5%85%8B%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="toc-text">斯托克斯公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="toc-text">高斯公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E5%88%A4%E6%96%AD"><span class="toc-text">符号判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BD%A2%E5%BC%8F"><span class="toc-text">统一形式</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

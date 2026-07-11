@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>空间解析几何 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="推荐用GeoGebra绘制 3d 图形来直观地理解  向量 数量积 定义 设 $\boldsymbol{a,b}$ 是两向量，且他们之间的夹角是 $\theta$，称数 $|\boldsymbol{a}|\cdot|\boldsymbol{b}|\cos\theta$ 为向量 $\boldsymbol{a}$ 和 $\boldsymbol{b}$ 的数量积，并记作 $\boldsymbol{a\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="空间解析几何">
+<meta property="og:url" content="http://0n3-0.github.io/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="推荐用GeoGebra绘制 3d 图形来直观地理解  向量 数量积 定义 设 $\boldsymbol{a,b}$ 是两向量，且他们之间的夹角是 $\theta$，称数 $|\boldsymbol{a}|\cdot|\boldsymbol{b}|\cos\theta$ 为向量 $\boldsymbol{a}$ 和 $\boldsymbol{b}$ 的数量积，并记作 $\boldsymbol{a\">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-03-08T14:25:52.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.604Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="高数">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '高等数学/空间解析几何';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">空间解析几何</h1>
+      <div class="post-meta">
+        <span>2026-03-08</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E9%AB%98%E6%95%B0/">高数</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <blockquote>
+<p>推荐用<a target="_blank" rel="noopener" href="https://www.geogebra.org/calculator">GeoGebra</a>绘制 3d 图形来直观地理解</p>
+</blockquote>
+<h1>向量</h1>
+<h2 id="数量积">数量积</h2>
+<h3 id="定义">定义</h3>
+<p>设 $\boldsymbol{a,b}$ 是两向量，且他们之间的夹角是 $\theta$，称数 $|\boldsymbol{a}|\cdot|\boldsymbol{b}|\cos\theta$ 为向量 $\boldsymbol{a}$ 和 $\boldsymbol{b}$ 的<strong>数量积</strong>，并记作 $\boldsymbol{a\cdot b}$</p>
+<p>向量的数量积也称为<strong>点积</strong>和内积</p>
+<h3 id="性质">性质</h3>
+<ol>
+<li>$\boldsymbol{a\cdot a}=|\boldsymbol{a}|^2$</li>
+<li>$\boldsymbol{a\perp b}\Leftrightarrow\boldsymbol{a\cdot b}=0$</li>
+<li><strong>交换律</strong>：$\boldsymbol{a\cdot b=b\cdot a}$</li>
+<li><strong>分配律</strong>：$\boldsymbol{a\cdot(b+c)=a\cdot b+a\cdot c}$</li>
+<li><strong>数乘向量的结合律</strong>：$(\lambda \boldsymbol{a})\boldsymbol{\cdot b}=\boldsymbol{a\cdot}(\lambda \boldsymbol{b})=\lambda(\boldsymbol{a\cdot b})$</li>
+</ol>
+<p>数量积的坐标表达式：<br>
+若 $\boldsymbol{a}=(a_{x},a_{y},a_{z}),\boldsymbol{b}=(b_{x},b_{y},b_{z})$，则 $\boldsymbol{a\cdot b}=a_{x}b_{x}+a_{y}b_{y}+a_{z}b_{z}$</p>
+<h2 id="向量积">向量积</h2>
+<h3 id="定义-2">定义</h3>
+<p>设向量 $\boldsymbol{a,b}$，规定向量 $\boldsymbol{a,b}$ 的向量积为一向量，记作 $\boldsymbol{a\times b}$，其模与方向分别为</p>
+<ol>
+<li>$|\boldsymbol{a\times b}|=|\boldsymbol{a}||\boldsymbol{b}|\sin\theta(\theta=\widehat{(\boldsymbol{a,b})})$</li>
+<li>$\boldsymbol{a\times b}$ 同时垂直于 $\boldsymbol{a,b}$，且 $\boldsymbol{a,b,a\times b}$ 满足右手定则</li>
+</ol>
+<p>向量的向量积又常称为向量的<strong>叉积</strong>或<strong>外积</strong></p>
+<blockquote>
+<p>由定义可以看出两向量的向量积有如下的几何意义：</p>
+<ol>
+<li>模：$|\boldsymbol{a\times b}|=|\boldsymbol{a}|\cdot|\boldsymbol{b}|\sin\theta$，即表示以 $\boldsymbol{a,b}$ 为边的平行四边形的面积</li>
+<li>方向：垂直于一切既平行于 $\boldsymbol{a}$ 又平行于 $\boldsymbol{b}$ 的平面</li>
+</ol>
+</blockquote>
+<h3 id="性质-2">性质</h3>
+<ol>
+<li>$\boldsymbol{0\times a=a\times 0=0}$</li>
+<li>$\boldsymbol{a\times a=0}$</li>
+<li>$\boldsymbol{a\parallel b}\Leftrightarrow\boldsymbol{a\times b=0}$</li>
+<li>$\boldsymbol{a\times b=-b\times a}$（不满足交换律）</li>
+<li><strong>分配律</strong>：$\boldsymbol{(a+b)\times c=a\times c+b\times c}$</li>
+<li><strong>数乘结合律</strong>：$(\lambda\boldsymbol{a})\times(\mu \boldsymbol{b})=\lambda\mu \boldsymbol{a\times b}$</li>
+</ol>
+<p>向量积的坐标表达式：<br>
+设 $\boldsymbol{a} = a_x \boldsymbol{i} + a_y \boldsymbol{j} + a_z \boldsymbol{k}$，$\boldsymbol{b} = b_x \boldsymbol{i} + b_y \boldsymbol{j} + b_z \boldsymbol{k}$，则有</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{a} \times \boldsymbol{b} &= (a_x \boldsymbol{i} + a_y \boldsymbol{j} + a_z \boldsymbol{k}) \times (b_x \boldsymbol{i} + b_y \boldsymbol{j} + b_z \boldsymbol{k}) \\
+&= (a_x b_x)(\boldsymbol{i} \times \boldsymbol{i}) + (a_x b_y)(\boldsymbol{i} \times \boldsymbol{j}) + (a_x b_z)(\boldsymbol{i} \times \boldsymbol{k}) + \\
+&\quad (a_y b_x)(\boldsymbol{j} \times \boldsymbol{i}) + (a_y b_y)(\boldsymbol{j} \times \boldsymbol{j}) + (a_y b_z)(\boldsymbol{j} \times \boldsymbol{k}) + \\
+&\quad (a_z b_x)(\boldsymbol{k} \times \boldsymbol{i}) + (a_z b_y)(\boldsymbol{k} \times \boldsymbol{j}) + (a_z b_z)(\boldsymbol{k} \times \boldsymbol{k}).
+\end{aligned}
+$$</p>
+<p>注意到，对于标准单位向量 $\boldsymbol{i}, \boldsymbol{j}, \boldsymbol{k}$，有 $\boldsymbol{i} \times \boldsymbol{i} = \boldsymbol{j} \times \boldsymbol{j} = \boldsymbol{k} \times \boldsymbol{k} = \boldsymbol{0}$；$\boldsymbol{i} \times \boldsymbol{j} = \boldsymbol{k}$，$\boldsymbol{j} \times \boldsymbol{k} = \boldsymbol{i}$，$\boldsymbol{k} \times \boldsymbol{i} = \boldsymbol{j}$；$\boldsymbol{j} \times \boldsymbol{i} = -\boldsymbol{k}$，$\boldsymbol{k} \times \boldsymbol{j} = -\boldsymbol{i}$，$\boldsymbol{i} \times \boldsymbol{k} = -\boldsymbol{j}$，于是，有</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{a} \times \boldsymbol{b} &= [(a_x b_y)\boldsymbol{k} - (a_x b_z)\boldsymbol{j}] + [-(a_y b_x)\boldsymbol{k} + (a_y b_z)\boldsymbol{i}] + [(a_z b_x)\boldsymbol{j} - (a_z b_y)\boldsymbol{i}] \\
+&= (a_y b_z - a_z b_y)\boldsymbol{i} + (a_z b_x - a_x b_z)\boldsymbol{j} + (a_x b_y - a_y b_x)\boldsymbol{k}, 
+\end{aligned}
+$$</p>
+<p>用行列式表示即为</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{a\times b}&=\begin{vmatrix}a_{y} & a_{z} \\b_{y} & b_{z}\end{vmatrix}\boldsymbol{i}+\begin{vmatrix}a_{x} & a_{z} \\b_{x} & b_{z}\end{vmatrix}\boldsymbol{j}+\begin{vmatrix}a_{x} & a_{y} \\b_{x} & b_{y}\end{vmatrix}\boldsymbol{k} \\
+&=\begin{pmatrix}\begin{vmatrix}a_{y} & a_{z} \\b_{y} & b_{z}\end{vmatrix} & \begin{vmatrix}a_{x} & a_{z} \\b_{x} & b_{z}\end{vmatrix} & \begin{vmatrix}a_{x} & a_{y} \\b_{x} & b_{y}\end{vmatrix}\end{pmatrix}
+\end{aligned}
+$$</p>
+<p>或</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{a\times b}=\begin{vmatrix}\boldsymbol{i} & \boldsymbol{j} & \boldsymbol{k} \\a_{x} & a_{y} & a_{z} \\b_{x} & b_{y} & b_{z}\end{vmatrix}
+\end{aligned}
+$$</p>
+<h2 id="混合积">混合积</h2>
+<h3 id="定义-3">定义</h3>
+<p>设有三个向量 $\boldsymbol{a,b,c}$，先作向量积 $\boldsymbol{a\times b}$，再作数量积 $(\boldsymbol{a\times b})\cdot \boldsymbol{c}$，这样得到的数称为三个向量的<strong>混合积</strong>，记作 $[\boldsymbol{a,b,c}]$ 或 $[\boldsymbol{a\;b\; c}]$</p>
+<blockquote>
+<p>由定义可以看出混合积有如下的几何意义：<br>
+对向量 $\boldsymbol{a}=(a_{x},a_{y},a_{z}),\boldsymbol{b}=(b_{x},b_{y},b_{z}),\boldsymbol{c}=(c_{x},c_{y},c_{z})$,则 $|[\boldsymbol{a\;b\;c}]|$ 表示以 $\boldsymbol{a,b,c}$ 为棱的平行六面体的体积</p>
+</blockquote>
+<p>现推导向量的混合积的坐标表示式.<br>
+设 $\boldsymbol{a}=(a_x, a_y, a_z)$, $\boldsymbol{b}=(b_x, b_y, b_z)$, $\boldsymbol{c}=(c_x, c_y, c_z)$, 则</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{a} \times \boldsymbol{b} &= \begin{vmatrix} \boldsymbol{i} & \boldsymbol{j} & \boldsymbol{k} \\ a_x & a_y & a_z \\ b_x & b_y & b_z \end{vmatrix} = \begin{vmatrix} a_y & a_z \\ b_y & b_z \end{vmatrix} \boldsymbol{i} - \begin{vmatrix} a_x & a_z \\ b_x & b_z \end{vmatrix} \boldsymbol{j} + \begin{vmatrix} a_x & a_y \\ b_x & b_y \end{vmatrix} \boldsymbol{k} \\
+[\boldsymbol{a} \ \boldsymbol{b} \ \boldsymbol{c}] &= (\boldsymbol{a} \times \boldsymbol{b}) \cdot \boldsymbol{c} = \begin{vmatrix} a_y & a_z \\ b_y & b_z \end{vmatrix} c_x - \begin{vmatrix} a_x & a_z \\ b_x & b_z \end{vmatrix} c_y + \begin{vmatrix} a_x & a_y \\ b_x & b_y \end{vmatrix} c_z \\
+&= \begin{vmatrix} a_x & a_y & a_z \\ b_x & b_y & b_z \\ c_x & c_y & c_z \end{vmatrix}
+\end{aligned}
+$$</p>
+<h3 id="性质-3">性质</h3>
+<p>由行列式性质可得 $[\boldsymbol{a\;b\;c}]=[\boldsymbol{b\;c\;a}]=[\boldsymbol{c\;a\;b}]\neq[\boldsymbol{a\;c\;b}]=[\boldsymbol{b\;a\;c}]=[\boldsymbol{c\;b\;a}]$</p>
+<h3 id="二重向量积公式">二重向量积公式</h3>
+<p>$(\boldsymbol{a}\times\boldsymbol{b})\times\boldsymbol{c}=(\boldsymbol{a}\cdot\boldsymbol{c})\boldsymbol{b}-(\boldsymbol{b}\cdot\boldsymbol{c})\boldsymbol{a}$</p>
+<p><strong>证明</strong>：<br>
+设 $\boldsymbol{a}=(a_x, a_y, a_z)$, $\boldsymbol{b}=(b_x, b_y, b_z)$, $\boldsymbol{c}=(c_x, c_y, c_z)$, 则</p>
+<p>$$
+\boldsymbol{a}\times\boldsymbol{b} = \begin{vmatrix} \boldsymbol{i} & \boldsymbol{j} & \boldsymbol{k} \\ a_x & a_y & a_z \\ b_x & b_y & b_z \end{vmatrix} = \begin{vmatrix} a_y & a_z \\ b_y & b_z \end{vmatrix}\boldsymbol{i} - \begin{vmatrix} a_x & a_z \\ b_x & b_z \end{vmatrix}\boldsymbol{j} + \begin{vmatrix} a_x & a_y \\ b_x & b_y \end{vmatrix}\boldsymbol{k},
+$$</p>
+<p>$$
+\begin{aligned}
+(\boldsymbol{a}\times\boldsymbol{b})\times\boldsymbol{c} &= \begin{vmatrix} \boldsymbol{i} & \boldsymbol{j} & \boldsymbol{k} \\ \begin{vmatrix} a_y & a_z \\ b_y & b_z \end{vmatrix} & -\begin{vmatrix} a_x & a_z \\ b_x & b_z \end{vmatrix} & \begin{vmatrix} a_x & a_y \\ b_x & b_y \end{vmatrix} \\ c_x & c_y & c_z \end{vmatrix} \\
+&= -\left( \begin{vmatrix} a_x & a_z \\ b_x & b_z \end{vmatrix}c_z + \begin{vmatrix} a_x & a_y \\ b_x & b_y \end{vmatrix}c_y \right)\boldsymbol{i} \\
+&\quad\;- \left( \begin{vmatrix} a_y & a_z \\ b_y & b_z \end{vmatrix}c_z - \begin{vmatrix} a_x & a_y \\ b_x & b_y \end{vmatrix}c_x \right)\boldsymbol{j} \\
+&\quad\;+ \left( \begin{vmatrix} a_y & a_z \\ b_y & b_z \end{vmatrix}c_y + \begin{vmatrix} a_x & a_z \\ b_x & b_z \end{vmatrix}c_x \right)\boldsymbol{k}
+\end{aligned}
+$$</p>
+<p>若记 $(\boldsymbol{a}\times\boldsymbol{b})\times\boldsymbol{c}=(x, y, z)$, 则</p>
+<p>$$
+\begin{aligned}
+x &= -\left( \begin{vmatrix} a_x & a_z \\ b_x & b_z \end{vmatrix}c_z + \begin{vmatrix} a_x & a_y \\ b_x & b_y \end{vmatrix}c_y \right) = -a_x b_z c_z + a_z b_x c_z - a_x b_y c_y + a_y b_x c_y \\
+&= (a_x c_x + a_y c_y + a_z c_z)b_x - (b_x c_x + b_y c_y + b_z c_z)a_x \\
+&= (\boldsymbol{a}\cdot\boldsymbol{c})b_x - (\boldsymbol{b}\cdot\boldsymbol{c})a_x,
+\end{aligned}
+$$</p>
+<p>类似地，还可证明</p>
+<p>$$
+y = (\boldsymbol{a}\cdot\boldsymbol{c})b_y - (\boldsymbol{b}\cdot\boldsymbol{c})a_y, \quad z = (\boldsymbol{a}\cdot\boldsymbol{c})b_z - (\boldsymbol{b}\cdot\boldsymbol{c})a_z,
+$$</p>
+<p>故</p>
+<p>$$
+(\boldsymbol{a}\times\boldsymbol{b})\times\boldsymbol{c} = (\boldsymbol{a}\cdot\boldsymbol{c})\boldsymbol{b} - (\boldsymbol{b}\cdot\boldsymbol{c})\boldsymbol{a}.
+$$</p>
+<h1>平面</h1>
+<h2 id="平面的方程">平面的方程</h2>
+<h3 id="点法式方程">点法式方程</h3>
+<p>设平面 $\pi$ 的法向量为 $\boldsymbol{n}=(A,B,C)$，其上一点为 $M_{0}(x_{0},y_{0},z_{0})$，则可设平面 $\pi$ 上任意一点为 $M(x,y,z)$ 则有 $\overrightarrow{MM_{0}}\cdot \boldsymbol{n}=0$，即可得该平面的方程为 $A(x-x_{0})+B(y-y_{0})+C(z-z_{0})=0$，该式称为平面的<strong>点法式方程</strong></p>
+<h3 id="三点式方程">三点式方程</h3>
+<p>若平面过三点 $M_1(x_1, y_1, z_1)$，$M_2(x_2, y_2, z_2)$，$M_3(x_3, y_3, z_3)$，因</p>
+<p>$$ \overrightarrow{M_1M_2} = (x_2-x_1, y_2-y_1, z_2-z_1), \overrightarrow{M_1M_3} = (x_3-x_1, y_3-y_1, z_3-z_1), $$</p>
+<p>则 $\boldsymbol{n} \perp \overrightarrow{M_1M_2}$，$\boldsymbol{n} \perp \overrightarrow{M_1M_3}$. 于是</p>
+<p>$$
+\begin{aligned}
+ \boldsymbol{n} &= \overrightarrow{M_1M_2} \times \overrightarrow{M_1M_3} \\
+ &= \left( \begin{vmatrix} y_2-y_1 & z_2-z_1 \\ y_3-y_1 & z_3-z_1 \end{vmatrix}, \begin{vmatrix} z_2-z_1 & x_2-x_1 \\ z_3-z_1 & x_3-x_1 \end{vmatrix}, \begin{vmatrix} x_2-x_1 & y_2-y_1 \\ x_3-x_1 & y_3-y_1 \end{vmatrix} \right) 
+\end{aligned}
+$$</p>
+<p>又点 $M_1(x_1, y_1, z_1)$ 是此平面上一定点，由平面的点法式方程可得</p>
+<p>$$ \begin{vmatrix} y_2-y_1 & z_2-z_1 \\ y_3-y_1 & z_3-z_1 \end{vmatrix} (x-x_1) + \begin{vmatrix} z_2-z_1 & x_2-x_1 \\ z_3-z_1 & x_3-x_1 \end{vmatrix} (y-y_1) + \begin{vmatrix} x_2-x_1 & y_2-y_1 \\ x_3-x_1 & y_3-y_1 \end{vmatrix} (z-z_1) = 0 $$</p>
+<p>或</p>
+<p>$$ \begin{vmatrix} x-x_1 & y-y_1 & z-z_1 \\ x_2-x_1 & y_2-y_1 & z_2-z_1 \\ x_3-x_1 & y_3-y_1 & z_3-z_1 \end{vmatrix} = 0 $$</p>
+<p>该式称为平面的<strong>三点式方程</strong></p>
+<h3 id="一般式方程">一般式方程</h3>
+<p>$Ax+By+Cz+D=0$ 称为平面的<strong>一般式方程</strong>，其以非零向量 $\boldsymbol{n}=(A, B, C)$ 为法向量<br>
+对于一些特殊的三元一次方程，所表示的平面具有明显的特点，如</p>
+<ol>
+<li>当 $D=0$ 时，方程为 $Ax+By+Cz=0$，它表示通过原点的平面</li>
+<li>当 $A=0$ 时，方程为 $By+Cz+D=0$，其法向量为 $\boldsymbol{n}=(0, B, C)$，$\boldsymbol{n}$ 垂直于 $x$ 轴，从而平面 $By+Cz+D=0$ 平行于 $x$ 轴</li>
+<li>当 $A=B=0$ 时，方程为 $Cz+D=0$ 或 $z=-\frac{D}{C}$，法向量 $\boldsymbol{n}=(0, 0, C)$ 同时垂直于 $x$ 轴，$y$ 轴，故 $\boldsymbol{n}$ 垂直于 $xOy$ 面，因此方程表示过点 $\left(0, 0, -\frac{D}{C}\right)$，且平行于 $xOy$ 面的平面</li>
+</ol>
+<h3 id="截距式方程">截距式方程</h3>
+<p>设平面与 $x$ 轴，$y$ 轴，$z$ 轴分别交于三点 $P(a, 0, 0)$，$Q(0, b, 0)$，$R(0, 0, c)$($abc\neq 0$)<br>
+设平面方程为 $Ax+By+Cz+D=0$，将三点的坐标分别代入得</p>
+<p>$$ a \cdot A+D=0, \ b \cdot B+D=0, \ c \cdot C+D=0, $$</p>
+<p>因为 $abc \neq 0$，故 $A=-\frac{D}{a}, \ B=-\frac{D}{b}, \ C=-\frac{D}{c}$ 有意义，代入所设方程有</p>
+<p>$$ -\frac{D}{a} \cdot x - \frac{D}{b} \cdot y - \frac{D}{c} \cdot z + D = 0, $$</p>
+<p>这里 $D \neq 0$，两边同除以 $D$ 有</p>
+<p>$$ \frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1 $$</p>
+<p>该式称为平面的截距式方程，而 $a, b, c$ 依次称为平面在 $x$ 轴，$y$ 轴，$z$ 轴上的截距</p>
+<h2 id="点到平面的距离">点到平面的距离</h2>
+<p>设 $P_0(x_0, y_0, z_0)$ 是平面 $\pi: Ax+By+Cz+D=0$ 外一点，点 $P_0$ 到平面 $\pi$ 的距离 $d$ 的公式可如下求得</p>
+<p>设 $P_1(x_1, y_1, z_1)$ 为点 $P_0(x_0, y_0, z_0)$ 在平面 $\pi$ 上的投影点，由条件，平面 $\pi$ 的单位法向量 $\boldsymbol{e}_n = \frac{(A, B, C)}{\sqrt{A^2+B^2+C^2}}$，故</p>
+<p>$$
+\begin{aligned}
+d &= |\overrightarrow{P_1P_0}| = |\overrightarrow{P_1P_0}| \cdot |\boldsymbol{e}_n| = |\overrightarrow{P_1P_0} \cdot \boldsymbol{e}_n| \\
+&= \left| (x_0-x_1, y_0-y_1, z_0-z_1) \cdot \frac{(A, B, C)}{\sqrt{A^2+B^2+C^2}} \right| \\
+&= \frac{1}{\sqrt{A^2+B^2+C^2}} |A(x_0-x_1) + B(y_0-y_1) + C(z_0-z_1)| \\
+&= \frac{1}{\sqrt{A^2+B^2+C^2}} |Ax_0+By_0+Cz_0 - Ax_1-By_1-Cz_1|.
+\end{aligned}
+$$</p>
+<p>注意到 $P_1(x_1, y_1, z_1)$ 在平面 $\pi$ 上，有 $-Ax_1-By_1-Cz_1=D$，故</p>
+<p>$$ d = \frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}}$$</p>
+<p>该式为点 $P_0(x_0, y_0, z_0)$ 到平面 $Ax+By+Cz+D=0$ 的距离公式</p>
+<h2 id="两平面的关系">两平面的关系</h2>
+<h3 id="两平面的相互位置">两平面的相互位置</h3>
+<p>设空间两平面的方程分别为</p>
+<p>$$ \pi_1: A_1x+B_1y+C_1z+D_1=0,\pi_2: A_2x+B_2y+C_2z+D_2=0. $$</p>
+<p>从几何上看，其位置关系可能是平行、重合、相交等情形<br>
+首先，由于两平面平行相当于它们的法向量平行，于是由向量平行的充分必要条件立即可推得：</p>
+<p>平面 $\pi_1, \pi_2$ 互相平行的充分必要条件是</p>
+<p>$$ \frac{A_1}{A_2} = \frac{B_1}{B_2} = \frac{C_1}{C_2} \neq \frac{D_1}{D_2}$$</p>
+<p>容易证明：两平面 $\pi_1, \pi_2$ 重合的充分必要条件是</p>
+<p>$$ \frac{A_1}{A_2} = \frac{B_1}{B_2} = \frac{C_1}{C_2} = \frac{D_1}{D_2}$$</p>
+<p>若平面 $\pi_1, \pi_2$ 相交，则其法向量 $\boldsymbol{n}_1, \boldsymbol{n}_2$ 一定不平行；反之亦然. 故平面 $\pi_1, \pi_2$ 相交的充要条件是法向量 $\boldsymbol{n}_1, \boldsymbol{n}_2$ 的坐标不成比例，即 $\frac{A_1}{A_2}, \frac{B_1}{B_2}, \frac{C_1}{C_2}$ 三者不全相等</p>
+<h3 id="两平面间的夹角">两平面间的夹角</h3>
+<p>两平面的法向量的夹角称为两平面的夹角(通常不取钝角)<br>
+设平面</p>
+<p>$$\pi_1: A_1x+B_1y+C_1z+D_1=0,\pi_2: A_2x+B_2y+C_2z+D_2=0$$</p>
+<p>, 则 $\pi_1$ 与 $\pi_2$ 的法向量分别为 $\boldsymbol{n}_1=(A_1, B_1, C_1)$, $\boldsymbol{n}_2=(A_2, B_2, C_2)$, 由于两平面的夹角 $\theta$ 是 $\boldsymbol{n}_1, \boldsymbol{n}_2$ 的夹角且不取钝角, 故得</p>
+<p>$$ \cos \theta = \left| \frac{\boldsymbol{n}_1 \cdot \boldsymbol{n}_2}{|\boldsymbol{n}_1| \cdot |\boldsymbol{n}_2|} \right| = \frac{|A_1A_2+B_1B_2+C_1C_2|}{\sqrt{A_1^2+B_1^2+C_1^2} \cdot \sqrt{A_2^2+B_2^2+C_2^2}}$$</p>
+<p>由该式或者由两向量垂直的充分必要条件, 都可立即得到如下结论:<br>
+两平面 $\pi_1, \pi_2$ 垂直的充分必要条件是</p>
+<p>$$ A_1A_2+B_1B_2+C_1C_2=0$$</p>
+<h1>直线</h1>
+<h2 id="空间直线方程">空间直线方程</h2>
+<h3 id="对称式方程">对称式方程</h3>
+<p>若一非零向量平行于一条已知直线，这个向量就称为该直线的<strong>方向向量</strong>，将其记为 $\boldsymbol{s}$. 显然，已知直线上的任何非零向量均可作为此直线的方向向量.</p>
+<p>由于过空间一点可以而且只能作一条直线平行于一已知直线，因此，当给定直线 $L$ 上的一点 $M_0(x_0, y_0, z_0)$ 和它的一个方向向量 $\boldsymbol{s}=(m, n, p)$ 之后，空间直线 $L$ 的位置就完全确定下来了. 因此若点 $M(x, y, z)$ 在直线 $L$ 上，则 $\overrightarrow{M_0M} \parallel \boldsymbol{s}$. 而 $\overrightarrow{M_0M}=(x-x_0, y-y_0, z-z_0)$，由两向量平行的充分必要条件有</p>
+<p>$$ \frac{x-x_0}{m} = \frac{y-y_0}{n} = \frac{z-z_0}{p}. $$</p>
+<p>反之，如果点 $M$ 不在直线 $L$ 上，则 $\overrightarrow{M_0M}$ 与 $\boldsymbol{s}$ 不平行，从而上式不成立.</p>
+<p>因此，过点 $M_0(x_0, y_0, z_0)$ 且以 $\boldsymbol{s}=(m, n, p)$ 为方向向量的直线 $L$ 的方程为</p>
+<p>$$ \frac{x-x_0}{m} = \frac{y-y_0}{n} = \frac{z-z_0}{p}$$</p>
+<p>称该式为直线的<strong>对称式方程</strong>或<strong>点向式方程</strong>或<strong>标准方程</strong>.</p>
+<h3 id="参数方程">参数方程</h3>
+<p>设 $\frac{x-x_0}{m} = \frac{y-y_0}{n} = \frac{z-z_0}{p} = t$，则可得过点 $M_0(x_0, y_0, z_0)$ 且以 $\boldsymbol{s}=(m,n,p)$ 为方向向量的直线 $L$ 的参数方程：</p>
+<p>$$
+\begin{cases}
+x = x_0 + mt, \\
+y = y_0 + nt, \quad t \in \mathbf{R}. \\
+z = z_0 + pt,
+\end{cases}
+$$</p>
+<h3 id="一般方程">一般方程</h3>
+<p>空间直线 $L$ 可看成两平面 $\pi_1$ 和 $\pi_2$ 的交线，若两个相交平面 $\pi_1$ 和 $\pi_2$ 的方程分别为 $A_1x+B_1y+C_1z+D_1=0$ 和 $A_2x+B_2y+C_2z+D_2=0$，则它们的交线 $L$ 上的任一点的坐标 $x,y,z$ 必然同时满足 $\pi_1$ 和 $\pi_2$ 的方程. 反之，如果点 $(x,y,z)$ 不在直线 $L$ 上，那么它不可能同时在平面 $\pi_1$ 和 $\pi_2$ 上，所以它的坐标不能同时满足 $\pi_1$ 和 $\pi_2$ 的方程，由此得直线 $L$ 的方程（<strong>空间直线的一般方程</strong>）：</p>
+<p>$$
+\begin{cases}
+A_1x+B_1y+C_1z+D_1=0, \\
+A_2x+B_2y+C_2z+D_2=0
+\end{cases}
+\left( \text{其中} \frac{A_1}{A_2} = \frac{B_1}{B_2} = \frac{C_1}{C_2} \text{不成立} \right)
+$$</p>
+<p>一般地说，过空间一直线的平面有无限多个，所以只要在这无限多个平面中任选其中的两个，将它们的方程联立起来，就可得到此空间直线的方程</p>
+<h1>线面关系</h1>
+<h2 id="直线和直线的位置关系">直线和直线的位置关系</h2>
+<p>设两直线方程为</p>
+<p>$$
+L_{1}: \frac{x-x_{1}}{m_{1}}=\frac{y-y_{1}}{n_{1}}=\frac{z-z_{1}}{p_{1}},L_{2}: \frac{x-x_{2}}{m_{2}}=\frac{y-y_{2}}{n_{2}}=\frac{z-z_{2}}{p_{2}}
+$$</p>
+<p>则有：</p>
+<ol>
+<li>$L_{1},L_{2}$ 共面</li>
+</ol>
+<p>$$
+\Leftrightarrow \begin{vmatrix}x_{2}-x_{1} & y_{2}-y_{1} & z_{2}-z_{1} \\m_{1}& n_{1} & p_{1} \\m_{2} & n_{2} & p_{2}\end{vmatrix}=0
+$$</p>
+<ol start="2">
+<li>$L_{1},L_{2}$ 异面</li>
+</ol>
+<p>$$
+\Leftrightarrow \begin{vmatrix}x_{2}-x_{1} & y_{2}-y_{1} & z_{2}-z_{1} \\m_{1}& n_{1} & p_{1} \\m_{2} & n_{2} & p_{2}\end{vmatrix}\neq 0
+$$</p>
+<ol start="3">
+<li>$L_{1},L_{2}$ 相交</li>
+</ol>
+<p>$$
+\Leftrightarrow \begin{vmatrix}x_{2}-x_{1} & y_{2}-y_{1} & z_{2}-z_{1} \\m_{1}& n_{1} & p_{1} \\m_{2} & n_{2} & p_{2}\end{vmatrix}=0
+$$</p>
+<p>且 $\frac{m_{1}}{m_{2}}=\frac{n_{1}}{n_{2}}=\frac{p_{1}}{p_{2}}$ 不成立<br>
+4. $L_{1}\parallel L_{2} \Leftrightarrow m_{1}:n_{1}:p_{1}=m_{2}:n_{2}:p_{2}\neq(x_{2}-x_{1}):(y_{2}-y_{1}):(z_{2}-z_{1})$<br>
+5. $L_{1}\perp L_{2}\Leftrightarrow m_{1}m_{2}+n_{1}n_{2}+p_{1}p_{2}=0$<br>
+6. $L_{1}=L_{2} \Leftrightarrow m_{1}:n_{1}:p_{1}=m_{2}:n_{2}:p_{2}=(x_{2}-x_{1}):(y_{2}-y_{1}):(z_{2}-z_{1})$<br>
+7. $L_{1},L_{2}$ 夹角 $\varphi$：$\cos\varphi=\frac{|m_{1}m_{2}+n_{1}n_{2}+p_{1}p_{2}|}{\sqrt[]{ m_{1}^2+n_{1}^2+p_{1}^2 }\cdot \sqrt[]{ m_{2}^2+n_{2}^2+p_{2}^2 }}$</p>
+<h2 id="直线与平面的位置关系">直线与平面的位置关系</h2>
+<p>设直线 $L$，平面 $\pi$ 的方程为</p>
+<p>$$
+L: \frac{x-x_{0}}{m}=\frac{y-y_{0}}{n}=\frac{z-z_{0}}{p},\pi:Ax+Bx+Cx+D=0
+$$</p>
+<ol>
+<li>$L$ 与 $\pi$ 相交 $\Leftrightarrow Am+Bn+Cp\neq 0$</li>
+<li>$L\perp\pi\Leftrightarrow \frac{A}{m}=\frac{B}{n}=\frac{C}{p}$</li>
+<li>$L\parallel\pi\Leftrightarrow Am+Bn+Cp=0$</li>
+<li>$L\subset \pi\Leftrightarrow Am+Bn+Cp=0  ,Ax_{0}+By_{0}+Cz_{0}+D=0$</li>
+<li>$L,\pi$ 夹角 $\varphi$：$\sin\varphi = \frac{|Am+Bn+Cp|}{\sqrt[]{ A^2+B^2+C^2 }\cdot \sqrt[]{ m^2+n^2+p^2 }}$</li>
+</ol>
+<h2 id="过直线的平面束">过直线的平面束</h2>
+<p>设直线 $L$ 由方程组</p>
+<p>$$
+\begin{cases}
+A_1x+B_1y+C_1z+D_1=0, & \\
+A_2x+B_2y+C_2z+D_2=0 &
+\end{cases}
+$$</p>
+<p>所确定，其中系数 $A_1, B_1, C_1$ 与 $A_2, B_2, C_2$ 不成比例<br>
+作含有参数 $\lambda$ 的三元一次方程</p>
+<p>$$ A_1x+B_1y+C_1z+D_1+\lambda(A_2x+B_2y+C_2z+D_2)=0$$</p>
+<p>因 $A_1, B_1, C_1$ 与 $A_2, B_2, C_2$ 不成比例，对于任何一个 $\lambda$ 值，方程的系数 $A_1+\lambda A_2, B_1+\lambda B_2, C_1+\lambda C_2$ 不全为零，从而该方程表示一个平面. 若一点在直线 $L$ 上，则该点的坐标必同时满足方程组内两方程，因此，必满足该方程，即该方程表示过直线的一个平面，而且对于不同的 $\lambda$ 值，该方程表示过直线 $L$ 的不同平面. 反之，过直线 $L$ 的任何平面（除平面 $A_2x+B_2y+C_2z+D_2=0$ 外），都包含在该方程所表示的一族平面内.</p>
+<p>通过定直线的所有平面的全体称为<strong>平面束</strong>，称该式为过定直线 $L$ 的平面束方程.</p>
+<h1>空间曲面</h1>
+<h2 id="柱面">柱面</h2>
+<h3 id="定义-4">定义</h3>
+<p>一般地，我们称平行于定直线并沿定曲线 $C$ 移动的直线 $L$ 形成的曲面为<strong>柱面</strong>，定曲线 $C$ 称为柱面的<strong>准线</strong>，动直线 $L$ 称为柱面的<strong>母线</strong></p>
+<p>方程 $F(x,y)=0$ 在空间直角坐标系中表示母线平行于 $z$ 轴的柱面，因为该方程不含 $z$，故对任意满足 $F(x,y)=0$ 的 $(x,y)$，$z$ 可取任意值，即曲面由 $xOy$ 面上的曲线 $F(x,y)=0$ 沿 $z$ 轴方向平移生成，其中</p>
+<p>$$
+\begin{cases}F(x,y)=0\\ z=0\end{cases}
+$$</p>
+<p>为准线，平行于 $z$ 轴的直线为母线。</p>
+<h2 id="旋转曲面">旋转曲面</h2>
+<p>平面上的曲线 $C$ 绕该平面上一条定直线旋转一周所成的曲面叫作旋转曲面，定直线 $l$ 叫作旋转曲面的<strong>轴</strong>，$C$ 称为<strong>母线</strong>。</p>
+<p>已知 $yOz$ 平面上曲线 $C$，其方程为 $f(y,z)=0$，将 $C$ 绕 $z$ 轴旋转一周，得到一个以 $z$ 轴为轴的旋转曲面 $\Sigma$，现求 $\Sigma$ 的方程。</p>
+<p>如图所示，在 $\Sigma$ 上任取一点 $M(x,y,z)$，则点 $M(x,y,z)$ 必位于由 $C$ 上一点 $M_1(0, y_1, z_1)$ 绕 $z$ 轴旋转一周而得的圆周上，因此 $z=z_1$，且 $M(x,y,z)$ 与 $M_1(0, y_1, z_1)$ 到 $z$ 轴的距离相等，即有</p>
+<p>$$ \sqrt{x^2+y^2} = |y_1|, $$</p>
+<p>但 $M_1(0, y_1, z_1)$ 的坐标满足 $f(y_1, z_1)=0$，于是得</p>
+<p>$$ f(\pm\sqrt{x^2+y^2}, z) = 0$$</p>
+<p>另一方面，若 $M(x,y,z)$ 不在此曲面 $\Sigma$ 上，则其坐标不满足该式，故该式就是旋转曲面 $\Sigma$ 的方程。</p>
+<p>一般地，若在曲线 $C$ 的方程 $f(y,z)=0$ 中将 $y$ 改写成 $\pm\sqrt{x^2+y^2}$ 而 $z$ 保持不变，就得到曲线 $C$ 绕 $z$ 轴旋转而成的旋转曲面的方程 $f(\pm\sqrt{x^2+y^2}, z)=0$。若在曲线 $C$ 的方程 $f(y,z)=0$ 中将 $z$ 改写成 $\pm\sqrt{x^2+z^2}$ 而 $y$ 保持不变，就得到曲线 $C$ 绕 $y$ 轴旋转而成的旋转曲面的方程 $f(y, \pm\sqrt{x^2+z^2})=0$。</p>
+<p><strong>eg</strong>:</p>
+<ol>
+<li><strong>旋转抛物面</strong>：</li>
+</ol>
+<p>$$
+\begin{cases}y^2=2pz\\ x=0\end{cases}
+$$</p>
+<p>绕 $z$ 轴旋转得 $x^2+y^2=2pz$<br>
+2. <strong>旋转椭球面</strong>：$\frac{y^2}{a^2}+\frac{z^2}{b^2}=1$ 绕 $y$ 轴旋转得 $\frac{y^2}{a^2}+\frac{x^2+z^2}{b^2}=1$<br>
+3. <strong>单叶旋转双曲面</strong>：</p>
+<p>$$
+\begin{cases} \frac{x^2}{a^2}-\frac{z^2}{b^2}=1 \\ y=0 \end{cases}
+$$</p>
+<p>绕 $z$ 轴旋转得 $\frac{x^2+y^2}{a^2}-\frac{z^2}{b^2}=1$<br>
+4. <strong>双叶旋转双曲面</strong>：</p>
+<p>$$
+\begin{cases} \frac{x^2}{a^2}-\frac{z^2}{b^2}=1 \\ y=0 \end{cases}
+$$</p>
+<p>绕 $x$ 轴旋转得 $\frac{x^2}{a^2}-\frac{y^2+z^2}{b^2}=1$</p>
+<h2 id="二次曲面">二次曲面</h2>
+<h3 id="椭球面">椭球面</h3>
+<p>方程为</p>
+<p>$$
+\frac{x^2}{a^2}+ \frac{y^2}{b^2} +\frac{z^2}{c^2}=1 \quad(a>0,b>0,c>0)
+$$</p>
+<p>在椭球面方程中，$a,b,c$ 按其大小，分别叫作椭球的<strong>长半轴，中半轴，短半轴</strong>，若其中有两个相同则在 $xOy,yOz,zOx$ 三个截面中有一个为圆形，若三个均相等则为球面</p>
+<h3 id="抛物面">抛物面</h3>
+<h4 id="椭圆抛物面">椭圆抛物面</h4>
+<p>方程为</p>
+<p>$$
+\frac{x^2}{a^2}+ \frac{y^2}{b^2} =\pm z
+$$</p>
+<h4 id="双曲抛物面">双曲抛物面</h4>
+<p>方程为</p>
+<p>$$
+\frac{x^2}{a^2}- \frac{y^2}{b^2} =\pm z
+$$</p>
+<h3 id="双曲面">双曲面</h3>
+<h4 id="单叶双曲面">单叶双曲面</h4>
+<p>方程为</p>
+<p>$$
+\frac{x^2}{a^2}+\frac{y^2}{b^2}- \frac{z^2}{c^2}=1
+$$</p>
+<h4 id="双叶双曲面">双叶双曲面</h4>
+<p>方程为</p>
+<p>$$
+\frac{x^2}{a^2}+\frac{y^2}{b^2}- \frac{z^2}{c^2}=-1
+$$</p>
+<h3 id="椭圆锥面">椭圆锥面</h3>
+<p>方程为</p>
+<p>$$
+\frac{x^2}{a^2}+\frac{y^2}{b^2}- \frac{z^2}{c^2}=0
+$$</p>
+<h2 id="切平面与法线">切平面与法线</h2>
+<h3 id="一般方程表示的曲面">一般方程表示的曲面</h3>
+<p>设曲面 $\Sigma$ 的方程为</p>
+<p>$$
+F(x,y,z)=0
+$$</p>
+<p>点 $P_0(x_0,y_0,z_0)$ 在曲面 $\Sigma$ 上，且 $F_x,F_y,F_z$ 在 $P_0$ 处连续并不同时为零。<br>
+在曲面上任取一条过点 $P_0$ 的光滑曲线 $\Gamma$，设其参数方程为</p>
+<p>$$
+x=x(t),\quad y=y(t),\quad z=z(t)
+$$</p>
+<p>则</p>
+<p>$$
+F(x(t),y(t),z(t))=0
+$$</p>
+<p>当 $t=t_0$ 时，对应点为 $P_0$，两边对 $t$ 求导，并令 $t=t_0$，得</p>
+<p>$$
+F_x(P_0)x'(t_0)+F_y(P_0)y'(t_0)+F_z(P_0)z'(t_0)=0
+$$</p>
+<p>令</p>
+<p>$$
+\mathbf{r}'(t_0)=\left(x'(t_0),y'(t_0),z'(t_0)\right)
+$$</p>
+<p>$$
+\mathbf{n}=\left.(F_x,F_y,F_z)\right|_{P_0}
+$$</p>
+<p>则</p>
+<p>$$
+\mathbf{n}\cdot \mathbf{r}'(t_0)=0
+$$</p>
+<p>因为 $\mathbf{r}'(t_0)$ 是曲线 $\Gamma$ 在 $P_0$ 处的切向量，所以过 $P_0$ 的任意一条光滑曲线在 $P_0$ 处的切线都与向量 $\mathbf{n}$ 垂直。<br>
+因此，所有过 $P_0$ 的切线位于同一平面内，该平面称为曲面 $\Sigma$ 在 $P_0$ 处的切平面，向量</p>
+<p>$$
+\mathbf{n}=\left.(F_x,F_y,F_z)\right|_{P_0}
+$$</p>
+<p>称为曲面在 $P_0$ 处的<strong>法向量</strong>。</p>
+<p>可得<strong>切平面方程</strong>为</p>
+<p>$$
+F_x(P_0)(x-x_0)+F_y(P_0)(y-y_0)+F_z(P_0)(z-z_0)=0
+$$</p>
+<p><strong>法线方程</strong>为</p>
+<p>$$
+\frac{x-x_0}{F_x(P_0)}
+=
+\frac{y-y_0}{F_y(P_0)}
+=
+\frac{z-z_0}{F_z(P_0)}
+$$</p>
+<h3 id="参数方程表示的曲面">参数方程表示的曲面</h3>
+<p>设曲面 $\Sigma$ 的参数方程为</p>
+<p>$$
+x=x(u,v),\quad y=y(u,v),\quad z=z(u,v),\quad (u,v)\in D
+$$</p>
+<p>点 $P_0(x_0,y_0,z_0)$ 为曲面上一点，且</p>
+<p>$$
+x_0=x(u_0,v_0),\quad y_0=y(u_0,v_0),\quad z_0=z(u_0,v_0)
+$$</p>
+<p>若 $x,y,z$ 在包含点 $P_0$ 的某邻域内有连续偏导数，且</p>
+<p>$$
+\left.\frac{\partial(x,y)}{\partial(u,v)}\right|_{P_0},\quad
+\left.\frac{\partial(y,z)}{\partial(u,v)}\right|_{P_0},\quad
+\left.\frac{\partial(z,x)}{\partial(u,v)}\right|_{P_0}
+$$</p>
+<p>不同时为零，则曲面 $\Sigma$ 在 $P_0$ 处存在切平面。</p>
+<p>其法向量为</p>
+<p>$$
+\mathbf{n}
+=
+\left.
+\left(
+\frac{\partial(y,z)}{\partial(u,v)},
+\frac{\partial(z,x)}{\partial(u,v)},
+\frac{\partial(x,y)}{\partial(u,v)}
+\right)
+\right|_{P_0}
+$$</p>
+<p>也可写为</p>
+<p>$$
+\mathbf{n}
+=
+\left.
+\begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+x_u & y_u & z_u \\
+x_v & y_v & z_v
+\end{vmatrix}
+\right|_{P_0}
+$$</p>
+<p>可得<strong>切平面方程</strong>为</p>
+<p>$$
+\left.\frac{\partial(y,z)}{\partial(u,v)}\right|_{P_0}(x-x_0)
++
+\left.\frac{\partial(z,x)}{\partial(u,v)}\right|_{P_0}(y-y_0)
++
+\left.\frac{\partial(x,y)}{\partial(u,v)}\right|_{P_0}(z-z_0)
+=0
+$$</p>
+<p><strong>法线方程</strong>为</p>
+<p>$$
+\frac{x-x_0}
+{\left.\dfrac{\partial(y,z)}{\partial(u,v)}\right|_{P_0}}
+=
+\frac{y-y_0}
+{\left.\dfrac{\partial(z,x)}{\partial(u,v)}\right|_{P_0}}
+=
+\frac{z-z_0}
+{\left.\dfrac{\partial(x,y)}{\partial(u,v)}\right|_{P_0}}
+$$</p>
+<h1>空间曲线</h1>
+<h2 id="一般方程-2">一般方程</h2>
+<p>空间曲线可以看作是两个曲面 $\Sigma_{1}$ 与 $\Sigma_{2}$ 的交线，设 $\Sigma_{1}$ 与 $\Sigma_{2}$ 的方程分别是 $F(x,y,z)=0$ 与 $G(x,y,z)=0$,则曲线 $\Gamma$ 上的点的坐标应该同时满足这两个方程即</p>
+<p>$$\begin{cases}F(x,y,z)=0\\G(x,y,z)=0\end{cases}$$</p>
+<p>故称该方程组为曲线 $\Gamma$ 的<strong>一般方程</strong></p>
+<h2 id="参数方程-2">参数方程</h2>
+<p>把曲线上的动点的坐标 $x,y,z$ 分别表示成参数 $t$ 的函数，即</p>
+<p>$$
+\begin{cases}
+x=x(t) \\
+y=y(t) \\
+z=z(t)
+\end{cases},\quad t\in I
+$$</p>
+<p>称该方程组为曲线的<strong>参数方程</strong></p>
+<h2 id="空间曲线在坐标面上的投影">空间曲线在坐标面上的投影</h2>
+<p>以空间曲线 $\Gamma$ 为准线，母线平行于 $z$ 轴的柱面叫作 $\Gamma$ 对 $xOy$ 面的投影柱面。投影柱面与 $xOy$ 面的交线叫作 $\Gamma$ 在 $xOy$ 面上的投影曲线。</p>
+<p>研究由一般式方程消去变量 $z$ 之后所得到的方程</p>
+<p>$$ H(x, y) = 0$$</p>
+<p>由于当点 $M(x, y, z) \in \Gamma$ 时，其坐标 $x, y$ 满足一般式方程，而该方程是由一般式方程消去 $z$ 而得，故点 $M$ 的前两个坐标 $x, y$ 必满足该方程，因此，点 $M$ 应在 $H(x, y) = 0$ 所表示的柱面上，这说明柱面包含了曲线 $\Gamma$，从而柱面 $H(x, y) = 0$ 与 $xOy$ 面的交线</p>
+<p>$$ \begin{cases} H(x, y) = 0 \\ z = 0 \end{cases} $$</p>
+<p>包含了空间曲线 $\Gamma$ 在 $xOy$ 面上的投影曲线，此投影曲线必满足该方程组。</p>
+<p>类似地，消去一般式方程中的变量 $x$，得 $R(y, z) = 0$，再与 $x = 0$ 联立就得到包含 $\Gamma$ 在 $yOz$ 面上的投影曲线的曲线方程：</p>
+<p>$$ \begin{cases} R(y, z) = 0 \\ x = 0 \end{cases} $$</p>
+<p>消去一般式方程中的变量 $y$，得 $T(x, z) = 0$，再与 $y = 0$ 联立就得到包含 $\Gamma$ 在 $zOx$ 面上的投影曲线的曲线方程：</p>
+<p>$$ \begin{cases} T(x, z) = 0 \\ y = 0. \end{cases} $$</p>
+<blockquote>
+<p><strong>空间立体/曲面在坐标面上的投影</strong><br>
+转换成求边缘曲线的投影曲线</p>
+</blockquote>
+<h2 id="切线与法平面">切线与法平面</h2>
+<h3 id="参数方程表示的曲线">参数方程表示的曲线</h3>
+<p>设空间曲线 $\Gamma$ 的参数方程为</p>
+<p>$$
+x=x(t),\quad y=y(t),\quad z=z(t),\quad \alpha\le t\le \beta
+$$</p>
+<p>若记 $\mathbf{r}=(x,y,z)$，则曲线的向量形式为</p>
+<p>$$
+\mathbf{r}=\mathbf{r}(t)=x(t)\mathbf{i}+y(t)\mathbf{j}+z(t)\mathbf{k}
+$$</p>
+<p>当 $x(t),y(t),z(t)$ 在 $[\alpha,\beta]$ 上连续时，曲线 $\Gamma$ 为一条连续曲线。</p>
+<p>设 $P_0(x_0,y_0,z_0)$ 与 $P_1(x_0+\Delta x,y_0+\Delta y,z_0+\Delta z)$ 是曲线 $\Gamma$ 上对应参数 $t_0$ 与 $t_0+\Delta t$ 的两点，则割线方程为</p>
+<p>$$
+\frac{x-x_0}{\Delta x}
+=\frac{y-y_0}{\Delta y}
+=\frac{z-z_0}{\Delta z}
+$$</p>
+<p>也可写为</p>
+<p>$$
+\frac{x-x_0}{\frac{\Delta x}{\Delta t}}
+=\frac{y-y_0}{\frac{\Delta y}{\Delta t}}
+=\frac{z-z_0}{\frac{\Delta z}{\Delta t}}
+$$</p>
+<p>当 $P_1$ 沿曲线趋近于 $P_0$，即 $\Delta t\to 0$ 时，割线的极限位置就是曲线在 $P_0$ 处的切线。</p>
+<p>若 $x'(t_0),y'(t_0),z'(t_0)$ 不全为零，则向量</p>
+<p>$$
+\mathbf{T}(t_0)=\left(x'(t_0),y'(t_0),z'(t_0)\right)
+$$</p>
+<p>是切线的方向向量，称为曲线 $\Gamma$ 在 $P_0$ 处的<strong>切向量</strong>。</p>
+<p>因此，曲线 $\Gamma$ 在 $P_0$ 处的切线方程为</p>
+<p>$$
+\frac{x-x_0}{x'(t_0)}
+=\frac{y-y_0}{y'(t_0)}
+=\frac{z-z_0}{z'(t_0)}
+$$</p>
+<p>若 $x'(t_0),y'(t_0),z'(t_0)$ 中有个别为零，则按空间解析几何中对称式方程的意义理解。</p>
+<p>过点 $P_0$ 且与切线垂直的平面称为曲线 $\Gamma$ 在 $P_0$ 处的<strong>法平面</strong>，其方程为</p>
+<p>$$
+x'(t_0)(x-x_0)
++y'(t_0)(y-y_0)
++z'(t_0)(z-z_0)=0
+$$</p>
+<h3 id="一般方程表示的曲线">一般方程表示的曲线</h3>
+<p>设空间曲线 $\Gamma$ 由两个曲面交线给出：</p>
+<p>$$
+\begin{cases}
+F(x,y,z)=0 \\
+G(x,y,z)=0
+\end{cases}
+$$</p>
+<p>其中 $F,G$ 在点 $P_0(x_0,y_0,z_0)$ 的某邻域内连续可微。</p>
+<p>若</p>
+<p>$$
+\left.\frac{\partial(F,G)}{\partial(y,z)}\right|_{P_0}\ne 0
+$$</p>
+<p>则在 $P_0$ 附近可唯一确定隐函数</p>
+<p>$$
+y=y(x),\quad z=z(x)
+$$</p>
+<p>因此曲线在 $P_0$ 处的切线方程可写为</p>
+<p>$$
+\frac{x-x_0}{1}
+=
+\frac{y-y_0}{y'(x_0)}
+=
+\frac{z-z_0}{z'(x_0)}
+$$</p>
+<p>对方程组两边关于 $x$ 求导：</p>
+<p>$$
+\begin{cases}
+F_x+F_y\dfrac{dy}{dx}+F_z\dfrac{dz}{dx}=0 \\
+G_x+G_y\dfrac{dy}{dx}+G_z\dfrac{dz}{dx}=0
+\end{cases}
+$$</p>
+<p>由此得</p>
+<p>$$
+\left.\frac{dy}{dx}\right|_{P_0}
+=
+\left.
+\frac{\dfrac{\partial(F,G)}{\partial(z,x)}}
+{\dfrac{\partial(F,G)}{\partial(y,z)}}
+\right|_{P_0}
+$$</p>
+<p>$$
+\left.\frac{dz}{dx}\right|_{P_0}
+=
+\left.
+\frac{\dfrac{\partial(F,G)}{\partial(x,y)}}
+{\dfrac{\partial(F,G)}{\partial(y,z)}}
+\right|_{P_0}
+$$</p>
+<p>故曲线 $\Gamma$ 在 $P_0$ 处的切线方程为</p>
+<p>$$
+\frac{x-x_0}
+{\left.\dfrac{\partial(F,G)}{\partial(y,z)}\right|_{P_0}}
+=
+\frac{y-y_0}
+{\left.\dfrac{\partial(F,G)}{\partial(z,x)}\right|_{P_0}}
+=
+\frac{z-z_0}
+{\left.\dfrac{\partial(F,G)}{\partial(x,y)}\right|_{P_0}}
+$$</p>
+<p>即</p>
+<p>$$
+\frac{x-x_0}
+{\left.
+\begin{vmatrix}
+F_y & F_z \\
+G_y & G_z
+\end{vmatrix}
+\right|_{P_0}}
+=
+\frac{y-y_0}
+{\left.
+\begin{vmatrix}
+F_z & F_x \\
+G_z & G_x
+\end{vmatrix}
+\right|_{P_0}}
+=
+\frac{z-z_0}
+{\left.
+\begin{vmatrix}
+F_x & F_y \\
+G_x & G_y
+\end{vmatrix}
+\right|_{P_0}}
+$$</p>
+<p>对应的切向量为</p>
+<p>$$
+\mathbf{T}
+=
+\left(
+\left.\frac{\partial(F,G)}{\partial(y,z)}\right|_{P_0},
+\left.\frac{\partial(F,G)}{\partial(z,x)}\right|_{P_0},
+\left.\frac{\partial(F,G)}{\partial(x,y)}\right|_{P_0}
+\right)
+$$</p>
+<p>相应的法平面方程为</p>
+<p>$$
+\left.
+\begin{vmatrix}
+F_y & F_z \\
+G_y & G_z
+\end{vmatrix}
+\right|_{P_0}
+(x-x_0)
++
+\left.
+\begin{vmatrix}
+F_z & F_x \\
+G_z & G_x
+\end{vmatrix}
+\right|_{P_0}
+(y-y_0)
++
+\left.
+\begin{vmatrix}
+F_x & F_y \\
+G_x & G_y
+\end{vmatrix}
+\right|_{P_0}
+(z-z_0)
+=0
+$$</p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/">极限</a>
+    
+    
+      <a class="next" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/">微分</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">向量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E9%87%8F%E7%A7%AF"><span class="toc-text">数量积</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%A7%AF"><span class="toc-text">向量积</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E7%A7%AF"><span class="toc-text">混合积</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-3"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%87%8D%E5%90%91%E9%87%8F%E7%A7%AF%E5%85%AC%E5%BC%8F"><span class="toc-text">二重向量积公式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">平面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E7%9A%84%E6%96%B9%E7%A8%8B"><span class="toc-text">平面的方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E6%B3%95%E5%BC%8F%E6%96%B9%E7%A8%8B"><span class="toc-text">点法式方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E7%82%B9%E5%BC%8F%E6%96%B9%E7%A8%8B"><span class="toc-text">三点式方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E5%BC%8F%E6%96%B9%E7%A8%8B"><span class="toc-text">一般式方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%AA%E8%B7%9D%E5%BC%8F%E6%96%B9%E7%A8%8B"><span class="toc-text">截距式方程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E5%88%B0%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB"><span class="toc-text">点到平面的距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E5%B9%B3%E9%9D%A2%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">两平面的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E5%B9%B3%E9%9D%A2%E7%9A%84%E7%9B%B8%E4%BA%92%E4%BD%8D%E7%BD%AE"><span class="toc-text">两平面的相互位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E5%B9%B3%E9%9D%A2%E9%97%B4%E7%9A%84%E5%A4%B9%E8%A7%92"><span class="toc-text">两平面间的夹角</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">直线</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E7%9B%B4%E7%BA%BF%E6%96%B9%E7%A8%8B"><span class="toc-text">空间直线方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%BC%8F%E6%96%B9%E7%A8%8B"><span class="toc-text">对称式方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B"><span class="toc-text">参数方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E6%96%B9%E7%A8%8B"><span class="toc-text">一般方程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">线面关系</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E7%BA%BF%E5%92%8C%E7%9B%B4%E7%BA%BF%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%85%B3%E7%B3%BB"><span class="toc-text">直线和直线的位置关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E7%BA%BF%E4%B8%8E%E5%B9%B3%E9%9D%A2%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%85%B3%E7%B3%BB"><span class="toc-text">直线与平面的位置关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%9B%B4%E7%BA%BF%E7%9A%84%E5%B9%B3%E9%9D%A2%E6%9D%9F"><span class="toc-text">过直线的平面束</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">空间曲面</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%B1%E9%9D%A2"><span class="toc-text">柱面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E6%9B%B2%E9%9D%A2"><span class="toc-text">旋转曲面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E6%AC%A1%E6%9B%B2%E9%9D%A2"><span class="toc-text">二次曲面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A4%AD%E7%90%83%E9%9D%A2"><span class="toc-text">椭球面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%9B%E7%89%A9%E9%9D%A2"><span class="toc-text">抛物面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E6%9B%B2%E9%9D%A2"><span class="toc-text">双曲面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A4%AD%E5%9C%86%E9%94%A5%E9%9D%A2"><span class="toc-text">椭圆锥面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E5%B9%B3%E9%9D%A2%E4%B8%8E%E6%B3%95%E7%BA%BF"><span class="toc-text">切平面与法线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E6%96%B9%E7%A8%8B%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%9B%B2%E9%9D%A2"><span class="toc-text">一般方程表示的曲面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%9B%B2%E9%9D%A2"><span class="toc-text">参数方程表示的曲面</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">空间曲线</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E6%96%B9%E7%A8%8B-2"><span class="toc-text">一般方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B-2"><span class="toc-text">参数方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%9B%B2%E7%BA%BF%E5%9C%A8%E5%9D%90%E6%A0%87%E9%9D%A2%E4%B8%8A%E7%9A%84%E6%8A%95%E5%BD%B1"><span class="toc-text">空间曲线在坐标面上的投影</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E7%BA%BF%E4%B8%8E%E6%B3%95%E5%B9%B3%E9%9D%A2"><span class="toc-text">切线与法平面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%9B%B2%E7%BA%BF"><span class="toc-text">参数方程表示的曲线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E6%96%B9%E7%A8%8B%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%9B%B2%E7%BA%BF"><span class="toc-text">一般方程表示的曲线</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

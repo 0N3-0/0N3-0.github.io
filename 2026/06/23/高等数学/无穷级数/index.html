@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>无穷级数 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="定义 给定一个数列 $$ \{u_n\} $$ 由它构成的表达式 $$ u_1+u_2+\cdots+u_n+\cdots $$ 称为常数项无穷级数，简称级数。 记作 $$ \sum_{n&#x3D;1}^{\infty}u_n $$ 其中 $u_n$ 称为级数的一般项或通项。 级数前 $n$ 项之和称为部分和，记为 $$ s_n&#x3D;u_1+u_2+\cdots+u_n $$ 当 $n&#x3D;1,2,3,\cdot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无穷级数">
+<meta property="og:url" content="http://0n3-0.github.io/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="定义 给定一个数列 $$ \{u_n\} $$ 由它构成的表达式 $$ u_1+u_2+\cdots+u_n+\cdots $$ 称为常数项无穷级数，简称级数。 记作 $$ \sum_{n&#x3D;1}^{\infty}u_n $$ 其中 $u_n$ 称为级数的一般项或通项。 级数前 $n$ 项之和称为部分和，记为 $$ s_n&#x3D;u_1+u_2+\cdots+u_n $$ 当 $n&#x3D;1,2,3,\cdot">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-06-23T13:10:36.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.591Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="高数">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '高等数学/无穷级数';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">无穷级数</h1>
+      <div class="post-meta">
+        <span>2026-06-23</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E9%AB%98%E6%95%B0/">高数</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>定义</h1>
+<p>给定一个数列</p>
+<p>$$
+\{u_n\}
+$$</p>
+<p>由它构成的表达式</p>
+<p>$$
+u_1+u_2+\cdots+u_n+\cdots
+$$</p>
+<p>称为<strong>常数项无穷级数</strong>，简称<strong>级数</strong>。</p>
+<p>记作</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>其中 $u_n$ 称为级数的<strong>一般项</strong>或<strong>通项</strong>。</p>
+<p>级数前 $n$ 项之和称为部分和，记为</p>
+<p>$$
+s_n=u_1+u_2+\cdots+u_n
+$$</p>
+<p>当 $n=1,2,3,\cdots$ 时，所有部分和构成一个新数列：</p>
+<p>$$
+\{s_n\}
+$$</p>
+<p>称为<strong>部分和数列</strong>。</p>
+<h1>级数的收敛与发散</h1>
+<p>若部分和数列 $\{s_n\}$ 有极限 $s$，即</p>
+<p>$$
+\lim_{n\to\infty}s_n=s
+$$</p>
+<p>则称级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛。</p>
+<p>此时极限 $s$ 称为该级数的和，记作</p>
+<p>$$
+s=u_1+u_2+\cdots+u_n+\cdots
+=
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>若部分和数列 $\{s_n\}$ 没有极限，则称级数发散。</p>
+<h1>基本性质</h1>
+<p>设级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>若去掉前 $n$ 项，则得到<strong>余项级数</strong>：</p>
+<p>$$
+u_{n+1}+u_{n+2}+\cdots+u_{n+k}+\cdots
+=
+\sum_{k=n+1}^{\infty}u_k
+$$</p>
+<h2 id="去掉或增加有限项">去掉或增加有限项</h2>
+<p>级数去掉或增加<strong>有限项</strong>后，不改变其收敛性</p>
+<p>若原级数收敛，和为 $s$，前 $n$ 项部分和为 $s_n$，则余项级数的和为</p>
+<p>$$
+r_n=s-s_n
+$$</p>
+<p>并且</p>
+<p>$$
+\lim_{n\to\infty}r_n=0
+$$</p>
+<h2 id="线性运算性质">线性运算性质</h2>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛，和为 $s$，则对任意常数 $k$，级数</p>
+<p>$$
+\sum_{n=1}^{\infty}ku_n
+$$</p>
+<p>也收敛，且其和为</p>
+<p>$$
+ks
+$$</p>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n,\quad \sum_{n=1}^{\infty}v_n
+$$</p>
+<p>分别收敛于 $s$ 与 $\sigma$，则</p>
+<p>$$
+\sum_{n=1}^{\infty}(u_n\pm v_n)
+$$</p>
+<p>也收敛，且其和为</p>
+<p>$$
+s\pm\sigma
+$$</p>
+<h2 id="加括号性质">加括号性质</h2>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛，则将其任意若干项加括号后形成的新级数仍然收敛，且其和不变。</p>
+<p>即若</p>
+<p>$$
+u_1+u_2+\cdots+u_n+\cdots
+$$</p>
+<p>收敛，则</p>
+<p>$$
+(u_1+\cdots+u_{n_1})+(u_{n_1+1}+\cdots+u_{n_2})+\cdots
+$$</p>
+<p>也收敛，且和相同。</p>
+<p>注意：</p>
+<ul>
+<li>原级数收敛，则加括号后的级数一定收敛</li>
+<li>加括号后的级数发散，则原级数一定发散</li>
+<li>加括号后的级数收敛，原级数不一定收敛</li>
+</ul>
+<h2 id="收敛的必要条件">收敛的必要条件</h2>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛，则它的一般项必趋于零：</p>
+<p>$$
+\lim_{n\to\infty}u_n=0
+$$</p>
+<p>但是</p>
+<p>$$
+\lim_{n\to\infty}u_n=0
+$$</p>
+<p>原级数不一定收敛。</p>
+<p>即一般项趋于零为级数收敛的必要条件，不是充分条件</p>
+<h1>柯西收敛准则</h1>
+<p>级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛的充分必要条件是：</p>
+<p>对任意</p>
+<p>$$
+\varepsilon>0
+$$</p>
+<p>存在正整数 $N$，使得当 $n>N$ 时，对任意正整数 $p$，都有</p>
+<p>$$
+\left|
+\sum_{k=n+1}^{n+p}u_k
+\right|
+<\varepsilon
+$$</p>
+<h1>正项级数</h1>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>中各项非负，即</p>
+<p>$$
+u_n\ge 0\quad(n=1,2,\cdots)
+$$</p>
+<p>则称该级数为正项级数。</p>
+<p>正项级数的部分和数列</p>
+<p>$$
+s_n=u_1+u_2+\cdots+u_n
+$$</p>
+<p>是单调递增数列。</p>
+<p>因此，正项级数的收敛性可转化为部分和数列是否有上界。</p>
+<h3 id="$p$-级数">$p$ 级数</h3>
+<p>称</p>
+<p>$$
+\sum_{n=1}^{\infty}\frac1{n^p}
+=
+1+\frac1{2^p}+\frac1{3^p}+\cdots+\frac1{n^p}+\cdots
+$$</p>
+<p>为 $p$ 级数<br>
+其中</p>
+<p>$$
+p>0
+$$</p>
+<p>有结论：</p>
+<p>$$
+\sum_{n=1}^{\infty}\frac1{n^p}
+\begin{cases}
+\text{发散},&0<p\le 1\\
+\text{收敛},&p>1
+\end{cases}
+$$</p>
+<h2 id="审敛法">审敛法</h2>
+<p>正项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛的充分必要条件是：它的部分和数列有上界。</p>
+<h3 id="比较审敛法">比较审敛法</h3>
+<p>设</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n,\quad
+\sum_{n=1}^{\infty}v_n
+$$</p>
+<p>都是正项级数。</p>
+<ol>
+<li>若从某一项开始，有</li>
+</ol>
+<p>$$
+0\le u_n\le v_n
+$$</p>
+<p>且</p>
+<p>$$
+\sum_{n=1}^{\infty}v_n
+$$</p>
+<p>收敛，则</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>也收敛。<br>
+2. 若从某一项开始，有</p>
+<p>$$
+u_n\ge v_n\ge 0
+$$</p>
+<p>且</p>
+<p>$$
+\sum_{n=1}^{\infty}v_n
+$$</p>
+<p>发散，则</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>也发散。</p>
+<p>比较审敛法的关键是找一个已知收敛性的级数作为参照。</p>
+<p>常用参照级数：</p>
+<ol>
+<li>等比级数</li>
+</ol>
+<p>$$
+\sum_{n=0}^{\infty}aq^n
+$$</p>
+<ol start="2">
+<li>调和级数</li>
+</ol>
+<p>$$
+\sum_{n=1}^{\infty}\frac1n
+$$</p>
+<ol start="3">
+<li>$p$ 级数</li>
+</ol>
+<p>$$
+\sum_{n=1}^{\infty}\frac1{n^p}
+$$</p>
+<h4 id="极限形式">极限形式</h4>
+<p>设</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n,\quad \sum_{n=1}^{\infty}v_n
+$$</p>
+<p>都是正项级数。</p>
+<p>若当 $n\to\infty$ 时，</p>
+<p>$$
+\lim_{n\to\infty}\frac{u_n}{v_n}=\lambda
+$$</p>
+<p>则有以下结论。</p>
+<ol>
+<li>若</li>
+</ol>
+<p>$$
+0<\lambda<+\infty
+$$</p>
+<p>则两个级数同敛散：</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+\quad\text{与}\quad
+\sum_{n=1}^{\infty}v_n
+$$</p>
+<p>具有相同的收敛性。<br>
+2. 若</p>
+<p>$$
+\lambda=0
+$$</p>
+<p>且</p>
+<p>$$
+\sum_{n=1}^{\infty}v_n
+$$</p>
+<p>收敛，则</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛。<br>
+3. 若</p>
+<p>$$
+\lambda=+\infty
+$$</p>
+<p>且</p>
+<p>$$
+\sum_{n=1}^{\infty}v_n
+$$</p>
+<p>发散，则</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>发散。</p>
+<h3 id="比值审敛法">比值审敛法</h3>
+<p>设</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>为正项级数，若极限</p>
+<p>$$
+\lim_{n\to\infty}\frac{u_{n+1}}{u_n}=\rho
+$$</p>
+<p>存在，则：</p>
+<ol>
+<li>若</li>
+</ol>
+<p>$$
+\rho<1
+$$</p>
+<p>则</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛。<br>
+2. 若</p>
+<p>$$
+\rho>1
+$$</p>
+<p>则</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>发散。<br>
+3. 若</p>
+<p>$$
+\rho=1
+$$</p>
+<p>则比值审敛法失效，级数可能收敛，也可能发散。</p>
+<h3 id="根值审敛法">根值审敛法</h3>
+<p>设</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>为正项级数，若极限</p>
+<p>$$
+\lim_{n\to\infty}\sqrt[n]{u_n}=\rho
+$$</p>
+<p>存在，则：</p>
+<ol>
+<li>若</li>
+</ol>
+<p>$$
+\rho<1
+$$</p>
+<p>则</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛。<br>
+2. 若</p>
+<p>$$
+\rho>1
+$$</p>
+<p>则</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>发散。<br>
+3. 若</p>
+<p>$$
+\rho=1
+$$</p>
+<p>则根值审敛法失效，级数可能收敛，也可能发散。</p>
+<h3 id="积分审敛法">积分审敛法</h3>
+<p>设</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>为正项级数。</p>
+<p>若存在定义在 $[1,+\infty)$ 上的非负、连续、单调递减函数 $f(x)$，使得</p>
+<p>$$
+u_n=f(n)
+$$</p>
+<p>则级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>与反常积分</p>
+<p>$$
+\int_1^{+\infty}f(x)\,dx
+$$</p>
+<p>具有相同的收敛性。</p>
+<p>即：</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n\text{ 收敛}
+\Longleftrightarrow
+\int_1^{+\infty}f(x)\,dx\text{ 收敛}
+$$</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n\text{ 发散}
+\Longleftrightarrow
+\int_1^{+\infty}f(x)\,dx\text{ 发散}
+$$</p>
+<h3 id="使用思路">使用思路</h3>
+<p>判断正项级数时：</p>
+<ol>
+<li>含有阶乘、指数幂，优先考虑比值审敛法。</li>
+<li>含有 $n$ 次方结构，优先考虑根值审敛法。</li>
+<li>通项类似函数值，且函数单调递减，可考虑积分审敛法。</li>
+<li>若极限结果为 $1$，比值审敛法和根值审敛法通常失效，需要改用比较审敛法、极限比较法或积分审敛法。</li>
+</ol>
+<h1>任意项级数</h1>
+<h2 id="交错级数">交错级数</h2>
+<p>若级数各项正负交替，例如</p>
+<p>$$
+u_1-u_2+u_3-u_4+\cdots+(-1)^{n-1}u_n+\cdots
+$$</p>
+<p>或</p>
+<p>$$
+-u_1+u_2-u_3+u_4+\cdots+(-1)^n u_n+\cdots
+$$</p>
+<p>其中</p>
+<p>$$
+u_n>0\quad(n=1,2,\cdots)
+$$</p>
+<p>则称为交错级数。</p>
+<p>常写为：</p>
+<p>$$
+\sum_{n=1}^{\infty}(-1)^{n-1}u_n
+$$</p>
+<p>或</p>
+<p>$$
+\sum_{n=1}^{\infty}(-1)^n u_n
+$$</p>
+<h2 id="莱布尼茨审敛法">莱布尼茨审敛法</h2>
+<p>对于交错级数</p>
+<p>$$
+\sum_{n=1}^{\infty}(-1)^{n-1}u_n
+$$</p>
+<p>若满足：</p>
+<ol>
+<li>单调递减：</li>
+</ol>
+<p>$$
+u_n\ge u_{n+1}\quad(n=1,2,\cdots)
+$$</p>
+<ol start="2">
+<li>通项趋于零：</li>
+</ol>
+<p>$$
+\lim_{n\to\infty}u_n=0
+$$</p>
+<p>则交错级数</p>
+<p>$$
+\sum_{n=1}^{\infty}(-1)^{n-1}u_n
+$$</p>
+<p>收敛。</p>
+<h2 id="绝对收敛">绝对收敛</h2>
+<p>对于任意项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}|u_n|
+$$</p>
+<p>收敛，则称原级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>绝对收敛。</p>
+<h2 id="条件收敛">条件收敛</h2>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛，但</p>
+<p>$$
+\sum_{n=1}^{\infty}|u_n|
+$$</p>
+<p>发散，则称原级数条件收敛。</p>
+<h2 id="重排性质">重排性质</h2>
+<h3 id="绝对收敛级数">绝对收敛级数</h3>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>绝对收敛，则任意改变各项顺序后得到的新级数仍然收敛，且和不变。</p>
+<h3 id="条件收敛级数">条件收敛级数</h3>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>条件收敛，则改变项的顺序后，级数的和可能改变，甚至可能发散。</p>
+<h2 id="黎曼重排定理">黎曼重排定理</h2>
+<p>若级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>条件收敛，则对任意给定实数 $A$，都可以重新排列级数的各项，使重排后的级数收敛于 $A$。</p>
+<p>还可以通过适当重排，使其发散到 $+\infty$ 或 $-\infty$</p>
+<h1>函数项级数</h1>
+<h2 id="定义">定义</h2>
+<p>设在集合 $D\subset \mathbb R$ 上给定一列函数：</p>
+<p>$$
+u_1(x),\ u_2(x),\ \cdots,\ u_n(x),\ \cdots
+$$</p>
+<p>将它们逐项相加，得到：</p>
+<p>$$
+u_1(x)+u_2(x)+\cdots+u_n(x)+\cdots
+$$</p>
+<p>或记为：</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x)
+$$</p>
+<p>称为<strong>函数项级数</strong>。</p>
+<p>其中 $u_n(x)$ 称为<strong>通项</strong>。</p>
+<p>前 $n$ 项部分和为：</p>
+<p>$$
+s_n(x)=\sum_{k=1}^{n}u_k(x)
+$$</p>
+<h2 id="函数项级数的收敛">函数项级数的收敛</h2>
+<p>对于函数项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x)
+$$</p>
+<p>若对某点 $x_0\in D$，数值级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x_0)
+$$</p>
+<p>收敛，则称 $x_0$ 是函数项级数的<strong>收敛点</strong>。</p>
+<p>所有收敛点组成的集合称为函数项级数的<strong>收敛域</strong>。</p>
+<p>若对任意 $x\in D$，级数都收敛，则称函数项级数在 $D$ 上处处收敛。</p>
+<p><strong>等比函数项级数</strong>：</p>
+<p>$$
+1+x+x^2+\cdots+x^n+\cdots
+$$</p>
+<p>即：</p>
+<p>$$
+\sum_{n=0}^{\infty}x^n
+$$</p>
+<p>当</p>
+<p>$$
+|x|<1
+$$</p>
+<p>时收敛，且和函数为：</p>
+<p>$$
+s(x)=\frac{1}{1-x}
+$$</p>
+<p>当</p>
+<p>$$
+|x|\ge 1
+$$</p>
+<p>时发散。</p>
+<p>因此它的收敛域为：</p>
+<p>$$
+(-1,1)
+$$</p>
+<h3 id="逐点收敛">逐点收敛</h3>
+<p>设函数列</p>
+<p>$$
+\{f_n(x)\}
+$$</p>
+<p>定义在集合 $D$ 上，并在 $D$ 上处处收敛于函数 $f(x)$。</p>
+<p>若对每一个固定的 $x\in D$，都有</p>
+<p>$$
+\lim_{n\to\infty}f_n(x)=f(x)
+$$</p>
+<p>则称 $f_n(x)$ 在 $D$ 上逐点收敛于 $f(x)$。</p>
+<p>逐点收敛的特点是：对不同的 $x$，达到指定精度所需的 $N$ 可以不同。</p>
+<h3 id="一致收敛">一致收敛</h3>
+<p>设函数项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x)
+$$</p>
+<p>的部分和函数为</p>
+<p>$$
+s_n(x)=\sum_{k=1}^{n}u_k(x)
+$$</p>
+<p>若部分和函数列 $\{s_n(x)\}$ 在 $D$ 上一致收敛于和函数 $s(x)$，则称函数项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x)
+$$</p>
+<p>在 $D$ 上一致收敛。</p>
+<h3 id="判别法">判别法</h3>
+<h4 id="余项判别法">余项判别法</h4>
+<p>函数项级数的余项为</p>
+<p>$$
+r_n(x)=s(x)-s_n(x)
+=
+\sum_{k=n+1}^{\infty}u_k(x)
+$$</p>
+<p>级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x)
+$$</p>
+<p>在 $D$ 上一致收敛的充分必要条件是：</p>
+<p>$$
+\lim_{n\to\infty}\sup_{x\in D}|r_n(x)|=0
+$$</p>
+<p>也就是：</p>
+<p>$$
+\forall \varepsilon>0,\ \exists N,\ n>N,\ \forall x\in D,\quad |r_n(x)|<\varepsilon
+$$</p>
+<h4 id="上确界判别法">上确界判别法</h4>
+<p>若设</p>
+<p>$$
+\beta_n=\sup_{x\in D}|s_n(x)-s(x)|
+$$</p>
+<p>则函数列 $\{s_n(x)\}$ 在 $D$ 上一致收敛于 $s(x)$ 的充分必要条件是：</p>
+<p>$$
+\lim_{n\to\infty}\beta_n=0
+$$</p>
+<h4 id="柯西准则">柯西准则</h4>
+<p>对任意</p>
+<p>$$
+\varepsilon>0
+$$</p>
+<p>存在正整数 $N$，使得当 $n>N$ 时，对任意正整数 $p$，以及任意 $x\in D$，都有</p>
+<p>$$
+\left|
+\sum_{k=n+1}^{n+p}u_k(x)
+\right|
+<\varepsilon
+$$</p>
+<p>则函数项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x)
+$$</p>
+<p>在 $D$ 上一致收敛</p>
+<h4 id="魏尔斯特拉斯判别法">魏尔斯特拉斯判别法</h4>
+<p>设函数项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x)
+$$</p>
+<p>定义在集合 $D$ 上。</p>
+<p>若存在正项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}M_n
+$$</p>
+<p>使得：</p>
+<ol>
+<li>对一切 $x\in D$，都有</li>
+</ol>
+<p>$$
+|u_n(x)|\le M_n
+$$</p>
+<ol start="2">
+<li>正项级数</li>
+</ol>
+<p>$$
+\sum_{n=1}^{\infty}M_n
+$$</p>
+<p>收敛</p>
+<p>则函数项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n(x)
+$$</p>
+<p>在 $D$ 上一致收敛。</p>
+<p>该判别法也称为 Weierstrass 判别法或 M 判别法。</p>
+<h1>幂级数</h1>
+<p>形如</p>
+<p>$$
+a_0+a_1(x-x_0)+a_2(x-x_0)^2+\cdots+a_n(x-x_0)^n+\cdots
+$$</p>
+<p>的函数项级数称为关于 $x-x_0$ 的<strong>幂级数</strong>，简称<strong>幂级数</strong>。</p>
+<p>其中 $x_0$ 为常数，</p>
+<p>$$
+a_0,a_1,a_2,\cdots,a_n,\cdots
+$$</p>
+<p>称为<strong>幂级数的系数</strong>。</p>
+<p>也可写成：</p>
+<p>$$
+\sum_{n=0}^{\infty}a_n(x-x_0)^n
+$$</p>
+<p>当 $x_0=0$ 时，幂级数变为：</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n
+=
+a_0+a_1x+a_2x^2+\cdots+a_nx^n+\cdots
+$$</p>
+<h2 id="收敛域结构">收敛域结构</h2>
+<h3 id="收敛中心">收敛中心</h3>
+<p>对于幂级数</p>
+<p>$$
+\sum_{n=0}^{\infty}a_n(x-x_0)^n
+$$</p>
+<p>当</p>
+<p>$$
+x=x_0
+$$</p>
+<p>时，除首项外其余各项都为 $0$，所以级数一定收敛。</p>
+<p>因此 $x_0$ 称为幂级数的收敛中心。</p>
+<h3 id="阿贝尔定理">阿贝尔定理</h3>
+<p>对于幂级数</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n
+$$</p>
+<p>有如下结论：</p>
+<p>若它在点 $x=x_1\ne0$ 处收敛，则当</p>
+<p>$$
+|x|<|x_1|
+$$</p>
+<p>时，幂级数绝对收敛。</p>
+<p>若它在点 $x=x_1\ne0$ 处发散，则当</p>
+<p>$$
+|x|>|x_1|
+$$</p>
+<p>时，幂级数发散。</p>
+<p>由阿贝尔定理可知，幂级数的收敛域一定是以收敛中心为中心的区间。</p>
+<p>对于</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n
+$$</p>
+<p>其收敛域关于原点对称。</p>
+<p>存在一个数 $R$，满足：</p>
+<p>$$
+0\le R\le +\infty
+$$</p>
+<p>使得：</p>
+<p>当</p>
+<p>$$
+|x|<R
+$$</p>
+<p>时，幂级数绝对收敛；</p>
+<p>当</p>
+<p>$$
+|x|>R
+$$</p>
+<p>时，幂级数发散；</p>
+<p>当</p>
+<p>$$
+x=\pm R
+$$</p>
+<p>时，幂级数可能收敛，也可能发散，需要单独判断。</p>
+<h3 id="收敛半径">收敛半径</h3>
+<p>上述数 $R$ 称为幂级数的收敛半径。</p>
+<p>对于</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n
+$$</p>
+<p>若只在 $x=0$ 处收敛，则规定：</p>
+<p>$$
+R=0
+$$</p>
+<p>若对任意实数 $x$ 都收敛，则规定：</p>
+<p>$$
+R=+\infty
+$$</p>
+<p>若</p>
+<p>$$
+0<R<+\infty
+$$</p>
+<p>则幂级数在开区间</p>
+<p>$$
+(-R,R)
+$$</p>
+<p>内绝对收敛，在区间外发散。</p>
+<h3 id="收敛区间">收敛区间</h3>
+<p>对于</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n
+$$</p>
+<p>开区间</p>
+<p>$$
+(-R,R)
+$$</p>
+<p>称为收敛区间。</p>
+<p>对于一般形式</p>
+<p>$$
+\sum_{n=0}^{\infty}a_n(x-x_0)^n
+$$</p>
+<p>其收敛区间为：</p>
+<p>$$
+(x_0-R,\ x_0+R)
+$$</p>
+<p>端点</p>
+<p>$$
+x=x_0-R,\quad x=x_0+R
+$$</p>
+<p>处的收敛性需要分别代入原级数单独判断。</p>
+<h2 id="常见结论">常见结论</h2>
+<p>对于幂级数</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n
+$$</p>
+<p>若存在</p>
+<p>$$
+\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|=\rho
+$$</p>
+<p>则收敛半径为：</p>
+<p>$$
+R=\frac1{\rho}
+$$</p>
+<p>其中约定：</p>
+<p>$$
+\rho=0\Rightarrow R=+\infty
+$$</p>
+<p>$$
+\rho=+\infty\Rightarrow R=0
+$$</p>
+<h2 id="幂级数的运算">幂级数的运算</h2>
+<p>设两个幂级数</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n,\quad
+\sum_{n=0}^{\infty}b_nx^n
+$$</p>
+<p>的收敛半径分别为 $R_1,R_2$，记</p>
+<p>$$
+R=\min\{R_1,R_2\}
+$$</p>
+<p>在 $|x|<R$ 内，有：</p>
+<h3 id="加减法">加减法</h3>
+<p>$$
+\alpha\sum_{n=0}^{\infty}a_nx^n
+\pm
+\beta\sum_{n=0}^{\infty}b_nx^n
+=
+\sum_{n=0}^{\infty}(\alpha a_n\pm \beta b_n)x^n
+$$</p>
+<h3 id="乘法">乘法</h3>
+<p>$$
+\left(\sum_{n=0}^{\infty}a_nx^n\right)
+\left(\sum_{n=0}^{\infty}b_nx^n\right)
+=
+\sum_{n=0}^{\infty}c_nx^n
+$$</p>
+<p>其中</p>
+<p>$$
+c_n=a_0b_n+a_1b_{n-1}+\cdots+a_nb_0
+$$</p>
+<blockquote>
+<p>加减运算或乘法运算最后所得到的幂级数的收敛半径 $R$ 可能大于 $\min\{R_1,R_2\}$</p>
+</blockquote>
+<h2 id="内闭一致收敛性">内闭一致收敛性</h2>
+<p>设幂级数</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n
+$$</p>
+<p>的收敛半径为 $R$。</p>
+<p>若</p>
+<p>$$
+[a,b]\subset(-R,R)
+$$</p>
+<p>则该幂级数在闭区间 $[a,b]$ 上一致收敛。</p>
+<p>即幂级数在收敛区间内部任意闭区间上一致收敛。</p>
+<h2 id="和函数的性质">和函数的性质</h2>
+<p>设幂级数</p>
+<p>$$
+\sum_{n=0}^{\infty}a_nx^n
+$$</p>
+<p>的和函数为</p>
+<p>$$
+s(x)=\sum_{n=0}^{\infty}a_nx^n
+$$</p>
+<h3 id="连续性">连续性</h3>
+<p>$s(x)$ 在收敛区间内连续，即对于收敛区间中的任一点 $x_{0}$ 有</p>
+<p>$$
+\lim_{ x \to x_{0} }\sum^{\infty}_{n=0} a_{n}x^n=\sum^{\infty}_{n=0}a_{n}x_{0}^n 
+$$</p>
+<h3 id="可微性">可微性</h3>
+<p>$s(x)$ 在收敛区间内可导，且有逐项求导公式</p>
+<p>$$
+s'(x)=\left( \sum^{\infty}_{n=0} a_{n}x^n\right)'=\sum^{\infty}_{n=0}(a_{n}x^n)'=\sum^{\infty}_{n=1}na_{n}x^{n-1},|x|<R
+$$</p>
+<h3 id="可积性">可积性</h3>
+<p>$s(x)$ 在收敛区间内可积，且有逐项积分公式</p>
+<p>$$
+\int^x_{0} \,s(t) dx = \int^x_{0} \,\left( \sum^{\infty}_{n=0}a_{n}t^n \right)dt =\sum^{\infty}_{n=0} \int^x_{0} \,a_{n}t^ndt=\sum^{\infty}_{n=0} \frac{a_{n}}{n+1}x^{n+1},|x|<R
+$$</p>
+<h1>函数展开成幂级数的方法</h1>
+<h2 id="泰勒级数">泰勒级数</h2>
+<p>若函数 $f(x)$ 在点 $x_0$ 附近能展开成幂级数，则展开式必为</p>
+<p>$$
+f(x)=
+f(x_0)
++f'(x_0)(x-x_0)
++\frac{f''(x_0)}{2!}(x-x_0)^2
++\cdots
++\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n
++\cdots
+$$</p>
+<p>即</p>
+<p>$$
+f(x)=
+\sum_{n=0}^{\infty}
+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n
+$$</p>
+<p>该级数称为函数 $f(x)$ 在点 $x_0$ 处的泰勒级数。</p>
+<h2 id="麦克劳林级数">麦克劳林级数</h2>
+<p>当 $x_0=0$ 时，泰勒级数变为</p>
+<p>$$
+f(x)
+=
+f(0)
++\frac{f'(0)}{1!}x
++\frac{f''(0)}{2!}x^2
++\cdots
++\frac{f^{(n)}(0)}{n!}x^n
++\cdots
+$$</p>
+<p>即</p>
+<p>$$
+f(x)=
+\sum_{n=0}^{\infty}
+\frac{f^{(n)}(0)}{n!}x^n
+$$</p>
+<p>称为 $f(x)$ 的麦克劳林展开式，右边的级数称为麦克劳林级数。</p>
+<h2 id="直接展开法">直接展开法</h2>
+<p>直接展开法是先作出函数 $f(x)$ 的泰勒级数或麦克劳林级数，再求其收敛半径，并判断该级数的和是否等于 $f(x)$。</p>
+<p>对麦克劳林展开式，步骤为：</p>
+<ol>
+<li>求 $f(0),f'(0),f''(0),\cdots,f^{(n)}(0),\cdots$；</li>
+<li>写出麦克劳林级数</li>
+</ol>
+<p>$$
+\sum_{n=0}^{\infty}
+\frac{f^{(n)}(0)}{n!}x^n
+$$</p>
+<ol start="3">
+<li>求收敛区间；</li>
+<li>判断余项是否满足</li>
+</ol>
+<p>$$
+\lim_{n\to\infty}R_n(x)=0
+$$</p>
+<h2 id="常见直接展开式">常见直接展开式</h2>
+<h3 id="指数函数">指数函数</h3>
+<p>$$
+e^x=
+1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots+\frac{x^n}{n!}+\cdots
+$$</p>
+<p>收敛区间为</p>
+<p>$$
+(-\infty,+\infty)
+$$</p>
+<h3 id="正弦函数">正弦函数</h3>
+<p>$$
+\sin x
+=
+x-\frac{x^3}{3!}+\frac{x^5}{5!}
+-\cdots
++(-1)^{n-1}\frac{x^{2n-1}}{(2n-1)!}
++\cdots
+$$</p>
+<p>收敛区间为</p>
+<p>$$
+(-\infty,+\infty)
+$$</p>
+<h3 id="余弦函数">余弦函数</h3>
+<p>$$
+\cos x
+=
+1-\frac{x^2}{2!}+\frac{x^4}{4!}
+-\cdots
++(-1)^n\frac{x^{2n}}{(2n)!}
++\cdots
+$$</p>
+<p>收敛区间为</p>
+<p>$$
+(-\infty,+\infty)
+$$</p>
+<h2 id="间接展开法">间接展开法</h2>
+<p>根据函数展开为幂级数的唯一性，可利用已知函数的展开式，并结合幂级数的运算性质，把所给函数展开成幂级数。</p>
+<p>常用方式：</p>
+<ol>
+<li>变量代换；</li>
+<li>逐项积分；</li>
+<li>逐项求导；</li>
+<li>幂级数的加减、乘法运算。</li>
+</ol>
+<h2 id="常见间接展开式">常见间接展开式</h2>
+<h3 id="对数函数">对数函数</h3>
+<p>由</p>
+<p>$$
+\frac1{1+x}
+=
+\sum_{n=0}^{\infty}(-1)^nx^n,\quad x\in(-1,1)
+$$</p>
+<p>逐项积分可得</p>
+<p>$$
+\ln(1+x)
+=
+x-\frac{x^2}{2}
++\frac{x^3}{3}
+-\cdots
++(-1)^{n-1}\frac{x^n}{n}
++\cdots
+$$</p>
+<p>收敛区间为</p>
+<p>$$
+(-1,1]
+$$</p>
+<h3 id="反正切函数">反正切函数</h3>
+<p>由</p>
+<p>$$
+\frac1{1+x^2}
+=
+\sum_{n=0}^{\infty}(-1)^nx^{2n},\quad x\in(-1,1)
+$$</p>
+<p>逐项积分可得</p>
+<p>$$
+\arctan x
+=
+x-\frac{x^3}{3}
++\frac{x^5}{5}
+-\cdots
++(-1)^n\frac{x^{2n+1}}{2n+1}
++\cdots
+$$</p>
+<p>收敛区间为</p>
+<p>$$
+[-1,1]
+$$</p>
+<h3 id="二项式展开式">二项式展开式</h3>
+<p>若 $\alpha$ 为任意不为零常数，则</p>
+<p>$$
+(1+x)^\alpha
+=
+1+\alpha x
++\frac{\alpha(\alpha-1)}{2!}x^2
++\cdots
++\frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}x^n
++\cdots
+$$</p>
+<p>在区间</p>
+<p>$$
+(-1,1)
+$$</p>
+<p>内成立。</p>
+<h1>欧拉公式</h1>
+<h2 id="复数项级数">复数项级数</h2>
+<p>设</p>
+<p>$$
+z_n=u_n+iv_n
+$$</p>
+<p>为复数列，则</p>
+<p>$$
+\sum_{n=1}^{\infty}z_n
+=
+z_1+z_2+\cdots+z_n+\cdots
+$$</p>
+<p>称为复数项级数。</p>
+<p>若实部构成的级数</p>
+<p>$$
+\sum_{n=1}^{\infty}u_n
+$$</p>
+<p>收敛于 $u$，虚部构成的级数</p>
+<p>$$
+\sum_{n=1}^{\infty}v_n
+$$</p>
+<p>收敛于 $v$，则复数项级数收敛于</p>
+<p>$$
+z=u+iv
+$$</p>
+<p>若</p>
+<p>$$
+\sum_{n=1}^{\infty}|z_n|
+$$</p>
+<p>收敛，则复数项级数</p>
+<p>$$
+\sum_{n=1}^{\infty}z_n
+$$</p>
+<p>绝对收敛。</p>
+<h2 id="复指数函数">复指数函数</h2>
+<p>复变量幂级数</p>
+<p>$$
+\sum_{n=0}^{\infty}\frac{z^n}{n!}
+=
+1+\frac{z}{1!}
++\frac{z^2}{2!}
++\cdots
++\frac{z^n}{n!}
++\cdots
+$$</p>
+<p>在整个复平面上绝对收敛。</p>
+<p>定义复指数函数</p>
+<p>$$
+e^z=
+1+\frac{z}{1!}
++\frac{z^2}{2!}
++\cdots
++\frac{z^n}{n!}
++\cdots
+$$</p>
+<h1>常微分方程的幂级数解法</h1>
+<h2 id="一阶方程">一阶方程</h2>
+<p>设一阶方程为</p>
+<p>$$
+y'=P(x,y),\quad y|_{x=x_0}=y_0
+$$</p>
+<p>若方程的解不能用初等函数或积分表示，可设其解能展开为</p>
+<p>$$
+y=y_0+b_1(x-x_0)+b_2(x-x_0)^2+\cdots+b_n(x-x_0)^n+\cdots
+$$</p>
+<p>代入方程，比较等式两端 $(x-x_0)$ 的同次幂系数，即可确定系数</p>
+<p>$$
+b_1,b_2,\cdots,b_n,\cdots
+$$</p>
+<h2 id="二阶齐次线性方程">二阶齐次线性方程</h2>
+<p>设方程为</p>
+<p>$$
+y''+p(x)y'+q(x)y=0
+$$</p>
+<p>若 $p(x)$ 与 $q(x)$ 在区间 $(-R,R)$ 内可展开成 $x$ 的幂级数，则方程有形如</p>
+<p>$$
+y=\sum_{n=0}^{\infty}b_nx^n
+$$</p>
+<p>的解。</p>
+<p>若给定初始条件</p>
+<p>$$
+y|_{x=0}=y_0,\quad y'|_{x=0}=y_0'
+$$</p>
+<p>则由初始条件确定</p>
+<p>$$
+b_0,\quad b_1
+$$</p>
+<p>再将</p>
+<p>$$
+y=\sum_{n=0}^{\infty}b_nx^n
+$$</p>
+<p>及其导数代入方程，比较同次幂系数，确定其余系数。</p>
+<h1>傅里叶级数</h1>
+<h2 id="周期函数与三角级数">周期函数与三角级数</h2>
+<p>三角函数的通项是周期函数，因此三角级数可用于研究周期性现象。</p>
+<p>简单谐振动可表示为</p>
+<p>$$
+y=A\sin(\omega t+\varphi)
+$$</p>
+<p>其中，$y$ 表示动点位置，$t$ 表示时间，$A$ 为振幅，$\omega$ 为角频率，$\varphi$ 为初相。其周期为</p>
+<p>$$
+T=\frac{2\pi}{\omega}
+$$</p>
+<p>较复杂的周期运动可看作若干简谐振动的叠加：</p>
+<p>$$
+A_0+A_1\sin(\omega t+\varphi_1)+A_2\sin(2\omega t+\varphi_2)+\cdots+A_n\sin(n\omega t+\varphi_n)
+$$</p>
+<p>一般地，周期为 $T=\frac{2\pi}{\omega}$ 的函数 $f(t)$ 可用无穷多个正弦函数叠加表示：</p>
+<p>$$
+A_0+A_1\sin(\omega t+\varphi_1)+A_2\sin(2\omega t+\varphi_2)+\cdots+A_n\sin(n\omega t+\varphi_n)+\cdots
+$$</p>
+<p>由于</p>
+<p>$$
+A_n\sin(n\omega t+\varphi_n)
+=A_n\sin\varphi_n\cos n\omega t+A_n\cos\varphi_n\sin n\omega t
+$$</p>
+<p>令</p>
+<p>$$
+\frac{a_0}{2}=A_0,\quad a_n=A_n\sin\varphi_n,\quad b_n=A_n\cos\varphi_n,\quad \omega t=x
+$$</p>
+<p>则三角级数可写为</p>
+<p>$$
+\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_n\cos nx+b_n\sin nx)
+$$</p>
+<h2 id="三角函数系的正交性">三角函数系的正交性</h2>
+<p>函数系</p>
+<p>$$
+1,\cos x,\sin x,\cos 2x,\sin 2x,\cdots,\cos nx,\sin nx,\cdots
+$$</p>
+<p>称为基本三角函数系。</p>
+<p>该函数系具有正交性：任意两个不同函数的乘积在区间 $[-\pi,\pi]$ 上的积分为零。</p>
+<p>具体有：</p>
+<p>$$
+\int_{-\pi}^{\pi}\cos nx\,dx=0\quad(n=1,2,3,\cdots)
+$$</p>
+<p>$$
+\int_{-\pi}^{\pi}\sin nx\,dx=0\quad(n=1,2,3,\cdots)
+$$</p>
+<p>$$
+\int_{-\pi}^{\pi}\sin mx\cos nx\,dx=0\quad(m,n=1,2,3,\cdots)
+$$</p>
+<p>$$
+\int_{-\pi}^{\pi}\cos mx\cos nx\,dx=0\quad(m,n=1,2,3,\cdots,\ m\ne n)
+$$</p>
+<p>$$
+\int_{-\pi}^{\pi}\sin mx\sin nx\,dx=0\quad(m,n=1,2,3,\cdots,\ m\ne n)
+$$</p>
+<p>两个相同函数的乘积在 $[-\pi,\pi]$ 上的积分不等于零：</p>
+<p>$$
+\int_{-\pi}^{\pi}1^2\,dx=2\pi
+$$</p>
+<p>$$
+\int_{-\pi}^{\pi}\sin^2nx\,dx=\pi\quad(n=1,2,3,\cdots)
+$$</p>
+<p>$$
+\int_{-\pi}^{\pi}\cos^2nx\,dx=\pi\quad(n=1,2,3,\cdots)
+$$</p>
+<h1>函数展开成傅里叶级数</h1>
+<h2 id="傅里叶级数">傅里叶级数</h2>
+<p>设 $f(x)$ 是以 $2\pi$ 为周期的可积函数，若它在 $[-\pi,\pi]$ 上可展开为三角级数：</p>
+<p>$$
+f(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_n\cos nx+b_n\sin nx)
+$$</p>
+<p>利用三角函数系的正交性，可确定系数 $a_0,a_n,b_n$。</p>
+<p>对上式在 $[-\pi,\pi]$ 上逐项积分：</p>
+<p>$$
+\int_{-\pi}^{\pi}f(x)\,dx=\frac{a_0}{2}\cdot 2\pi
+$$</p>
+<p>因此</p>
+<p>$$
+a_0=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\,dx
+$$</p>
+<p>用 $\cos nx$ 乘两端并在 $[-\pi,\pi]$ 上逐项积分，得</p>
+<p>$$
+a_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos nx\,dx\quad(n=1,2,3,\cdots)
+$$</p>
+<p>用 $\sin nx$ 乘两端并在 $[-\pi,\pi]$ 上逐项积分，得</p>
+<p>$$
+b_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin nx\,dx\quad(n=1,2,3,\cdots)
+$$</p>
+<p>合并为欧拉—傅里叶公式：</p>
+<p>$$
+a_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos nx\,dx\quad(n=0,1,2,\cdots)
+$$</p>
+<p>$$
+b_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin nx\,dx\quad(n=1,2,3,\cdots)
+$$</p>
+<p>由这些公式确定的系数 $a_0,a_n,b_n$ 称为<strong>傅里叶系数</strong>。</p>
+<p>由傅里叶系数确定的三角级数</p>
+<p>$$
+\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_n\cos nx+b_n\sin nx)
+$$</p>
+<p>称为函数 $f(x)$ 的<strong>傅里叶级数</strong>，记作</p>
+<p>$$
+f(x)\sim \frac{a_0}{2}+\sum_{n=1}^{\infty}(a_n\cos nx+b_n\sin nx)
+$$</p>
+<p>对于任意在 $[-\pi,\pi]$ 上可积的函数，都可以形式上求出傅里叶系数，但其傅里叶级数是否收敛、是否收敛于 $f(x)$，还需要进一步判断：</p>
+<p>若 $f(x)$ 满足：</p>
+<ol>
+<li>在一个周期内连续，或只有有限个第一类间断点；</li>
+<li>在一个周期内至多只有有限个严格极值点；</li>
+</ol>
+<p>则 $f(x)$ 的傅里叶级数收敛，并且：</p>
+<p>$$
+\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_n\cos nx+b_n\sin nx)
+=
+\begin{cases}
+f(x), & x\text{ 是 }f(x)\text{ 的连续点}\\
+\frac{1}{2}[f(x-0)+f(x+0)], & x\text{ 是 }f(x)\text{ 的间断点}
+\end{cases}
+$$</p>
+<p>也就是说，傅里叶级数在连续点处收敛于函数值，在间断点处收敛于左右极限的算术平均值。</p>
+<h3 id="正弦级数">正弦级数</h3>
+<p>若 $f(x)$ 是奇函数，则 $f(x)\cos nx$ 是奇函数，因此</p>
+<p>$$
+a_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos nx\,dx=0\quad(n=0,1,2,\cdots)
+$$</p>
+<p>于是奇函数的傅里叶级数只含正弦项：</p>
+<p>$$
+f(x)\sim \sum_{n=1}^{\infty}b_n\sin nx
+$$</p>
+<p>其中</p>
+<p>$$
+b_n=\frac{2}{\pi}\int_{0}^{\pi}f(x)\sin nx\,dx\quad(n=1,2,3,\cdots)
+$$</p>
+<p>该级数称为<strong>正弦级数</strong>。</p>
+<h3 id="余弦级数">余弦级数</h3>
+<p>若 $f(x)$ 是偶函数，则 $f(x)\sin nx$ 是奇函数，因此</p>
+<p>$$
+b_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin nx\,dx=0\quad(n=1,2,3,\cdots)
+$$</p>
+<p>于是偶函数的傅里叶级数只含常数项和余弦项：</p>
+<p>$$
+f(x)\sim \frac{a_0}{2}+\sum_{n=1}^{\infty}a_n\cos nx
+$$</p>
+<p>其中</p>
+<p>$$
+a_n=\frac{2}{\pi}\int_{0}^{\pi}f(x)\cos nx\,dx\quad(n=0,1,2,\cdots)
+$$</p>
+<p>该级数称为<strong>余弦级数</strong>。</p>
+<h2 id="奇延拓与偶延拓">奇延拓与偶延拓</h2>
+<p>若函数 $f(x)$ 只定义在 $[0,\pi]$ 上，可根据需要将它延拓到 $[-\pi,\pi]$ 上，再展开成傅里叶级数。</p>
+<h3 id="奇延拓与正弦级数">奇延拓与正弦级数</h3>
+<p>将 $f(x)$ 作奇延拓：</p>
+<p>$$
+F(x)=
+\begin{cases}
+f(x), & 0<x\le \pi,\\
+0, & x=0,\\
+-f(-x), & -\pi\le x<0.
+\end{cases}
+$$</p>
+<p>此时得到正弦级数：</p>
+<p>$$
+f(x)\sim \sum_{n=1}^{\infty}b_n\sin nx
+$$</p>
+<p>其中</p>
+<p>$$
+b_n=\frac{2}{\pi}\int_{0}^{\pi}f(x)\sin nx\,dx\quad(n=1,2,3,\cdots)
+$$</p>
+<h3 id="偶延拓与余弦级数">偶延拓与余弦级数</h3>
+<p>将 $f(x)$ 作偶延拓：</p>
+<p>$$
+F(x)=
+\begin{cases}
+f(x), & 0\le x\le \pi,\\
+f(-x), & -\pi\le x<0.
+\end{cases}
+$$</p>
+<p>此时得到余弦级数：</p>
+<p>$$
+f(x)\sim \frac{a_0}{2}+\sum_{n=1}^{\infty}a_n\cos nx
+$$</p>
+<p>其中</p>
+<p>$$
+a_n=\frac{2}{\pi}\int_{0}^{\pi}f(x)\cos nx\,dx\quad(n=0,1,2,\cdots)
+$$</p>
+<h1>一般周期函数的傅里叶级数</h1>
+<h2 id="对称区间上的周期函数">对称区间上的周期函数</h2>
+<p>设函数 $f(x)$ 以 $2l$ 为周期，在 $[-l,l]$ 上满足傅里叶级数展开条件。</p>
+<p>作变量代换</p>
+<p>$$
+t=\frac{\pi x}{l},\quad x=\frac{lt}{\pi}
+$$</p>
+<p>则当 $x\in[-l,l]$ 时，$t\in[-\pi,\pi]$。</p>
+<p>若记</p>
+<p>$$
+F(t)=f\left(\frac{lt}{\pi}\right)
+$$</p>
+<p>则 $F(t)$ 是以 $2\pi$ 为周期的函数，可展开为</p>
+<p>$$
+F(t)\sim \frac{a_0}{2}+\sum_{n=1}^{\infty}(a_n\cos nt+b_n\sin nt)
+$$</p>
+<p>其中</p>
+<p>$$
+a_n=\frac{1}{\pi}\int_{-\pi}^{\pi}F(t)\cos nt\,dt\quad(n=0,1,2,\cdots)
+$$</p>
+<p>$$
+b_n=\frac{1}{\pi}\int_{-\pi}^{\pi}F(t)\sin nt\,dt\quad(n=1,2,\cdots)
+$$</p>
+<p>将 $t=\frac{\pi x}{l}$ 代入，得</p>
+<p>$$
+f(x)\sim \frac{a_0}{2}+\sum_{n=1}^{\infty}\left(a_n\cos\frac{n\pi x}{l}+b_n\sin\frac{n\pi x}{l}\right)
+$$</p>
+<p>其中傅里叶系数为</p>
+<p>$$
+a_n=\frac{1}{l}\int_{-l}^{l}f(x)\cos\frac{n\pi x}{l}\,dx\quad(n=0,1,2,\cdots)
+$$</p>
+<p>$$
+b_n=\frac{1}{l}\int_{-l}^{l}f(x)\sin\frac{n\pi x}{l}\,dx\quad(n=1,2,\cdots)
+$$</p>
+<p>该级数称为周期为 $2l$ 的函数 $f(x)$ 的傅里叶级数。</p>
+<h2 id="非对称区间上的周期函数">非对称区间上的周期函数</h2>
+<p>若函数 $f(x)$ 定义在任意有限区间 $[a,b]$ 上，可通过变量代换化为 $[-\pi,\pi]$ 上的问题。</p>
+<p>令</p>
+<p>$$
+t=\frac{\pi\left(x-\frac{a+b}{2}\right)}{\frac{b-a}{2}}
+=\frac{2\pi}{b-a}\left(x-\frac{a+b}{2}\right)
+$$</p>
+<p>则</p>
+<p>$$
+x=\frac{a+b}{2}+\frac{b-a}{2}\cdot\frac{t}{\pi}
+$$</p>
+<p>当 $x\in[a,b]$ 时，$t\in[-\pi,\pi]$。</p>
+<p>令</p>
+<p>$$
+F(t)=f\left(\frac{a+b}{2}+\frac{b-a}{2}\cdot\frac{t}{\pi}\right)
+$$</p>
+<p>则可先将 $F(t)$ 在 $[-\pi,\pi]$ 上展开成傅里叶级数，再把</p>
+<p>$$
+t=\frac{2\pi}{b-a}\left(x-\frac{a+b}{2}\right)
+$$</p>
+<p>代回，即得 $f(x)$ 在 $[a,b]$ 上的傅里叶级数展开。</p>
+<h1>傅里叶级数的复数形式</h1>
+<p>设 $f(x)$ 是周期为 $2l$ 的周期函数，其傅里叶级数为</p>
+<p>$$
+\frac{a_0}{2}+\sum_{n=1}^{\infty}\left(a_n\cos\frac{n\pi x}{l}+b_n\sin\frac{n\pi x}{l}\right)
+$$</p>
+<p>其中</p>
+<p>$$
+a_n=\frac{1}{l}\int_{-l}^{l}f(x)\cos\frac{n\pi x}{l}\,dx\quad(n=0,1,2,\cdots)
+$$</p>
+<p>$$
+b_n=\frac{1}{l}\int_{-l}^{l}f(x)\sin\frac{n\pi x}{l}\,dx\quad(n=1,2,3,\cdots)
+$$</p>
+<p>利用欧拉公式</p>
+<p>$$
+\cos t=\frac{e^{it}+e^{-it}}{2},\quad \sin t=\frac{e^{it}-e^{-it}}{2i}
+$$</p>
+<p>可得</p>
+<p>$$
+a_n\cos\frac{n\pi x}{l}+b_n\sin\frac{n\pi x}{l}
+=
+\frac{a_n-ib_n}{2}e^{i\frac{n\pi x}{l}}
++
+\frac{a_n+ib_n}{2}e^{-i\frac{n\pi x}{l}}
+$$</p>
+<p>记</p>
+<p>$$
+c_0=\frac{a_0}{2}
+$$</p>
+<p>$$
+c_n=\frac{a_n-ib_n}{2},\quad c_{-n}=\frac{a_n+ib_n}{2}\quad(n=1,2,3,\cdots)
+$$</p>
+<p>则傅里叶级数可写成复数形式：</p>
+<p>$$
+\sum_{n=-\infty}^{\infty}c_ne^{i\frac{n\pi x}{l}}
+$$</p>
+<p>其中复系数为</p>
+<p>$$
+c_n=\frac{1}{2l}\int_{-l}^{l}f(x)e^{-i\frac{n\pi x}{l}}\,dx\quad(n=0,\pm1,\pm2,\cdots)
+$$</p>
+<p>因此，周期为 $2l$ 的函数 $f(x)$ 的复数形式傅里叶级数为</p>
+<p>$$
+f(x)\sim \sum_{n=-\infty}^{\infty}c_ne^{i\frac{n\pi x}{l}}
+$$</p>
+<p>其中</p>
+<p>$$
+c_n=\frac{1}{2l}\int_{-l}^{l}f(x)e^{-i\frac{n\pi x}{l}}\,dx\quad(n=0,\pm1,\pm2,\cdots)
+$$</p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">微分方程</a>
+    
+    
+      <a class="next" href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/">重积分</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">级数的收敛与发散</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">基本性质</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%BB%E6%8E%89%E6%88%96%E5%A2%9E%E5%8A%A0%E6%9C%89%E9%99%90%E9%A1%B9"><span class="toc-text">去掉或增加有限项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8"><span class="toc-text">线性运算性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E6%8B%AC%E5%8F%B7%E6%80%A7%E8%B4%A8"><span class="toc-text">加括号性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="toc-text">收敛的必要条件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">柯西收敛准则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">正项级数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#$p$-%E7%BA%A7%E6%95%B0"><span class="toc-text">$p$ 级数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="toc-text">审敛法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="toc-text">比较审敛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E5%80%BC%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="toc-text">比值审敛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E5%80%BC%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="toc-text">根值审敛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="toc-text">积分审敛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%80%9D%E8%B7%AF"><span class="toc-text">使用思路</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">任意项级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E9%94%99%E7%BA%A7%E6%95%B0"><span class="toc-text">交错级数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="toc-text">莱布尼茨审敛法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E6%94%B6%E6%95%9B"><span class="toc-text">绝对收敛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%94%B6%E6%95%9B"><span class="toc-text">条件收敛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%8E%92%E6%80%A7%E8%B4%A8"><span class="toc-text">重排性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E6%94%B6%E6%95%9B%E7%BA%A7%E6%95%B0"><span class="toc-text">绝对收敛级数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%94%B6%E6%95%9B%E7%BA%A7%E6%95%B0"><span class="toc-text">条件收敛级数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E9%87%8D%E6%8E%92%E5%AE%9A%E7%90%86"><span class="toc-text">黎曼重排定理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">函数项级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%A1%B9%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B"><span class="toc-text">函数项级数的收敛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%90%E7%82%B9%E6%94%B6%E6%95%9B"><span class="toc-text">逐点收敛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B"><span class="toc-text">一致收敛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E5%88%AB%E6%B3%95"><span class="toc-text">判别法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">幂级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E5%9F%9F%E7%BB%93%E6%9E%84"><span class="toc-text">收敛域结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E4%B8%AD%E5%BF%83"><span class="toc-text">收敛中心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E8%B4%9D%E5%B0%94%E5%AE%9A%E7%90%86"><span class="toc-text">阿贝尔定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E5%8D%8A%E5%BE%84"><span class="toc-text">收敛半径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B6%E6%95%9B%E5%8C%BA%E9%97%B4"><span class="toc-text">收敛区间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%BB%93%E8%AE%BA"><span class="toc-text">常见结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%82%E7%BA%A7%E6%95%B0%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-text">幂级数的运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E6%B3%95"><span class="toc-text">加减法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%98%E6%B3%95"><span class="toc-text">乘法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%97%AD%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B%E6%80%A7"><span class="toc-text">内闭一致收敛性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%92%8C%E5%87%BD%E6%95%B0%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-text">和函数的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="toc-text">连续性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%BE%AE%E6%80%A7"><span class="toc-text">可微性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E7%A7%AF%E6%80%A7"><span class="toc-text">可积性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">函数展开成幂级数的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0"><span class="toc-text">泰勒级数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BA%A6%E5%85%8B%E5%8A%B3%E6%9E%97%E7%BA%A7%E6%95%B0"><span class="toc-text">麦克劳林级数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%B1%95%E5%BC%80%E6%B3%95"><span class="toc-text">直接展开法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9B%B4%E6%8E%A5%E5%B1%95%E5%BC%80%E5%BC%8F"><span class="toc-text">常见直接展开式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E6%95%B0%E5%87%BD%E6%95%B0"><span class="toc-text">指数函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%BC%A6%E5%87%BD%E6%95%B0"><span class="toc-text">正弦函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%99%E5%BC%A6%E5%87%BD%E6%95%B0"><span class="toc-text">余弦函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%B4%E6%8E%A5%E5%B1%95%E5%BC%80%E6%B3%95"><span class="toc-text">间接展开法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%B4%E6%8E%A5%E5%B1%95%E5%BC%80%E5%BC%8F"><span class="toc-text">常见间接展开式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%95%B0%E5%87%BD%E6%95%B0"><span class="toc-text">对数函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E6%AD%A3%E5%88%87%E5%87%BD%E6%95%B0"><span class="toc-text">反正切函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%A1%B9%E5%BC%8F%E5%B1%95%E5%BC%80%E5%BC%8F"><span class="toc-text">二项式展开式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">欧拉公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%95%B0%E9%A1%B9%E7%BA%A7%E6%95%B0"><span class="toc-text">复数项级数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%8C%87%E6%95%B0%E5%87%BD%E6%95%B0"><span class="toc-text">复指数函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">常微分方程的幂级数解法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E6%96%B9%E7%A8%8B"><span class="toc-text">一阶方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B"><span class="toc-text">二阶齐次线性方程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">傅里叶级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0%E4%B8%8E%E4%B8%89%E8%A7%92%E7%BA%A7%E6%95%B0"><span class="toc-text">周期函数与三角级数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E7%B3%BB%E7%9A%84%E6%AD%A3%E4%BA%A4%E6%80%A7"><span class="toc-text">三角函数系的正交性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">函数展开成傅里叶级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0"><span class="toc-text">傅里叶级数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%BC%A6%E7%BA%A7%E6%95%B0"><span class="toc-text">正弦级数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%99%E5%BC%A6%E7%BA%A7%E6%95%B0"><span class="toc-text">余弦级数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E5%BB%B6%E6%8B%93%E4%B8%8E%E5%81%B6%E5%BB%B6%E6%8B%93"><span class="toc-text">奇延拓与偶延拓</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%87%E5%BB%B6%E6%8B%93%E4%B8%8E%E6%AD%A3%E5%BC%A6%E7%BA%A7%E6%95%B0"><span class="toc-text">奇延拓与正弦级数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%B6%E5%BB%B6%E6%8B%93%E4%B8%8E%E4%BD%99%E5%BC%A6%E7%BA%A7%E6%95%B0"><span class="toc-text">偶延拓与余弦级数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">一般周期函数的傅里叶级数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%8C%BA%E9%97%B4%E4%B8%8A%E7%9A%84%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="toc-text">对称区间上的周期函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8C%BA%E9%97%B4%E4%B8%8A%E7%9A%84%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="toc-text">非对称区间上的周期函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">傅里叶级数的复数形式</span></a></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

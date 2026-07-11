@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter0.5：什么是机器学习 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="在正式开始学习之前，先简单介绍一些机器学习中的基本概念和术语。 传统编程与机器学习 传统编程通常是：  人编写规则，机器根据规则和输入得到输出。  例如，我们明确告诉程序： 12如果成绩 &gt;&#x3D; 60，则通过；否则，不通过。 也就是说，规则是人提前写好的，机器只是负责执行。 而机器学习的思路则不同：  人提供数据和期望输出，算法从数据中学习规则。  例如，我们给模型很多组输入和对应答案： 12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter0.5：什么是机器学习">
+<meta property="og:url" content="http://0n3-0.github.io/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="在正式开始学习之前，先简单介绍一些机器学习中的基本概念和术语。 传统编程与机器学习 传统编程通常是：  人编写规则，机器根据规则和输入得到输出。  例如，我们明确告诉程序： 12如果成绩 &gt;&#x3D; 60，则通过；否则，不通过。 也就是说，规则是人提前写好的，机器只是负责执行。 而机器学习的思路则不同：  人提供数据和期望输出，算法从数据中学习规则。  例如，我们给模型很多组输入和对应答案： 12">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-07-09T07:35:21.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.543Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="从零开始的机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '机器学习/Chapter0-5：什么是机器学习';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">Chapter0.5：什么是机器学习</h1>
+      <div class="post-meta">
+        <span>2026-07-09</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">从零开始的机器学习</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <p>在正式开始学习之前，先简单介绍一些机器学习中的基本概念和术语。</p>
+<h1>传统编程与机器学习</h1>
+<p>传统编程通常是：</p>
+<blockquote>
+<p>人编写规则，机器根据规则和输入得到输出。</p>
+</blockquote>
+<p>例如，我们明确告诉程序：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果成绩 &gt;= 60，则通过；</span><br><span class="line">否则，不通过。</span><br></pre></td></tr></table></figure>
+<p>也就是说，规则是人提前写好的，机器只是负责执行。</p>
+<p>而机器学习的思路则不同：</p>
+<blockquote>
+<p>人提供数据和期望输出，算法从数据中学习规则。</p>
+</blockquote>
+<p>例如，我们给模型很多组输入和对应答案：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：房屋面积、位置、楼层……</span><br><span class="line">输出：房屋价格</span><br></pre></td></tr></table></figure>
+<p>模型并不知道房价应该如何计算，但它会尝试从这些数据中找到输入和输出之间的关系。</p>
+<p>因此，可以粗略地说：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>人提供什么</th>
+<th>机器做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传统编程</td>
+<td>规则 + 输入</td>
+<td>根据规则计算输出</td>
+</tr>
+<tr>
+<td>机器学习</td>
+<td>输入 + 输出</td>
+<td>从数据中学习规则</td>
+</tr>
+</tbody>
+</table>
+<p>训练得到的<strong>模型</strong>，可以理解为机器从数据中学到的规则表示。只不过这些规则不是以条条列举出来的形式存在，而是以数字参数的形式存在，例如权重、偏置等。</p>
+<p>模型真正有价值的地方在于<strong>泛化</strong>：它不仅要记住见过的数据，还要能够对没有见过的新数据做出合理预测。</p>
+<h1>机器学习类型</h1>
+<p>机器学习通常可以分为三类：监督学习、无监督学习和强化学习。</p>
+<h2 id="监督学习">监督学习</h2>
+<p>监督学习指的是：训练数据中既有输入，也有对应的输出。</p>
+<p>模型要学习的是：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入 -&gt; 输出</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<ul>
+<li>这里有 10000 张标注了“猫”或“狗”的图片，学会区分它们。</li>
+<li>这里有房屋特征和对应价格，学会预测房价。</li>
+<li>这里有邮件内容和“垃圾邮件 / 正常邮件”的标签，学会判断邮件类型。</li>
+</ul>
+<p>监督学习是实践中最常见的一类机器学习方法。</p>
+<h2 id="无监督学习">无监督学习</h2>
+<p>无监督学习指的是：训练数据中只有输入，没有人工给出的标签。</p>
+<p>模型要自己从数据中发现结构。</p>
+<p>例如：</p>
+<ul>
+<li>这里有 10000 个客户的购买记录，找出自然的客户分组。</li>
+<li>这里有高维数据，将它降到二维，同时尽量保留原始结构。</li>
+<li>这里有大量文本，发现其中潜在的主题分布。</li>
+</ul>
+<p>无监督学习常用于聚类、降维、数据探索和预处理。</p>
+<h2 id="强化学习">强化学习</h2>
+<p>强化学习中，模型通常被称为智能体。智能体会在环境中采取行动，并根据结果获得奖励或惩罚。</p>
+<p>它要学习的是：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在什么状态下，采取什么行动，才能获得更高的长期奖励。</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<ul>
+<li>玩一个游戏，胜利获得奖励，失败受到惩罚。</li>
+<li>控制机械臂，成功抓起物体获得奖励，动作浪费时间则受到惩罚。</li>
+<li>在某些场景中，通过奖励信号调整模型的行为策略。</li>
+</ul>
+<p>强化学习常用于游戏 AI、机器人控制，以及大语言模型对齐中的 RLHF 等场景。</p>
+<h1>超越三大类</h1>
+<p>监督学习、无监督学习和强化学习是最常见的分类方式。但在实际应用中，很多方法并不会完全属于某一类，而是会结合多种思想。</p>
+<h2 id="半监督学习">半监督学习</h2>
+<p>半监督学习使用少量标注数据和大量无标注数据。</p>
+<p>例如，医学图像标注成本很高。我们可能只有 100 张标注好的医学图像，但有 100000 张未标注图像。这时，只使用 100 张标注图像可能不够，而完全丢弃未标注数据又很浪费。</p>
+<p>半监督学习常见方法包括：</p>
+<ul>
+<li><strong>标签传播</strong>：把相似的数据点连接起来，让已标注数据的标签传播到相似的未标注数据上。</li>
+<li><strong>伪标签</strong>：先用少量标注数据训练模型，再让模型给未标注数据生成预测标签，然后继续训练。</li>
+<li><strong>一致性正则化</strong>：要求模型对原始输入和轻微扰动后的输入给出相似预测。</li>
+</ul>
+<h2 id="自监督学习">自监督学习</h2>
+<p>自监督学习从数据本身构造训练目标，不依赖人工标注。</p>
+<p>它的核心思想是：</p>
+<blockquote>
+<p>不需要人工告诉模型答案，而是从数据自身生成答案。</p>
+</blockquote>
+<p>例如：</p>
+<ul>
+<li><strong>掩码语言模型</strong>：遮住句子中的一部分词，让模型预测被遮住的词。</li>
+<li><strong>下一词预测</strong>：给定前面的词，让模型预测下一个词。</li>
+<li><strong>对比学习</strong>：对同一张图片做两种不同增强，让模型知道它们来自同一个原始样本。</li>
+</ul>
+<p>自监督学习在形式上很像监督学习，因为模型仍然在预测某个目标。但这些目标不是人工标注出来的，而是从数据中自动构造出来的。</p>
+<h1>分类与回归</h1>
+<p>分类和回归是监督学习中最常见的两类任务。</p>
+<h2 id="分类">分类</h2>
+<p>分类任务的输出是离散类别。</p>
+<p>例如：</p>
+<ul>
+<li>这封邮件是不是垃圾邮件？</li>
+<li>这张图片是猫、狗还是鸟？</li>
+<li>这个用户会不会流失？</li>
+</ul>
+<h2 id="回归">回归</h2>
+<p>回归任务的输出是连续数值。</p>
+<p>例如：</p>
+<ul>
+<li>这套房子的价格是多少？</li>
+<li>明天的气温是多少？</li>
+<li>某个商品下个月的销量是多少？</li>
+</ul>
+<p>可以简单对比如下：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>分类</th>
+<th>回归</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输出</td>
+<td>离散类别</td>
+<td>连续数值</td>
+</tr>
+<tr>
+<td>例子</td>
+<td>判断邮件是否为垃圾邮件</td>
+<td>预测房价</td>
+</tr>
+<tr>
+<td>输出空间</td>
+<td>{猫, 狗, 鸟}</td>
+<td>实数</td>
+</tr>
+<tr>
+<td>常见损失函数</td>
+<td>交叉熵</td>
+<td>均方误差、MAE</td>
+</tr>
+<tr>
+<td>常见评价指标</td>
+<td>准确率、召回率、F1</td>
+<td>MSE、MAE、R²</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>找到类别边界</td>
+<td>拟合数值关系</td>
+</tr>
+</tbody>
+</table>
+<p>有些问题可以用不同方式建模。</p>
+<p>例如股票预测：</p>
+<ul>
+<li>预测股票明天是涨还是跌，这是分类问题。</li>
+<li>预测股票明天的具体价格，这是回归问题。</li>
+</ul>
+<h1>训练集、验证集与测试集</h1>
+<p>在训练模型时，我们通常会把数据划分为训练集、验证集和测试集。</p>
+<table>
+<thead>
+<tr>
+<th>划分</th>
+<th>用途</th>
+<th>使用时机</th>
+<th>典型比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>训练集</td>
+<td>让模型学习参数</td>
+<td>训练过程中反复使用</td>
+<td>60% - 80%</td>
+</tr>
+<tr>
+<td>验证集</td>
+<td>调整超参数，比较模型</td>
+<td>每次训练后使用</td>
+<td>10% - 20%</td>
+</tr>
+<tr>
+<td>测试集</td>
+<td>评估最终效果</td>
+<td>最后只使用一次</td>
+<td>10% - 20%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="训练集">训练集</h2>
+<p>训练集用于让模型学习数据中的规律。</p>
+<p>模型会反复查看训练集，根据预测结果和真实答案之间的差距，不断调整自己的参数。</p>
+<h2 id="验证集">验证集</h2>
+<p>验证集用于调试训练过程。</p>
+<p>例如，我们可以用验证集来选择：</p>
+<ul>
+<li>学习率应该是多少</li>
+<li>模型层数应该是多少</li>
+<li>是否需要正则化</li>
+<li>训练多少轮比较合适</li>
+</ul>
+<p>这些由人提前设定、不会被模型直接学习出来的参数，叫做<strong>超参数</strong>。</p>
+<h2 id="测试集">测试集</h2>
+<p>测试集用于最终评估模型效果。</p>
+<p>测试集应该尽量只在最后使用一次。如果我们反复根据测试集结果修改模型，那么测试集也会间接参与模型选择，最终评估结果就会变得不可靠。</p>
+<p>对于数据量较小的情况，可以使用 <strong>k 折交叉验证</strong>。</p>
+<p>它会把数据分成 k 份，每次用其中 k-1 份训练，用剩下 1 份验证。重复 k 次后，再取平均结果。这样可以更充分地利用有限数据，也能得到更稳定的性能估计。</p>
+<h1>过拟合与欠拟合</h1>
+<p>机器学习的目标不是简单地在训练数据上表现好，而是在没见过的新数据上也表现好。</p>
+<p>这就涉及两个常见问题：欠拟合和过拟合。</p>
+<h2 id="欠拟合">欠拟合</h2>
+<p>欠拟合指的是：模型太简单，无法捕捉数据中的真实规律。</p>
+<p>例如，真实关系是一条曲线，但我们强行用一条直线去拟合它。此时模型能力不足，即使在训练集上也表现不好。</p>
+<p>欠拟合的典型表现是：</p>
+<ul>
+<li>训练误差高</li>
+<li>测试误差也高</li>
+</ul>
+<p>也就是说，模型连训练数据都没有学好。</p>
+<h2 id="过拟合">过拟合</h2>
+<p>过拟合指的是：模型太复杂，不仅学习了数据中的真实规律，还记住了训练数据中的噪声。</p>
+<p>例如，我们用一条非常弯曲的曲线穿过每一个训练点。它在训练集上表现很好，但遇到新数据时反而预测很差。</p>
+<p>过拟合的典型表现是：</p>
+<ul>
+<li>训练误差低</li>
+<li>测试误差高</li>
+</ul>
+<p>也就是说，模型把训练数据“背”下来了，但没有学到真正通用的规律。</p>
+<h2 id="良好拟合">良好拟合</h2>
+<p>良好拟合指的是：模型既能捕捉数据中的主要规律，又不会过度记忆训练数据中的噪声。</p>
+<p>它的典型表现是：</p>
+<ul>
+<li>训练误差较低</li>
+<li>测试误差也较低</li>
+<li>训练误差和测试误差差距不大</li>
+</ul>
+<h1>偏差与方差</h1>
+<h2 id="偏差">偏差</h2>
+<p>偏差来自模型本身的错误假设。</p>
+<p>如果真实关系很复杂，但模型太简单，就会产生高偏差。</p>
+<p>例如，真实关系是非线性的，但我们只使用线性模型：</p>
+<p>$$
+\hat{y} = wx + b
+$$</p>
+<p>这时模型表达能力不足，很容易欠拟合。</p>
+<p>高偏差通常对应欠拟合。</p>
+<h2 id="方差">方差</h2>
+<p>方差表示模型对训练数据变化的敏感程度。</p>
+<p>如果模型太复杂，它可能会对训练集中的细小波动非常敏感。换一批训练数据，模型学到的规则就会发生很大变化。</p>
+<p>高方差通常对应过拟合。</p>
+<p>可以简单总结如下：</p>
+<table>
+<thead>
+<tr>
+<th>模型复杂度</th>
+<th>偏差</th>
+<th>方差</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>太低</td>
+<td>高</td>
+<td>低</td>
+<td>欠拟合</td>
+</tr>
+<tr>
+<td>合适</td>
+<td>中</td>
+<td>中</td>
+<td>泛化较好</td>
+</tr>
+<tr>
+<td>太高</td>
+<td>低</td>
+<td>高</td>
+<td>过拟合</td>
+</tr>
+</tbody>
+</table>
+<p>总误差可以粗略理解为：</p>
+<p>$$
+总误差 = 偏差^2 + 方差 + 不可消除的噪声
+$$</p>
+<p>其中，不可消除的噪声来自数据本身。例如测量误差、随机因素、遗漏变量等。</p>
+<p>我们无法完全消除这部分噪声，因此模型训练的目标之一，就是在偏差和方差之间找到一个合适的平衡点。</p>
+<h1>关键术语</h1>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>常见说法</th>
+<th>实际含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型（Model）</td>
+<td>“那个 AI”</td>
+<td>一个带有可学习参数的数学函数，用来把输入映射为输出</td>
+</tr>
+<tr>
+<td>参数（Parameter）</td>
+<td>“模型自己学的东西”</td>
+<td>训练过程中被算法自动调整的变量，例如权重和偏置</td>
+</tr>
+<tr>
+<td>权重（Weight）</td>
+<td>“每个输入的重要程度”</td>
+<td>控制某个输入特征对输出影响大小的参数</td>
+</tr>
+<tr>
+<td>偏置（Bias）</td>
+<td>“额外的偏移量”</td>
+<td>让模型在没有输入或输入为 0 时也能产生非零输出</td>
+</tr>
+<tr>
+<td>训练（Training）</td>
+<td>“教 AI”</td>
+<td>通过优化算法调整模型参数，使预测更接近真实答案</td>
+</tr>
+<tr>
+<td>特征（Feature）</td>
+<td>“输入列”</td>
+<td>数据中可用于预测的属性</td>
+</tr>
+<tr>
+<td>标签（Label）</td>
+<td>“答案”</td>
+<td>训练样本中已知的真实输出</td>
+</tr>
+<tr>
+<td>超参数（Hyperparameter）</td>
+<td>“人手动调的设置”</td>
+<td>训练前指定的设置，例如学习率、层数、批大小</td>
+</tr>
+<tr>
+<td>损失函数（Loss Function）</td>
+<td>“模型有多错”</td>
+<td>衡量预测值和真实值差距的函数</td>
+</tr>
+<tr>
+<td>优化器（Optimizer）</td>
+<td>“怎么改参数”</td>
+<td>根据损失调整模型参数的方法，例如梯度下降</td>
+</tr>
+<tr>
+<td>泛化（Generalization）</td>
+<td>“新数据上也能用”</td>
+<td>模型对训练时没见过的数据做出合理预测的能力</td>
+</tr>
+<tr>
+<td>过拟合（Overfitting）</td>
+<td>“背下了训练集”</td>
+<td>模型记住了训练数据中的噪声，导致新数据上表现变差</td>
+</tr>
+<tr>
+<td>欠拟合（Underfitting）</td>
+<td>“没学明白”</td>
+<td>模型太简单，无法捕捉数据中的真实规律</td>
+</tr>
+<tr>
+<td>正则化（Regularization）</td>
+<td>“限制模型太复杂”</td>
+<td>在训练中加入约束，减少过拟合</td>
+</tr>
+<tr>
+<td>交叉验证（Cross-Validation）</td>
+<td>“换不同数据块验证”</td>
+<td>多次划分训练集和验证集，得到更稳定的评估结果</td>
+</tr>
+<tr>
+<td>数据漂移（Data Drift）</td>
+<td>“世界变了”</td>
+<td>真实输入数据的分布随时间变化，导致模型性能下降</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/">Chapter0：启程</a>
+    
+    
+      <a class="next" href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/">Chapter1：从一个简单的训练集开始</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">传统编程与机器学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">机器学习类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text">监督学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text">无监督学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="toc-text">强化学习</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">超越三大类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text">半监督学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text">自监督学习</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">分类与回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92"><span class="toc-text">回归</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">训练集、验证集与测试集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E9%9B%86"><span class="toc-text">训练集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-text">验证集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E9%9B%86"><span class="toc-text">测试集</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">过拟合与欠拟合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A0%E6%8B%9F%E5%90%88"><span class="toc-text">欠拟合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-text">过拟合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%89%AF%E5%A5%BD%E6%8B%9F%E5%90%88"><span class="toc-text">良好拟合</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">偏差与方差</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%8F%E5%B7%AE"><span class="toc-text">偏差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E5%B7%AE"><span class="toc-text">方差</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">关键术语</span></a></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

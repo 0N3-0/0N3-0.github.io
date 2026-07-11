@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>多元函数 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="定义 设 $D$ 是 $\mathbb{R}^2$ 的一个非空子集，从 $D$ 到实数集 $\mathbb{R}$ 的一个映射 $f$ 称为定义在 $D$ 上的一个二元函数，记作 $$ f:D\subseteq \mathbb{R}^2\to \mathbb{R}\quad 或\quad (x,y)\mapsto z&#x3D;f(x,y),(x,y)\in D $$ 类似可得，如果设 $V$ 是 $\ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多元函数">
+<meta property="og:url" content="http://0n3-0.github.io/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="定义 设 $D$ 是 $\mathbb{R}^2$ 的一个非空子集，从 $D$ 到实数集 $\mathbb{R}$ 的一个映射 $f$ 称为定义在 $D$ 上的一个二元函数，记作 $$ f:D\subseteq \mathbb{R}^2\to \mathbb{R}\quad 或\quad (x,y)\mapsto z&#x3D;f(x,y),(x,y)\in D $$ 类似可得，如果设 $V$ 是 $\ma">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-03-12T11:59:22.000Z">
+<meta property="article:modified_time" content="2026-07-11T13:54:17.576Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="高数">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '高等数学/多元函数';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">多元函数</h1>
+      <div class="post-meta">
+        <span>2026-03-12</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E9%AB%98%E6%95%B0/">高数</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>定义</h1>
+<p>设 $D$ 是 $\mathbb{R}^2$ 的一个非空子集，从 $D$ 到实数集 $\mathbb{R}$ 的一个映射 $f$ 称为定义在 $D$ 上的一个<strong>二元函数</strong>，记作</p>
+<p>$$
+f:D\subseteq \mathbb{R}^2\to \mathbb{R}\quad 或\quad (x,y)\mapsto z=f(x,y),(x,y)\in D
+$$</p>
+<p>类似可得，如果设 $V$ 是 $\mathbb{R}^3$ 的一个非空子集，从 $V$ 到实数集 $\mathbb{R}$ 的一个映射 $f$ 称为定义在 $D$ 上的一个<strong>三元函数</strong></p>
+<p>一般地，$n$ 元函数可写作</p>
+<p>$$
+y=f(P)=f(x_{1},x_{2},\dots,x_{n}),P(x_{1},x_{2},\dots,x_{n})\in\Omega \subseteq \mathbb{R}^n
+$$</p>
+<h1>多元函数的极限</h1>
+<h2 id="定义">定义</h2>
+<p>设 $f$ 是定义在 $D \subset \mathbf{R}^2$ 上的一个二元函数，$P_0(x_0, y_0)$ 是 $D$ 的聚点。若存在常数 $A$，使得 $\forall \varepsilon > 0$，$\exists \delta > 0$，当点 $P(x, y) \in \mathring{U}(P_0, \delta) \cap D$ 时，有 $|f(x, y) - A| < \varepsilon$ 成立，则称 $A$ 为函数 $f(x, y)$ 当点 $P(x, y)$ 趋近于 $P_0(x_0, y_0)$ 时的极限，记作</p>
+<p>$$
+\lim_{P \to P_0} f(x, y) = A
+$$</p>
+<p>或</p>
+<p>$$
+\lim_{(x, y) \to (x_0, y_0)} f(x, y) = A
+$$</p>
+<p>也记为</p>
+<p>$$
+\lim_{\substack{x \to x_0 \\ y \to y_0}} f(x, y) = A
+$$</p>
+<p>称此极限为<strong>二重极限</strong></p>
+<p>如果对于任意的 $y \neq y_0$，</p>
+<p>$$
+\lim_{x \to x_0} f(x, y) = \varphi(y)
+$$</p>
+<p>进一步，若</p>
+<p>$$
+\lim_{y \to y_0} \varphi(y)
+$$</p>
+<p>存在，则称它为先 $x \to x_0$，后 $y \to y_0$ 时 $f(x, y)$ 的<strong>二次极限</strong>（也称为<strong>累次极限</strong>），记为</p>
+<p>$$
+\lim_{y \to y_0} [\lim_{x \to x_0} f(x, y)]
+$$</p>
+<h1>多元函数的连续性</h1>
+<h2 id="定义-2">定义</h2>
+<p>设 $z=f(x,y)$ 是定义在 $D \subset \mathbf{R}^2$ 上的二元函数，$P_0(x_0, y_0)$ 是 $D$ 的聚点且 $P_0(x_0, y_0) \in D$，如果</p>
+<p>$$
+\lim_{P \to P_0} f(x, y) = f(x_0, y_0)
+$$</p>
+<p>则称函数 $f(x, y)$ 在点 $P_0(x_0, y_0)$ <strong>连续</strong>，$P_0(x_0, y_0)$ 称为函数 $f(x, y)$ 的<strong>连续点</strong>；否则称 $f(x, y)$ 在 $P_0(x_0, y_0)$ 是<strong>间断</strong>的，$P_0(x_0, y_0)$ 称为函数 $f(x, y)$ 的<strong>间断点</strong></p>
+<ol>
+<li><strong>有界性</strong>：有界闭区域上的多元连续函数在此闭区域上是有界的。</li>
+<li><strong>最大值最小值定理</strong>：有界闭区域上的多元连续函数在此闭区域上必存在最大值和最小值。</li>
+<li><strong>介值定理</strong>： 有界闭区域上的多元连续函数，对于介于其最大值 $M$ 和最小值 $m$ 之间的任意值 $\mu$，必存在闭区域上的一点 $P_0(x_0, y_0)$，使得 $f(x_0, y_0) = \mu$<br>
+设 $z=f(x,y)$ 在区域 $D$ 上有定义。如果 $\forall \varepsilon>0$，$\exists \delta>0$，若 $\forall P_1(x_1,y_1)$，$P_2(x_2,y_2) \in D$，当 $|P_1P_2|<\delta$ 时，总有 $|f(P_1)-f(P_2)|<\varepsilon$ 成立，则称 $z=f(x,y)$ 在 $D$ 上一致连续。<br>
+即 $\forall \varepsilon>0$，$\exists \delta>0$，$\forall P_1(x_1,y_1)$，$P_2(x_2,y_2) \in D$，当</li>
+</ol>
+<p>$$ \sqrt{(x_1-x_2)^2+(y_1-y_2)^2} < \delta \quad (\text{或 } |x_1-x_2|<\delta, \ |y_1-y_2|<\delta) $$</p>
+<p>时，都有 $|f(x_1,y_1)-f(x_2,y_2)|<\varepsilon$，则称 $z=f(x,y)$ 在 $D$ 上一致连续。</p>
+<p><strong>一致连续性</strong>：设 $D \subset \mathbf{R}^2$ 为有界闭区域，若 $f(x,y)$ 是 $D$ 上的连续函数，则 $f(x,y)$ 在 $D$ 上一致连续。</p>
+<h1>偏导数</h1>
+<h2 id="定义-3">定义</h2>
+<p>设函数 $z=f(x,y)$ 在点 $(x_0,y_0)$ 的某邻域内有定义。当固定 $y=y_0$，而 $x$ 在 $x_0$ 处取得增量时，函数相应的取得增量</p>
+<p>$$ \Delta_x z = f(x_0+\Delta x, y_0) - f(x_0, y_0), $$</p>
+<p>称其为函数 $z=f(x,y)$ 在 $(x_0,y_0)$ 处关于 $x$ 的偏增量。<br>
+若极限</p>
+<p>$$ \lim_{\Delta x \to 0} \frac{\Delta_x z}{\Delta x} = \lim_{\Delta x \to 0} \frac{f(x_0+\Delta x, y_0) - f(x_0, y_0)}{\Delta x}$$</p>
+<p>存在，则称此极限为函数 $z=f(x,y)$ 在点 $(x_0,y_0)$ 处关于变量 $x$ 的偏导数，记作</p>
+<p>$$ \left. \frac{\partial z}{\partial x} \right|_{(x_0,y_0)}, \quad \left. \frac{\partial f}{\partial x} \right|_{(x_0,y_0)}, \quad z_x(x_0,y_0) \text{ 或 } f_x(x_0,y_0) \text{ 等}. $$</p>
+<h2 id="几何意义">几何意义</h2>
+<p>设 $z=f(x,y)$ 表示空间中的一个曲面，若固定 $y=y_0$，则</p>
+<p>$$
+\begin{cases} z=f(x,y), \\ y=y_0 \end{cases}
+$$</p>
+<p>表示平面 $y=y_0$ 与曲面 $z=f(x,y)$ 的交线，此交线位于平面 $y=y_0$ 上，$M(x_0, y_0, z_0)$ ($z_0=f(x_0, y_0)$) 为曲面上的点。由偏导数的定义知，$f_x(x_0, y_0)$ 等于一元函数 $f(x, y_0)$ 在 $x=x_0$ 处的导数。由一元函数中导数的几何意义知，$f_x(x_0, y_0)$ 在几何上表示曲线</p>
+<p>$$
+\begin{cases} z=f(x,y), \\ y=y_0 \end{cases}
+$$</p>
+<p>在点 $M(x_0, y_0, z_0)$ 处的切线 $T_x$ 对 $x$ 轴的斜率。</p>
+<p>同理，偏导数 $f_y(x_0, y_0)$ 在几何上表示曲线</p>
+<p>$$
+\begin{cases} z=f(x,y), \\ x=x_0 \end{cases}
+$$</p>
+<p>在点 $M(x_0, y_0, z_0)$ 处的切线 $T_y$ 对 $y$ 轴的斜率。</p>
+<h2 id="多元复合函数的求导法则">多元复合函数的求导法则</h2>
+<h3 id="一个自变量">一个自变量</h3>
+<p>设 $z=f(u,v),u=u(t),v=v(t)$ 如果 $u=u(t),v=v(t)$ 在点 $t$ 处可导，函数 $z=f(u,v)$ 在对应点 $(u,v)$ 处有连续偏导数，则复合函数 $z=f[u(t),v(t)]$ 在 $t$ 处可导，且有</p>
+<p>$$
+\frac{dz}{dt}=\frac{\partial z}{\partial u}\frac{d u}{d t}+\frac{\partial z}{\partial v}\frac{d v}{d t}
+$$</p>
+<p>三元及以上情形同理</p>
+<h3 id="多个自变量">多个自变量</h3>
+<p>设 $z=f(u,v),u=\varphi(x,y),v=\psi(x,y)$ 在点 $(x,y)$ 处的偏导数存在，函数 $z=f(u,v)$ 在点 $(u,v)$ 处有连续偏导数，则复合函数 $z=f[\varphi(x,y),\psi(x,y)]$ 在点 $(x,y)$ 处的偏导数存在，且</p>
+<p>$$
+\begin{aligned}
+\frac{ \partial z }{ \partial x } = \frac{ \partial z }{ \partial u } \frac{ \partial u }{ \partial x } +\frac{ \partial z }{ \partial v } \frac{ \partial v }{ \partial x } \\
+\frac{ \partial z }{ \partial y } =\frac{ \partial z }{ \partial u } \frac{ \partial u }{ \partial y } +\frac{ \partial z }{ \partial v } \frac{ \partial v }{ \partial y } 
+\end{aligned}
+$$</p>
+<p>三元及以上情形同理</p>
+<h2 id="高阶偏导数">高阶偏导数</h2>
+<p>设 $z=f(x,y)$ 在区域 $D$ 内可偏导，其偏导数 $\frac{ \partial z }{ \partial x }=f_{x}(x,y),\frac{ \partial z }{ \partial y }=f_{y}(x,y)$ 仍是二元函数，设 $h(x,y)=\frac{ \partial z }{ \partial x },g(x,y)=\frac{ \partial z }{ \partial y }$ ，若 $h,g$ 可偏导，则有</p>
+<p>$$
+\begin{aligned}
+\frac{ \partial h }{ \partial x } =\frac{ \partial  }{ \partial x } \left( \frac{ \partial z }{ \partial x }  \right),\frac{ \partial h }{ \partial y } =\frac{ \partial  }{ \partial y } \left( \frac{ \partial z }{ \partial x }  \right) \\
+\frac{ \partial g }{ \partial x } =\frac{ \partial  }{ \partial x } \left( \frac{ \partial z }{ \partial x }  \right),\frac{ \partial g }{ \partial y } =\frac{ \partial  }{ \partial y } \left( \frac{ \partial z }{ \partial x }  \right)
+\end{aligned}
+$$</p>
+<p>称其为 $z=f(x,y)$ 的<strong>二阶偏导数</strong>，记作</p>
+<p>$$
+\begin{aligned}
+&f_{xx}=\frac{ \partial  }{ \partial x } \left( \frac{ \partial z }{ \partial x }  \right)=\frac{ \partial^2 z }{ \partial x^2 }\\
+&f_{xy}=\frac{ \partial  }{ \partial y } \left( \frac{ \partial z }{ \partial x }  \right)=\frac{ \partial^2 z }{ \partial x\partial y }\\
+&f_{yx}=\frac{ \partial  }{ \partial x } \left( \frac{ \partial z }{ \partial y }  \right)=\frac{ \partial^2 z }{ \partial y\partial x }\\
+&f_{yy}=\frac{ \partial  }{ \partial y } \left( \frac{ \partial z }{ \partial y }  \right)=\frac{ \partial^2 z }{ \partial y^2 }
+\end{aligned}
+$$</p>
+<p>称 $\frac{ \partial^2 z }{ \partial x^2 },\frac{ \partial^2 z }{ \partial y^2 }$ 为函数 $z=f(x,y)$ 关于 $x,y$ 的<strong>二阶偏导数</strong>，$\frac{ \partial^2 z }{ \partial x\partial y },\frac{ \partial^2 z }{ \partial y\partial x }$ 为函数 $z=f(x,y)$ 关于 $x,y$ 的<strong>二阶混合偏导数</strong></p>
+<blockquote>
+<p>如果函数 $z=f(x,y)$，在 $(x_{0},y_{0})$ 处的二阶混合偏导数 $f_{xy}(x,y),f_{yx}(x,y)$ 连续，则 $f_{xy}(x_{0},y_{0}) = f_{yx}(x_{0},y_{0})$，更高阶偏导数同理</p>
+</blockquote>
+<p>同理可定义三阶基三阶以上的各阶偏导数，二阶及二阶以上的偏导数统称为<strong>高阶偏导数</strong></p>
+<h2 id="隐函数求导法则">隐函数求导法则</h2>
+<h3 id="一个方程的情形">一个方程的情形</h3>
+<p>设二元函数 $F(x, y)$ 满足条件：</p>
+<ol>
+<li>$F(x_0, y_0) = 0$，$F_y(x_0, y_0) \neq 0$</li>
+<li>在点 $(x_0, y_0)$ 的某邻域内有连续偏导数<br>
+则方程 $F(x, y) = 0$ 在 $(x_0, y_0)$ 的某一邻域中唯一确定了一个具有连续导数的函数 $y = f(x)$，它满足 $y_0 = f(x_0)$ 及 $F[x, f(x)] \equiv 0$，且</li>
+</ol>
+<p>$$
+\frac{\mathrm{d}y}{\mathrm{d}x} = -\frac{F_x}{F_y}
+$$</p>
+<p>设三元函数 $F(x, y, z)$ 满足条件：</p>
+<ol>
+<li>$F(x_0, y_0, z_0) = 0$，$F_z(x_0, y_0, z_0) \neq 0$，</li>
+<li>在点 $(x_0, y_0, z_0)$ 的某邻域内，$F_x$、$F_y$、$F_z$ 存在且连续<br>
+则方程 $F(x, y, z) = 0$ 在点 $(x_0, y_0, z_0)$ 的某邻域内唯一确定一个连续且有连续偏导数的二元函数 $z = f(x, y)$，满足 $F[x, y, f(x, y)] \equiv 0$，且 $z_0 = f(x_0, y_0)$，其偏导数为</li>
+</ol>
+<p>$$
+\frac{\partial z}{\partial x} = -\frac{F_x}{F_z}, \quad \frac{\partial z}{\partial y} = -\frac{F_y}{F_z}
+$$</p>
+<h3 id="方程组的情形">方程组的情形</h3>
+<p>设函数 $F(x, y, u, v)$，$G(x, y, u, v)$ 满足条件：</p>
+<ol>
+<li>在点 $P_0(x_0, y_0, u_0, v_0)$ 的某一邻域内，$F(x, y, u, v)$、$G(x, y, u, v)$ 具有一阶连续偏导数</li>
+<li>$F(x_0, y_0, u_0, v_0) = 0$，$G(x_0, y_0, u_0, v_0) = 0$</li>
+<li>由偏导数组成的行列式（称为雅可比行列式）</li>
+</ol>
+<p>$$
+J = \left. \frac{\partial(F, G)}{\partial(u, v)} \right|_{P_0} = 
+\begin{vmatrix}
+F_u & F_v \\
+G_u & G_v
+\end{vmatrix}_{P_0} \neq 0,
+$$</p>
+<p>则方程组 $F(x, y, u, v) = 0$，$G(x, y, u, v) = 0$ 在点 $P_0(x_0, y_0, u_0, v_0)$ 的某邻域内唯一确定了两个具有连续偏导数的二元隐函数 $u = u(x, y)$，$v = v(x, y)$，它满足条件 $u_0 = u(x_0, y_0)$，$v_0 = v(x_0, y_0)$，且</p>
+<p>$$
+\frac{\partial u}{\partial x} = -\frac{1}{J} \frac{\partial(F, G)}{\partial(x, v)}, \quad
+\frac{\partial u}{\partial y} = -\frac{1}{J} \frac{\partial(F, G)}{\partial(y, v)},
+$$</p>
+<p>$$
+\frac{\partial v}{\partial x} = -\frac{1}{J} \frac{\partial(F, G)}{\partial(u, x)}, \quad
+\frac{\partial v}{\partial y} = -\frac{1}{J} \frac{\partial(F, G)}{\partial(u, y)}
+$$</p>
+<p>下面证明上述公式：<br>
+设</p>
+<p>$$
+\begin{cases}
+F(x, y, u, v) = 0, \\
+G(x, y, u, v) = 0
+\end{cases}
+$$</p>
+<p>能唯一地确定一组有连续偏导数的隐函数组 $u = u(x, y)$，$v = v(x, y)$。对方程组中的各方程式两边关于 $x$ 求偏导数，得</p>
+<p>$$
+\begin{cases}
+F_x + F_u u_x + F_v v_x = 0, \\
+G_x + G_u u_x + G_v v_x = 0,
+\end{cases}
+$$</p>
+<p>即有</p>
+<p>$$
+\begin{cases}
+F_u u_x + F_v v_x = -F_x, \\
+G_u u_x + G_v v_x = -G_x.
+\end{cases}
+$$</p>
+<p>该方程组是关于 $u_{x},v_{x}$ 的线性方程组，若</p>
+<p>$$
+J=\left.\frac{ \partial (F,G) }{ \partial (u,v) }\right|_{P_{0}} = \begin{vmatrix}F_{u} & F_{v} \\G_{u} & G_{v}\end{vmatrix}\neq 0
+$$</p>
+<p>由解线性方程组的克拉默法则，有</p>
+<p>$$
+\begin{aligned}
+&u_{x}=\frac{\begin{vmatrix}-F_{x} & F_{v} \\ -G_{x} & G_{v}\end{vmatrix}}{\begin{vmatrix}F_{u} & F_{v} \\ G_{u} & G_{v}\end{vmatrix}}=-\frac{\begin{vmatrix}F_{x} & F_{v} \\ G_{x} & G_{v}\end{vmatrix}}{\begin{vmatrix}F_{u} & F_{v} \\ G_{u} & G_{v}\end{vmatrix}}=-\frac{\frac{ \partial (F,G) }{ \partial (x,v) }}{\frac{ \partial (F,G) }{ \partial (u,v) } }=-\frac{1}{J}\frac{ \partial (F,G) }{ \partial (x,v) } \\
+&v_{x}=\frac{\begin{vmatrix}F_{u} & -F_{x} \\ G_{u} & -G_{x}\end{vmatrix}}{\begin{vmatrix}F_{u} & F_{v} \\ G_{u} & G_{v}\end{vmatrix}}=-\frac{\begin{vmatrix}F_{u} & F_{x} \\ G_{u} & G_{x}\end{vmatrix}}{\begin{vmatrix}F_{u} & F_{v} \\ G_{u} & G_{v}\end{vmatrix}}=-\frac{\frac{ \partial (F,G) }{ \partial (u,x) }}{\frac{ \partial (F,G) }{ \partial (u,v) } }=-\frac{1}{J}\frac{ \partial (F,G) }{ \partial (u,x) } 
+\end{aligned}
+$$</p>
+<p>同理，关于 $y$ 的偏导数：</p>
+<p>$$
+\frac{\partial u}{\partial y} = -\frac{1}{J} \frac{\partial(F, G)}{\partial(y, v)},
+\frac{\partial v}{\partial y} = -\frac{1}{J} \frac{\partial(F, G)}{\partial(u, y)}
+$$</p>
+<h1>全微分</h1>
+<h2 id="定义-4">定义</h2>
+<p>若函数 $z=f(x,y)$ 在其定义域的内点 $(x_{0},y_{0})$ 的全增量可表示为</p>
+<p>$$
+\Delta z=f(x_{0}+\Delta x,y_{0}+\Delta y)-f(x_{0},y_{0})=A\Delta x+B\Delta y+o(\rho)
+$$</p>
+<p>其中 $A, B$ 是不依赖于 $\Delta x, \Delta y$，而仅与点 $(x_0, y_0)$ 有关的两个常数，$\rho = \sqrt{(\Delta x)^2 + (\Delta y)^2}$，则称函数 $z=f(x,y)$ 在点 $(x_0, y_0)$ 处是<strong>可微分</strong>的，称 $A\Delta x + B\Delta y$ 为函数 $z=f(x,y)$ 在点 $(x_0, y_0)$ 的<strong>全微分</strong>，记作 $dz = A\Delta x + B\Delta y$</p>
+<p>可微 $\Rightarrow$ 连续<br>
+可微 $\Rightarrow$ 可偏导<br>
+一阶偏导数连续 $\Rightarrow$ 可微</p>
+<h1>方向导数</h1>
+<h2 id="定义-5">定义</h2>
+<p>设点 $P_{0}(x_{0},y_{0})\in \mathbb{R}^2$，$\boldsymbol{l}$ 是平面上的一非零向量，其单位向量为 $\boldsymbol{e_{l}}=\cos\alpha \boldsymbol{i}+\cos\beta \boldsymbol{j}$，函数 $z=f(x,y)$ 在点 $P_{0}$ 的某邻域内有定义，$P_{0}$ 为平行于向量 $\boldsymbol{l}$ 的直线 $L$ 上的定点，若极限</p>
+<p>$$
+\lim_{ t \to 0 } \frac{f(x_{0}+t\cos\alpha,y_{0}+t\cos\beta)-f(x_{0},y_{0})}{t}
+$$</p>
+<p>存在，则称此极限值为函数 $z=f(x,y)$ 在直线 $L$ 上的点 $P_{0}$ 沿方向 $\boldsymbol{l}$ 的<strong>方向导数</strong>，记作</p>
+<p>$$
+\left.\frac{ \partial f }{ \partial \boldsymbol{l} }\right|_{P_{0}}=\lim_{ t \to 0 } \frac{f(x_{0}+t\cos\alpha,y_{0}+t\cos\beta)-f(x_{0},y_{0})}{t}
+$$</p>
+<p>由导数的含义知，方向导数 $\left.\frac{ \partial f }{ \partial \boldsymbol{l} }\right|_{P_{0}}$ 就是函数 $z=f(x,y)$ 在点 $P_{0}$ 处沿方向 $\boldsymbol{l}$ 的变化率，特别地，若 $\boldsymbol{e_{l}}=\boldsymbol{i}=(1,0)$，则</p>
+<p>$$
+\left.\frac{ \partial f }{ \partial \boldsymbol{l} }\right|_{P_{0}}=\lim_{ t \to 0 } \frac{f(x_{0}+t,y_{0})-f(x_{0},y_{0})}{t}=\left.\frac{ \partial f }{ \partial x } \right|_{P_{0}}
+$$</p>
+<p>若 $\boldsymbol{e_{l}}=\boldsymbol{j}=(0,1)$</p>
+<p>$$
+\left.\frac{ \partial f }{ \partial \boldsymbol{l} }\right|_{P_{0}}=\lim_{ t \to 0 } \frac{f(x_{0},y_{0}+t)-f(x_{0},y_{0})}{t}=\left.\frac{ \partial f }{ \partial y } \right|_{P_{0}}
+$$</p>
+<p>可见，方向导数是偏导数的推广</p>
+<p>同时方向导数的概念还可以推广到 $n$ 元函数 $u=f(x_{1},x_{2},\dots,x_{n})$，设 $P_{0}(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}})\in \mathbb{R}^2$，$\boldsymbol{e_{l}}$ 是 $\mathbb{R}^n$ 中某个单位向量，$\boldsymbol{e_{l}}=(\cos\theta_{1},\cos\theta_{2},\dots,\cos\theta_{n})$，若函数在 $P_{0}$ 处的极限</p>
+<p>$$
+\lim_{ t \to 0 } \frac{f(x_{1_{0}}+t\cos\theta_{1},x_{2_{0}}+t\cos\theta_{2},\dots,x_{n_{0}}+t\cos\theta_{n})-f(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}})}{t}
+$$</p>
+<p>存在，则称此极限为 $n$ 元函数 $u=f(x_{1},x_{2},\dots,x_{n})$ 在点 $P_{0}$ 处沿方向 $\boldsymbol{l}$ 的<strong>方向导数</strong></p>
+<h2 id="定理">定理</h2>
+<p>设函数 $z=f(x,y)$ 在点 $P_{0}(x_{0},y_{0})$ 处可微，则对任一单位向量 $\boldsymbol{e_{l}}=\cos\alpha \boldsymbol{i}+\cos\beta \boldsymbol{j}$，函数 $z=f(x,y)$ 在点 $P_{0}(x_{0},y_{0})$ 沿方向 $\boldsymbol{l}$ 的方向导数存在，且</p>
+<p>$$
+\left.\frac{ \partial f }{ \partial \boldsymbol{l} } \right|_{P_{0}}=f_{x}(x_{0},y_{0})\cos\alpha+f_{y}(x_{0},y_{0})\cos\beta
+$$</p>
+<p>对于 $n$ 元函数 $u=f(x_{1},x_{2},\dots,x_{n})$，亦有</p>
+<p>$$
+\left.\frac{ \partial f }{ \partial \boldsymbol{l} } \right|_{P_{0}}=\sum^n_{k=1} f_{x_{k}}(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}})\cos\theta_{k}
+$$</p>
+<h1>梯度</h1>
+<h2 id="定义-6">定义</h2>
+<p>设函数 $z=f(x,y)$ 在点 $P_0(x_0,y_0)$ 处可偏导，则称向量 $f_x(x_0,y_0)\mathbf{i}+f_y(x_0,y_0)\mathbf{j}$ 为函数 $z=f(x,y)$ 在点 $P_0(x_0,y_0)$ 处的梯度，记作 $\operatorname{grad} f(x_0,y_0)$，或 $\nabla f(x_0,y_0)$。其中 $\nabla$ 称为 Nabla 算符，也称为向量微分算子，即</p>
+<p>$$
+\boldsymbol{\operatorname{grad}} f(x_0,y_0)
+= f_x(x_0,y_0)\mathbf{i}
++ f_y(x_0,y_0)\mathbf{j}
+= \nabla f(x_0,y_0)
+$$</p>
+<p>设</p>
+<p>$$
+\mathbf{e}_l=\cos\alpha\,\mathbf{i}+\cos\beta\,\mathbf{j}
+$$</p>
+<p>则</p>
+<p>$$
+\left.\frac{\partial f}{\partial l}\right|_{(x_0,y_0)}
+= \boldsymbol{\operatorname{grad}} f(x_0,y_0)\cdot \mathbf{e}_l
+= \nabla f(x_0,y_0)\cdot \mathbf{e}_l
+$$</p>
+<p>即函数 $f(x,y)$ 在点 $P_0(x_0,y_0)$ 处沿方向 $l$ 的方向导数等于该点处的梯度与单位向量的数量积。</p>
+<p>由</p>
+<p>$$
+\boldsymbol{\operatorname{grad}} f(x_0,y_0)\cdot \mathbf{e}_l
+= |\boldsymbol{\operatorname{grad}} f(x_0,y_0)|\cdot |\mathbf{e}_l|\cos\theta
+$$</p>
+<p>其中 $\theta$ 为向量 $\operatorname{grad} f(x_0,y_0)$ 与单位向量 $\mathbf{e}_l$ 间的夹角。可知：</p>
+<ul>
+<li>当 $\cos\theta=1$ 时，即 $l$ 的方向与 $\operatorname{grad} f(x_0,y_0)$ 的方向一致时，方向导数取得最大值</li>
+<li>当 $\cos\theta=-1$ 时，即 $l$ 的方向与梯度的方向相反时，方向导数取得最小值</li>
+</ul>
+<p>梯度的概念也可推广到 $n$ 元函数中去。</p>
+<p>若 $n$ 元函数 $u=f(x_{1},x_{2},\dots,x_{n})$ 在 $P_0(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}})$ 处可偏导，则向量</p>
+<p>$$
+(f_{x_{1}}(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}}),f_{x_{2}}(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}}),\dots,f_{x_{n}}(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}}))
+$$</p>
+<p>称为函数 $u=f(x_{1},x_{2},\dots,x_{n})$，在 $P_0(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}})$ 的<strong>梯度</strong>，记作 $\boldsymbol{\operatorname{grad}f(x_{1},x_{2},\dots,x_{n})}$ 或 $\nabla f(x_{1},x_{2},\dots,x_{n})$</p>
+<p>且 $u=f(x_{1},x_{2},\dots,x_{n})$ 在点 $P_{0}$ 处沿方向 $\boldsymbol{l}$ 的方向导数为</p>
+<p>$$
+\left.\frac{ \partial f }{ \partial \boldsymbol{l} }\right|_{P_{0}} = \boldsymbol{\operatorname{grad}} f(x_{1},x_{2},\dots,x_{n}) \cdot \boldsymbol{e}_{l}
+$$</p>
+<h2 id="运算法则">运算法则</h2>
+<p>$c_1,c_2$ 为常数，函数 $u,v,f$ 可微：</p>
+<ol>
+<li>$\boldsymbol{\operatorname{grad}}(c_1u+c_2v)=c_1\operatorname{grad}u+c_2\operatorname{grad}v$</li>
+<li>$\boldsymbol{\operatorname{grad}}(uv)=u\boldsymbol{\operatorname{grad}}v+v\boldsymbol{\operatorname{grad}}u$</li>
+<li>$\boldsymbol{\operatorname{grad}}\left(\frac{u}{v}\right)=\frac{v\boldsymbol{\operatorname{grad}}u-u\boldsymbol{\operatorname{grad}}v}{v^2},\quad v\ne 0$</li>
+<li>$\boldsymbol{\operatorname{grad}}f(u)=f'(u)\boldsymbol{\operatorname{grad}}u$</li>
+</ol>
+<h1>二元函数的泰勒公式</h1>
+<p>设函数 $z=f(x,y)$ 在点 $P_0(x_0,y_0)$ 的某邻域内有直到 $n+1$ 阶的连续偏导数，则对该邻域内任一点 $(x_0+h,y_0+k)$，有</p>
+<p>$$
+\begin{aligned}
+f(x_0+h,y_0+k)&=\sum^n_{m=0} \frac{1}{m!}
+\left(h\frac{\partial}{\partial x}+k\frac{\partial}{\partial y}\right)^m f(x_0,y_0) \\
+&+\frac{1}{(n+1)!}
+\left(h\frac{\partial}{\partial x}+k\frac{\partial}{\partial y}\right)^{n+1}
+f(x_0+\theta h,y_0+\theta k)
+\end{aligned}
+$$</p>
+<p>其中 $0<\theta<1$。</p>
+<p><strong>算子展开</strong></p>
+<p>$$
+\left(h\frac{\partial}{\partial x}+k\frac{\partial}{\partial y}\right)^m f(x_0,y_0)
+=
+\sum_{i=0}^{m}
+C_m^i
+h^i k^{m-i}
+\left.
+\frac{\partial^m f}{\partial x^i\partial y^{m-i}}
+\right|_{P_0}
+$$</p>
+<p>该式称为二元函数 $f(x,y)$ 在点 $P_0(x_0,y_0)$ 处带有拉格朗日型余项的泰勒公式。</p>
+<h2 id="推导思路">推导思路</h2>
+<p>令</p>
+<p>$$
+\varphi(t)=f(x_0+th,y_0+tk),\quad 0\le t\le 1
+$$</p>
+<p>则</p>
+<p>$$
+\varphi(0)=f(x_0,y_0),\quad \varphi(1)=f(x_0+h,y_0+k)
+$$</p>
+<p>由一元函数的泰勒公式，有</p>
+<p>$$
+\varphi(1)
+=
+\varphi(0)+\varphi'(0)+\frac{1}{2!}\varphi''(0)+\cdots+\frac{1}{n!}\varphi^{(n)}(0)
++\frac{1}{(n+1)!}\varphi^{(n+1)}(\theta)
+$$</p>
+<p>其中 $0<\theta<1$。</p>
+<p>由复合函数求导法则：</p>
+<p>$$
+\varphi^{(m)}(t)
+=
+\left(h\frac{\partial}{\partial x}+k\frac{\partial}{\partial y}\right)^m
+f(x_0+th,y_0+tk)
+$$</p>
+<p>因此可得二元函数的泰勒公式。</p>
+<h2 id="二元函数的中值公式">二元函数的中值公式</h2>
+<p>当 $n=0$ 时，有</p>
+<p>$$
+f(x_0+h,y_0+k)-f(x_0,y_0)
+=
+f_x(x_0+\theta h,y_0+\theta k)h
++
+f_y(x_0+\theta h,y_0+\theta k)k
+$$</p>
+<p>其中 $0<\theta<1$。</p>
+<h2 id="二元函数的麦克劳林公式">二元函数的麦克劳林公式</h2>
+<p>令 $x_0=0,\ y_0=0$，得</p>
+<p>$$
+f(x,y)=\sum_{k=0}^n \frac{1}{k!}
+\left(x\frac{\partial}{\partial x}+y\frac{\partial}{\partial y}\right)^k f(0,0)+\frac{1}{(n+1)!}
+\left(x\frac{\partial}{\partial x}+y\frac{\partial}{\partial y}\right)^{n+1}f(\theta x,\theta y)
+$$</p>
+<p>其中 $0<\theta<1$。</p>
+<h1>多元函数的极值与最值</h1>
+<h2 id="极值问题">极值问题</h2>
+<p>多元函数的最值问题是整体性问题，极值问题是局部性问题，二者有密切联系。<br>
+多元函数的极值分为两类：</p>
+<ul>
+<li><strong>无条件极值</strong>：自变量可在定义域内自由变化</li>
+<li><strong>条件极值</strong>：自变量除受定义域限制外，还受某些条件限制</li>
+</ul>
+<h2 id="无条件极值与函数的最值">无条件极值与函数的最值</h2>
+<p>设函数 $z=f(x,y)$ 在点 $P_0(x_0,y_0)$ 的某邻域 $U(P_0)$ 内有定义。<br>
+若对任一点 $P(x,y)\in U(P_0)$，都有</p>
+<p>$$
+f(x,y)\le f(x_0,y_0)
+$$</p>
+<p>则称 $f(x_0,y_0)$ 为函数 $f(x,y)$ 的<strong>极大值</strong>，点 $P_0(x_0,y_0)$ 称为<strong>极大值点</strong>。<br>
+若对任一点 $P(x,y)\in U(P_0)$，都有</p>
+<p>$$
+f(x,y)\ge f(x_0,y_0)
+$$</p>
+<p>则称 $f(x_0,y_0)$ 为函数 $f(x,y)$ 的<strong>极小值</strong>，点 $P_0(x_0,y_0)$ 称为<strong>极小值点</strong>。<br>
+极大值与极小值统称为<strong>极值</strong>，极大值点与极小值点统称为<strong>极值点</strong>。<br>
+极值点一定是函数定义域的内点。</p>
+<h3 id="极值的必要条件">极值的必要条件</h3>
+<p>若函数 $z=f(x,y)$ 在点 $P_0(x_0,y_0)$ 处取得极值，且 $f(x,y)$ 在该点可偏导，则有</p>
+<p>$$
+f_x(x_0,y_0)=0,\quad f_y(x_0,y_0)=0
+$$</p>
+<p>点 $P_0(x_0,y_0)$ 称为函数 $f(x,y)$ 的<strong>驻点</strong>，也称为<strong>临界点</strong>。<br>
+可导函数的极值点一定是驻点，但驻点不一定是极值点。<br>
+若 $n$ 元函数 $u=f(x_{1},x_{2},\dots,x_{n})$ 在点 $P_0(x_{1_{0}},x_{2_{0}},\dots,x_{n_{0}})$ 处具有偏导数且在该点取得极值，则有</p>
+<p>$$
+\begin{aligned}
+f_{x_{1}}(x_{1_{0}},x_{2_{0}},&\dots,x_{n_{0}})=0 \\
+f_{x_{2}}(x_{1_{0}},x_{2_{0}},&\dots,x_{n_{0}})=0 \\
+&\dots \\ 
+f_{x_{n}}(x_{1_{0}},x_{2_{0}},&\dots,x_{n_{0}})=0
+\end{aligned}
+$$</p>
+<h3 id="极值的充分条件">极值的充分条件</h3>
+<p>设函数 $f(x,y)$ 在点 $P_0(x_0,y_0)$ 的邻域内存在二阶连续偏导数，且</p>
+<p>$$
+f_x(x_0,y_0)=0,\quad f_y(x_0,y_0)=0
+$$</p>
+<p>记</p>
+<p>$$
+A=f_{xx}(x_0,y_0),\quad B=f_{xy}(x_0,y_0),\quad C=f_{yy}(x_0,y_0)
+$$</p>
+<p>则：</p>
+<ol>
+<li>当 $AC-B^2>0$ 时，$P_0(x_0,y_0)$ 是极值点：
+<ul>
+<li>若 $A>0$，则 $P_0$ 是极小值点</li>
+<li>若 $A<0$，则 $P_0$ 是极大值点</li>
+</ul>
+</li>
+<li>当 $AC-B^2<0$ 时，$P_0(x_0,y_0)$ 不是极值点</li>
+<li>当 $AC-B^2=0$ 时，不能判定 $P_0(x_0,y_0)$ 是否为极值点</li>
+</ol>
+<h3 id="求极值的一般步骤">求极值的一般步骤</h3>
+<ol>
+<li>解方程组</li>
+</ol>
+<p>$$
+f_x(x,y)=0,\quad f_y(x,y)=0
+$$</p>
+<p>求出函数 $f(x,y)$ 的所有驻点。<br>
+2. 对每个驻点求二阶偏导数</p>
+<p>$$
+A=f_{xx},\quad B=f_{xy},\quad C=f_{yy}
+$$</p>
+<ol start="3">
+<li>判断 $AC-B^2$ 的符号：
+<ul>
+<li>$AC-B^2>0$：有极值，再由 $A$ 的符号判断极大值或极小值</li>
+<li>$AC-B^2<0$：无极值</li>
+<li>$AC-B^2=0$：需另行讨论</li>
+</ul>
+</li>
+</ol>
+<h2 id="条件极值">条件极值</h2>
+<p>在无条件极值中，函数的自变量可以自由变化；若自变量还受到某些条件限制，则称为<strong>条件极值问题</strong>，也称为<strong>约束极值问题</strong>。<br>
+例如在约束条件</p>
+<p>$$
+\varphi(x,y)=0
+$$</p>
+<p>下求函数</p>
+<p>$$
+z=f(x,y)
+$$</p>
+<p>的极值，就是求函数 $f(x,y)$ 在曲线 $\varphi(x,y)=0$ 上的极值。</p>
+<h3 id="必要条件">必要条件</h3>
+<p>设函数 $z=f(x,y)$ 在点 $P_0(x_0,y_0)$ 处取得条件极值，约束条件为</p>
+<p>$$
+\varphi(x,y)=0
+$$</p>
+<p>若由约束条件可确定隐函数 $y=y(x)$，则目标函数可化为一元函数</p>
+<p>$$
+z=f(x,y(x))
+$$</p>
+<p>由一元函数极值的必要条件，有</p>
+<p>$$
+\frac{dz}{dx}=f_x+f_y\frac{dy}{dx}=0
+$$</p>
+<p>又由约束条件</p>
+<p>$$
+\varphi(x,y(x))=0
+$$</p>
+<p>两边对 $x$ 求导，得</p>
+<p>$$
+\varphi_x+\varphi_y\frac{dy}{dx}=0
+$$</p>
+<p>因此</p>
+<p>$$
+\frac{dy}{dx}=-\frac{\varphi_x}{\varphi_y}
+$$</p>
+<p>代入可得</p>
+<p>$$
+f_x\varphi_y-f_y\varphi_x=0
+$$</p>
+<p>即</p>
+<p>$$
+\frac{f_x}{\varphi_x}=\frac{f_y}{\varphi_y}
+$$</p>
+<p>该式说明，在条件极值点处，目标函数与约束函数的梯度方向平行。</p>
+<h3 id="拉格朗日乘数法">拉格朗日乘数法</h3>
+<p>为求函数</p>
+<p>$$
+z=f(x,y)
+$$</p>
+<p>在约束条件</p>
+<p>$$
+\varphi(x,y)=0
+$$</p>
+<p>下的条件极值，可引入拉格朗日函数</p>
+<p>$$
+F(x,y,\lambda)=f(x,y)+\lambda\varphi(x,y)
+$$</p>
+<p>其中 $\lambda$ 称为<strong>拉格朗日乘数</strong>。<br>
+条件极值点应满足方程组</p>
+<p>$$
+\begin{cases}
+F_x=f_x+\lambda\varphi_x=0 \\
+F_y=f_y+\lambda\varphi_y=0 \\
+F_\lambda=\varphi(x,y)=0
+\end{cases}
+$$</p>
+<p>解该方程组，可得到可能的条件极值点。</p>
+<p><strong>三元函数的拉格朗日乘数法</strong><br>
+求函数</p>
+<p>$$
+u=f(x,y,z)
+$$</p>
+<p>在约束条件</p>
+<p>$$
+\varphi(x,y,z)=0
+$$</p>
+<p>下的条件极值时，构造拉格朗日函数</p>
+<p>$$
+F(x,y,z,\lambda)=f(x,y,z)+\lambda\varphi(x,y,z)
+$$</p>
+<p>其必要条件为</p>
+<p>$$
+\begin{cases}
+F_x=f_x+\lambda\varphi_x=0 \\
+F_y=f_y+\lambda\varphi_y=0 \\
+F_z=f_z+\lambda\varphi_z=0 \\
+F_\lambda=\varphi(x,y,z)=0
+\end{cases}
+$$</p>
+<p>解该方程组，得到可能的条件极值点。</p>
+<h3 id="多个约束条件">多个约束条件</h3>
+<p>若目标函数为</p>
+<p>$$
+u=f(x,y,z)
+$$</p>
+<p>约束条件为</p>
+<p>$$
+\varphi(x,y,z)=0,\quad \psi(x,y,z)=0
+$$</p>
+<p>则构造</p>
+<p>$$
+F(x,y,z,\lambda,\mu)=f(x,y,z)+\lambda\varphi(x,y,z)+\mu\psi(x,y,z)
+$$</p>
+<p>必要条件为</p>
+<p>$$
+\begin{cases}
+F_x=0 \\
+F_y=0 \\
+F_z=0 \\
+F_\lambda=\varphi(x,y,z)=0 \\
+F_\mu=\psi(x,y,z)=0
+\end{cases}
+$$</p>
+<h3 id="求条件极值的一般步骤">求条件极值的一般步骤</h3>
+<ol>
+<li>根据目标函数和约束条件构造拉格朗日函数</li>
+</ol>
+<p>$$
+F=f+\lambda\varphi
+$$</p>
+<p>或</p>
+<p>$$
+F=f+\lambda\varphi+\mu\psi
+$$</p>
+<ol start="2">
+<li>对所有自变量和乘数求偏导，并令其为零，建立方程组。</li>
+<li>解方程组，求出可能的条件极值点。</li>
+<li>将候选点代入目标函数，结合题意比较函数值，确定最大值或最小值。</li>
+</ol>
+<h1>最小二乘法</h1>
+<p>在生产实践中，常需要根据测量数据找出变量之间的函数关系，通常称为<strong>配曲线</strong>或<strong>经验公式</strong>。<br>
+设实验得到一组数据</p>
+<p>$$
+(x_i,y_i),\quad i=1,2,\cdots,n
+$$</p>
+<p>要求寻找一个适当的函数</p>
+<p>$$
+y=f(x)
+$$</p>
+<p>使得 $f(x_i)$ 与实验数据 $y_i$ 在某种尺度下最接近，这类问题称为<strong>曲线拟合问题</strong>。<br>
+常用方法是<strong>直线拟合</strong>，即用线性函数近似：</p>
+<p>$$
+y=ax+b
+$$</p>
+<h2 id="偏差与总偏差">偏差与总偏差</h2>
+<p>设</p>
+<p>$$
+\varepsilon_i=y_i-ax_i-b
+$$</p>
+<p>表示用直线 $y=ax+b$ 近似数据时在第 $i$ 个点产生的偏差。<br>
+所有偏差平方和为</p>
+<p>$$
+\varepsilon(a,b)
+=
+\sum_{i=1}^{n}\varepsilon_i^2
+=
+\sum_{i=1}^{n}(y_i-ax_i-b)^2
+$$</p>
+<p>最小二乘法就是选择 $a,b$，使总偏差 $\varepsilon(a,b)$ 取得最小值。</p>
+<h2 id="正规方程组">正规方程组</h2>
+<p>由极值必要条件</p>
+<p>$$
+\frac{\partial \varepsilon}{\partial a}=0,\quad
+\frac{\partial \varepsilon}{\partial b}=0
+$$</p>
+<p>得</p>
+<p>$$
+\begin{cases}
+\left(\sum\limits_{i=1}^{n}x_i^2\right)a+\left(\sum\limits_{i=1}^{n}x_i\right)b=\sum\limits_{i=1}^{n}x_iy_i \\
+\left(\sum\limits_{i=1}^{n}x_i\right)a+nb=\sum\limits_{i=1}^{n}y_i
+\end{cases}
+$$</p>
+<p>该方程组称为最小二乘法的<strong>正规方程组</strong>。</p>
+<h2 id="系数公式">系数公式</h2>
+<p>解正规方程组，可得</p>
+<p>$$
+a=
+\frac{
+n\sum\limits_{i=1}^{n}x_iy_i
+-
+\left(\sum\limits_{i=1}^{n}x_i\right)
+\left(\sum\limits_{i=1}^{n}y_i\right)
+}{
+n\sum\limits_{i=1}^{n}x_i^2
+-
+\left(\sum\limits_{i=1}^{n}x_i\right)^2
+}
+$$</p>
+<p>$$
+b=
+\frac{
+\left(\sum\limits_{i=1}^{n}y_i\right)
+\left(\sum\limits_{i=1}^{n}x_i^2\right)
+-
+\left(\sum\limits_{i=1}^{n}x_i\right)
+\left(\sum\limits_{i=1}^{n}x_iy_i\right)
+}{
+n\sum\limits_{i=1}^{n}x_i^2
+-
+\left(\sum\limits_{i=1}^{n}x_i\right)^2
+}
+$$</p>
+<p>因此，拟合直线为</p>
+<p>$$
+y=ax+b
+$$</p>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/">导数</a>
+    
+    
+      <a class="next" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/">函数性质</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">多元函数的极限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">多元函数的连续性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">偏导数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="toc-text">几何意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%85%83%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0%E7%9A%84%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="toc-text">多元复合函数的求导法则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8F%98%E9%87%8F"><span class="toc-text">一个自变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E8%87%AA%E5%8F%98%E9%87%8F"><span class="toc-text">多个自变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E9%98%B6%E5%81%8F%E5%AF%BC%E6%95%B0"><span class="toc-text">高阶偏导数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="toc-text">隐函数求导法则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E6%96%B9%E7%A8%8B%E7%9A%84%E6%83%85%E5%BD%A2"><span class="toc-text">一个方程的情形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E6%83%85%E5%BD%A2"><span class="toc-text">方程组的情形</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">全微分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">方向导数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86"><span class="toc-text">定理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">梯度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-6"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="toc-text">运算法则</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">二元函数的泰勒公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E5%AF%BC%E6%80%9D%E8%B7%AF"><span class="toc-text">推导思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%AD%E5%80%BC%E5%85%AC%E5%BC%8F"><span class="toc-text">二元函数的中值公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0%E7%9A%84%E9%BA%A6%E5%85%8B%E5%8A%B3%E6%9E%97%E5%85%AC%E5%BC%8F"><span class="toc-text">二元函数的麦克劳林公式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">多元函数的极值与最值</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98"><span class="toc-text">极值问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E6%9D%A1%E4%BB%B6%E6%9E%81%E5%80%BC%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E6%9C%80%E5%80%BC"><span class="toc-text">无条件极值与函数的最值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%81%E5%80%BC%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="toc-text">极值的必要条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%81%E5%80%BC%E7%9A%84%E5%85%85%E5%88%86%E6%9D%A1%E4%BB%B6"><span class="toc-text">极值的充分条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E6%9E%81%E5%80%BC%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4"><span class="toc-text">求极值的一般步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9E%81%E5%80%BC"><span class="toc-text">条件极值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="toc-text">必要条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95"><span class="toc-text">拉格朗日乘数法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="toc-text">多个约束条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E6%9D%A1%E4%BB%B6%E6%9E%81%E5%80%BC%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4"><span class="toc-text">求条件极值的一般步骤</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">最小二乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%8F%E5%B7%AE%E4%B8%8E%E6%80%BB%E5%81%8F%E5%B7%AE"><span class="toc-text">偏差与总偏差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="toc-text">正规方程组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E6%95%B0%E5%85%AC%E5%BC%8F"><span class="toc-text">系数公式</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>矩阵 | One&#39;s Blog</title>
+  <meta name="description" content="">
+  <style>
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "HackNF";
+      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="description" content="定义 由 $m\times n$ 个数 $a_{ij}(i&#x3D;1,2,\dots,m;j&#x3D;1,2,\dots n)$ 排成的 $m$ 行 $n$ 列的数表 $$ \boldsymbol{A}&#x3D;\begin{pmatrix}a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\\vdots &amp; \vdots &amp; \d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵">
+<meta property="og:url" content="http://0n3-0.github.io/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/index.html">
+<meta property="og:site_name" content="One&#39;s Blog">
+<meta property="og:description" content="定义 由 $m\times n$ 个数 $a_{ij}(i&#x3D;1,2,\dots,m;j&#x3D;1,2,\dots n)$ 排成的 $m$ 行 $n$ 列的数表 $$ \boldsymbol{A}&#x3D;\begin{pmatrix}a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n} \\a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n} \\\vdots &amp; \vdots &amp; \d">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-10-26T11:01:04.000Z">
+<meta property="article:modified_time" content="2026-07-11T14:23:32.649Z">
+<meta property="article:author" content="one">
+<meta property="article:tag" content="线代">
+<meta name="twitter:card" content="summary">
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="page">
+  <header class="header">
+  <div class="header-left">
+    <a class="header-logo" href="/">One&#39;s Blog</a>
+  </div>
+  <nav class="header-right">
+    <div class="header-nav">
+      
+        <a href="/tags">标签</a>
+      
+        <a href="/categories">分类</a>
+      
+        <a href="/about">关于</a>
+      
+    </div>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
+      <span id="theme-icon">&#9788;</span>
+    </button>
+  </nav>
+</header>
+
+  <div class="page-body">
+    
+
+<aside class="sidebar-left open" id="sidebar-left">
+  <div class="sidebar-left-inner">
+    
+      <div id="tree-nav">
+        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
+      </div>
+    
+    <ul class="post-index" id="tree-list"></ul>
+  </div>
+</aside>
+
+
+<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
+<script>
+  var sidebarCurrentSource = '线性代数/矩阵';
+</script>
+<script src="/js/tree-nav.js"></script>
+
+
+    <main class="main">
+      <div class="main-inner">
+        
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">矩阵</h1>
+      <div class="post-meta">
+        <span>2025-10-26</span>
+        
+          <span> · </span>
+          
+            <a href="/categories/Math/">Math</a>
+          
+        
+      </div>
+      
+        <div class="article-tags">
+          
+            <a class="tag" href="/tags/%E7%BA%BF%E4%BB%A3/">线代</a>
+          
+        </div>
+      
+    </header>
+    <div class="post-content">
+      <h1>定义</h1>
+<p>由 $m\times n$ 个数 $a_{ij}(i=1,2,\dots,m;j=1,2,\dots n)$ 排成的 $m$ 行 $n$ 列的数表</p>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1n} \\a_{21} & a_{22} & \dots & a_{2n} \\\vdots & \vdots & \ddots & \vdots \\a_{m1} & a_{m2} & \dots & a_{mn}\end{pmatrix}
+$$</p>
+<p>称为 $m\times n$ 矩阵，通常用大写字母 $\boldsymbol{A},\boldsymbol{B},\boldsymbol{C}$ 等表示，记作：$\boldsymbol{A}$ 或 $\boldsymbol{A}_{m\times n}$</p>
+<p>$a_{ij}$：矩阵 $A$ 的第 $i$ 行第 $j$ 列元素，简称为 $(i,j)$ 元</p>
+<p>矩阵也可以简记为 $\boldsymbol{A}=(a_{ij})_{m\times n}$ 或 $\boldsymbol{A}=(a_{ij})$</p>
+<p><strong>实矩阵</strong>：元素全为实数的矩阵<br>
+<strong>复矩阵</strong>：元素不全为实数的矩阵</p>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&\begin{pmatrix}1 &0 & 4 & 5 \\2 & 6 & 2 & -9\end{pmatrix}: 2\times 4的实矩阵 \\
+&\begin{pmatrix}2& 1 & i \\3 & -5 & 6 \\7 & 2i & 9\end{pmatrix}:3\times 3的复矩阵 \\
+&\begin{pmatrix}3 \\0 \\1\end{pmatrix}: 3\times 1的实矩阵 \\
+&\begin{pmatrix}2 & 6 & 9\end{pmatrix}: 1\times 3的实矩阵 \\
+&\begin{pmatrix}4\end{pmatrix}: 1\times 1的实矩阵，就是这个数本身
+\end{aligned}
+$$</p>
+<h2 id="特殊矩阵">特殊矩阵</h2>
+<ol>
+<li><strong>行矩阵</strong>（行向量）：只有一行的矩阵</li>
+</ol>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1n}\end{pmatrix}
+$$</p>
+<ol start="2">
+<li><strong>列矩阵</strong>（列向量）：只有一列的矩阵</li>
+</ol>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a_{11} \\a_{21} \\\vdots \\a_{n1}\end{pmatrix}
+$$</p>
+<ol start="3">
+<li><strong>零矩阵</strong>：所有元素全为零的 $m\times n$ 矩阵，记作 $\boldsymbol{O}_{m\times n}$ 或 $\boldsymbol{O}$</li>
+<li><strong>方针</strong>：行数与列数相等，即 $m=n$ 的矩阵</li>
+</ol>
+<p>$$
+\boldsymbol{A}_{n\times n}=\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1n} \\a_{21} & a_{22} & \dots & a_{2n} \\\vdots & \vdots & \ddots & \vdots \\a_{n1} & a_{n2} & \dots & a_{nn}\end{pmatrix}
+$$</p>
+<p>$\boldsymbol{A}_{n\times n}$ 称为 $n$ 阶矩阵或者 $n$ 阶方阵，也记作 $\boldsymbol{A}_{n}$ 或 $\boldsymbol{A}$<br>
+$a_{11},a_{22}\dots a_{nn}$：$\boldsymbol{A}$ 的<strong>主对角元</strong></p>
+<blockquote>
+<p>注意：方阵 $\boldsymbol{A}=(a_{ij})$ 是一个数表，行列式</p>
+</blockquote>
+<p>$$
+\boldsymbol{D}=\begin{vmatrix}a_{ij}\end{vmatrix}
+$$</p>
+<p>是一个算式<br>
+5. <strong>三角矩阵</strong>：</p>
+<ol>
+<li>上三角矩阵 ：主对角线以下全为零的<strong>方阵</strong></li>
+</ol>
+<p>$$
+\boldsymbol{A_{n}}=\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1n} \\0 & a_{22} & \dots & a_{2n} \\\vdots & \vdots & \ddots & \vdots \\0 & 0 & \dots & a_{nn}\end{pmatrix}
+$$</p>
+<ol start="2">
+<li>下三角矩阵 ：主对角线以上全为零的<strong>方阵</strong></li>
+</ol>
+<p>$$
+\boldsymbol{A_{n}}=\begin{pmatrix}a_{11} & 0 & \dots & 0 \\a_{21} & a_{22} & \dots & 0 \\\vdots & \vdots & \ddots & \vdots \\a_{n1} & a_{n2} & \dots & a_{nn}\end{pmatrix}
+$$</p>
+<ol start="3">
+<li>对角矩阵：主对角线以外全为零的<strong>方阵</strong></li>
+</ol>
+<p>$$
+\boldsymbol{A_{n}}=\begin{pmatrix}a_{11} & 0 & \dots & 0 \\0 & a_{22} & \dots & 0 \\\vdots & \vdots & \ddots & \vdots \\0 & 0 & \dots & a_{nn}\end{pmatrix}
+$$</p>
+<p>又记作 $\boldsymbol{A}=diag(a_{11},a_{22}\dots a_{nn})$<br>
+对角线：diagonal<br>
+6. <strong>数量矩阵</strong>：主对角线上的元素都相同的<strong>对角矩阵</strong></p>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a & 0 & \dots & 0 \\0 & a & \dots & 0 \\\vdots & \vdots & \ddots & \vdots \\0 & 0 & \dots & a\end{pmatrix}
+$$</p>
+<p><em><strong>特别地</strong></em>：$a=1$ 时称为 $n$ 阶<strong>单位矩阵</strong>（或 $n$ 阶<strong>单位阵</strong>），记为 $\boldsymbol{E_{n}}$ 或 $\boldsymbol{I_{n}}$ 即</p>
+<p>$$
+\boldsymbol{E_{n}}=\begin{pmatrix}1 & 0 & \dots & 0 \\0 & 1 & \dots & 0 \\\vdots & \vdots & \ddots & \vdots \\0 & 0 & \dots & 1\end{pmatrix}
+$$</p>
+<ol start="7">
+<li><strong>行阶梯形矩阵</strong>：若存在零行，零行都在非零行的下边；各非零行的首非零元只出现在上一行的首非零元的右边</li>
+</ol>
+<p>$$
+\begin{pmatrix}3 & 5 & 3& 7 \\0 & 4 & 1 & 6 \\0 & 0 & 0& 3\end{pmatrix}
+$$</p>
+<p>和</p>
+<p>$$
+\begin{pmatrix}0 & 0 & 6 & 5 & -5\\0 & 0 & 0 & 3 & 7 \\0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0\end{pmatrix}
+$$</p>
+<ol start="8">
+<li><strong>行最简形矩阵</strong>：各非零行的首非零元为 1（首 1）且每个首 1 所在<strong>列</strong>的其余元素都是 0 的<strong>行阶梯形矩阵</strong></li>
+</ol>
+<p>$$
+\begin{pmatrix}\color{red}1 & 0 & 3& 7 \\0 & \color{red}1 & 1 & 6 \\0 & 0 & 0& 0\end{pmatrix}
+$$</p>
+<p>和</p>
+<p>$$
+\begin{pmatrix}0 & 0 & \color{red}1& 0 & -5\\0 & 0 & 0 & \color{red}1 & 7 \\0 & 0 & 0 & 0 & 0 \\0 & 0 & 0 & 0 & 0\end{pmatrix}
+$$</p>
+<ol start="9">
+<li><strong>标准形矩阵</strong>：左上角为一个单位阵且其余元素都是零的<strong>行最简形矩阵</strong></li>
+</ol>
+<p>$$
+\begin{pmatrix}\color{red}1 & \color{red}0 & 0& 0\\\color{red}0 & \color{red}1 & 0 & 0 \\0 & 0 & 0& 0\end{pmatrix}
+$$</p>
+<h2 id="同型矩阵与矩阵的相等">同型矩阵与矩阵的相等</h2>
+<ol>
+<li>两个矩阵的行数、列数分别对应时，称它们为<strong>同型矩阵</strong></li>
+</ol>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{pmatrix}3 & 5 \\9 & 6 \\5 & 3\end{pmatrix}和\begin{pmatrix}2 & 0 \\5 & 7 \\8 & 4\end{pmatrix}为同型矩阵
+$$</p>
+<ol start="2">
+<li>若两个矩阵 $\boldsymbol{A}=(a_{ij})$ 和 $\boldsymbol{B}=(b_{ij})$ 为同型矩阵，并且对应元素相等，即 $a_{ij}=b_{ij}(i=1,2,..,m;j=1,2,\dots,n)$ 则称矩阵 $\boldsymbol{A}$ 与 $\boldsymbol{B}$ 相等记作 $\boldsymbol{A}=\boldsymbol{B}$</li>
+</ol>
+<h1>运算</h1>
+<h2 id="加法">加法</h2>
+<h3 id="定义">定义</h3>
+<p>设矩阵 $\boldsymbol{A}=(a_{ij})_{m\times n}$ 和 $\boldsymbol{B}=(b_{ij})_{m\times n}$ 为同型矩阵，那么<strong>有 $\boldsymbol{A}$ 与 $\boldsymbol{B}$ 的和</strong>记作 $\boldsymbol{A}+\boldsymbol{B}$，规定如下：</p>
+<p>$$
+\boldsymbol{A+B}=(a_{ij}+b_{ij})=\begin{pmatrix}a_{11}+b_{11} & a_{12}+b_{12} & \dots & a_{1n}+b_{1n} \\a_{21}+b_{21} & a_{22}+b_{22} & \dots & a_{2n}+b_{2n} \\\vdots & \vdots & \ddots & \vdots \\a_{m1}+b_{m1} & a_{m2}+b_{m2} & \dots & a_{mn}+b_{mn}\end{pmatrix}
+$$</p>
+<h3 id="运算规律">运算规律</h3>
+<ol>
+<li><strong>交换律</strong>：$\boldsymbol{A+B=B+A}$</li>
+<li><strong>结合律</strong>：$\boldsymbol{(A+B)+C=A+(B+C)}$</li>
+</ol>
+<ul>
+<li><strong>矩阵加法运算的实质是数的加法，故上述运算规律显然成立</strong></li>
+</ul>
+<p>称</p>
+<p>$$
+\boldsymbol{-A}=(-a_{ij})=\begin{pmatrix}-a_{11} & -a_{12} & \dots & -a_{1n} \\-a_{21} & -a_{22} & \dots & -a_{2n} \\\vdots & \vdots & \ddots & \vdots \\-a_{m1} & -a_{m2} & \dots & -a_{mn}\end{pmatrix}
+$$</p>
+<p>为 $\boldsymbol{A}$ 的<strong>负矩阵</strong><br>
+利用负矩阵可定义<strong>矩阵的差</strong>：$\boldsymbol{A-B\xlongequal{def}{A+(-B)}}$<br>
+显然有 $\boldsymbol{A+(-A)=O}$</p>
+<h2 id="乘法">乘法</h2>
+<h3 id="数乘">数乘</h3>
+<h4 id="定义-2">定义</h4>
+<p>数 $k$ 与矩阵 $A=(a_{ij})_{m\times n}$ 的乘积记作 $k\boldsymbol{A}$ 或 $\boldsymbol{A}k$，简称<strong>数乘</strong>，规定为：</p>
+<p>$$
+k\boldsymbol{A}=\boldsymbol{A}k=\begin{pmatrix}ka_{11} & ka_{12} & \dots & ka_{1n} \\ka_{21} & ka_{22} & \dots & ka_{2n} \\\vdots & \vdots & \ddots & \vdots \\ka_{m1} & ka_{m2} & \dots & ka_{mn}\end{pmatrix}
+$$</p>
+<p>设 $\boldsymbol{A、B}$ 为同型矩阵，$k、t$ 为数则</p>
+<ol>
+<li>$k(t\boldsymbol{A})=(kt)\boldsymbol{A}$</li>
+<li>$(k+t)\boldsymbol{A}=k\boldsymbol{A}+t\boldsymbol{A}$</li>
+<li>$k(\boldsymbol{A+B})=k\boldsymbol{A}+k\boldsymbol{B}$</li>
+<li>$1\boldsymbol{A}=\boldsymbol{A},0\boldsymbol{A}=\boldsymbol{O}$</li>
+</ol>
+<blockquote>
+<p><strong>数乘矩阵</strong>与<strong>数乘行列式</strong>的区别，如：</p>
+</blockquote>
+<p>$$
+2\begin{pmatrix}1 & 2 \\2 & 5\end{pmatrix}=\begin{pmatrix}2 & 4 \\4 & 10\end{pmatrix}\;\;\;\;\;\;\;\;2\begin{vmatrix}1 & 2 \\2 & 5\end{vmatrix}=\begin{vmatrix}2& 4 \\2 & 5\end{vmatrix}
+$$</p>
+<blockquote>
+<p>矩阵加减法与数乘运算统称为矩阵的<strong>线性运算</strong></p>
+</blockquote>
+<h3 id="矩阵乘法">矩阵乘法</h3>
+<h4 id="定义-3">定义</h4>
+<p>矩阵 $\boldsymbol{A}=(a_{ij})_{m\times l}$, $\boldsymbol{B}=(b_{ij})_{l\times n}$ ,规定 $\boldsymbol{A}$ 和 $\boldsymbol{B}$ 的乘积为 $\boldsymbol{C}=\boldsymbol{AB}=(c_{ij})_{m\times n}$ ，其中</p>
+<p>$$
+c_{ij}=a_{i1}b_{1j}+a_{i2}b_{2j}+\dots+a_{il}b_{lj}=\sum_{k=1}^l a_{ik}b_{kj}(i=1,2,\dots,m;j=1,2,\dots n)
+$$</p>
+<blockquote>
+<ol>
+<li><strong>$\boldsymbol{C}$ 的 $\boldsymbol{c_{ij}}$ 项即 $\boldsymbol{A}$ 的第 $\boldsymbol{i}$ 行向量与 $\boldsymbol{B}$ 的第 $\boldsymbol{j}$ 列向量相乘得到</strong></li>
+<li><strong>乘法 $\boldsymbol{AB}$ 有意义的条件：$\boldsymbol{A}$ 的列数=$\boldsymbol{B}$ 的行数</strong></li>
+<li><strong>$\boldsymbol{C}$ 的行数=$\boldsymbol{A}$ 的行数，$\boldsymbol{C}$ 的列数=$\boldsymbol{B}$ 的列数</strong></li>
+<li><strong>矩阵乘法不满足交换律，即一般情况下 $\boldsymbol{AB\neq BA}$</strong></li>
+<li><strong>矩阵乘法不满足消去律，即 $\boldsymbol{AB\neq O}\nRightarrow \boldsymbol{A= O}或\boldsymbol{B=O}$，$\boldsymbol{AB=AC}\nRightarrow \boldsymbol{B=C}$</strong></li>
+</ol>
+</blockquote>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&矩阵\boldsymbol{A}=\begin{pmatrix}a_{11} & a_{12} & a_{13} \\a_{21} & a_{22} & a_{23}\end{pmatrix} \\
+&矩阵\boldsymbol{B}=\begin{pmatrix}b_{11} & b_{12} \\b_{21} & b_{22} \\b_{31} & b_{32}\end{pmatrix} \\
+&则乘积为\boldsymbol{AB}=\begin{pmatrix}a_{11}b_{11}+a_{12}b_{21}+a_{13}b_{31} & a_{11}b_{12}+a_{12}b_{22}+a_{13}b_{32} \\a_{21}b_{11}+a_{22}b_{21}+a_{23}b_{31} & a_{21}b_{12}+a_{22}b_{22}+a_{23}b_{32}\end{pmatrix}
+\end{aligned}
+$$</p>
+<h4 id="来源">来源</h4>
+<p>设有两个线性变换：</p>
+<p>$$
+(1)\begin{cases} y_{1} = a_{11}x_{1}+a_{12}x_{2}+a_{13}x_{3} \\
+y_{2} = a_{21}x_{1}+a_{22}x_{2}+a_{23}x_{3} \end{cases}\;\;\;\;\;\;(2)\begin{cases} x_{1} = b_{11}t_{1}+b_{12}t_{2} \\
+x_{2} = b_{21}t_{1}+b_{22}t_{2} \\
+x_{3} = b_{31}t_{1}+b_{32}t_{2} \end{cases}
+$$</p>
+<p>要求从 $t_{1},t_{2}$ 到 $y_{1},y_{2}$ 的线性变换，将 (2) 带入 (1)：</p>
+<p>$$
+\begin{cases} y_{1} = a_{11}(b_{11}t_{1}+b_{12}t_{2})+a_{12}(b_{21}t_{1}+b_{22}t_{2})+a_{13}(b_{31}t_{1}+b_{32}t_{2}) \\
+y_{2} = a_{21}(b_{11}t_{1}+b_{12}t_{2})+a_{22}(b_{21}t_{1}+b_{22}t_{2})+a_{23}(b_{31}t_{1}+b_{32}t_{2}) \end{cases}
+$$</p>
+<p>这个线性变换称为变换 (1) 和变换 (2) 的乘积。</p>
+<p>矩阵乘法满足的运算律：</p>
+<ol>
+<li>结合律：$\boldsymbol{(AB)C}=\boldsymbol{A(BC)}$</li>
+<li>分配律：$\boldsymbol{A(B+C)=\boldsymbol{AB+AC}}$，$\lambda \boldsymbol{(AB)}=(\lambda \boldsymbol{A})\boldsymbol{B}=\boldsymbol{A}(\lambda \boldsymbol{B})$ 其中 $\lambda$ 为数</li>
+</ol>
+<h4 id="简单结论">简单结论</h4>
+<ol>
+<li>$\boldsymbol{AE=EA=A}$，即 $\boldsymbol{E}$ 在矩阵乘法中的作用相当于 1 在数的乘法中的作用</li>
+<li></li>
+</ol>
+<p>$$
+\begin{pmatrix}\lambda_{1} &  &  &  \\ & \lambda_{2} &  & \\ &  & \ddots &  \\ &  &  & \lambda_{n}\end{pmatrix}\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1m} \\a_{21} & a_{22} &\dots & a_{2m} \\\vdots & \vdots & & \vdots \\a_{n1} & a_{n2} & \dots & a_{nm}\end{pmatrix}=\begin{pmatrix}\lambda_{1}a_{11} & \lambda_{1}a_{12} & \dots & \lambda_{1}a_{1m} \\\lambda_{2}a_{21} & \lambda_{2}a_{22} &\dots & \lambda_{2}a_{2m} \\\vdots & \vdots & & \vdots \\\lambda_{n}a_{n1} & \lambda_{n}a_{n2} & \dots & \lambda_{n}a_{nm}\end{pmatrix}
+$$</p>
+<p>$$
+\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1n} \\a_{21} & a_{22} &\dots & a_{2n} \\\vdots & \vdots & & \vdots \\a_{m1} & a_{m2} & \dots & a_{mn}\end{pmatrix}\begin{pmatrix}\lambda_{1} &  &  &  \\ & \lambda_{2} &  & \\ &  & \ddots &  \\ &  &  & \lambda_{n}\end{pmatrix}=\begin{pmatrix}\lambda_{1}a_{11} & \lambda_{2}a_{12} & \dots & \lambda_{n}a_{1n} \\\lambda_{1}a_{21} & \lambda_{2}a_{22} &\dots & \lambda_{n}a_{2n} \\\vdots & \vdots & & \vdots \\\lambda_{1}a_{m1} & \lambda_{2}a_{m2} & \dots & \lambda_{n}a_{mn}\end{pmatrix}
+$$</p>
+<p>即一个对角线左（右）乘一个矩阵等于这一个矩阵每一行（列）乘以相应的对角元<br>
+3.</p>
+<p>$$
+\begin{pmatrix}\lambda_{1} &  &  &  \\ & \lambda_{2} &  & \\ &  & \ddots &  \\ &  &  & \lambda_{n}\end{pmatrix}\begin{pmatrix}\mu_{1}&  &  &  \\ & \mu_{2}&  & \\ &  & \ddots &  \\ &  &  & \mu_{n}\end{pmatrix}=\begin{pmatrix}\mu_{1}&  &  &  \\ & \mu_{2}&  & \\ &  & \ddots &  \\ &  &  & \mu_{n}\end{pmatrix}\begin{pmatrix}\lambda_{1} &  &  &  \\ & \lambda_{2} &  & \\ &  & \ddots &  \\ &  &  & \lambda_{n}\end{pmatrix}
+$$</p>
+<p>$$
+=\begin{pmatrix}\lambda_{1}\mu_{1} &  &  &  \\ & \lambda_{2}\mu_{2} &  & \\ &  & \ddots &  \\ &  &  & \lambda_{n}\mu_{n}\end{pmatrix}
+$$</p>
+<ol start="4">
+<li></li>
+</ol>
+<p>$$
+\begin{pmatrix} &  &  &  \lambda_{1}\\ &  & \lambda_{2} & \\ & \text{⋰} &  &  \\\lambda_{n} &  &  & \end{pmatrix}\begin{pmatrix}&  &  & \mu_{1} \\ &  & \mu_{2} & \\ & \text{⋰} &  &  \\\mu_{n} &  &  & \end{pmatrix}=\begin{pmatrix} &  &  &  \lambda_{1}\mu_{n}\\ &  & \lambda_{2}\mu_{n-1} & \\ & \text{⋰} &  &  \\\lambda_{n}\mu_{1} &  &  & \end{pmatrix}
+$$</p>
+<h4 id="应用">应用</h4>
+<p>记</p>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1n} \\a_{21} & a_{22} &\dots & a_{2n} \\\vdots & \vdots & & \vdots \\a_{m1} & a_{m2} & \dots & a_{mn}\end{pmatrix}，\boldsymbol{x}=\begin{pmatrix}x_{1} \\x_{2}\\\vdots \\x_{n}\end{pmatrix}，\boldsymbol{b}=\begin{pmatrix}b_{1} \\b_{2} \\\vdots \\b_{n}\end{pmatrix}，\boldsymbol{y}=\begin{pmatrix}y_{1} \\y_{2} \\\vdots \\y_{n}\end{pmatrix}
+$$</p>
+<p>则线性方程组</p>
+<p>$$
+\begin{cases} a_{11}x_{1}+a_{12}x_{2}+\dots+a_{1n}x_{n}=b_{1} \\
+a_{21}x_{1}+a_{22}x_{2}+\dots+a_{2n}x_{n}=b_{2} \\ \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\vdots \\
+a_{m1}x_{1}+a_{m_{2}}x_{2}+\dots+a_{mn}x_{n}=b_{n} \end{cases}
+$$</p>
+<p>可以表达为 $\boldsymbol{Ax=b}$。</p>
+<p>线性变换</p>
+<p>$$
+\begin{cases} y_{1}=a_{11}x_{1}+a_{12}x_{2}+\dots+a_{1n}x_{n} \\
+y_{2}=a_{21}x_{1}+a_{22}x_{2}+\dots+a_{2n}x_{n} \\ \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\vdots \\
+y_{m}=a_{m1}x_{1}+a_{m_{2}}x_{2}+\dots+a_{mn}x_{n} \end{cases}
+$$</p>
+<p>可以表达为 $\boldsymbol{Ax=y}$。</p>
+<p>其中 $\boldsymbol{A}$ 称为线性方程组或线性变换的<strong>系数矩阵</strong>。</p>
+<h1>可交换矩阵</h1>
+<p>当 $\boldsymbol{AB=BA}$ 时称 $\boldsymbol{A,B}$ 可交换</p>
+<ul>
+<li>若 $\boldsymbol{A,B}$ 可交换，则 $\boldsymbol{A,B}$ 一定为同阶方阵</li>
+<li>单位矩阵 $\boldsymbol{E}$ 与任何同阶方阵可交换，即 $\boldsymbol{AE=EA=A}$</li>
+<li>任何两个同阶对角阵可交换</li>
+<li>矩阵 $\boldsymbol{A}$ 与任何同阶矩阵 $\boldsymbol{B}$ 可交换 $\Leftrightarrow$A 为数量矩阵 $\boldsymbol{(kE)}$</li>
+</ul>
+<p>一方面，若 $\boldsymbol{A=kE}$ 则 $\boldsymbol{(kE)B=B(kE)=kB}$<br>
+另一方面，若 $\boldsymbol{AB=BA}$ 对任何 $\boldsymbol{B}$ 成立，对某个固定的 $\boldsymbol{i}$，分别取 $\boldsymbol{B=B_{ij}:(ij)}$ 元为 1，其余元素全为 0$(j=1,2,\dots,n)$，带入 $\boldsymbol{AB_{ij}=B_{ij}A}$ 计算可得出 $\boldsymbol{A=kE}$</p>
+<h2 id="方阵的幂">方阵的幂</h2>
+<p>设 $\boldsymbol{A}$ 为 $n$ 阶<strong>方阵</strong>，$k$ 为正整数，定义 $\boldsymbol{A^1}=\boldsymbol{A},\boldsymbol{A^{k+1}=A^kA^1}$<br>
+一般的称 $\boldsymbol{A^n=AAA\dots A}$ 为方阵 $\boldsymbol{A}$ 次幂</p>
+<p>当 m、k 为正整数时，有</p>
+<p>$$
+\boldsymbol{A^mA^k=A^{m+k}},\boldsymbol{(A^m)^k=A^{mk}}
+$$</p>
+<p>一般 $\boldsymbol{(A+B)^2\neq A^2+2AB+B^2,(A+B)(A-B)\neq A^2-B^2}$，若要“=”成立则需 $\boldsymbol{AB=BA}$</p>
+<h1>方阵的多项式</h1>
+<p>方阵 $\boldsymbol{A}$ 的 $m$ 次多项式为 $f(\boldsymbol{A})=a_{m}\boldsymbol{A^m}+a_{m-1}\boldsymbol{A^{m-1}}+\dots+a_{1}\boldsymbol{A}+a_{0}\boldsymbol{E}$</p>
+<ul>
+<li>
+<p>若 $f(x)g(x)$ 为多项式，$\boldsymbol{A}$ 为 $n$ 阶方阵，因为 $\boldsymbol{A^k,A^l,E}$ 都是可交换的，所以 $f(\boldsymbol{A})g(\boldsymbol{A})=g(\boldsymbol{A})f(\boldsymbol{A})$</p>
+</li>
+<li>
+<p>方阵 $\boldsymbol{A}$ 的多项式可以类似一般多项式一样相乘或分解因式<br>
+<strong>eg</strong>:</p>
+</li>
+</ul>
+<p>$$
+\begin{aligned}
+&\boldsymbol{(E+A)(2E-A)=2E+A-A^2} \\
+&\boldsymbol{(E-A)^3=E-3A+3A^2-A^3} \\
+&\boldsymbol{A^2-E=(A-E)(A+E)} \\
+&\boldsymbol{(A+kE)^n=A^n+C^1_{n}kA^{n-1}+\dots+C^{n-1}_{n}k^{n-1}A+k^nE}
+\end{aligned}
+$$</p>
+<h1>矩阵的转置</h1>
+<h2 id="定义-4">定义</h2>
+<p>将矩阵 $\boldsymbol{A}=(a_{ij})_{m\times n}$ 的行列互换，得到新的 $n\times m$ 矩阵，称为 $\boldsymbol{A}$ 的<strong>转置矩阵</strong>，记作 $\boldsymbol{A^T}$<br>
+<strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&\boldsymbol{A=}\begin{pmatrix}1 & 2 & 3 \\4 & 5 & 6\end{pmatrix},\boldsymbol{A^T}=\begin{pmatrix}1 & 4 \\2 & 5 \\3 & 6\end{pmatrix}  \\
+&\boldsymbol{B=}\begin{pmatrix}1\\2\end{pmatrix},\boldsymbol{B^T}=\begin{pmatrix}1 & 2\end{pmatrix}
+\end{aligned}
+$$</p>
+<h2 id="运算性质">运算性质</h2>
+<ol>
+<li>$\boldsymbol{(A^T)^T=A}$</li>
+<li>$\boldsymbol{(A+B)^T=A^T+B^T}$</li>
+<li>$\boldsymbol{(\lambda A)^T=\lambda A^T}$</li>
+<li>$\boldsymbol{(AB)^T=B^TA^T}$<br>
+一般地，$\boldsymbol{(A_{1}A_{2}\dots A_{k})^T=A^T_{k}A^T_{k-1}\dots A^T_{1}}$</li>
+</ol>
+<p>证明 $\boldsymbol{(AB)^T=B^TA^T}$：</p>
+<p>设 $\boldsymbol{A=(a_{ij})_{m\times s},B=(b_{ij})_{s\times n}}$，</p>
+<p>$$
+\boldsymbol{AB=C=(c_{ij})_{m\times n},B^TA^T=D=(d_{ij})_{n\times m}}
+$$</p>
+<p>首先容易看到 $\boldsymbol{(AB)^T}$ 与 $\boldsymbol{B^TA^T}$ 为同型矩阵。</p>
+<p>其次 $\boldsymbol{(AB)^T}$ 的 $(i,j)$ 元即为 $\boldsymbol{(AB)}$ 的 $(j,i)$ 元：</p>
+<p>$$
+c_{ij}=a_{j1}b_{1i}+a_{j2}b_{2i}+\dots+a_{js}b_{si}
+$$</p>
+<p>注意到 $\boldsymbol{B^T}$ 中第 $i$ 行元素即为 $\boldsymbol{B}$ 中第 $i$ 列元素 $b_{1i},b_{2i},\dots,b_{si}$，$\boldsymbol{A^T}$ 中第 $j$ 列元素即为 $\boldsymbol{A}$ 中第 $j$ 行元素 $a_{j1},a_{j2},\dots,a_{js}$。</p>
+<p>故 $\boldsymbol{B^TA^T}$ 的 $(i,j)$ 元为 $d_{ij}=b_{1i}a_{j1}+b_{2i}a_{j2}+\dots+b_{si}a_{js}$。</p>
+<p>综上可知 $\boldsymbol{(AB)^T=B^TA^T}$。</p>
+<h1>对称矩阵与反对称矩阵</h1>
+<h2 id="定义-5">定义</h2>
+<p>设 $\boldsymbol{A=}(a_{ij})$ 为 $n$ 阶方阵</p>
+<ul>
+<li>如果 $A^T=A$，即 $a_{ij}=a_{ji}(i,j=1,2,\dots,n)$，则称 $\boldsymbol{A}$ 为对称矩阵</li>
+<li>如果 $A^T=-A$，即 $a_{ij}=-a_{ji}(i,j=1,2,\dots,n)$，则称 $\boldsymbol{A}$ 为反对称矩阵<br>
+显然，若 $\boldsymbol{A}$ 是反对称矩阵，那么对任意 i,有 $a_{ii}=0$，即主对角线为零</li>
+</ul>
+<h2 id="简单结论-2">简单结论</h2>
+<ol>
+<li>设 $\boldsymbol{A}$ 为（反）对称矩阵，则 $\boldsymbol{A^T,\lambda A}$ 也是（反对称矩阵</li>
+<li>设 $\boldsymbol{A,B}$ 为（反）对称矩阵，则 $\boldsymbol{A\pm B}$ 也是（反）对称矩阵</li>
+<li>设 $\boldsymbol{A,B}$ 为同阶对称矩阵，则 $\boldsymbol{AB}$ 也是对称矩阵 $\Leftrightarrow$ $\boldsymbol{A}$ 与 $\boldsymbol{B}$ 可交换</li>
+</ol>
+<h1>矩阵的共轭</h1>
+<h2 id="定义-6">定义</h2>
+<p>设 $\boldsymbol{A}=(a_{ij})$ 为复矩阵，用 $\overline{a_{ij}}$ 表示 $a_{ij}$ 的共轭复数，记 $\overline{\boldsymbol{A}}=(\overline{a_{ij}})$，称 $\overline{\boldsymbol{A}}$ 为 $\boldsymbol{A}$ 的共轭矩阵</p>
+<h2 id="运算性质-2">运算性质</h2>
+<ol>
+<li>$\overline{\boldsymbol{A+B}}=\boldsymbol{\overline{A}+\overline{B}}$</li>
+<li>$\overline{\boldsymbol{\lambda A}}=\boldsymbol{\overline{\lambda}\;\overline{A}}$</li>
+<li>$\boldsymbol{\overline{AB}}=\boldsymbol{\overline{A}\;\overline{B}}$</li>
+<li>$\overline{\boldsymbol{A^T}}=(\overline{A})^T$</li>
+</ol>
+<h1>矩阵的迹</h1>
+<h2 id="定义-7">定义</h2>
+<p>$n$ 阶方阵 $\boldsymbol{A=}(a_{ij})_{m\times n}$ 的主对角线上的各元素之和 $a_{11}+a_{22}+\dots a_{nn}$ 称为 $\boldsymbol{A}$ 的<strong>迹</strong>，记作 $\boldsymbol{tr(A)}$</p>
+<h1>性质</h1>
+<ol>
+<li>$tr(\boldsymbol{A+B})=tr(\boldsymbol{A})+tr(B)$</li>
+<li>$tr(k\boldsymbol{A})=ktr(\boldsymbol{A})$</li>
+<li>$tr(\boldsymbol{A^T})=tr(\boldsymbol{A})$, $tr(\overline{\boldsymbol{A}})=\overline{tr(\boldsymbol{A})}$</li>
+<li>$tr(\boldsymbol{AB})=tr(\boldsymbol{BA})$</li>
+</ol>
+<h1>方阵的行列式</h1>
+<h2 id="定义-8">定义</h2>
+<p>由 $n$ 阶<em><strong>方阵</strong></em>$\boldsymbol{A}=(a_{ij})$ 的元素所构成的行列式（个元素的位置不变）称为<strong>方阵 $\boldsymbol{A}$ 的行列式</strong>，记作</p>
+<p>$$
+\begin{vmatrix}\boldsymbol{A}\end{vmatrix}
+$$</p>
+<p>或 $\det \boldsymbol{A}$ 或 $\det(a_{ij})$</p>
+<h2 id="运算性质-3">运算性质</h2>
+<p>设 $\boldsymbol{A}、\boldsymbol{B}$ 为 $n$ 阶方阵<br>
+1.</p>
+<p>$$
+\begin{vmatrix}\boldsymbol{A^T}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}
+$$</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>$$
+\begin{vmatrix}\lambda \boldsymbol{A}\end{vmatrix}=\lambda ^n\begin{vmatrix}\boldsymbol{A}\end{vmatrix}
+$$</p>
+<ol start="3">
+<li></li>
+</ol>
+<p>$$
+\begin{vmatrix}\boldsymbol{AB}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\cdot \begin{vmatrix}\boldsymbol{B}\end{vmatrix}=\begin{vmatrix}\boldsymbol{B}\end{vmatrix}\cdot \begin{vmatrix}\boldsymbol{A}\end{vmatrix}=\begin{vmatrix}\boldsymbol{BA}\end{vmatrix}
+$$</p>
+<p>证明</p>
+<p>$$
+\begin{vmatrix}\boldsymbol{AB}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\cdot \begin{vmatrix}\boldsymbol{B}\end{vmatrix}
+$$</p>
+<p>:</p>
+<p>$$
+\begin{aligned}
+&\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\begin{vmatrix}\boldsymbol{B}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A} & \boldsymbol{O} \\\boldsymbol{-E} & \boldsymbol{B}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A} & \boldsymbol{AB} \\\boldsymbol{-E} & \boldsymbol{O}\end{vmatrix}=(-1)^n\begin{vmatrix}\boldsymbol{AB} & \boldsymbol{A} \\\boldsymbol{O} & \boldsymbol{-E}\end{vmatrix} \\
+&=(-1)^n\begin{vmatrix}\boldsymbol{AB}\end{vmatrix}\begin{vmatrix}\boldsymbol{-E}\end{vmatrix}=(-1)^n\begin{vmatrix}
+\boldsymbol{AB}
+\end{vmatrix}(-1)^n=\begin{vmatrix}
+\boldsymbol{AB}
+\end{vmatrix}
+\end{aligned}
+$$</p>
+<h1>伴随矩阵</h1>
+<h2 id="定义-9">定义</h2>
+<p>由方阵 $\boldsymbol{A}$ 的行列式</p>
+<p>$$
+\begin{vmatrix}\boldsymbol{A}\end{vmatrix}
+$$</p>
+<p>中各元素的代数余子式 $\boldsymbol{A_{ij}}$ 构成的方阵</p>
+<p>$$
+\boldsymbol{A^*}=\begin{pmatrix}\boldsymbol{A_{11}} & \boldsymbol{A_{21}} & \dots & \boldsymbol{A_{n1}} \\\boldsymbol{A_{12}} & \boldsymbol{A_{22}} & \dots & \boldsymbol{A_{n2}} \\\vdots & \vdots &  & \vdots \\\boldsymbol{A_{1n}} & \boldsymbol{A_{2n}} & \dots & A_{nn}\end{pmatrix}
+$$</p>
+<p>称为 $\boldsymbol{A}$ 的伴随矩阵</p>
+<blockquote>
+<p>$\boldsymbol{A^*}$ 中元素的下标与 $\boldsymbol{A^T}$ 中元素的下标一致，与 $\boldsymbol{A}$ 不同</p>
+</blockquote>
+<h2 id="定理">定理</h2>
+<p>设 $\boldsymbol{A^*}$ 是 $n$ 阶方阵 $\boldsymbol{A}=(a_{ij})$ 的伴随矩阵，则有</p>
+<p>$$
+\boldsymbol{AA^*}=\boldsymbol{A^*A}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\boldsymbol{E}
+$$</p>
+<p>证明：</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{AA^*}&=\begin{pmatrix}a_{11} & a_{12} &\dots & a_{1n} \\a_{21} & a_{22} &\dots & a_{2n} \\\vdots & \vdots& & \vdots \\a_{n1} & a_{n2} & \dots & a_{nn}\end{pmatrix}\begin{pmatrix}\boldsymbol{A_{\color{red}11}}& \boldsymbol{A_{\color{red}21}} &\dots & \boldsymbol{A_{\color{red}n1}} \\\boldsymbol{A_{\color{red}12}} & \boldsymbol{A_{\color{red}22}}&\dots & \boldsymbol{A_{\color{red}n2}} \\\vdots & \vdots& & \vdots \\\boldsymbol{A_{\color{red}1n}} & \boldsymbol{A_{\color{red}2n}} & \dots & \boldsymbol{A_{\color{red}nn}}\end{pmatrix} \\
+&=\begin{pmatrix}\begin{vmatrix}
+\boldsymbol{A}
+\end{vmatrix} & 0 &\dots & 0 \\0 & \begin{vmatrix}
+\boldsymbol{A}
+\end{vmatrix}&\dots & 0 \\\vdots & \vdots& & \vdots \\0 & 0 & \dots & \begin{vmatrix}
+\boldsymbol{A}
+\end{vmatrix}\end{pmatrix}=\begin{vmatrix}
+\boldsymbol{A}
+\end{vmatrix}\boldsymbol{E}
+\end{aligned}
+$$</p>
+<h2 id="结论">结论</h2>
+<ul>
+<li>$(\boldsymbol{AB})^*=\boldsymbol{B^*}\boldsymbol{A^*}$</li>
+<li>证明：</li>
+<li></li>
+</ul>
+<p>$$
+(\boldsymbol{AB})^*=\begin{vmatrix}\boldsymbol{AB}\end{vmatrix}(\boldsymbol{AB})^{-1}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\begin{vmatrix}\boldsymbol{B}\end{vmatrix}\boldsymbol{B^{-1}}\boldsymbol{A^{-1}}=\boldsymbol{B^*A^*}
+$$</p>
+<ul>
+<li>$(k\boldsymbol{A})^*=k^{n-1}\boldsymbol{A^*}$</li>
+<li>证明：</li>
+<li></li>
+</ul>
+<p>$$
+(\boldsymbol{kA})^*=\begin{vmatrix}\boldsymbol{kA}\end{vmatrix}(\boldsymbol{kA})^{-1}=k^n\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\boldsymbol{k^{-1}}\boldsymbol{A^{-1}}=\boldsymbol{k^{n-1}A^*}
+$$</p>
+<ul>
+<li></li>
+</ul>
+<p>$$
+(\boldsymbol{A^*})^*=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}^{n-2}\boldsymbol{A}
+$$</p>
+<ul>
+<li>证明：</li>
+<li></li>
+</ul>
+<p>$$
+(\boldsymbol{A^*})^*=\begin{vmatrix}\boldsymbol{A^*}\end{vmatrix}(\boldsymbol{A^*})^{-1}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}^{n-1}(\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\boldsymbol{A^{-1}})^{-1}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}^{n-2}\boldsymbol{A}
+$$</p>
+<ul>
+<li></li>
+</ul>
+<p>$$
+\begin{vmatrix}\boldsymbol{A^*}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}^{n-1}
+$$</p>
+<p>（无论 $\boldsymbol{A}$ 是否可逆都成立）</p>
+<ul>
+<li>证明：</li>
+<li></li>
+</ul>
+<p>在 $\boldsymbol{AA^*}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\boldsymbol{E}$ 两边取行列式得：$\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\begin{vmatrix}\boldsymbol{A^*}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}^n$，那么易得 $\begin{vmatrix}\boldsymbol{A^*}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}^{n-1}$。</p>
+<ul>
+<li>$(\boldsymbol{A^*})^{-1}=(\boldsymbol{A^{-1}})^*$</li>
+<li>$(\boldsymbol{A^T})^{-1}=(\boldsymbol{A^{-1}})^T$</li>
+<li>若 $\boldsymbol{AA^T=E}$，则 $(\boldsymbol{A^*})^T=(\boldsymbol{A^*})^{-1}$</li>
+</ul>
+<blockquote>
+<p>方阵 $\boldsymbol{A}$ 在可逆的条件下，$\boldsymbol{A^*}$ 的问题可以转化为 $\boldsymbol{A^{-1}}$ 的问题</p>
+</blockquote>
+<h1>可逆矩阵和逆矩阵</h1>
+<h2 id="定义-10">定义</h2>
+<p>对于 $n$ 阶方阵 $\boldsymbol{A}$，若存在 $n$ 阶方阵 $\boldsymbol{B}$，满足 $\boldsymbol{AB=BA=E}$ 则称<strong>方阵 $\boldsymbol{A}$ 可逆</strong>，且称 $\boldsymbol{B}$ 为 $\boldsymbol{A}$ 的逆矩阵，记作 $\boldsymbol{B=A^{-1}}$</p>
+<ul>
+<li>若 $\boldsymbol{A}$ 是可逆矩阵，则 $\boldsymbol{A}$ 的逆矩阵是唯一的<br>
+证明：</li>
+</ul>
+<p>设 $\boldsymbol{B}$ 和 $\boldsymbol{C}$ 都是 $\boldsymbol{A}$ 的逆矩阵，则有</p>
+<p>$$
+\boldsymbol{AB=BA=E,AC=CA=E}
+$$</p>
+<p>于是 $\boldsymbol{B=EB=CAB=CE=C}$。故，$\boldsymbol{A}$ 的逆矩阵是唯一的。</p>
+<blockquote>
+<ol>
+<li>只有<strong>方阵</strong>才有逆矩阵</li>
+<li>逆矩阵的记号 $\boldsymbol{A^{-1}}$ 是特定的，不能写作 $\frac{1}{\boldsymbol{A}}$</li>
+<li>若 $\boldsymbol{B}$ 是 $\boldsymbol{A}$ 的逆矩阵，那么 $\boldsymbol{A}$ 也是 $\boldsymbol{B}$ 的逆矩阵</li>
+<li>$\boldsymbol{E^{-1}}=E$</li>
+</ol>
+</blockquote>
+<h2 id="运算性质-4">运算性质</h2>
+<ol>
+<li>若 $\boldsymbol{A}$ 可逆，则 $\boldsymbol{A^{-1}}$ 也可逆，且 $(\boldsymbol{A^{-1}})^{-1}=\boldsymbol{A}$</li>
+<li>若 $\boldsymbol{A}$ 可逆，且数 $k\neq 0$，则 $k\boldsymbol{A}$ 也可逆，且 $(k\boldsymbol{A})^{-1}=\frac{1}{k}\boldsymbol{A^{-1}}$</li>
+<li>若 $\boldsymbol{A,B}$ 为同阶可逆方阵，则 $\boldsymbol{AB}$ 也可逆，且 $(\boldsymbol{AB})^{-1}=\boldsymbol{B^{-1}}\boldsymbol{A^{-1}}$</li>
+<li>若 $\boldsymbol{A}$ 可逆，则 $\boldsymbol{A^T}$ 也可逆，且 $(\boldsymbol{A^T})^{-1}=(\boldsymbol{A}^{-1})^T$</li>
+<li>若 $\boldsymbol{A}$ 可逆，则</li>
+</ol>
+<p>$$
+\begin{vmatrix}\boldsymbol{A^{-1}}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A}\end{vmatrix}^{-1}
+$$</p>
+<blockquote>
+<p>$(\boldsymbol{A+B})^{-1}\neq \boldsymbol{A^{-1}}+\boldsymbol{B^{-1}}$</p>
+</blockquote>
+<h2 id="求逆矩阵的方法">求逆矩阵的方法</h2>
+<h3 id="利用定义求逆矩阵">利用定义求逆矩阵</h3>
+<p>$$
+\begin{aligned}
+&求\boldsymbol{A}=\begin{pmatrix}2 & 4 \\1 & 3\end{pmatrix}的逆矩阵： \\
+&设\boldsymbol{A^{-1}}=\begin{pmatrix}a& b \\c& d\end{pmatrix},则有\begin{pmatrix}2 & 4 \\1 & 3\end{pmatrix}\begin{pmatrix}a& b \\c& d\end{pmatrix}=\begin{pmatrix}1& 0\\0 & 1\end{pmatrix} \\
+&即\begin{cases}
+2a+4c=1 \\
+2b+4d=0 \\
+a+3c=0 \\
+b+3d=1
+\end{cases} \;\;\;\Rightarrow \begin{cases}
+a=\frac{3}{2} \\
+b=-2 \\
+c=-\frac{1}{2} \\
+d=1
+\end{cases} \\
+&即\boldsymbol{A^{-1}}=\begin{pmatrix} \frac{3}{2} & -2 \\ -\frac{1}{2} & 1\end{pmatrix}
+\end{aligned}
+$$</p>
+<p><em>#<em>利用定义来求逆矩阵，对于高阶矩阵计算量十分庞大</em></em></p>
+<h3 id="利用公式求逆矩阵">利用公式求逆矩阵</h3>
+<p>由<a href="#%E5%AE%9A%E7%90%86">伴随矩阵的定理</a>可知</p>
+<p>$$
+\boldsymbol{A^{-1}}=\frac{1}{\begin{vmatrix}\boldsymbol{A}\end{vmatrix}}\boldsymbol{A^*}
+$$</p>
+<p>,同时也可知**矩阵可逆的充要条件为</p>
+<p>$$
+\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\neq 0
+$$</p>
+<p>**</p>
+<p>结论：</p>
+<ol>
+<li>二阶方阵</li>
+</ol>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a & b \\c & d\end{pmatrix}
+$$</p>
+<p>可逆</p>
+<p>$$
+\Leftrightarrow\begin{vmatrix}\boldsymbol{A}\end{vmatrix}=ad-bc\neq 0
+$$</p>
+<p>,且</p>
+<p>$$
+\boldsymbol{A^{-1}}=\frac{1}{ad-bc}\begin{pmatrix}d& -b \\-c & a \end{pmatrix}
+$$</p>
+<ol start="2">
+<li>$\boldsymbol{A}=diag(a_{1},a_{2},\dots ,a_{n})$ 可逆 $\Leftrightarrow a_{1}a_{2}\dots a_{n}\neq 0$，且 $\boldsymbol{A^{-1}}=diag(a_{1}^{-1},a_{2}^{-1},\dots ,a_{n}^{-1})$</li>
+<li>方阵</li>
+</ol>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}0 & 0& 0 & \lambda_{1} \\0 & 0 & \lambda_{2} & 0 \\0 & \text{⋰} & 0 & 0 \\\lambda_{n}& 0 & 0& 0\end{pmatrix}
+$$</p>
+<p>可逆 $\Leftrightarrow\lambda_{i}\neq 0(1=1,2,\dots,n)$，且</p>
+<p>$$
+\boldsymbol{A^{-1}}=\boldsymbol{A}=\begin{pmatrix}0 & 0& 0 & \lambda_{n}^{-1} \\0 & 0 & \lambda_{n-1}^{-1} & 0 \\0 & \text{⋰} & 0 & 0 \\\lambda_{1}^{-1}& 0 & 0& 0\end{pmatrix}
+$$</p>
+<h3 id="利用初等变换求逆矩阵">利用<a href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E5%88%9D%E7%AD%89%E5%8F%98%E6%8D%A2">初等变换</a>求逆矩阵</h3>
+<p>当 $\boldsymbol{A}$ 可逆时存在初等矩阵 $\boldsymbol{G}_{1}, \boldsymbol{G}_{2}, \cdots, \boldsymbol{G}_{l}$ 使得</p>
+<p>$$
+\begin{aligned}
+\boldsymbol{A=G_{1}G_{2}\cdots G_{l}}& \Rightarrow \boldsymbol{G_{l}^{-1} \cdots G_{2}^{-1} G_{1}^{-1} A=E} \\
+&\Rightarrow \boldsymbol{G_{l}^{-1} \cdots G_{2}^{-1} G_{1}^{-1} E=A^{-1}} 
+\end{aligned}
+$$</p>
+<p>$一系列初等行变换将  \boldsymbol{A}  化为  \boldsymbol{E}  ，它们同时将  \boldsymbol{E}  化为  \boldsymbol{A}^{-\mathbf{1}}$<br>
+于是得到求逆矩阵的主要方法：<br>
+$\boldsymbol{(A \mid E) \sim\left(E \mid A^{-1}\right)}$</p>
+<h2 id="逆矩阵的应用">逆矩阵的应用</h2>
+<ol>
+<li>证明 Cramer 法则</li>
+<li>对于矩阵方程 $\boldsymbol{AX=B}$，若 $\boldsymbol{A}$ 可逆，则 $\boldsymbol{X=A^{-1}B}$</li>
+<li>对于矩阵方程 $\boldsymbol{XA=B}$，若 $\boldsymbol{A}$ 可逆，则 $\boldsymbol{X=BA^{-1}}$</li>
+<li>对于矩阵方程 $\boldsymbol{AXB=C}$，若 $\boldsymbol{A}$ 可逆，则 $\boldsymbol{X=A^{-1}CB^{-1}}$</li>
+</ol>
+<h2 id="奇异矩阵与非奇异矩阵">奇异矩阵与非奇异矩阵</h2>
+<ul>
+<li>奇异矩阵：</li>
+</ul>
+<p>$$
+\begin{vmatrix}\boldsymbol{A}\end{vmatrix}=0
+$$</p>
+<p>（不可逆矩阵，退化矩阵）</p>
+<ul>
+<li>非奇异矩阵：</li>
+</ul>
+<p>$$
+\begin{vmatrix}\boldsymbol{A}\end{vmatrix}\neq 0
+$$</p>
+<p>（可逆矩阵，非退化矩阵）</p>
+<h1>矩阵的初等变换</h1>
+<h2 id="定义-11">定义</h2>
+<p>矩阵的下列 3 种行（列）变换称为矩阵的<strong>初等行（列）变换</strong></p>
+<ol>
+<li><strong>对换变换</strong>：交换矩阵的 $i,j$ 两行（列），记作 $r_{i}\leftrightarrow r_{j}(c_{i}\leftrightarrow c_{j})$</li>
+<li><strong>倍乘变换</strong>：用非零常数 $k$ 乘以矩阵的第 $i$ 行（列），记作 $kr_{i}(kc_{i})$ 也 $r_{i}\times k(c_{i}\times k)$</li>
+<li><strong>倍加变换</strong>：将矩阵的第 $i$ 行（列）倍加到第 $j$ 行（列），记作 $r_{j}+kr_{i}(c_{j}+kc_{i})$</li>
+</ol>
+<p>等价矩阵：若矩阵 $\boldsymbol{A}$ 经有限次初等变换化成矩阵 $\boldsymbol{B}$，则称矩阵 $\boldsymbol{A}和\boldsymbol{B}$<strong>等价</strong>，记为 $\boldsymbol{A}\sim \boldsymbol{B}$</p>
+<p><strong>矩阵的初等行变换和初等列变换统称为<em>初等变换</em></strong></p>
+<h2 id="性质">性质</h2>
+<ul>
+<li>初等变换不改变方阵的可逆性</li>
+<li>若方阵 $\boldsymbol{A_{n}}$ 可逆，则 $\boldsymbol{A_{n}}$ 可经过有限次的初等变换化为单位矩阵 $\boldsymbol{E_{n}}$，即可逆阵 $\boldsymbol{A_{n}}\sim\boldsymbol{E_{n}}$</li>
+</ul>
+<h2 id="初等矩阵">初等矩阵</h2>
+<h3 id="定义-12">定义</h3>
+<p>由单位阵 $\boldsymbol{E}$<strong>经过一次初等变换</strong>得到的方阵称为<strong>初等矩阵</strong></p>
+<p>三种初等变换对应三种初等矩阵：</p>
+<ol>
+<li>对换矩阵 $\boldsymbol{E(i\leftrightarrow j)}$：交换 $\boldsymbol{E}$ 的 $i,j$ 两行（列）</li>
+<li>倍乘矩阵 $\boldsymbol{E(i(k))}$：用非零数 $k$ 乘以 $\boldsymbol{E}$ 的第 $i$ 行（列）</li>
+<li>倍加矩阵 $\boldsymbol{E(i+j(k))}$：将 $\boldsymbol{E}$ 的第 $j$ 行（列）的 $k$ 倍加到第 $i$ 行（列）</li>
+</ol>
+<h3 id="性质-2">性质</h3>
+<ol>
+<li>初等变换都是可逆的，从而初等矩阵都是可逆的</li>
+<li>$\boldsymbol{E}(i\leftrightarrow j)^{-1}=\boldsymbol{E}(i\leftrightarrow j)$</li>
+<li>$\boldsymbol{E}(i(k))^{-1}=\boldsymbol{E}\left( i\left( \frac{1}{k} \right) \right)$</li>
+<li>$\boldsymbol{E}(i+j(k))^{-1}=\boldsymbol{E}(i+j(-k))$</li>
+<li></li>
+</ol>
+<p>$$
+\begin{vmatrix}\boldsymbol{E}(i\leftrightarrow j)\end{vmatrix}=-1
+$$</p>
+<ol start="6">
+<li></li>
+</ol>
+<p>$$
+\begin{vmatrix}\boldsymbol{E}(i(k))\end{vmatrix}=k(\neq 0)
+$$</p>
+<ol start="7">
+<li></li>
+</ol>
+<p>$$
+\begin{vmatrix}\boldsymbol{E}(i+j(k))\end{vmatrix}=1
+$$</p>
+<h3 id="应用-2">应用</h3>
+<p>设 $\boldsymbol{A}$ 为 $m\times n$ 的矩阵，用初等矩阵<strong>左乘</strong>$\boldsymbol{A}$ 等同于对 $\boldsymbol{A}$ 作相应的初等<strong>行变换</strong>，用初等矩阵<strong>右乘</strong>等同于对 $\boldsymbol{A}$ 作相应的初等<strong>列变换</strong></p>
+<p>具体地：</p>
+<ol>
+<li>$\boldsymbol{E}_{m}(i\leftrightarrow j)\boldsymbol{A}\Leftrightarrow$ 交换 $\boldsymbol{A}$ 的 $i,j$ 两行</li>
+</ol>
+<p>$\boldsymbol{A}\boldsymbol{E}_{n}(i\leftrightarrow j)\Leftrightarrow$ 交换的 $i,j$ 两列<br>
+2. $\boldsymbol{E}_{m}(i(k))\boldsymbol{A}\Leftrightarrow$ 用数 $k(\neq 0)$ 乘以 $\boldsymbol{A}$ 的第 $i$ 行</p>
+<p>$\boldsymbol{A}\boldsymbol{E}_{n}(i(k))\Leftrightarrow$ 用数 $k(\neq 0)$ 乘以的第 $i$ 列<br>
+3. $\boldsymbol{E}_{m}(i+j(k))\boldsymbol{A}\Leftrightarrow$ 把 $\boldsymbol{A}$ 的第 $j$ 行的 $k$ 倍加到第 $i$ 行上去</p>
+<p>$\boldsymbol{A}\boldsymbol{E}_{m}(i+j(k))\Leftrightarrow$ 把 $\boldsymbol{A}$ 的第 $j$ 列的 $k$ 倍加到第 $i$ 列上去</p>
+<p><strong>左乘则行变，右乘则列变</strong></p>
+<h4 id="和可逆矩阵的关系">和可逆矩阵的关系</h4>
+<p>方阵 $\boldsymbol{A}$ 可逆 $\Leftrightarrow\boldsymbol{A}$ 可以表示成有限多个初等矩阵的积</p>
+<h3 id="利用初等变换解矩阵方程">利用初等变换解矩阵方程</h3>
+<p>对于矩阵方程 $\boldsymbol{A} \boldsymbol{X}=\boldsymbol{B}$ ,如果 $\boldsymbol{A}$ 可逆，则 $\boldsymbol{X=A^{-1} B}$ 那么进行<strong>初等行</strong>变换 $\boldsymbol{(\boldsymbol{A} \mid \boldsymbol{B}) \sim\left(\boldsymbol{E} \mid \boldsymbol{A}^{-\mathbf{1}} \boldsymbol{B}\right)}$,即一系列初等行变换将 $\boldsymbol{A}$ 变为 $\boldsymbol{E}$ 的同时也将 $\boldsymbol{B}$ 变为了 $\boldsymbol{A^{-1} B}$。</p>
+<p>理由：对 $\boldsymbol{A}$ 做行变换将 $\boldsymbol{A}$ 变成 $\boldsymbol{E}$，即有初等矩阵 $\boldsymbol{P_{s}, \cdots P_{2}, P_{1}}$，使得 $\boldsymbol{P_{s} \cdots P_{2} P_{1} A=E}$，那么一定有 $\boldsymbol{P_{s} \cdots P_{2} P_{1}=A^{-1}}$，而对 $\boldsymbol{B}$ 进行了相同的初等行变换，相当于用 $\boldsymbol{P_{s} \cdots P_{2} P_{1}}$ 左乘 $\boldsymbol{B}$，故 $\boldsymbol{P_{s} \cdots P_{2} P_{1} B=A^{-1} B}$</p>
+<p>对于矩阵方程 $\boldsymbol{XA=B}$,如果 $\boldsymbol{B}$ 可逆，则 $\boldsymbol{X=BA^{-1}}$ 那么进行<strong>初等列</strong>变换</p>
+<p>$$
+\begin{pmatrix}\boldsymbol{A} \\\boldsymbol{B}\end{pmatrix}\sim \begin{pmatrix}\boldsymbol{E} \\\boldsymbol{BA^{-1}}\end{pmatrix}
+$$</p>
+<p>或者 $\boldsymbol{XA=B}\Rightarrow\boldsymbol{A^TX^T=B^T}$ 那么进行<strong>初等行变换</strong>$\boldsymbol{(\boldsymbol{A^T} \mid \boldsymbol{B^T}) \sim\left(\boldsymbol{E} \mid (\boldsymbol{A^T})^{-\mathbf{1}} \boldsymbol{B^T}\right)}$</p>
+<h1>分块矩阵</h1>
+<p>对于行数与列数较高的矩阵，为了简化其运算，经常采用<strong>分块法</strong>，使大矩阵的运算化为小矩阵的运算</p>
+<p>具体实现：将矩阵 $\boldsymbol{A}$ 用若干条纵线和横线分成若干小块，每一个小块称为 $\boldsymbol{A}$ 的子块(子矩阵)，以子块为元素的矩阵称为分块矩阵</p>
+<p><strong>eg</strong>:</p>
+<p>$$
+\begin{aligned}
+&\boldsymbol{A}=\begin{pmatrix}a_{11} & a_{12} & \mid & a_{13} & a_{14} \\-& - & \mid & - & -\\a_{21} & a_{22} & \mid & a_{23} & a_{24} \\a_{31} & a_{32} & \mid & a_{33} & a_{34} \\a_{41} & a_{42} & \mid & a_{43} & a_{44}\end{pmatrix} =\begin{pmatrix}\boldsymbol{C_{1}} & \boldsymbol{C_{2}}\\\boldsymbol{C_{3}} & \boldsymbol{C_{4}}\end{pmatrix} \\
+&其中\boldsymbol{C_{1}}=\begin{pmatrix}a_{11} & a_{12}\end{pmatrix},\boldsymbol{C_{2}}=\begin{pmatrix}a_{13} & a_{14}\end{pmatrix}, \\
+&\boldsymbol{C_{3}}=\begin{pmatrix}a_{21} & a_{22} \\a_{31} & a_{32} \\a_{41} & a_{42}\end{pmatrix},\boldsymbol{C_{4}}=\begin{pmatrix}a_{23} & a_{24} \\a_{33} & a_{34} \\a_{43} & a_{44}\end{pmatrix}
+\end{aligned}
+$$</p>
+<p>对于同一矩阵, 采用不同的分块方法, 会得到不同的分块矩阵</p>
+<h2 id="运算">运算</h2>
+<p>设矩阵 $\boldsymbol{A}与\boldsymbol{B}$ 为<strong>同型矩阵</strong>，$k$ 为实数，对和 $\boldsymbol{B}$ 采用<strong>相同的分块法</strong></p>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}  
+  \boldsymbol{A}_{11}& \boldsymbol{A}_{12}& \cdots  & \boldsymbol{A}_{1n} \\  
+ \boldsymbol{A}_{21}& \boldsymbol{A}_{22}& \cdots  & \boldsymbol{A}_{2n} \\  
+  \vdots & \vdots & \ddots & \vdots \\  
+  \boldsymbol{A}_{m1}& \boldsymbol{A}_{m2}& \cdots  & \boldsymbol{A}_{mn}  
+\end{pmatrix}  \boldsymbol{B}=\begin{pmatrix}  
+  \boldsymbol{B}_{11}& \boldsymbol{B}_{12}& \cdots  & \boldsymbol{B}_{1n} \\  
+  \boldsymbol{B}_{21}& \boldsymbol{B}_{22}& \cdots  & \boldsymbol{B}_{2n} \\  
+  \vdots & \vdots & \ddots & \vdots \\  
+  \boldsymbol{B}_{m1}& \boldsymbol{B}_{m2}& \cdots  & \boldsymbol{B}_{mn}  
+\end{pmatrix}  
+$$</p>
+<p>其中 $\boldsymbol{A_{ij}}$ 和 $\boldsymbol{B_{ij}}$ 为同型矩阵，则<br>
+1.</p>
+<p>$$
+\boldsymbol{A+B}=\begin{pmatrix}  
+  \boldsymbol{A}_{11}+\boldsymbol{B}_{11}& \boldsymbol{A}_{12}+\boldsymbol{B}_{12}& \cdots  & \boldsymbol{A}_{1n}+\boldsymbol{B}_{1n} \\  
+ \boldsymbol{A}_{21}+\boldsymbol{B}_{21}& \boldsymbol{A}_{22}+\boldsymbol{B}_{22}& \cdots  & \boldsymbol{A}_{2n}+\boldsymbol{B}_{2n} \\  
+  \vdots & \vdots & \ddots & \vdots \\  
+  \boldsymbol{A}_{m1}+\boldsymbol{B}_{m1}& \boldsymbol{A}_{m2}+\boldsymbol{B}_{m2}& \cdots  & \boldsymbol{A}_{mn}+\boldsymbol{B}_{mn}  
+\end{pmatrix}
+$$</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>$$
+k\boldsymbol{A}=
+\begin{pmatrix}  
+  k\boldsymbol{A}_{11}& k\boldsymbol{A}_{12}& \cdots  & k\boldsymbol{A}_{1n} \\  
+ k\boldsymbol{A}_{21}& k\boldsymbol{A}_{22}& \cdots  & k\boldsymbol{A}_{2n} \\  
+  \vdots & \vdots & \ddots & \vdots \\  
+  k\boldsymbol{A}_{m1}& k\boldsymbol{A}_{m2}& \cdots  & k\boldsymbol{A}_{mn}  
+\end{pmatrix}
+$$</p>
+<ol start="3">
+<li></li>
+</ol>
+<p>$$
+\boldsymbol{A^T}=
+\begin{pmatrix}  
+  \boldsymbol{A}^T_{11}& \boldsymbol{A}^T_{21}& \cdots  & \boldsymbol{A}^T_{m1} \\  
+ \boldsymbol{A}^T_{12}& \boldsymbol{A}^T_{22}& \cdots  & \boldsymbol{A}^T_{m2} \\  
+  \vdots & \vdots & \ddots & \vdots \\  
+  \boldsymbol{A}^T_{1n}& \boldsymbol{A}^T_{2n}& \cdots  & \boldsymbol{A}^T_{nm}  
+\end{pmatrix}
+$$</p>
+<blockquote>
+<p>分块矩阵的转置：矩阵本身转置，每一个子块也转置</p>
+</blockquote>
+<h2 id="分块对角矩阵">分块对角矩阵</h2>
+<h3 id="定义-13">定义</h3>
+<p>形如：</p>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}\boldsymbol{A}_{1} &   &  &   \\  & \boldsymbol{A}_{2}  &   &   \\  &   & \ddots &  \\  &   &   & \boldsymbol{A}_{n}\end{pmatrix}
+$$</p>
+<p>的分块矩阵称为<strong>分块对角矩阵</strong>，其中 $\boldsymbol{A}_{i}(i=1,2,\dots,n)$ 均为方阵</p>
+<ul>
+<li>若矩阵为方阵,且非零元集中在主对角线附近,可分块为对角矩阵</li>
+<li>显然分块对角矩阵的和、差、数乘、乘积仍为分块对角矩阵</li>
+</ul>
+<h2 id="性质-3">性质</h2>
+<ol>
+<li></li>
+</ol>
+<p>$$
+\begin{vmatrix}\boldsymbol{A}\end{vmatrix}=\begin{vmatrix}\boldsymbol{A}_{1}\end{vmatrix}\begin{vmatrix}\boldsymbol{A}_{2}\end{vmatrix}\dots \begin{vmatrix}\boldsymbol{A}\end{vmatrix}_{n}
+$$</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>$$
+\begin{pmatrix}\boldsymbol{A}_{1} &   &  &   \\  & \boldsymbol{A}_{2}  &   &   \\  &   & \ddots &  \\  &   &   & \boldsymbol{A}_{n}\end{pmatrix}\begin{pmatrix}\boldsymbol{B}_{1} &   &  &   \\  & \boldsymbol{B}_{2}  &   &   \\  &   & \ddots &  \\  &   &   & \boldsymbol{B}_{n}\end{pmatrix}=\begin{pmatrix}\boldsymbol{A}_{1}\boldsymbol{B}_{1} &   &  &   \\  & \boldsymbol{A}_{2} \boldsymbol{B}_{2} &   &   \\  &   & \ddots &  \\  &   &   & \boldsymbol{A}_{n}\boldsymbol{B}_{n}\end{pmatrix}
+$$</p>
+<ol start="3">
+<li>分块对角阵 $\boldsymbol{A}$ 可逆 $\Leftrightarrow\boldsymbol{A}_{i}(i=1,2,\dots n)$ 都可逆，且</li>
+</ol>
+<p>$$
+\boldsymbol{A}^{-1}=\begin{pmatrix}\boldsymbol{A}_{1}^{-1} &   &  &   \\  & \boldsymbol{A}_{2}^{-1}  &   &   \\  &   & \ddots &  \\  &   &   & \boldsymbol{A}_{n}^{-1}\end{pmatrix}
+$$</p>
+<h2 id="分块初等矩阵">分块初等矩阵</h2>
+<p>对分块单位阵</p>
+<p>$$
+\boldsymbol{E}=\begin{pmatrix}\boldsymbol{E}_{1} &   &  &  O \\  & \boldsymbol{E}_{2}  &   &   \\  &   &\ddots &  \\ O &   &   & \boldsymbol{E}_{n}\end{pmatrix}
+$$</p>
+<p>进行一次初等变换得到<strong>初等分块矩阵</strong></p>
+<ul>
+<li>分块初等矩阵都是方阵</li>
+<li>在运算可行的前提下,分块初等矩阵在分块矩阵的乘法中的作用与普通初等矩阵在矩阵乘法中的作用<strong>相同</strong></li>
+</ul>
+<h1>矩阵的秩</h1>
+<h2 id="矩阵的行秩和列秩">矩阵的行秩和列秩</h2>
+<h3 id="定义-14">定义</h3>
+<p>矩阵</p>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a_{11} & a_{12} & \dots & a_{1n} \\a_{21} & a_{22} & \dots & a_{2n} \\\vdots & \vdots & \ddots & \vdots \\a_{m1} & a_{m2} & \dots & a_{mn}\end{pmatrix}=(\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}})=\begin{pmatrix}\boldsymbol{\beta_{1}^T} \\\boldsymbol{\beta_{2}^T} \\\vdots \\\boldsymbol{\beta_{m}^T}\end{pmatrix}
+$$</p>
+<p>称 $\boldsymbol{\alpha_{1},\alpha_{2},\dots,\alpha_{n}}$ 为 $\boldsymbol{A}$ 的<strong>列向量组</strong>，列向量组的秩 $\leq n$<br>
+称 $\boldsymbol{\beta_{1}^T} ,\boldsymbol{\beta_{2}^T} ,\dots ,\boldsymbol{\beta_{m}^T}$ 为 $\boldsymbol{A}$ 的<strong>行向量组</strong>，列向量组的秩 $\leq m$</p>
+<p>矩阵 $A_{m\times n}$ 的行向量组的秩称为 $\boldsymbol{A}$ 的<strong>行秩</strong>，列向量组的秩称为 $\boldsymbol{A}$ 的<strong>列秩</strong></p>
+<h3 id="性质-4">性质</h3>
+<ol>
+<li>任何矩阵都有行秩=列秩，行阶梯形矩阵额外有行秩、列秩=其中非零行的行数</li>
+<li>初等行变换不改变矩阵的行秩，初等列变换不改变矩阵的列秩</li>
+<li>初等行变换不改变矩阵的列向量组的线性相关性，从而也不改变矩阵的列秩，同理初等列变换不改变矩阵的行秩</li>
+<li>设 $\boldsymbol{A}$ 为 $m\times n$ 矩阵，且其行秩为 $r$，则一定存在 $m$ 阶可逆阵 $\boldsymbol{P}$ 和 $n$ 阶可逆阵 $\boldsymbol{Q}$，使得</li>
+</ol>
+<p>$$
+\boldsymbol{PAQ}=\boldsymbol{D}=\begin{pmatrix}\boldsymbol{E_{r}} & \boldsymbol{O} \\\boldsymbol{O} & \boldsymbol{O}\end{pmatrix}
+$$</p>
+<h2 id="定义-15">定义</h2>
+<p>矩阵 $\boldsymbol{A}$ 的行秩和列秩统称为矩阵 $\boldsymbol{A}$ 的<strong>秩</strong>，记为秩 $(\boldsymbol{A})$ 或 $rank(\boldsymbol{A})$ 或 $r(\boldsymbol{A})$</p>
+<p>易得：</p>
+<ol>
+<li>设 $\boldsymbol{A}$ 为 $m\times n$ 的矩阵，则 $r(\boldsymbol{A})\leq min\{m,n\}$</li>
+<li>$r(\boldsymbol{A})=0\Leftrightarrow\boldsymbol{A}=\boldsymbol{O}$</li>
+</ol>
+<p>则有推论：</p>
+<ol>
+<li>矩阵的初等变换不改变矩阵的秩</li>
+<li>等价矩阵的秩相等</li>
+<li>矩阵 $\boldsymbol{A}$ 的标准形唯一且由 $r(\boldsymbol{A})$ 决定，即：若 $r(\boldsymbol{A})=r$，则 $\boldsymbol{A}$ 的标准形为</li>
+</ol>
+<p>$$
+\begin{pmatrix}\boldsymbol{E_{r}} & \boldsymbol{O} \\\boldsymbol{O} & \boldsymbol{O}\end{pmatrix}
+$$</p>
+<ol start="4">
+<li>$n$ 阶矩阵 $\boldsymbol{A}$ 的秩等于 $n\Leftrightarrow|\boldsymbol{A}|=0\Leftrightarrow\boldsymbol{A}$ 可逆，此时也称 $\boldsymbol{A}$ 为满秩矩阵（非奇异矩阵、非退化矩阵）</li>
+</ol>
+<h2 id="性质-5">性质</h2>
+<ol>
+<li>$0\leq r(\boldsymbol{A}_{m\times n})\leq min\{m,n\}$</li>
+<li>$r(\boldsymbol{A})=r(\boldsymbol{A})$</li>
+<li>$r(\boldsymbol{A+B})\leq r(\boldsymbol{A})+r(\boldsymbol{B})$</li>
+<li>$r(\boldsymbol{AB})\leq min\{r(\boldsymbol{A}),r(\boldsymbol{B})\}$</li>
+<li>若 $\boldsymbol{P,Q}$ 可逆，则 $r(\boldsymbol{A})=r(\boldsymbol{PA})=r(\boldsymbol{AQ})=r(\boldsymbol{PAQ})$</li>
+<li></li>
+</ol>
+<p>$$
+r\begin{pmatrix}\boldsymbol{A} & \boldsymbol{O} \\\boldsymbol{O} & \boldsymbol{B}\end{pmatrix}=r(\boldsymbol{A})+r(\boldsymbol{B}),r\begin{pmatrix}\boldsymbol{A} & \boldsymbol{D} \\\boldsymbol{O} & \boldsymbol{B}\end{pmatrix}\geq r(\boldsymbol{A})+r(\boldsymbol{B})
+$$</p>
+<ol start="7">
+<li>设有矩阵 $\boldsymbol{A}_{m\times s},\boldsymbol{B}_{s\times n}$，有 $r(\boldsymbol{A})+r(\boldsymbol{B})-s\leq r(\boldsymbol{AB})\leq min\{r(\boldsymbol{A}),r(\boldsymbol{B})\}$</li>
+</ol>
+<h2 id="矩阵的-$k$-阶子式">矩阵的 $k$ 阶子式</h2>
+<h3 id="定义-16">定义</h3>
+<p>在 $m\times n$ 矩阵 $\boldsymbol{A}$ 中任取 $k(i_{1},i_{2},\dots,i_{k})$ 行 $k(j_{1}j_{2},\dots,j_{k})$ 列 $(k\leq m,k\leq n)$，位于这些行列交叉处的 $k^2$ 个元素按它们原来的位置次序排列得到的 $k$ 阶行列式，称为矩阵 $\boldsymbol{A}$<strong>的 $k$ 阶子式</strong>（$m\times n$ 矩阵 $\boldsymbol{A}$ 的 $k$ 阶子式共有 $C^k_{m}\cdot C^k_{n}$ 个）</p>
+<ul>
+<li>非零 $k$ 阶子式：$k$ 阶子式的值不等于 $0$</li>
+<li>$k$ 阶主子式：取的 $k$ 行 $k$ 列对应的顺序一致（$m\times n$ 矩阵 $\boldsymbol{A}$ 的 $k$ 阶主子式共有 $C^k_{min\{m,n\}}$ 个）</li>
+<li>$k$ 阶顺序主子式：取前 $k$ 行前 $k$ 列（$m\times n$ 矩阵 $\boldsymbol{A}$ 的 $k$ 阶顺序主子式只有一个）</li>
+</ul>
+<p><strong>eg</strong>:<br>
+对于</p>
+<p>$$
+\boldsymbol{A}=\begin{pmatrix}a_{11} & a_{12} & a_{13} & a_{14} \\a_{21} & a_{22} & a_{23} & a_{24} \\a_{31} & a_{32} & a_{33} & a_{34} \\a_{41} & a_{42} & a_{43} & a_{44}\end{pmatrix}
+$$</p>
+<p>$$
+\begin{vmatrix}a_{12} & a_{14} \\a_{32} & a_{34}\end{vmatrix}
+$$</p>
+<p>是取 $1,3$ 行,$2,4$ 列产生的 $2$ 阶子式</p>
+<p>$$
+\begin{vmatrix}a_{11} & a_{12} & a_{14} \\a_{21} & a_{22} & a_{24} \\a_{41} & a_{42} & a_{44}\end{vmatrix}
+$$</p>
+<p>是取 $1,2,4$ 行,$1,2,4$ 列产生的 $3$ 阶主子式</p>
+<p>$$
+\begin{vmatrix}a_{11} & a_{12} & a_{13} \\a_{21} & a_{22} & a_{23} \\a_{31} & a_{32} & a_{33}\end{vmatrix}
+$$</p>
+<p>是取 $1,2,3$ 行,$1,2,3$ 列产生的 $3$ 阶顺序主子式</p>
+<h3 id="性质-6">性质</h3>
+<ol>
+<li>$r(\boldsymbol{A})=r\Leftrightarrow\boldsymbol{A}$ 的非零子式的最高阶数为 $r$</li>
+<li>$r(\boldsymbol{A})\geq r\Leftrightarrow\boldsymbol{A}$ 至少有一个 $r$ 阶非零子式</li>
+<li>$r(\boldsymbol{A})\leq r\Leftrightarrow\boldsymbol{A}$ 中所有 $r+1$ 阶子式（若存在）全为零</li>
+</ol>
+<h1>相似矩阵</h1>
+<h2 id="定义-17">定义</h2>
+<p>设 $\boldsymbol{A,B}$ 都是 $n$ 阶方阵，若存在可逆矩阵 $\boldsymbol{P}$ 使 $\boldsymbol{P^{-1}AP=B}$，则称 $\boldsymbol{A}$<strong>相似于</strong>$\boldsymbol{B}$，或者 $\boldsymbol{A}$ 与 $\boldsymbol{B}$<strong>相似</strong>，记作 $\boldsymbol{A\sim B}$</p>
+<p>矩阵的相关性关系是一种等价关系</p>
+<ol>
+<li>自反性：$\boldsymbol{A}$ 与 $\boldsymbol{A}$ 本身相似</li>
+<li>对称性：若 $\boldsymbol{A}$ 与 $\boldsymbol{B}$ 相似，则 $\boldsymbol{B}$ 与 $\boldsymbol{A}$ 相似</li>
+<li>传递性：若 $\boldsymbol{A}$ 与 $\boldsymbol{B}$ 相似，$\boldsymbol{B}$ 与 $\boldsymbol{C}$ 相似，则 $\boldsymbol{A}$ 与 $\boldsymbol{C}$ 相似</li>
+</ol>
+<h2 id="性质-7">性质</h2>
+<p>若 $\boldsymbol{A\sim B}$，即存在可逆矩阵 $\boldsymbol{P}$ 使得 $\boldsymbol{P^{-1}AP=B}$，则</p>
+<ol>
+<li>$\boldsymbol{A}$ 与 $\boldsymbol{B}$ 有相同的行列式和相同的秩，即 $|\boldsymbol{A}|=|\boldsymbol{B}|,r(\boldsymbol{A})=r(\boldsymbol{B})$</li>
+<li>当 $\boldsymbol{A}$ 可逆时，$\boldsymbol{A^{-1}\sim B^{-1},A^*\sim B^*}$</li>
+<li>$\boldsymbol{A^n\sim B^n},k\boldsymbol{A}\sim k\boldsymbol{B},f(\boldsymbol{A})\sim f(\boldsymbol{B})$，其中 $n$ 为正整数，$k$ 为实数，$f(x)$ 为多项式</li>
+</ol>
+<h1>矩阵的特征值和二次型</h1>
+<h2 id="特征值和特征向量">特征值和特征向量</h2>
+<h3 id="定义-18">定义</h3>
+<p>设 $A$ 为 $n$ 阶方阵，若存在数 $\lambda$ 和 $n$ 维非零列向量 $\boldsymbol{x}$ 使得 $A\boldsymbol{x}=\lambda\boldsymbol{x}$ 成立，则</p>
+<ul>
+<li>$\lambda$：$A$ 的特征值，(或 $A$ 的对应于特征向量 $\boldsymbol{x}$ 的特征值)</li>
+<li>$\boldsymbol{x}(\neq \boldsymbol{0})$：$A$ 的对应于(属于)$\lambda$ 的一个特征向量</li>
+</ul>
+<ol>
+<li>
+<p>特征值问题是对方阵而言的</p>
+</li>
+<li>
+<p>特征向量 $\boldsymbol{x} \neq \boldsymbol{0}$。当 $\boldsymbol{x}=\boldsymbol{0}$ 时，对任意 $\lambda$ 都有 $A\boldsymbol{x}=\lambda\boldsymbol{x}$ 成立，对讨论特征值无意义</p>
+</li>
+<li>
+<p>$A$ 的特征值 $\lambda$———方程 $|\lambda E-A|=0$ 的根 $\lambda$；$A$ 的与 $\lambda$ 对应的特征向量 $\boldsymbol{x}$——$(\lambda E-A)\boldsymbol{x}=\boldsymbol{0}$ 的非零解</p>
+</li>
+<li>
+<p>$|\lambda E-A|=0$，即</p>
+<p>$$
+   \begin{vmatrix}
+   \lambda-a_{11} & -a_{12} & \cdots & -a_{1n} \\
+   -a_{21} & \lambda-a_{22} & \cdots & -a_{2n} \\
+   \vdots & \vdots & \ddots & \vdots \\
+   -a_{n1} & -a_{n2} & \cdots & \lambda-a_{nn}
+   \end{vmatrix} = 0
+$$</p>
+<p>称为 $A$ 的特征方程——关于 $\lambda$ 的一元 $n$ 次方程。<br>
+多项式 $f(\lambda)=|\lambda E-A|$：$A$ 的特征多项式——$\lambda$ 的 $n$ 次多项式。<br>
+$A$ 的特征值 $\lambda$：$A$ 的特征方程的根，或特征多项式的零点。</p>
+</li>
+</ol>
+<p><strong>注</strong>：$n$ 次代数方程有 $n$ 个根(复根和实根，重根按重数计算)，所以 $A$ 有 $n$ 个特征值(在复数范围内)。</p>
+<h3 id="求取方法">求取方法</h3>
+<p>求方阵 $A$ 的特征值与特征向量的步骤：</p>
+<ol>
+<li>计算 $A$ 的特征多项式 $|\lambda E-A|$;</li>
+<li>求特征方程 $|\lambda E-A|=0$ 的全部根 $\lambda_1,\lambda_2,\cdots,\lambda_n$，即得 $A$ 的全部特征值;</li>
+<li>对于特征值 $\lambda_i$，求 $(\lambda_i E-A)\boldsymbol{x}=\boldsymbol{0}$ 的非零解，即得 $A$ 的对应于 $\lambda_i$ 的特征向量.</li>
+</ol>
+<p><strong>结论</strong>：</p>
+<ol>
+<li>上(下)三角矩阵和对角阵的特征值就是矩阵的主对角元.</li>
+<li>数量矩阵 $kE$ 的特征值是 $k$($n$ 重)，对应的特征向量为任意非零向量. $\because kE\boldsymbol{x}=k\boldsymbol{x}$.</li>
+</ol>
+<h3 id="特征值的几何重数与代数重数">特征值的几何重数与代数重数</h3>
+<p>在方阵 $A$ 的属于特征值 $\lambda_0$ 的全部特征向量中，设有极大无关组 $\boldsymbol{\xi}_1,\boldsymbol{\xi}_2,\cdots,\boldsymbol{\xi}_l$，则称 $L\{\boldsymbol{\xi}_1,\boldsymbol{\xi}_2,\cdots,\boldsymbol{\xi}_l\}$ 是 $A$ 的关于特征值 $\lambda_0$ 的特征子空间，记作 $V_{\lambda_0}$. $\dim V_{\lambda_0}$ 称为 $\lambda_0$ 的几何重数.</p>
+<ul>
+<li>$\lambda_0$ 的几何重数就是 $A$ 的对应于 $\lambda_0$ 的线性无关的特征向量的个数.</li>
+<li>$V_{\lambda_0}=\{A\text{的对应于}\lambda_0\text{的全部特征向量}\}\cup\{\boldsymbol{0}\}$，故<br>
+$\lambda_0$ 的几何重数 $=n-r(\lambda_0 E-A)$.</li>
+<li>$\lambda_0$ 的代数重数：$\lambda_0$ 是 $A$ 的特征值的重数.</li>
+</ul>
+<blockquote>
+<p>$A$ 的特征值的几何重数 $\leq$ 代数重数.<br>
+$A$ 的单重特征值的几何重数 $=$ 代数重数.</p>
+</blockquote>
+<h3 id="特征向量的性质">特征向量的性质</h3>
+<ol>
+<li>若 $\boldsymbol{x}_1$ 和 $\boldsymbol{x}_2$ 都是方阵 $A$ 的属于特征值 $\lambda_0$ 的特征向量，则 $k_1\boldsymbol{x}_1+k_2\boldsymbol{x}_2$ 也是 $A$ 的属于特征值 $\lambda_0$ 的特征向量.($k_1,k_2$ 为任意实数且 $k_1\boldsymbol{x}_1+k_2\boldsymbol{x}_2\neq\boldsymbol{0}$.)</li>
+</ol>
+<ul>
+<li>属于同一特征值的特征向量的非零线性组合仍是属于该特征值的特征向量.</li>
+</ul>
+<ol start="2">
+<li>
+<p>$A$ 的一个特征向量 $\boldsymbol{x}$ 不能属于 $A$ 的不同特征值．<br>
+<strong>证明</strong>：假设向量 $\boldsymbol{x}$ 同时是 $A$ 的属于不同特征值 $\lambda_1,\lambda_2$($\lambda_1\neq\lambda_2$)的特征向量，即有<br>
+$A\boldsymbol{x}=\lambda_1\boldsymbol{x}, A\boldsymbol{x}=\lambda_2\boldsymbol{x}$,<br>
+$\Longrightarrow \lambda_1\boldsymbol{x}=\lambda_2\boldsymbol{x}$<br>
+$\Longrightarrow (\lambda_1-\lambda_2)\boldsymbol{x}=\boldsymbol{0}$,<br>
+由于 $\lambda_1-\lambda_2\neq0$，所以 $\boldsymbol{x}=\boldsymbol{0}$.这与 $\boldsymbol{x}$ 是特征向量矛盾.</p>
+</li>
+<li>
+<p>设 $\boldsymbol{\xi}_1,\boldsymbol{\xi}_2,\cdots,\boldsymbol{\xi}_m$ 分别是 $n$ 阶矩阵 $A$ 对应于互不相等的特征值 $\lambda_1,\lambda_2,\cdots,\lambda_m$ 的特征向量，则 $\boldsymbol{\xi}_1,\boldsymbol{\xi}_2,\cdots,\boldsymbol{\xi}_m$ 线性无关.<br>
+简言之：$A$ 的对应于不同特征值的特征向量线性无关.</p>
+</li>
+<li>
+<p>设 $\lambda_1,\lambda_2,\cdots,\lambda_m$ 是 $A_n$ 的 $m$ 个互异特征值，对应于 $\lambda_i$ 的线性无关的特征向量为 $\boldsymbol{\xi}_{i1},\boldsymbol{\xi}_{i2},\cdots,\boldsymbol{\xi}_{ir_i}$($i=1,2,\cdots,m$)，则所有这些特征向量(共 $r_1+r_2+\cdots+r_m$ 个)构成的向量组线性无关.<br>
+简言之：$A$ 的对应于不同特征值的线性无关的特征向量所构成的向量组仍然是线性无关.</p>
+</li>
+</ol>
+<h3 id="特征值的性质">特征值的性质</h3>
+<ol>
+<li>设 $A=(a_{ij})_{n\times n}$ 的特征值为 $\lambda_1,\lambda_2,\cdots,\lambda_n$，则有：</li>
+<li>$\lambda_1+\lambda_2+\cdots+\lambda_n=a_{11}+a_{22}+\cdots+a_{nn}=\text{tr}(A)$;</li>
+<li>$\lambda_1\lambda_2\cdots\lambda_n=|A|$.</li>
+</ol>
+<ul>
+<li>$A_n$ 可逆 $\Longleftrightarrow A$ 的 $n$ 个特征值都非零，即 $\lambda_i\neq0$($i=1,2,\cdots,n$).</li>
+</ul>
+<ol start="2">
+<li>
+<p>设 $\lambda$ 是矩阵 $A$ 的特征值，$\boldsymbol{\xi}\neq\boldsymbol{0}$ 是对应于 $\lambda$ 的特征向量，则</p>
+</li>
+<li>
+<p>$a\lambda$ 是矩阵 $aA$ 的特征值($a$ 为任意实数);</p>
+</li>
+<li>
+<p>$\lambda^k$ 是矩阵 $A^k$ 的特征值($k$ 为任意正整数);</p>
+</li>
+<li>
+<p>当 $A$ 可逆时，$\lambda^{-1}$ 是 $A^{-1}$ 的特征值；<br>
+$|A|\lambda^{-1}$ 是 $A^*$ 的特征值.</p>
+</li>
+<li>
+<p>$\varphi(\lambda)$ 是矩阵 $\varphi(A)$ 的特征值，其中<br>
+$\varphi(x)=a_0+a_1x+\cdots+a_nx^n$.<br>
+$\boldsymbol{\xi}$ 是对应的特征向量.</p>
+</li>
+<li>
+<p>$n$ 阶矩阵 $A$ 和它的转置矩阵 $A^T$ 有相同的特征值.<br>
+<strong>证明</strong>：因为<br>
+$|\lambda E-A^T|=|(\lambda E-A)^T|=|\lambda E-A|$,<br>
+即 $A$ 和 $A^T$ 有相同的特征多项式 $\Longrightarrow A$ 和 $A^T$ 有相同的特征值.<br>
+<strong>注</strong>：$A$ 和 $A^T$ 对应于同一特征值的特征向量一般不同.</p>
+</li>
+</ol>
+<h2 id="矩阵的相似对角化">矩阵的相似对角化</h2>
+<h3 id="定义-19">定义</h3>
+<p>对 $n$ 阶方阵 $A$，如果存在可逆矩阵 $P$，使得<br>
+$P^{-1}AP=\Lambda=\text{diag}(\lambda_1,\lambda_2,\cdots,\lambda_n)$<br>
+为对角阵，则称矩阵 $A$ 可<strong>相似对角化</strong>.</p>
+<p><strong>相似对角化的作用</strong>：<br>
+若存在可逆矩阵 $P$，使得 $P^{-1}AP=\Lambda$ 为对角矩阵，则<br>
+$A^k=P\Lambda^kP^{-1}, \varphi(A)=P\varphi(\Lambda)P^{-1}$.<br>
+利用上述结论可以很方便地计算 $A$ 的幂 $A^k$ 和 $A$ 的多项式 $\varphi(A)$.</p>
+<p>而对于对角阵 $\Lambda$ 有</p>
+<p>$$\Lambda^k=\begin{pmatrix}
+\lambda_1^k & & & \\
+& \lambda_2^k & & \\
+& & \ddots & \\
+& & & \lambda_n^k
+\end{pmatrix}, \varphi(\Lambda)=\begin{pmatrix}
+\varphi(\lambda_1) & & & \\
+& \varphi(\lambda_2) & & \\
+& & \ddots & \\
+& & & \varphi(\lambda_n)
+\end{pmatrix}.$$</p>
+<p><strong>注</strong>：并非任意方阵都可对角化，如：矩阵$A=\begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}$不能对角化.</p>
+<h4 id="方阵可相似对角化的条件">方阵可相似对角化的条件</h4>
+<ol>
+<li>$A_n$能相似对角化$\Longleftrightarrow A_n$有$n$个线性无关的特征向量.</li>
+<li>$A_n$有$n$个互不相等的特征值$\Longrightarrow A_n$可相似对角化.<br>
+<strong>注</strong>：当$A$有重特征值时，$A$不一定有$n$个线性无关的特征向量，从而$A$不一定能对角化.</li>
+<li>$A_n$可相似对角化$\Longleftrightarrow A_n$每个特征值的几何重数$=$代数重数.</li>
+</ol>
+<ul>
+<li>$\lambda_0$的代数重数：$\lambda_0$作为$|\lambda E-A|=0$的根的重数;</li>
+<li>$\lambda_0$的几何重数：$(\lambda_0 E-A)\boldsymbol{x}=\boldsymbol{0}$的基础解系中解向量的个数.<br>
+<strong>关系</strong>：$1\leq\lambda_0$的几何重数$\leq\lambda_0$的代数重数.</li>
+</ul>
+<ol start="4">
+<li>$A_n$可相似对角化$\Longleftrightarrow A_n$每个重特征值的几何重数$=$代数重数.</li>
+</ol>
+<h3 id="实对称矩阵的对角化">实对称矩阵的对角化</h3>
+<p>一般的方阵$A$不一定能相似对角化，但如果$A$为实对称矩阵，那么$A$一定可以相似对角化.<br>
+本节所提到的对称矩阵均指实对称矩阵．即有$A^T=A$.</p>
+<p><strong>注意</strong>：实矩阵的特征值不一定为实数，从而特征向量也不一定为实向量. 如：$A=\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$.</p>
+<h4 id="性质-8">性质</h4>
+<ol>
+<li>实对称矩阵的特征值必为实数.<br>
+<strong>证明</strong>：</li>
+<li>设$A\boldsymbol{x}=\lambda\boldsymbol{x}$($\boldsymbol{x}\neq\boldsymbol{0}$)，其中$A^T=A$.</li>
+<li>用$\bar{\lambda}$表示$\lambda$的共轭复数，用$\bar{\boldsymbol{x}}$表示$\boldsymbol{x}$的共轭复向量.</li>
+</ol>
+<p>一方面：</p>
+<p>$\bar{\boldsymbol{x}}^T A\boldsymbol{x}=\bar{\boldsymbol{x}}^T(\lambda\boldsymbol{x})=\lambda\bar{\boldsymbol{x}}^T\boldsymbol{x}$</p>
+<p>另一方面：</p>
+<p>$\bar{\boldsymbol{x}}^T A\boldsymbol{x}=\bar{\boldsymbol{x}}^T A^T\boldsymbol{x}=(A\bar{\boldsymbol{x}})^T\boldsymbol{x}=(\bar{\lambda}\bar{\boldsymbol{x}})^T\boldsymbol{x}=\bar{\lambda}\bar{\boldsymbol{x}}^T\boldsymbol{x}$</p>
+<p>两式相减，得$(\lambda-\bar{\lambda})\bar{\boldsymbol{x}}^T\boldsymbol{x}=0$.<br>
+由于$\boldsymbol{x}\neq\boldsymbol{0}$，所以$\bar{\boldsymbol{x}}^T\boldsymbol{x}=\sum_{i=1}^n|\bar{x}_i|^2\neq0$，从而$\lambda=\bar{\lambda}$.<br>
+由此可得，$\lambda$是实数.</p>
+<p><strong>说明</strong><br>
+由于实对称矩阵$A$的特征值$\lambda_i$为实数，所以齐次线性方程组$(A-\lambda_i E)\boldsymbol{x}=\boldsymbol{0}$是实系数方程组，由$|A-\lambda_i E|=0$知，$(A-\lambda_i E)\boldsymbol{x}=\boldsymbol{0}$必有实的基础解系，从而对应的特征向量可以取实向量.</p>
+<ol start="2">
+<li>实对称矩阵$A$对应于不同特征值的特征向量正交.</li>
+</ol>
+<p><strong>证明</strong>：由条件设：$A\boldsymbol{p}_i=\lambda_i\boldsymbol{p}_i$($i=1,2$)，$\lambda_1\neq\lambda_2$，$A=A^T$.<br>
+于是</p>
+<p>$\lambda_1\boldsymbol{p}_1^T\boldsymbol{p}_2=(A\boldsymbol{p}_1)^T\boldsymbol{p}_2=\boldsymbol{p}_1^T A^T\boldsymbol{p}_2=\boldsymbol{p}_1^T A\boldsymbol{p}_2=\boldsymbol{p}_1^T(\lambda_2\boldsymbol{p}_2)=\lambda_2\boldsymbol{p}_1^T\boldsymbol{p}_2.$<br>
+即$(\lambda_1-\lambda_2)\boldsymbol{p}_1^T\boldsymbol{p}_2=0$.</p>
+<p>注意到$\lambda_1-\lambda_2\neq0$，所以$\boldsymbol{p}_1^T\boldsymbol{p}_2=0$ $\Longrightarrow$ $\boldsymbol{p}_1$与$\boldsymbol{p}_2$正交.</p>
+<h4 id="实对称矩阵的相似对角化">实对称矩阵的相似对角化</h4>
+<p>设$A$为$n$阶实对称矩阵，则必有正交矩阵$P$，使得</p>
+<p>$$P^{-1}AP=P^T AP=\begin{pmatrix}
+\lambda_1 & & & \\
+& \lambda_2 & & \\
+& & \ddots & \\
+& & & \lambda_n
+\end{pmatrix}=\Lambda.$$<br>
+其中$P=(\boldsymbol{p}_1,\boldsymbol{p}_2,\cdots,\boldsymbol{p}_n)$，$\boldsymbol{p}_i$满足$A\boldsymbol{p}_i=\lambda_i\boldsymbol{p}_i$($i=1,2,\cdots,n$).</p>
+<p>$\Longrightarrow n$阶实对称矩阵$A$的$k$重特征值$\lambda_0$必对应$k$个线性无关的特征向量，即</p>
+<p>$$r(\lambda_0 E-A)=n-k.$$</p>
+<p><strong>注</strong>：此定理说明：实对称矩阵一定可以对角化，而且相似变换矩阵可以是正交矩阵.</p>
+<h4 id="步骤">步骤</h4>
+<ol>
+<li>解$|\lambda E-A|=0$求出$A$的所有特征值$\lambda_i$;</li>
+<li>对每个$\lambda_i$，解方程组$(\lambda_i E-A)\boldsymbol{x}=\boldsymbol{0}$，求出线性无关的特征向量(即基础解系)，并将它们正交化，单位化（这是正交对角化的步骤，实际上可以不进行正交化，若不正交化则$P$不是正交矩阵）；</li>
+<li>将上述$n$个两两正交的单位特征向量作列，构成正交矩阵$P$，则<br>
+$P^{-1}AP=P^T AP=\text{diag}(\lambda_1,\lambda_2,\cdots,\lambda_n)=\Lambda,$</li>
+</ol>
+<p>其中$P=(\boldsymbol{p}_1,\boldsymbol{p}_2,\cdots,\boldsymbol{p}_n)$，$\boldsymbol{p}_i$满足$A\boldsymbol{p}_i=\lambda_i\boldsymbol{p}_i$($i=1,2,\cdots,n$).</p>
+<h3 id="二次型及其矩阵表示">二次型及其矩阵表示</h3>
+<p><strong>二次型就是二次齐次多项式</strong><br>
+如：<br>
+$x^2+y^2=a^2$和$\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$($a,b>0$)的左端均是二次型，分别表示平面上的圆和椭圆，且主轴和坐标轴重合.</p>
+<p>一般地，中心与坐标原点重合的有心二次曲线的方程是</p>
+<p>$$ax^2+bxy+cy^2=k \quad (a,b,c,k\text{为常数})$$</p>
+<p>其左端也是一个二次型，但是它表示的平面图形是什么(类型)呢？</p>
+<p>若能用可逆的线性变换将上述方程化成标准形式的方程(只含平方项，不含交叉项)，则容易看出.</p>
+<h4 id="二次型的主要问题">二次型的主要问题</h4>
+<p>利用矩阵(可逆的线性变换)，化二次型为标准形.</p>
+<p>例如$x^2-xy+y^2=4$，通过(旋转)变换</p>
+<p>$$\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} 1/\sqrt{2} & 1/\sqrt{2} \\ -1/\sqrt{2} & 1/\sqrt{2} \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix}$$</p>
+<p>可化为标准形$\frac{x'^2}{2}+\frac{3y'^2}{2}=4$.</p>
+<p>又$x^2-xy+y^2=(x-\frac{1}{2}y)^2+\frac{3}{4}y^2$，所以它也可以通过可逆变换</p>
+<p>$$\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} 1 & -1/2 \\ 0 & \sqrt{3}/2 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix}$$</p>
+<p>化为标准形$x'^2+y'^2=4$. 但此时曲线形状发生了改变，因为所用的变换不是正交变换.</p>
+<p><strong>注</strong>：要使曲线在坐标变换过程中保持形状不变，则必须使用正交变换. 因为所用的变换为正交变换，所以从标准形可知原方程表示的是椭圆.</p>
+<h4 id="二次型的矩阵表示">二次型的矩阵表示</h4>
+<p>例如3元二次型$f=x^2+2y^2-3z^2-4xy+2yz+6xz$可以写成：</p>
+<p>$$
+f=(x,y,z)\begin{pmatrix} 1 & -2 & 3 \\ -2 & 2 & 1 \\ 3 & 1 & -3 \end{pmatrix}\begin{pmatrix} x \\ y \\ z \end{pmatrix}
+$$</p>
+<p>为保证唯一性，约定矩阵为对称矩阵.</p>
+<h4 id="$n$元二次型的定义">$n$元二次型的定义</h4>
+<p>$n$元二次齐次多项式</p>
+<p>$$f(x_1,x_2,\cdots,x_n)=a_{11}x_1^2+2a_{12}x_1x_2+2a_{13}x_1x_3+\cdots+2a_{1n}x_1x_n+a_{22}x_2^2+2a_{23}x_2x_3+\cdots+2a_{2n}x_2x_n+\cdots+a_{nn}x_n^2$$</p>
+<p>称为（$n$<strong>元</strong>）<strong>二次型</strong></p>
+<p>当$a_{ij}\in\mathbb{C}$时，称$f$为<strong>复二次型</strong>；当$a_{ij}\in\mathbb{R}$时，称$f$为<strong>实二次型</strong>.</p>
+<h4 id="用矩阵表示二次型">用矩阵表示二次型</h4>
+<p>对二次型</p>
+<p>$$f(x_1,x_2,\cdots,x_n)=a_{11}x_1^2+2a_{12}x_1x_2+2a_{13}x_1x_3+\cdots+2a_{1n}x_1x_n+a_{22}x_2^2+2a_{23}x_2x_3+\cdots+2a_{2n}x_2x_n+\cdots+a_{nn}x_n^2$$</p>
+<p>$i>j$时令$a_{ji}=a_{ij}$，则$2a_{ij}x_ix_j=a_{ij}x_ix_j+a_{ji}x_jx_i$，</p>
+<p>$$\begin{aligned}
+f(x_1,x_2,\cdots,x_n)&=a_{11}x_1^2+a_{12}x_1x_2+\cdots+a_{1n}x_1x_n\\
+&+a_{21}x_2x_1+a_{22}x_2^2+\cdots+a_{2n}x_2x_n\\
+&+\cdots\\
+&+a_{n1}x_nx_1+a_{n2}x_nx_2+\cdots+a_{nn}x_n^2
+\end{aligned}$$</p>
+<p>$$=(x_1,x_2,\cdots,x_n)\begin{pmatrix}
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n\\
+a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n\\
+\cdots\\
+a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n
+\end{pmatrix}$$</p>
+<p>$$=(x_1,x_2,\cdots,x_n)\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n}\\
+a_{21} & a_{22} & \cdots & a_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{pmatrix}\begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}$$</p>
+<p>若记$A=\begin{pmatrix}a_{11} & a_{12} & \cdots & a_{1n}\\a_{21} & a_{22} & \cdots & a_{2n}\\\vdots & \vdots & \ddots & \vdots\\a_{n1} & a_{n2} & \cdots & a_{nn}\end{pmatrix}，\boldsymbol{x}=\begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}$</p>
+<p>则二次型可记作$f=\boldsymbol{x}^T A\boldsymbol{x}$，其中$A$为对称矩阵.</p>
+<h4 id="二次型的矩阵与秩">二次型的矩阵与秩</h4>
+<p>二次型与对称矩阵一一对应．标准二次型对应的矩阵为对角阵</p>
+<p>对称矩阵$A$叫做二次型$f$的矩阵，$f$叫做对称矩阵$A$的二次型.</p>
+<p>对称矩阵$A$的秩叫做<strong>二次型$f$的秩</strong>.</p>
+<h4 id="化二次型为标准形">化二次型为标准形</h4>
+<p>设</p>
+<p>$$\begin{cases}
+x_1=c_{11}y_1+c_{12}y_2+\cdots+c_{1n}y_n\\
+x_2=c_{21}y_1+c_{22}y_2+\cdots+c_{2n}y_n\\
+\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\cdots\\
+x_n=c_{n1}y_1+c_{n2}y_2+\cdots+c_{nn}y_n
+\end{cases}$$</p>
+<p>对于二次型，讨论的主要问题是：寻求可逆(满秩，非退化)的线性变换，将二次型化为标准形．</p>
+<p>从矩阵的角度看，主要问题是：<br>
+对于实对称矩阵$A$，寻找可逆阵$C$，使得$C^T AC$为对角阵.</p>
+<p>记$C=(c_{ij})$，则上述可逆线性变换可记作$\boldsymbol{x}=C\boldsymbol{y}$.</p>
+<p>将其代入$f=\boldsymbol{x}^T A\boldsymbol{x}$得：</p>
+<p>$$f=(C\boldsymbol{y})^T A(C\boldsymbol{y})=\boldsymbol{y}^T C^T AC \boldsymbol{y}.$$</p>
+<h4 id="合同矩阵">合同矩阵</h4>
+<h5 id="定义-20">定义</h5>
+<p>对两个方阵$A$和$B$，若存在可逆阵$C$，使得$C^T AC=B$，则称$A$与$B$合同)，记为$A\simeq B$，$C$称为合同变换矩阵.</p>
+<ol>
+<li>合同关系是等价关系.</li>
+<li>对称矩阵的合同矩阵一定也是对称矩阵.</li>
+<li>当实对称矩阵$A$与$B$合同时，也称它们对应的二次型合同.</li>
+<li>$A$与$B$相似$\Longrightarrow A$与$B$等价<br>
+$A$与$B$合同$\Longrightarrow A$与$B$等价<br>
+若$A$与$B$均为实对称矩阵，则$A$与$B$相似$\Longrightarrow A$与$B$合同</li>
+</ol>
+<h5 id="性质-9">性质</h5>
+<p>若$A\simeq B$，合同变换矩阵为$C$，即$C^T AC=B$，则</p>
+<ol>
+<li>$A$与$B$有相同的秩，即$r(A)=r(B)$.</li>
+<li>$A^T\simeq B^T$，且合同变换矩阵仍为$C$.</li>
+<li>当$A$可逆时，$A^{-1}\simeq B^{-1}$，$A^*\simeq B^*$.</li>
+</ol>
+<h3 id="化二次型为标准形-2">化二次型为标准形</h3>
+<h4 id="正交变换法">正交变换法</h4>
+<p>已有结论：<br>
+对任意实对称矩阵$A$，一定存在正交矩阵$P$，使得</p>
+<p>$$P^{-1}AP=\Lambda=\text{diag}(\lambda_1,\lambda_2,\cdots,\lambda_n)$$</p>
+<p>其中$\lambda_1,\lambda_2,\cdots,\lambda_n$为矩阵$A$的$n$个特征值.</p>
+<p>因为$P$为正交阵，所以$P^{-1}=P^T$，于是</p>
+<p>$$P^T AP=\Lambda=\text{diag}(\lambda_1,\lambda_2,\cdots,\lambda_n).$$</p>
+<p><strong>主轴定理</strong>： 任给实二次型$f(\boldsymbol{x})=\boldsymbol{x}^T A\boldsymbol{x}$，总有正交变换$\boldsymbol{x}=Q\boldsymbol{y}$，使$f$化为标准形</p>
+<p>$$f=\lambda_1 y_1^2+\lambda_2 y_2^2+\cdots+\lambda_n y_n^2$$</p>
+<p>其中$\lambda_1,\lambda_2,\cdots,\lambda_n$为对称矩阵$A$的$n$个特征值，正交矩阵$Q$的$n$个列向量$\boldsymbol{q}_1,\boldsymbol{q}_2,\cdots,\boldsymbol{q}_n$是$A$的对应于特征值$\lambda_1,\lambda_2,\cdots,\lambda_n$的标准正交的特征向量.</p>
+<p>正交变换法化二次型为标准形的步骤：</p>
+<ol>
+<li>
+<p>写出二次型$f(\boldsymbol{x})=\boldsymbol{x}^T A\boldsymbol{x}$中的实对称矩阵$A$;</p>
+</li>
+<li>
+<p>求出$A$的所有特征值$\lambda_1,\lambda_2,\cdots,\lambda_n$(重根按重数计算);</p>
+</li>
+<li>
+<p>求出$A$的对应于特征值$\lambda_i$的正交单位化的特征向量组，从而有正交单位向量组$\boldsymbol{q}_1,\boldsymbol{q}_2,\cdots,\boldsymbol{q}_n$;</p>
+</li>
+<li>
+<p>记$Q=(\boldsymbol{q}_1,\boldsymbol{q}_2,\cdots,\boldsymbol{q}_n)$，作正交变换$\boldsymbol{x}=Q\boldsymbol{y}$，则得$f$的标准形：</p>
+<p>$$
+   f=\lambda_1 y_1^2+\lambda_2 y_2^2+\cdots+\lambda_n y_n^2.
+$$</p>
+</li>
+</ol>
+<h4 id="拉格朗日配方法">拉格朗日配方法</h4>
+<ol>
+<li>
+<p>若二次型含有$x_i$的平方项，则先把含有$x_i$的乘积项集中，配成完全平方项，再对其余的变量同样进行，直到都配成平方项为止，经过可逆线性变换，就得到标准形.</p>
+</li>
+<li>
+<p>若二次型中不含有平方项，但是$a_{ij}\neq0$($i\neq j$)，则先作可逆线性变换：</p>
+<p>$$\begin{cases}
+   x_i=y_i-y_j\\
+   x_j=y_i+y_j\\
+   x_k=y_k & (k\neq i,j)
+   \end{cases}$$<br>
+化二次型为含有平方项的二次型，然后再按1中方法配方.</p>
+</li>
+</ol>
+<h4 id="初等变换法">初等变换法</h4>
+<p>问题：对任一个$n$阶实对称矩阵$A$，寻找可逆阵$C$，使得</p>
+<p>$$C^T AC=\text{diag}(d_1,d_2,\cdots,d_n).$$</p>
+<p>$\because C$可逆，$\therefore$存在一列初等矩阵使得$C=P_1P_2\cdots P_k$，于是</p>
+<p>$$C^T AC=P_k^T\cdots P_2^T P_1^T AP_1P_2\cdots P_k=\text{diag}(d_1,d_2,\cdots,d_n).$$</p>
+<p>且$C=P_1P_2\cdots P_k=EP_1P_2\cdots P_k$</p>
+<p>注意到$E(i\leftrightarrow j)^T=E(i\leftrightarrow j)$,<br>
+$E(i(k))^T=E(i(k))$,<br>
+$E(i+j(k))^T=E(j+i(k))$.</p>
+<p>故$P_k^T\cdots P_2^T P_1^T AP_1P_2\cdots P_k$表示对$A$进行同类型的初等行、列变换.</p>
+<p><strong>注</strong>：这里$C$不一定是正交矩阵，$d_1,d_2,\cdots,d_n$也不一定是$A$的特征值.</p>
+<p>由</p>
+<p>$$\begin{pmatrix} A \\ E \end{pmatrix}\xrightarrow[\text{同类型的初等行，列变换}]{}\begin{pmatrix} \Lambda \\ C \end{pmatrix}$$</p>
+<p>可知方法如下:<br>
+$C^T AC=P_k^T\cdots P_2^T P_1^T AP_1P_2\cdots P_k=\text{diag}(d_1,d_2,\cdots,d_n).$<br>
+$C=P_1P_2\cdots P_k=EP_1P_2\cdots P_k$</p>
+<h3 id="惯性定理和二次型的规范形">惯性定理和二次型的规范形</h3>
+<p>一个实二次型，既可以通过正交变换法化为标准形，也可以通过拉格朗日配方法或者初等变换法化为标准形. 显然，其标准形一般来说是不唯一的，但标准形中所含有的项数是确定的，项数等于二次型的秩．</p>
+<h4 id="惯性定理">惯性定理</h4>
+<p>一个$n$元二次型$f=\boldsymbol{x}^T A\boldsymbol{x}$，经任意可逆线性变换化为标准形$f=k_1y_1^2+k_2y_2^2+\cdots+k_ny_n^2$后，标准形中正平方项的个数$p$和负平方项的个数$q$是唯一确定的. 且$p+q=r(A)$.</p>
+<ul>
+<li>二次型$\boldsymbol{x}^T A\boldsymbol{x}$(或$A$)的正惯性指数：标准形中正系数的个数$p$,</li>
+<li>二次型$\boldsymbol{x}^T A\boldsymbol{x}$(或$A$)的负惯性指数：标准形中负系数的个数$q$.</li>
+<li>符号差：正、负惯性指数的差$p-q$.<br>
+求二次型的秩，有两种方法：</li>
+</ul>
+<ol>
+<li>求二次型对应的矩阵的秩；</li>
+<li>将二次型化为标准形(用可逆变换)，标准形中的项数即为二次型的秩.</li>
+</ol>
+<h4 id="实二次型的规范形">实二次型的规范形</h4>
+<ul>
+<li>设二次型$f$的秩为$r$，正惯性指数为$p$，则$f$一定可经过可逆的线性变换化为标准形</li>
+</ul>
+<p>$f=d_1y_1^2+\cdots+d_py_p^2-d_{p+1}y_{p+1}^2-\cdots-d_ry_r^2, \quad d_i>0, i=1,2,\cdots,r.$</p>
+<p>继续做可逆线性变换</p>
+<p>$\begin{cases}<br>
+y_i=\frac{z_i}{\sqrt{d_i}} &amp; i=1,2,\cdots,r\<br>
+y_j=z_j &amp; (j=r+1,r+2,\cdots,n)<br>
+\end{cases}$</p>
+<p>则上述标准二次型可进一步化为</p>
+<p>$f=z_1^2+\cdots+z_p^2-z_{p+1}^2-\cdots-z_r^2,$</p>
+<p>称之为二次型的规范形.</p>
+<p><strong>注</strong>：规范形首先是标准形，且其系数只在$-1,0,1$三个数中取值.</p>
+<ul>
+<li>任意实数域上的$n$元二次型$f=\boldsymbol{x}^T A\boldsymbol{x}$，总可以经过可逆的线性变换化为规范形，且规范形是唯一的.</li>
+</ul>
+<p><strong>注</strong>：二次型的规范形由它的秩和正惯性指数(或者正、负惯性指数)唯一确定.</p>
+<ul>
+<li>任意实对称矩阵$A$必合同于一个下列形式的对角阵</li>
+</ul>
+<p>$$
+\begin{pmatrix}
+E_p & & \\
+& -E_q & \\
+& & O
+\end{pmatrix}=\text{diag}(\underbrace{1,\cdots,1}_{p\text{个}},\underbrace{-1,\cdots,-1}_{q\text{个}},\underbrace{0\cdots,0}_{n-p-q\text{个}}).
+$$</p>
+<p>其中$p+q=r(A)$.</p>
+<p>等价————保秩.<br>
+相似————保秩，保特征值，保行列式，保迹.<br>
+合同————保对称性，保秩，保正、负惯性指数，保正定性.</p>
+<h3 id="实二次型的正定性">实二次型的正定性</h3>
+<h4 id="正-负-定矩阵和正-负-定二次型">正(负)定矩阵和正(负)定二次型</h4>
+<p>设有二次型$f(\boldsymbol{x})=\boldsymbol{x}^T A\boldsymbol{x}$，若$\forall\boldsymbol{x}\neq\boldsymbol{0}$，有</p>
+<ol>
+<li>$f(\boldsymbol{x})>0$，则称$f$为正定二次型，并称对称矩阵$A$是正定的；</li>
+<li>$f(\boldsymbol{x})<0$，则称$f$为负定二次型，并称对称矩阵$A$是负定的.</li>
+</ol>
+<p><strong>注</strong>：</p>
+<ul>
+<li>正定或负定矩阵一定是对称矩阵.</li>
+<li>例如：$f(x_1,x_2,x_3)=x_1^2+4x_2^2+16x_3^2$为正定二次型.</li>
+<li>$f(x_1,x_2,x_3)=-x_1^2-3x_2^2-2x_3^2$为负定二次型.</li>
+<li>对称矩阵$A$为负定矩阵$\Longleftrightarrow(-A)$为正定矩阵.</li>
+</ul>
+<h4 id="正定二次型的性质">正定二次型的性质</h4>
+<p>实二次型$f(\boldsymbol{x})=\boldsymbol{x}^T A\boldsymbol{x}$经任意可逆线性变换，正定性保持不变.</p>
+<h4 id="正定二次型的判定">正定二次型的判定</h4>
+<p>$\boldsymbol{x}^T A\boldsymbol{x}$是正定二次型(或$A$是正定矩阵)的充要条件是下列之一：</p>
+<ol>
+<li>
+<p>$A$的$n$个特征值$\lambda_1,\lambda_2,\cdots,\lambda_n$全大于$0$;</p>
+</li>
+<li>
+<p>$A$的正惯性指数为$n$，即$A\simeq E$;</p>
+</li>
+<li>
+<p>存在可逆阵$P$使得$A=P^T P$;</p>
+</li>
+<li>
+<p>$A$的$n$个顺序主子式全大于$0$，即</p>
+<p>$$a_{11}>0, \begin{vmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{vmatrix}>0, \cdots, \begin{vmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} & a_{n2} & \cdots & a_{nn} \end{vmatrix}>0.$$</p>
+</li>
+</ol>
+<h4 id="负定二次型的判定">负定二次型的判定</h4>
+<p>设$A$是实对称矩阵，则下列命题等价：</p>
+<ol>
+<li>
+<p>$\boldsymbol{x}^T A\boldsymbol{x}$是负定二次型;</p>
+</li>
+<li>
+<p>$A$的$n$个特征值$\lambda_1,\lambda_2,\cdots,\lambda_n$全小于$0$;</p>
+</li>
+<li>
+<p>$A$的负惯性指数为$n$，即$A\simeq-E$;</p>
+</li>
+<li>
+<p>存在可逆阵$P$使得$A=-P^T P$;</p>
+</li>
+<li>
+<p>$A$的奇数阶顺序主子式小于$0$，偶数阶顺序主子式大于$0$，即</p>
+<p>$$(-1)^r\begin{vmatrix} a_{11} & a_{12} & \cdots & a_{1r} \\ a_{21} & a_{22} & \cdots & a_{2r} \\ \vdots & \vdots & \ddots & \vdots \\ a_{r1} & a_{r2} & \cdots & a_{rr} \end{vmatrix}>0 \quad r=1,2,\cdots,r.$$</p>
+</li>
+</ol>
+<h4 id="简单结论-3">简单结论</h4>
+<ol>
+<li>若$A$为正定的，则$A^T$, $A^{-1}$, $kA$($k$为正数), $A^*$均为正定矩阵. (用特征值判定)</li>
+<li>若$A$, $B$均为$n$阶正定矩阵，则$kA+lB$($k$和$l$为正数)也是正定矩阵. (用定义判定)</li>
+<li>若$A$, $B$分别为$m$阶, $n$阶正定矩阵，则分块矩阵$C=\begin{pmatrix} A & O \\ O & B \end{pmatrix}$也为正定矩阵. (用特征值或定义判定)</li>
+<li>若$A$为$n$阶正定矩阵，$C$为$n$阶可逆矩阵，则$C^T AC$也是正定矩阵. (用特征值或定义判定)</li>
+<li>若$A$为$n$阶正定矩阵，则$A$一定对称且可逆.</li>
+<li>若$A$为$n$阶正定矩阵，则一定存在正定矩阵$B$，使得$A=B^2$，也记作$B=A^{\frac{1}{2}}$.</li>
+</ol>
+<h4 id="其他类型的实二次型">其他类型的实二次型</h4>
+<p>设有二次型$f(\boldsymbol{x})=\boldsymbol{x}^T A\boldsymbol{x}$, $\forall\boldsymbol{x}\neq\boldsymbol{0}$,</p>
+<ol>
+<li>$f(\boldsymbol{x})\geq0$，且$\exists\boldsymbol{x}_0\neq\boldsymbol{0}$，使$f(\boldsymbol{x}_0)=0$，则称$f$为半正定二次型，并称对称矩阵$A$是半正定的；</li>
+<li>$f(\boldsymbol{x})\leq0$，且$\exists\boldsymbol{x}_0\neq\boldsymbol{0}$，使$f(\boldsymbol{x}_0)=0$，则称$f$为半负定二次型，并称对称矩阵$A$是半负定的.</li>
+</ol>
+<p><strong>注</strong>：</p>
+<ul>
+<li>正定、半正定、负定、半负定二次型统称为有定二次型.</li>
+<li>不是有定的二次型，就称为不定二次型.</li>
+<li>有定矩阵一定是对称矩阵.</li>
+<li>对称矩阵$A$为半负定矩阵$\Longleftrightarrow(-A)$为半正定矩阵.</li>
+</ul>
+<h4 id="半正定二次型的判定">半正定二次型的判定</h4>
+<p>设$A$是$n$阶实对称矩阵，则下列命题等价：</p>
+<ol>
+<li>$\boldsymbol{x}^T A\boldsymbol{x}$是半正定二次型(或$A$是半正定矩阵)；</li>
+<li>$A$的正惯性指数为$r(A)$且$r(A)<n$;</li>
+<li>存在降秩阵$B$使得$A=B^T B$.</li>
+<li>$A$的$n$个特征值都大于等于$0$，且至少有一个等于$0$;</li>
+<li>$A\simeq\text{diag}(1,\cdots,1,0,\cdots,0)$，其中有$r(A)$个$1$且$r(A)<n$;</li>
+<li>$A$的各阶顺序主子式大于等于$0$，且至少有一个等于$0$.</li>
+</ol>
+
+    </div>
+  </article>
+
+
+
+
+
+
+  <nav class="pagination">
+    
+      <a class="prev" href="/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/">n元排列</a>
+    
+    
+      <a class="next" href="/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/">线性方程组</a>
+    
+  </nav>
+
+
+      </div>
+    </main>
+    
+<aside class="sidebar-right open" id="sidebar-right">
+  <div class="sidebar-right-inner">
+    
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5"><span class="toc-text">特殊矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E5%9E%8B%E7%9F%A9%E9%98%B5%E4%B8%8E%E7%9F%A9%E9%98%B5%E7%9A%84%E7%9B%B8%E7%AD%89"><span class="toc-text">同型矩阵与矩阵的相等</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E6%B3%95"><span class="toc-text">加法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E8%A7%84%E5%BE%8B"><span class="toc-text">运算规律</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%98%E6%B3%95"><span class="toc-text">乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E4%B9%98"><span class="toc-text">数乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="toc-text">矩阵乘法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">可交换矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E9%98%B5%E7%9A%84%E5%B9%82"><span class="toc-text">方阵的幂</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">方阵的多项式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">矩阵的转置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8"><span class="toc-text">运算性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">对称矩阵与反对称矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%BB%93%E8%AE%BA-2"><span class="toc-text">简单结论</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">矩阵的共轭</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-6"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8-2"><span class="toc-text">运算性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">矩阵的迹</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-7"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">方阵的行列式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-8"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8-3"><span class="toc-text">运算性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">伴随矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-9"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86"><span class="toc-text">定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">可逆矩阵和逆矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-10"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8-4"><span class="toc-text">运算性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%82%E9%80%86%E7%9F%A9%E9%98%B5%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">求逆矩阵的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%AE%9A%E4%B9%89%E6%B1%82%E9%80%86%E7%9F%A9%E9%98%B5"><span class="toc-text">利用定义求逆矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%85%AC%E5%BC%8F%E6%B1%82%E9%80%86%E7%9F%A9%E9%98%B5"><span class="toc-text">利用公式求逆矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%88%9D%E7%AD%89%E5%8F%98%E6%8D%A2%E6%B1%82%E9%80%86%E7%9F%A9%E9%98%B5"><span class="toc-text">利用初等变换求逆矩阵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%86%E7%9F%A9%E9%98%B5%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">逆矩阵的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E5%BC%82%E7%9F%A9%E9%98%B5%E4%B8%8E%E9%9D%9E%E5%A5%87%E5%BC%82%E7%9F%A9%E9%98%B5"><span class="toc-text">奇异矩阵与非奇异矩阵</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">矩阵的初等变换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-11"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E7%AD%89%E7%9F%A9%E9%98%B5"><span class="toc-text">初等矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-12"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8-2"><span class="toc-text">应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%88%9D%E7%AD%89%E5%8F%98%E6%8D%A2%E8%A7%A3%E7%9F%A9%E9%98%B5%E6%96%B9%E7%A8%8B"><span class="toc-text">利用初等变换解矩阵方程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">分块矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97"><span class="toc-text">运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%9D%97%E5%AF%B9%E8%A7%92%E7%9F%A9%E9%98%B5"><span class="toc-text">分块对角矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-13"><span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-3"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%9D%97%E5%88%9D%E7%AD%89%E7%9F%A9%E9%98%B5"><span class="toc-text">分块初等矩阵</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">矩阵的秩</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E8%A1%8C%E7%A7%A9%E5%92%8C%E5%88%97%E7%A7%A9"><span class="toc-text">矩阵的行秩和列秩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-14"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-4"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-15"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-5"><span class="toc-text">性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84-$k$-%E9%98%B6%E5%AD%90%E5%BC%8F"><span class="toc-text">矩阵的 $k$ 阶子式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-16"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-6"><span class="toc-text">性质</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">相似矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-17"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-7"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">矩阵的特征值和二次型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%80%BC%E5%92%8C%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F"><span class="toc-text">特征值和特征向量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-18"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%82%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-text">求取方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%80%BC%E7%9A%84%E5%87%A0%E4%BD%95%E9%87%8D%E6%95%B0%E4%B8%8E%E4%BB%A3%E6%95%B0%E9%87%8D%E6%95%B0"><span class="toc-text">特征值的几何重数与代数重数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-text">特征向量的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E5%80%BC%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-text">特征值的性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%AF%B9%E8%A7%92%E5%8C%96"><span class="toc-text">矩阵的相似对角化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-19"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5%E7%9A%84%E5%AF%B9%E8%A7%92%E5%8C%96"><span class="toc-text">实对称矩阵的对角化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E6%AC%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E7%9F%A9%E9%98%B5%E8%A1%A8%E7%A4%BA"><span class="toc-text">二次型及其矩阵表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%96%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%BA%E6%A0%87%E5%87%86%E5%BD%A2-2"><span class="toc-text">化二次型为标准形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%AF%E6%80%A7%E5%AE%9A%E7%90%86%E5%92%8C%E4%BA%8C%E6%AC%A1%E5%9E%8B%E7%9A%84%E8%A7%84%E8%8C%83%E5%BD%A2"><span class="toc-text">惯性定理和二次型的规范形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E4%BA%8C%E6%AC%A1%E5%9E%8B%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7"><span class="toc-text">实二次型的正定性</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  </div>
+  <footer class="footer">
+  © 2024 OneBLog
+  
+    <span> · </span>
+    
+    
+      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
+      
+    
+  
+  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
+</footer>
+
+  <div class="float-menu" id="float-menu">
+    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
+    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
+    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
+    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
+  </div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    ignoredClasses: ['no-math']
+  });">
+</script>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

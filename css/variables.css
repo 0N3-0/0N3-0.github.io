@@ -1,0 +1,49 @@
+/* ===== Color Tokens ===== */
+
+/* Dark mode (default) */
+:root {
+  --bg: #0f181c;
+  --bg-sidebar: #14242d;
+  --bg-card: #283d45;
+  --code-bg: #23333d;
+  --heading: #f5f4f4;
+  --text: #bac9d0;
+  --text-muted: #5f6e74;
+  --border: #3f545d;
+  --accent: #35667a;
+  --sidebar-width: 300px;
+  --header-height: 44px;
+
+  /* Syntax highlighting */
+  --hl-keyword: #ff7b72;
+  --hl-function: #79c0ff;
+  --hl-string: #a5d6ff;
+  --hl-comment: #5f6e74;
+}
+
+/* Light mode */
+[data-theme="light"] {
+  --bg: #c1c4c5;
+  --bg-sidebar: #cdcfd0;
+  --bg-card: #cdcfd0;
+  --code-bg: #cdcfd0;
+  --heading: #1a1b1d;
+  --text: #2a2b2d;
+  --text-muted: #5a5c5e;
+  --border: #a8aaac;
+  --accent: #0969da;
+  --sidebar-width: 300px;
+  --header-height: 44px;
+
+  --hl-keyword: #cf222e;
+  --hl-function: #0550ae;
+  --hl-string: #0a3069;
+  --hl-comment: #5a5c5e;
+}
+
+/* ===== Font Stacks ===== */
+
+:root {
+  --font-body: "HackNF", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+  --font-mono: "HackNF", "JetBrains Mono", "Fira Code", monospace;
+}
