@@ -139,44 +139,69 @@
     return e.text;
   });
 
+  var container = document.getElementById('tag-sphere');
+  var rect = container.getBoundingClientRect();
+  var radius = Math.min(280, Math.floor(rect.width / 2.2));
+
   var instance = TagCloud('#tag-sphere', tags, {
-    radius: 280,
+    radius: radius,
     maxSpeed: 'normal',
-    initSpeed: 'slow',
+    initSpeed: 'fast',
     direction: 135,
     keep: true
   });
 
-  var container = document.getElementById('tag-sphere');
   var dragging = false, lastX, lastY;
 
-  container.addEventListener('mousedown', function(e) {
+  function onStart(x, y, e) {
     dragging = true;
-    lastX = e.clientX;
-    lastY = e.clientY;
+    lastX = x;
+    lastY = y;
     if (instance) {
       instance.mouseX0 = instance.mouseX;
       instance.mouseY0 = instance.mouseY;
     }
-    e.preventDefault();
-  });
+    if (e.type === 'mousedown') {
+      e.preventDefault();
+    }
+  }
 
-  container.addEventListener('mousemove', function(e) {
+  function onMove(x, y, e) {
     if (!dragging || !instance) return;
-    var dx = e.clientX - lastX;
-    var dy = e.clientY - lastY;
+    var dx = x - lastX;
+    var dy = y - lastY;
     instance.mouseX += dx * 0.8;
     instance.mouseY += dy * 0.8;
     instance.mouseX0 = instance.mouseX;
     instance.mouseY0 = instance.mouseY;
-    lastX = e.clientX;
-    lastY = e.clientY;
+    lastX = x;
+    lastY = y;
     e.stopPropagation();
-  });
+  }
 
-  document.addEventListener('mouseup', function() {
+  function onEnd() {
     dragging = false;
+  }
+
+  container.addEventListener('mousedown', function(e) {
+    onStart(e.clientX, e.clientY, e);
   });
+  container.addEventListener('mousemove', function(e) {
+    onMove(e.clientX, e.clientY, e);
+  });
+  document.addEventListener('mouseup', onEnd);
+
+  container.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      onStart(e.touches[0].clientX, e.touches[0].clientY, e);
+    }
+  }, { passive: false });
+  container.addEventListener('touchmove', function(e) {
+    if (e.touches.length === 1) {
+      onMove(e.touches[0].clientX, e.touches[0].clientY, e);
+    }
+  }, { passive: false });
+  container.addEventListener('touchend', onEnd);
 
   // Click: navigate to tag page
   container.addEventListener('click', function(e) {
@@ -196,7 +221,6 @@
     
 <aside class="sidebar-right" id="sidebar-right" data-auto-open="false">
   <div class="sidebar-right-inner">
-    
     
   </div>
 </aside>
@@ -223,6 +247,7 @@
     <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
   </div>
   
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"

@@ -1,7 +1,45 @@
 (function() {
   'use strict';
 
+  const ICON_COLLAPSED = '\u25BC';
+  const ICON_EXPANDED = '\u25B2';
+  const ICON_BRANCH = '\u25B6';
+  const ICON_SUN = '\u2600';
+  const ICON_MOON = '\u263E';
+  const ICON_BRANCH_MID = '\u251C\u2500\u2500 ';
+  const ICON_BRANCH_END = '\u2514\u2500\u2500 ';
+  const ICON_PIPE = '\u2502   ';
+  const ICON_SPACE = '    ';
+
+  const COPY_FEEDBACK_MS = 1500;
+  const FLOAT_STAGGER_S = 0.1;
+  const CODE_COLLAPSE_H = 300;
+
+  function isMobile() {
+    return window.matchMedia('(max-width: 767px)').matches;
+  }
+
+  function closeAllSidebars() {
+    if (sidebarLeft && sidebarLeft.classList.contains('open')) {
+      setSidebarLeft(false);
+    }
+    if (sidebarRight && sidebarRight.classList.contains('open')) {
+      setSidebarRight(false);
+    }
+  }
+
+  function closeFloatMenu() {
+    if (!floatOpen) return;
+    floatOpen = false;
+    floatSubs.forEach(function(el) {
+      el.style.transitionDelay = '0s';
+      el.style.transform = 'translate(0, 0) scale(0)';
+      el.classList.remove('open');
+    });
+  }
+
   const mainEl = document.querySelector('.main');
+  let floatOpen = false;
 
   // === Theme toggle ===
   const btnTheme = document.getElementById('btn-theme');
@@ -11,7 +49,7 @@
   const savedTheme = localStorage.getItem('theme') || 'dark';
   html.setAttribute('data-theme', savedTheme);
   if (savedTheme === 'light') {
-    themeIcon.textContent = '\u2600';
+    themeIcon.textContent = ICON_SUN;
   }
 
   if (btnTheme) {
@@ -20,7 +58,7 @@
       const next = current === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
-      themeIcon.textContent = next === 'dark' ? '\u263E' : '\u2600';
+      themeIcon.textContent = next === 'dark' ? ICON_MOON : ICON_SUN;
     });
   }
 
@@ -53,6 +91,9 @@
     if (!sidebarLeft) return;
     if (open) {
       sidebarLeft.classList.add('open');
+      if (isMobile()) {
+        setSidebarRight(false);
+      }
     } else {
       sidebarLeft.classList.remove('open');
     }
@@ -65,10 +106,14 @@
     if (!sidebarRight) return;
     if (open) {
       sidebarRight.classList.add('open');
+      if (isMobile()) {
+        setSidebarLeft(false);
+      }
     } else {
       sidebarRight.classList.remove('open');
     }
     localStorage.setItem('sidebar-right', open ? 'open' : 'closed');
+    if (overlay) overlay.classList.toggle('show', open);
     updatePadding();
   }
 
@@ -77,24 +122,28 @@
   // localStorage is still updated when user manually toggles.
 
   if (overlay) {
-    overlay.addEventListener('click', function() {
-      setSidebarLeft(false);
-    });
+    overlay.addEventListener('click', closeAllSidebars);
   }
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && sidebarLeft && sidebarLeft.classList.contains('open')) {
-      setSidebarLeft(false);
+    if (e.key === 'Escape') {
+      closeAllSidebars();
     }
   });
+
+  if (mainEl) {
+    mainEl.addEventListener('click', function() {
+      if (!isMobile()) return;
+      closeAllSidebars();
+    });
+  }
 
   // === Float gear menu ===
   const floatMenu = document.getElementById('float-menu');
   const floatBtnGear = document.getElementById('float-btn-gear');
   const floatSubs = document.querySelectorAll('.float-btn-sub');
   const floatRadius = 65;
-  const floatStartAngle = 135; // bottom-left, degrees from +x axis CCW
-  const floatEndAngle = 225;   // top-left
-  let floatOpen = false;
+  const floatStartAngle = 135;
+  const floatEndAngle = 225;
 
   if (floatBtnGear && floatSubs.length > 0) {
     // Pre-calculate positions for each sub-button
@@ -112,35 +161,24 @@
     });
 
     floatBtnGear.addEventListener('click', function() {
-      floatOpen = !floatOpen;
       if (floatOpen) {
+        closeFloatMenu();
+      } else {
+        floatOpen = true;
         positions.forEach(function(pos, i) {
-          pos.el.style.transitionDelay = (i * 0.1) + 's';
-          // Force initial state before transitioning
+          pos.el.style.transitionDelay = (i * FLOAT_STAGGER_S) + 's';
           pos.el.style.transform = 'translate(0, 0) scale(0)';
           pos.el.getBoundingClientRect();
           pos.el.style.transform = 'translate(' + pos.x + 'px, ' + pos.y + 'px) scale(1)';
           pos.el.classList.add('open');
         });
-      } else {
-        positions.forEach(function(pos, i) {
-          pos.el.style.transitionDelay = '0s';
-          pos.el.style.transform = 'translate(0, 0) scale(0)';
-          pos.el.classList.remove('open');
-        });
       }
     });
   }
 
-  // Close float menu on outside click
   document.addEventListener('click', function(e) {
     if (floatMenu && !floatMenu.contains(e.target) && floatOpen) {
-      floatOpen = false;
-      floatSubs.forEach(function(el) {
-        el.style.transitionDelay = '0s';
-        el.style.transform = 'translate(0, 0) scale(0)';
-        el.classList.remove('open');
-      });
+      closeFloatMenu();
     }
   });
 
@@ -209,7 +247,7 @@
         setTimeout(function() {
           bar.textContent = bar.getAttribute('data-lang') || 'code';
           bar.classList.remove('copied');
-        }, 1500);
+        }, COPY_FEEDBACK_MS);
       }).catch(function() {});
     }
   });
@@ -225,10 +263,10 @@
 
     var btn = document.createElement('button');
     btn.className = 'code-expand';
-    btn.textContent = '\u25BC';
+    btn.textContent = ICON_COLLAPSED;
     fig.appendChild(btn);
 
-    if (body.scrollHeight <= 300) {
+    if (body.scrollHeight <= CODE_COLLAPSE_H) {
       btn.classList.add('hidden');
     } else {
       body.classList.add('collapsible');
@@ -237,10 +275,10 @@
     btn.addEventListener('click', function() {
       if (body.classList.contains('expanded')) {
         body.classList.remove('expanded');
-        this.textContent = '\u25BC';
+        this.textContent = ICON_COLLAPSED;
       } else {
         body.classList.add('expanded');
-        this.textContent = '\u25B2';
+        this.textContent = ICON_EXPANDED;
       }
     });
   });
@@ -256,7 +294,7 @@
         const hasChildren = childOL && childOL.children.length > 0;
         const isLast = !li.nextElementSibling;
 
-        const branch = isLast ? '\u2514\u2500\u2500 ' : '\u251C\u2500\u2500 ';
+        const branch = isLast ? ICON_BRANCH_END : ICON_BRANCH_MID;
         const line = prefix + branch;
 
         const lineSpan = document.createElement('span');
@@ -267,10 +305,10 @@
         if (hasChildren) {
           const toggle = document.createElement('span');
           toggle.className = 'tree-toggle';
-          toggle.textContent = '\u25BC';
+          toggle.textContent = ICON_COLLAPSED;
           if (link) link.parentNode.insertBefore(toggle, link);
 
-          walk(childOL, prefix + (isLast ? '    ' : '\u2502   '));
+          walk(childOL, prefix + (isLast ? ICON_SPACE : ICON_PIPE));
         }
       });
     })(tocRoot.querySelector('.toc'), '');
@@ -282,10 +320,8 @@
     });
   }
 
-  // TOC toggle via event delegation
-  var tocRootForClick = document.getElementById('sidebar-right');
-  if (tocRootForClick) {
-    tocRootForClick.addEventListener('click', function(e) {
+  if (tocRoot) {
+    tocRoot.addEventListener('click', function(e) {
       var toggle = e.target.closest('.tree-toggle');
       if (!toggle) return;
       e.preventDefault();
@@ -297,14 +333,14 @@
         if (collapsed) {
           childEl.classList.remove('collapsed');
           childEl.style.maxHeight = childEl.scrollHeight + 'px';
-          toggle.textContent = '\u25BC';
+          toggle.textContent = ICON_COLLAPSED;
         } else {
           childEl.style.maxHeight = childEl.scrollHeight + 'px';
           requestAnimationFrame(function() {
             childEl.classList.add('collapsed');
             childEl.style.maxHeight = '0px';
           });
-          toggle.textContent = '\u25B6';
+          toggle.textContent = ICON_BRANCH;
         }
       }
     });
@@ -314,12 +350,27 @@
 
   function updatePadding() {
     if (!mainEl) return;
-    const hPad = parseInt(getComputedStyle(document.documentElement).fontSize) * 2.5;
-    const sidebarW = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width'));
-    const leftOpen = sidebarLeft && sidebarLeft.classList.contains('open');
-    const rightOpen = sidebarRight && sidebarRight.classList.contains('open');
+    if (isMobile()) {
+      mainEl.style.paddingLeft = '';
+      mainEl.style.paddingRight = '';
+      return;
+    }
+    var style = getComputedStyle(document.documentElement);
+    var hPad = parseInt(style.fontSize) * parseFloat(style.getPropertyValue('--main-hpad'));
+    var sidebarW = parseInt(style.getPropertyValue('--sidebar-width'));
+    var leftOpen = sidebarLeft && sidebarLeft.classList.contains('open');
+    var rightOpen = sidebarRight && sidebarRight.classList.contains('open');
     mainEl.style.paddingLeft = (leftOpen ? sidebarW : hPad) + 'px';
     mainEl.style.paddingRight = (rightOpen ? sidebarW : hPad) + 'px';
+  }
+
+  if (!isMobile()) {
+    if (sidebarLeft && sidebarLeft.getAttribute('data-auto-open') !== 'false') {
+      sidebarLeft.classList.add('open');
+    }
+    if (sidebarRight && sidebarRight.getAttribute('data-auto-open') !== 'false') {
+      sidebarRight.classList.add('open');
+    }
   }
 
   updatePadding();

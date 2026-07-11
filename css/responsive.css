@@ -1,6 +1,10 @@
 /* ===== Mobile (< 768px) ===== */
 
 @media (max-width: 767px) {
+  html {
+    font-size: 16px;
+  }
+
   .header-nav {
     gap: 0.6rem;
     font-size: 0.75rem;
@@ -16,21 +20,42 @@
 
   .main-inner {
     max-width: 100%;
+    min-width: 0;
+    contain: inline-size;
   }
 
   .sidebar-left {
-    z-index: 90;
+    z-index: var(--z-sidebar-mobile);
+    width: var(--sidebar-width-mobile);
     transform: translateX(-100%);
   }
   .sidebar-left.open {
     transform: translateX(0);
   }
   .sidebar-left-inner {
-    width: 280px;
+    width: var(--sidebar-width-mobile);
   }
 
   .sidebar-right {
-    display: none;
+    z-index: var(--z-sidebar-mobile);
+    width: var(--sidebar-width-mobile);
+    transform: translateX(100%);
+  }
+  .sidebar-right.open {
+    transform: translateX(0);
+  }
+  .sidebar-right-inner {
+    width: var(--sidebar-width-mobile);
+  }
+  .sidebar-right .tree-toggle {
+    font-size: 0.85rem;
+    padding: 0.2em 0.3em;
+  }
+  .sidebar-right .toc-item {
+    line-height: 2.2;
+  }
+  .sidebar-right .toc-link {
+    padding: 0.3em 0;
   }
 
   .post-title {
@@ -45,6 +70,49 @@
   .archive-post .date {
     min-width: auto;
     font-size: 0.7rem;
+  }
+
+  figure.highlight {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  figure.highlight .highlight-bar {
+    font-size: 0.75rem;
+    padding: 0.4em 1em;
+  }
+
+  .post-content table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .float-menu {
+    bottom: 5rem;
+    right: 1rem;
+    z-index: var(--z-float-mobile);
+  }
+
+  .dir-browser {
+    font-size: 1.4rem;
+  }
+  .dir-back {
+    font-size: 1.1rem;
+  }
+  .dir-folder,
+  .dir-file {
+    font-size: 1.3rem;
+  }
+
+  #tag-sphere {
+    overflow: hidden;
+  }
+
+  .code-expand {
+    font-size: 1.4rem;
+    padding: 8px 16px;
+  }
+  .code-expand:active {
+    color: var(--accent);
   }
 }
 

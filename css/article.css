@@ -2,7 +2,7 @@
 
 .article-item {
   padding: 1rem 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-thin);
 }
 .article-item:first-child {
   padding-top: 0;
@@ -39,7 +39,7 @@
 .post-header {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-thin);
 }
 
 .post-title {
@@ -69,7 +69,7 @@
 .post-content img {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
 }
 
 .post-content video {
@@ -84,12 +84,17 @@
   align-items: center;
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--border);
+  border-top: var(--border-thin);
+  gap: 0.5rem;
 }
 .pagination a {
   color: var(--accent);
   font-size: 0.9rem;
   text-decoration: none;
+  max-width: 45%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .pagination .prev::before { content: "← "; }
 .pagination .next::after { content: " →"; }
@@ -137,12 +142,7 @@
   margin: 1rem 0;
 }
 .tag-cloud-item {
-  display: inline-block;
   padding: 0.2em 0.6em;
-  background: var(--border);
-  color: var(--text);
-  border-radius: 10px;
-  text-decoration: none;
 }
 .tag-cloud-item:hover {
   background: var(--accent);
@@ -159,6 +159,8 @@
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: none;
 }
 #tag-sphere:active {
   cursor: grabbing;
@@ -181,7 +183,7 @@
 /* ===== Directory Browser (Homepage) ===== */
 
 .dir-browser {
-  font-size: 2.2rem;
+  font-size: 1.6rem;
 }
 
 .dir-path {
@@ -192,9 +194,9 @@
   display: inline-block;
   color: var(--accent);
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   padding: 0.2rem 0;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
 }
 .dir-back:hover {
   background: var(--code-bg);
@@ -207,13 +209,13 @@
 
 .dir-entry {
   padding: 0.6rem 0.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-thin);
   cursor: default;
 }
 .dir-folder {
   color: var(--accent);
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 .dir-folder:hover {
@@ -223,23 +225,20 @@
 .dir-file {
   color: var(--text);
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 .dir-file:hover {
   color: var(--accent);
   text-decoration: none;
 }
 
-/* ===== MathJax ===== */
-mjx-container {
-  color: var(--text);
+/* ===== KaTeX ===== */
+.katex-display {
   overflow-x: auto;
   overflow-y: hidden;
 }
-mjx-container[display="true"] {
-  display: block;
-  margin: 1em 0;
-  text-align: center;
+.katex-display > .katex {
+  max-width: 100%;
 }
 
 /* ===== Page heading ===== */
@@ -258,7 +257,7 @@ mjx-container[display="true"] {
 /* ===== Footer ===== */
 .footer {
   background: var(--bg);
-  border-top: 1px solid var(--border);
+  border-top: var(--border-thin);
   padding: 0.75rem;
   text-align: center;
   font-size: 0.75rem;

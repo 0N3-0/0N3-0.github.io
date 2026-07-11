@@ -7,11 +7,11 @@
   bottom: 0;
   width: var(--sidebar-width);
   background: var(--bg-sidebar);
-  border-right: 1px solid var(--border);
+  border-right: var(--border-thin);
   font-size: 1.0rem;
-  z-index: 40;
+  z-index: var(--z-sidebar);
   transform: translateX(calc(-1 * var(--sidebar-width)));
-  transition: transform 0.25s ease;
+  transition: transform var(--trans-base) ease;
   overflow: hidden;
 }
 .sidebar-left.open {
@@ -33,7 +33,7 @@
 .post-index li a {
   display: block;
   padding: 0.15rem 0.5rem;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   color: var(--text);
   text-decoration: none;
   cursor: pointer;
@@ -61,7 +61,7 @@
   width: 100%;
   background: var(--code-bg);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   padding: 0.25rem 0.5rem;
   color: var(--accent);
   font-size: 0.9rem;
@@ -87,11 +87,11 @@
   bottom: 0;
   width: var(--sidebar-width);
   background: var(--bg-sidebar);
-  border-left: 1px solid var(--border);
+  border-left: var(--border-thin);
   font-size: 1.0rem;
-  z-index: 40;
+  z-index: var(--z-sidebar);
   transform: translateX(calc(1 * var(--sidebar-width)));
-  transition: transform 0.25s ease;
+  transition: transform var(--trans-base) ease;
   overflow: hidden;
 }
 .sidebar-right.open {
@@ -118,7 +118,7 @@
   padding: 0;
   margin: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height var(--trans-slow) ease;
 }
 
 .toc-child.collapsed {
@@ -174,7 +174,7 @@
   position: fixed;
   bottom: 4rem;
   right: 4rem;
-  z-index: 50;
+  z-index: var(--z-float);
   width: 48px;
   height: 48px;
 }
@@ -183,10 +183,10 @@
   position: absolute;
   border-radius: 50%;
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: var(--border-thin);
   color: var(--text);
   cursor: pointer;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  box-shadow: var(--shadow-float);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -209,8 +209,8 @@
   height: 40px;
   font-size: 0.8rem;
   transform: translate(0, 0) scale(0);
-  z-index: 1;
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+  z-index: var(--z-dropdown);
+  transition: transform var(--trans-spring) cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
 }
 
 .float-btn-sub.open {
@@ -223,8 +223,8 @@
   position: fixed;
   inset: 0;
   top: var(--header-height);
-  background: rgba(0,0,0,0.5);
-  z-index: 89;
+  background: var(--overlay-bg);
+  z-index: var(--z-overlay);
 }
 .sidebar-overlay.show {
   display: block;

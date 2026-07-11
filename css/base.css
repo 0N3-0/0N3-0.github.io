@@ -9,7 +9,8 @@
 html {
   font-size: 18px;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + 16px);
+  scroll-padding-top: calc(var(--header-height) + var(--header-scroll-offset));
+  overflow-x: hidden;
 }
 
 body {
@@ -20,6 +21,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 a {
@@ -73,8 +75,8 @@ strong { color: var(--heading); }
 .main {
   flex: 1;
   min-width: 0;
-  padding: 2rem 2.5rem;
-  transition: padding-left 0.25s ease, padding-right 0.25s ease;
+  padding: 2rem var(--main-hpad);
+  transition: padding-left var(--trans-base) ease, padding-right var(--trans-base) ease;
 }
 
 .main-inner {
@@ -89,7 +91,7 @@ blockquote {
   padding: 0.6em 1em;
   margin: 1em 0;
   background: var(--bg-sidebar);
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
   color: var(--text-muted);
 }
 
@@ -101,13 +103,13 @@ blockquote p:last-child  { margin-bottom: 0; }
 
 /* ===== Tags ===== */
 
-.tag {
+.tag, .tag-cloud-item {
   display: inline-block;
   background: var(--border);
   color: var(--text);
   font-size: 0.75rem;
   padding: 0.15em 0.6em;
-  border-radius: 10px;
+  border-radius: var(--radius-xl);
   text-decoration: none;
 }
 .tag:hover {
@@ -121,24 +123,24 @@ table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 6px;
+  border-radius: var(--radius-lg);
   margin: 1em 0;
 }
 table thead tr:first-child th:first-child {
-  border-top-left-radius: 6px;
+  border-top-left-radius: var(--radius-lg);
 }
 table thead tr:first-child th:last-child {
-  border-top-right-radius: 6px;
+  border-top-right-radius: var(--radius-lg);
 }
 table tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 6px;
+  border-bottom-left-radius: var(--radius-lg);
 }
 table tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 6px;
+  border-bottom-right-radius: var(--radius-lg);
 }
 th, td {
   padding: 0.5em 0.75em;
-  border: 1px solid var(--border);
+  border: var(--border-thin);
   text-align: center;
   vertical-align: middle;
 }
