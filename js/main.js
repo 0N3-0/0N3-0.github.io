@@ -13,7 +13,10 @@
 
   const COPY_FEEDBACK_MS = 1500;
   const FLOAT_STAGGER_S = 0.1;
-  const CODE_COLLAPSE_H = 300;
+
+  function getCodeCollapseH() {
+    return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--code-collapse-height')) || 300;
+  }
 
   function isMobile() {
     return window.matchMedia('(max-width: 767px)').matches;
@@ -258,15 +261,18 @@
 
     var body = document.createElement('div');
     body.className = 'code-body';
-    table.parentNode.insertBefore(body, table);
-    body.appendChild(table);
+    var scroll = document.createElement('div');
+    scroll.className = 'code-scroll';
+    table.parentNode.replaceChild(body, table);
+    body.appendChild(scroll);
+    scroll.appendChild(table);
 
     var btn = document.createElement('button');
     btn.className = 'code-expand';
     btn.textContent = ICON_COLLAPSED;
     fig.appendChild(btn);
 
-    if (body.scrollHeight <= CODE_COLLAPSE_H) {
+    if (body.scrollHeight <= getCodeCollapseH()) {
       btn.classList.add('hidden');
     } else {
       body.classList.add('collapsible');

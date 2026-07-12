@@ -124,6 +124,10 @@ figure.highlight .code-body {
   position: relative;
   transition: max-height var(--trans-slow) ease;
 }
+
+figure.highlight .code-scroll {
+  overflow-x: auto;
+}
 figure.highlight .code-body.expanded {
   max-height: none;
 }

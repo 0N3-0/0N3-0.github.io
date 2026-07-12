@@ -1,8 +1,9 @@
 /* ===== Mobile (< 768px) ===== */
 
 @media (max-width: 767px) {
-  html {
+  :root {
     font-size: 16px;
+    --code-collapse-height: 200px;
   }
 
   .header-nav {

@@ -102,7 +102,7 @@
 <script>
 (function() {
 
-  var entries = [{"text":"高数","weight":10,"link":"/tags/%E9%AB%98%E6%95%B0/"},{"text":"线代","weight":5,"link":"/tags/%E7%BA%BF%E4%BB%A3/"},{"text":"从零开始的机器学习","weight":3,"link":"/tags/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"},{"text":"WP","weight":2,"link":"/tags/WP/"}];
+  var entries = [{"text":"微积分","weight":5,"link":"/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/"},{"text":"从零开始的机器学习","weight":3,"link":"/tags/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"},{"text":"矩阵与行列式","weight":3,"link":"/tags/%E7%9F%A9%E9%98%B5%E4%B8%8E%E8%A1%8C%E5%88%97%E5%BC%8F/"},{"text":"WriteUp","weight":2,"link":"/tags/WriteUp/"},{"text":"向量与方程组","weight":2,"link":"/tags/%E5%90%91%E9%87%8F%E4%B8%8E%E6%96%B9%E7%A8%8B%E7%BB%84/"},{"text":"极限与连续","weight":2,"link":"/tags/%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/"},{"text":"多元函数","weight":2,"link":"/tags/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/"},{"text":"空间解析几何","weight":1,"link":"/tags/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/"}];
   if (!entries.length) return;
 
   var tags = entries.map(function(e) {
@@ -119,6 +119,17 @@
     initSpeed: 'fast',
     direction: 135,
     keep: true
+  });
+
+  // Scale font size by weight
+  var weights = entries.map(function(e) { return e.weight; });
+  var minW = Math.min.apply(null, weights);
+  var maxW = Math.max.apply(null, weights);
+  var items = container.querySelectorAll('.tagcloud--item');
+  items.forEach(function(el, i) {
+    var w = weights[i];
+    var size = 14 + ((w - minW) / Math.max(1, maxW - minW)) * 10;
+    el.style.fontSize = size + 'px';
   });
 
   var dragging = false, lastX, lastY;
@@ -200,7 +211,7 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
   </div>
   <footer class="footer">
-  © 2024 OneBLog
+  © 2026 one
   
     <span> · </span>
     
