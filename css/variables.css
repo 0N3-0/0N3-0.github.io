@@ -1,6 +1,6 @@
 @font-face {
   font-family: "HackNF";
-  src: url("../fonts/Hack/HackNerdFont-Regular.woff2") format("woff2");
+  src: url("../fonts/Hack/HackNerdFont-Regular-one-terminal-v1.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "HackNF";
-  src: url("../fonts/Hack/HackNerdFont-Bold.woff2") format("woff2");
+  src: url("../fonts/Hack/HackNerdFont-Bold-one-terminal-v1.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "HackNF";
-  src: url("../fonts/Hack/HackNerdFont-Italic.woff2") format("woff2");
+  src: url("../fonts/Hack/HackNerdFont-Italic-one-terminal-v1.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: "HackNF";
-  src: url("../fonts/Hack/HackNerdFont-BoldItalic.woff2") format("woff2");
+  src: url("../fonts/Hack/HackNerdFont-BoldItalic-one-terminal-v1.woff2") format("woff2");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
