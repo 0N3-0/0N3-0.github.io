@@ -1,89 +1,147 @@
-/* ===== Color Tokens ===== */
+@font-face {
+  font-family: "HackNF";
+  src: url("../fonts/Hack/HackNerdFont-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-/* Dark mode (default) */
+@font-face {
+  font-family: "HackNF";
+  src: url("../fonts/Hack/HackNerdFont-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HackNF";
+  src: url("../fonts/Hack/HackNerdFont-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HackNF";
+  src: url("../fonts/Hack/HackNerdFont-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
-  --bg: #0f181c;
-  --bg-sidebar: #14242d;
+  color-scheme: dark;
+  --palette-background-normal: #0b1419;
+  --palette-background-bright: #0f181c;
+  --palette-surface-normal: #14242d;
+  --palette-surface-bright: #1d3039;
+  --palette-code-normal: #283135;
+  --palette-code-bright: #344249;
+  --palette-structure-normal: #273940;
+  --palette-structure-bright: #3f545d;
+  --palette-muted-normal: #5a676e;
+  --palette-muted-bright: #7a8589;
+  --palette-text-normal: #aab4b8;
+  --palette-text-bright: #c2c4c5;
+  --palette-accent-normal: #506c77;
+  --palette-accent-bright: #71848b;
+  --palette-error-normal: #ba6a60;
+  --palette-error-bright: #ff7b72;
+  --bg: var(--palette-background-normal);
+  --surface: var(--palette-surface-normal);
+  --surface-raised: var(--palette-surface-bright);
+  --hover-bg: var(--palette-surface-normal);
+  --code-bg: var(--palette-code-normal);
+  --code-emphasis: var(--palette-code-bright);
+  --text: var(--palette-text-normal);
+  --muted: var(--palette-muted-bright);
+  --accent: var(--palette-accent-normal);
+  --error: var(--palette-error-normal);
+  --border: var(--palette-structure-normal);
+  --active-bg: var(--palette-text-bright);
+  --active-text: var(--palette-background-normal);
+  --focus: var(--palette-accent-bright);
+  --prompt-dim: var(--palette-muted-normal);
+  --prompt-current: var(--palette-text-bright);
+  --prompt-time: var(--palette-muted-bright);
+  --article-bg: var(--palette-background-bright);
+  --article-code-bg: var(--palette-code-normal);
+  --font-mono: "HackNF", "Noto Sans Mono CJK SC", "Sarasa Mono SC", ui-monospace, monospace;
+  --terminal-max: 72rem;
+  --touch-target: 48px;
+  --float-size: 52px;
+  --space-1: 0.375rem;
+  --space-2: 0.75rem;
+  --space-3: 1.125rem;
+  --space-4: 1.75rem;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --palette-background-normal: #c1c4c5;
+  --palette-background-bright: #b8bdc0;
+  --palette-surface-normal: #cdcfd0;
+  --palette-surface-bright: #d8dadb;
+  --palette-code-normal: #b6bbbd;
+  --palette-code-bright: #aeb4b7;
+  --palette-structure-normal: #a8aaac;
+  --palette-structure-bright: #8c8f91;
+  --palette-muted-normal: #5a5c5e;
+  --palette-muted-bright: #4d5052;
+  --palette-text-normal: #2a2b2d;
+  --palette-text-bright: #1a1b1d;
+  --palette-accent-normal: #35667a;
+  --palette-accent-bright: #0550ae;
+  --palette-error-normal: #a40e26;
+  --palette-error-bright: #cf222e;
+  --hover-bg: var(--palette-background-bright);
+  --article-bg: var(--palette-background-normal);
+  --article-code-bg: var(--palette-surface-normal);
+}
+
+/* Article components intentionally retain one-simple's established palette. */
+.article-page {
+  --bg: var(--article-bg);
+  --bg-sidebar: var(--palette-surface-normal);
   --bg-card: #283d45;
-  --code-bg: #23333d;
+  --code-bg: var(--article-code-bg);
   --heading: #f5f4f4;
   --text: #bac9d0;
+  --muted: #5f6e74;
   --text-muted: #5f6e74;
-  --border: #3f545d;
+  --border: var(--palette-structure-bright);
   --accent: #35667a;
-  --sidebar-width: 300px;
-  --header-height: 44px;
-
-  /* Syntax highlighting */
-  --hl-keyword: #ff7b72;
+  --hl-keyword: var(--palette-error-bright);
   --hl-function: #79c0ff;
   --hl-string: #a5d6ff;
   --hl-comment: #5f6e74;
-}
-
-/* Light mode */
-[data-theme="light"] {
-  --bg: #c1c4c5;
-  --bg-sidebar: #cdcfd0;
-  --bg-card: #cdcfd0;
-  --code-bg: #cdcfd0;
-  --heading: #1a1b1d;
-  --text: #2a2b2d;
-  --text-muted: #5a5c5e;
-  --border: #a8aaac;
-  --accent: #0969da;
-  --sidebar-width: 300px;
-  --header-height: 44px;
-
-  --hl-keyword: #cf222e;
-  --hl-function: #0550ae;
-  --hl-string: #0a3069;
-  --hl-comment: #5a5c5e;
-}
-
-/* ===== Layout & Z-Index Tokens ===== */
-
-:root {
   --border-thin: 1px solid var(--border);
-  --sidebar-width-mobile: 280px;
-  --header-scroll-offset: 16px;
+  --sidebar-width: 300px;
   --code-collapse-height: 300px;
-  --main-hpad: 2.5rem;
-
   --radius-sm: 3px;
   --radius-md: 4px;
   --radius-lg: 6px;
-  --radius-xl: 10px;
-
   --trans-fast: 0.15s;
-  --trans-base: 0.25s;
   --trans-slow: 0.3s;
-  --trans-spring: 0.5s;
-
   --font-size-code: 0.875rem;
   --line-height-code: 1.6;
-
-  --z-dropdown: 1;
   --z-code-controls: 3;
-  --z-sidebar: 40;
-  --z-float: 50;
-  --z-overlay: 89;
-  --z-sidebar-mobile: 90;
-  --z-float-mobile: 95;
-  --z-header: 100;
-
-  --overlay-bg: rgba(0,0,0,0.5);
-  --shadow-float: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-[data-theme="light"] {
-  --overlay-bg: rgba(180,180,180,0.45);
-  --shadow-float: 0 2px 10px rgba(0,0,0,0.15);
-}
-
-/* ===== Font Stacks ===== */
-
-:root {
-  --font-body: "HackNF", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
-  --font-mono: "HackNF", "JetBrains Mono", "Fira Code", monospace;
+[data-theme="light"] .article-page {
+  --bg: var(--article-bg);
+  --bg-sidebar: var(--palette-surface-normal);
+  --bg-card: var(--palette-surface-normal);
+  --code-bg: var(--article-code-bg);
+  --heading: var(--palette-text-bright);
+  --text: var(--palette-text-normal);
+  --muted: var(--palette-muted-normal);
+  --text-muted: var(--palette-muted-normal);
+  --border: var(--palette-structure-normal);
+  --accent: var(--palette-accent-bright);
+  --hl-keyword: var(--palette-error-bright);
+  --hl-function: var(--palette-accent-bright);
+  --hl-string: #0a3069;
+  --hl-comment: var(--palette-muted-normal);
 }

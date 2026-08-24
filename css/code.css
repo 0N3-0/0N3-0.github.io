@@ -1,9 +1,7 @@
-/* ===== Code ===== */
-
 code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background: var(--code-bg);
+  background: var(--code-emphasis);
   padding: 0.15em 0.4em;
   border-radius: var(--radius-sm);
   color: var(--text);
@@ -25,7 +23,6 @@ pre code {
   color: var(--text);
 }
 
-/* Hexo figure.highlight */
 figure.highlight {
   background: var(--code-bg);
   border-radius: var(--radius-lg);
@@ -34,7 +31,9 @@ figure.highlight {
   position: relative;
 }
 
-figure.highlight figcaption { display: none; }
+figure.highlight figcaption {
+  display: none;
+}
 
 figure.highlight .highlight-bar {
   position: absolute;
@@ -53,9 +52,8 @@ figure.highlight .highlight-bar {
   z-index: var(--z-code-controls);
   transition: color var(--trans-fast);
 }
-figure.highlight .highlight-bar:hover {
-  color: var(--accent);
-}
+
+figure.highlight .highlight-bar:hover,
 figure.highlight .highlight-bar.copied {
   color: var(--accent);
 }
@@ -106,31 +104,60 @@ figure.highlight .code pre {
 }
 
 figure.highlight .comment,
-figure.highlight .quote { color: var(--hl-comment); }
+figure.highlight .quote {
+  color: var(--hl-comment);
+}
+
 figure.highlight .keyword,
 figure.highlight .selector-tag,
-figure.highlight .addition { color: var(--hl-keyword); }
+figure.highlight .addition {
+  color: var(--hl-keyword);
+}
+
 figure.highlight .string,
 figure.highlight .number,
-figure.highlight .literal { color: var(--hl-string); }
+figure.highlight .literal {
+  color: var(--hl-string);
+}
+
 figure.highlight .title,
 figure.highlight .section,
-figure.highlight .name { color: var(--hl-function); }
+figure.highlight .name {
+  color: var(--hl-function);
+}
 
-/* ===== Code collapse ===== */
 figure.highlight .code-body {
   max-height: var(--code-collapse-height);
   overflow: hidden;
   position: relative;
+  isolation: isolate;
   transition: max-height var(--trans-slow) ease;
 }
 
 figure.highlight .code-scroll {
   overflow-x: auto;
+  overflow-y: hidden;
 }
+
+figure.highlight .code-body.collapsible:not(.expanded) .code-scroll {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0,
+    #000 calc(var(--code-collapse-height) - 100px),
+    transparent calc(var(--code-collapse-height) - 8px)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0,
+    #000 calc(var(--code-collapse-height) - 100px),
+    transparent calc(var(--code-collapse-height) - 8px)
+  );
+}
+
 figure.highlight .code-body.expanded {
   max-height: none;
 }
+
 figure.highlight .code-body.collapsible:not(.expanded)::after {
   content: '';
   position: absolute;
@@ -140,7 +167,9 @@ figure.highlight .code-body.collapsible:not(.expanded)::after {
   height: 100px;
   background: linear-gradient(transparent 0%, var(--bg) 85%);
   pointer-events: none;
+  z-index: 1;
 }
+
 figure.highlight .code-expand {
   position: absolute;
   bottom: 4px;
@@ -156,9 +185,17 @@ figure.highlight .code-expand {
   z-index: var(--z-code-controls);
   transition: color var(--trans-fast);
 }
+
 figure.highlight .code-expand:hover {
   color: var(--accent);
 }
+
 figure.highlight .code-expand.hidden {
   display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  figure.highlight .code-body {
+    transition: none;
+  }
 }

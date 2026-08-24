@@ -1,41 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1419">
+  <script>
+    (function() {
+      var mode = 'dark';
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') mode = saved;
+      } catch (error) {}
+      document.documentElement.setAttribute('data-theme', mode);
+      document.querySelector('meta[name="theme-color"]').setAttribute(
+        'content', mode === 'light' ? '#c1c4c5' : '#0b1419'
+      );
+    })();
+  </script>
   <title>重积分 | One&#39;s Blog</title>
-  <meta name="description" content="">
-  <style>
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
-      font-weight: 400;
-      font-style: italic;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
-      font-weight: 700;
-      font-style: italic;
-      font-display: swap;
-    }
-  </style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/Hack/HackNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link rel="stylesheet" href="/css/variables.css">
+
+  <link rel="stylesheet" href="/css/base.css">
+
+  <link rel="stylesheet" href="/css/article.css">
+
+  <link rel="stylesheet" href="/css/code.css">
+
+  <link rel="stylesheet" href="/css/math.css">
+
+  <link rel="stylesheet" href="/css/responsive.css">
+
+
+  
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+  
   <meta name="description" content="二重积分的定义 设 $f(x,y)$ 是有界闭区域 $D\subset \mathbb{R}^2$ 上的有界函数，将区域 $D$ 任意划分成 $n$ 个小区域 $\Delta\sigma_i$，其面积也记为 $\Delta\sigma_i$。 在每个小区域 $\Delta\sigma_i$ 上任取点 $(\xi_i,\eta_i)$，作和式 $$ \sum_{i&#x3D;1}^{n}f(\xi_i,\et">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重积分">
@@ -50,74 +52,39 @@
 <meta name="twitter:card" content="summary">
 <meta name="generator" content="Hexo 8.1.2"></head>
 
-<body class="page">
-  <header class="header">
-  <div class="header-left">
-    <a class="header-logo" href="/">One&#39;s Blog</a>
-  </div>
-  <nav class="header-right">
-    <div class="header-nav">
+<body class="article-page" data-theme-name="one-terminal">
+  
+    
+<a class="article-return" href="/" aria-label="返回终端">&larr; terminal</a>
+<main class="article-shell"
+  data-schema-version="1"
+  data-build-id="a76b97e53de251e9"
+  data-article-id="post:d5b5618b3206"
+  data-article-url="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/"
+  data-root-url="/"
+  data-return-ttl-ms="43200000">
+  <article class="post-article">
+  <header class="post-header">
+    <h1 class="post-title">重积分</h1>
+    <div class="post-meta">
+      <time datetime="2026-06-23T13:10:47.000Z">2026-06-23</time>
       
-        <a href="/tags">标签</a>
-      
-        <a href="/categories">分类</a>
-      
-        <a href="/about">关于</a>
+        <span aria-hidden="true"> · </span>
+        
+          <a href="/categories/Math/">Math</a>
+        
       
     </div>
-    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
-      <span id="theme-icon">&#9788;</span>
-    </button>
-  </nav>
-</header>
-
-  <div class="page-body">
     
-
-<aside class="sidebar-left" id="sidebar-left">
-  <div class="sidebar-left-inner">
-    
-      <div id="tree-nav">
-        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
-      </div>
-    
-    <ul class="post-index" id="tree-list"></ul>
-  </div>
-</aside>
-
-
-<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
-<script>
-  var sidebarCurrentSource = '高等数学/重积分';
-</script>
-<script src="/js/tree-nav.js"></script>
-
-
-    <main class="main">
-      <div class="main-inner">
+      <div class="article-tags" aria-label="文章标签">
         
-  <article>
-    <header class="post-header">
-      <h1 class="post-title">重积分</h1>
-      <div class="post-meta">
-        <span>2026-06-23</span>
-        
-          <span> · </span>
-          
-            <a href="/categories/Math/">Math</a>
-          
+          <a class="tag" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>
         
       </div>
-      
-        <div class="article-tags">
-          
-            <a class="tag" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>
-          
-        </div>
-      
-    </header>
-    <div class="post-content">
-      <h1>二重积分的定义</h1>
+    
+  </header>
+  <div class="post-content">
+    <h1>二重积分的定义</h1>
 <p>设 $f(x,y)$ 是有界闭区域 $D\subset \mathbb{R}^2$ 上的有界函数，将区域 $D$ 任意划分成 $n$ 个小区域 $\Delta\sigma_i$，其面积也记为 $\Delta\sigma_i$。<br>
 在每个小区域 $\Delta\sigma_i$ 上任取点 $(\xi_i,\eta_i)$，作和式</p>
 <p>$$
@@ -568,7 +535,7 @@ $$</p>
 \iiint_\Omega f(x,y,z)\,dxdydz
 $$</p>
 <p>三重积分的计算本质是将其化为三次积分，关键在于确定积分区域 $\Omega$ 中点的坐标取值范围。</p>
-<h2 id="先对-MIcuid3D4-2cSb0MXpa4qFOiwOaX423-积分">先对 $z$ 积分</h2>
+<h2 id="先对-$z$-积分">先对 $z$ 积分</h2>
 <p>将区域 $\Omega$ 投影到 $xOy$ 平面，得投影区域 $D_{xy}$。<br>
 若过 $D_{xy}$ 内任一点 $(x,y)$ 作平行于 $z$ 轴的直线，与 $\Omega$ 的边界交于两点</p>
 <p>$$
@@ -615,7 +582,7 @@ $$</p>
 \Omega=
 \{(x,y,z)\mid z_1(x,y)\le z\le z_2(x,y),\ y_1(x)\le y\le y_2(x),\ a\le x\le b\}
 $$</p>
-<h2 id="先对-MIcuid3D4-2cSb0MXpa4qFOiwOaX431-积分">先对 $x$ 积分</h2>
+<h2 id="先对-$x$-积分">先对 $x$ 积分</h2>
 <p>若将区域 $\Omega$ 投影到 $yOz$ 平面，且</p>
 <p>$$
 \Omega=
@@ -630,7 +597,7 @@ $$</p>
 \int_{x_1(y,z)}^{x_2(y,z)}
 f(x,y,z)\,dx
 $$</p>
-<h2 id="先对-MIcuid3D4-2cSb0MXpa4qFOiwOaX434-积分">先对 $y$ 积分</h2>
+<h2 id="先对-$y$-积分">先对 $y$ 积分</h2>
 <p>若将区域 $\Omega$ 投影到 $xOz$ 平面，且</p>
 <p>$$
 \Omega=
@@ -2320,71 +2287,35 @@ $$</p>
 <p>含义是：<br>
 边界上的积分，等于区域内部外微分的积分。</p>
 
-    </div>
-  </article>
+  </div>
+</article>
 
+  
 
-
-
-
-
-  <nav class="pagination">
-    
-      <a class="prev" href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/">无穷级数</a>
-    
-    
-      <a class="next" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/">导数</a>
-    
+  <nav class="article-pagination" aria-label="文章导航">
+    <a class="prev" href="/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/" data-article-link><span aria-hidden="true">&larr; </span>空间解析几何</a>
+    <a class="next" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/" data-article-link>函数性质<span aria-hidden="true"> &rarr;</span></a>
   </nav>
 
 
-      </div>
-    </main>
-    
-<aside class="sidebar-right" id="sidebar-right">
-  <div class="sidebar-right-inner">
-    
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">二重积分的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">三重积分的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">重积分的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%80%A7%E8%B4%A8"><span class="toc-text">线性性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%8F%AF%E5%8A%A0%E6%80%A7"><span class="toc-text">对积分区域的可加性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="toc-text">积分不等式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E5%8F%AF%E7%A7%AF%E6%80%A7"><span class="toc-text">绝对可积性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%B0%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">估值定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">积分中值定理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">直角坐标系下二重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F%E7%B1%BB%E5%9E%8B"><span class="toc-text">积分区域类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#X-%E5%9E%8B%E5%8C%BA%E5%9F%9F"><span class="toc-text">X 型区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Y-%E5%9E%8B%E5%8C%BA%E5%9F%9F"><span class="toc-text">Y 型区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">一般区域的处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%96%E4%B8%BA%E4%BA%8C%E6%AC%A1%E7%A7%AF%E5%88%86%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">化为二次积分的步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">利用极坐标计算二重积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-text">极坐标变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-text">面积元素的来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F"><span class="toc-text">常见积分区域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9E%81%E5%9D%90%E6%A0%87%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF"><span class="toc-text">使用极坐标的常见场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%BB%93%E8%AE%BA"><span class="toc-text">对称性结论</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">二重积分的换元法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-text">坐标变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E5%85%83%E6%AD%A5%E9%AA%A4"><span class="toc-text">换元步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">直角坐标系下三重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-%EE%80%81MIcuid3D4-2cSb0MXpa4qFOiwOaX423%EE%80%82-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $z$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-%EE%80%81MIcuid3D4-2cSb0MXpa4qFOiwOaX431%EE%80%82-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $x$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-%EE%80%81MIcuid3D4-2cSb0MXpa4qFOiwOaX434%EE%80%82-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $y$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%96%E4%B8%BA%E4%B8%89%E6%AC%A1%E7%A7%AF%E5%88%86%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">化为三次积分的步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">利用柱面坐标计算三重积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9F%B1%E9%9D%A2%E5%9D%90%E6%A0%87%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF"><span class="toc-text">使用柱面坐标的常见场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">球面坐标系下三重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">常见使用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%BC%A7%E9%95%BF%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86"><span class="toc-text">对弧长的曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="toc-text">几何意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8"><span class="toc-text">基本性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%BC%A7%E9%95%BF%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对弧长的曲线积分的计算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86"><span class="toc-text">对坐标的曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E5%BD%A2%E5%BC%8F"><span class="toc-text">坐标形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89"><span class="toc-text">物理意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8-2"><span class="toc-text">基本性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对坐标的曲线积分的计算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">格林公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%BF%9E%E9%80%9A%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%A4%8D%E8%BF%9E%E9%80%9A%E5%8C%BA%E5%9F%9F"><span class="toc-text">单连通区域与复连通区域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E7%9A%84%E6%AD%A3%E6%96%B9%E5%90%91"><span class="toc-text">边界的正方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F"><span class="toc-text">格林公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">适用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8B%86%E5%88%86%E5%85%AC%E5%BC%8F"><span class="toc-text">常用拆分公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E7%89%9B%E9%A1%BF%E2%80%94%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%85%AC%E5%BC%8F%E7%9A%84%E7%B1%BB%E6%AF%94"><span class="toc-text">与牛顿—莱布尼茨公式的类比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E4%B8%8A%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%8E%E8%B7%AF%E5%BE%84%E6%97%A0%E5%85%B3"><span class="toc-text">平面上曲线积分与路径无关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">全微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E5%AE%9A%E6%9D%A1%E4%BB%B6"><span class="toc-text">判定条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF"><span class="toc-text">核心思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%9D%A2%E7%A7%AF%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="toc-text">对面积的曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E6%BB%91%E6%9B%B2%E9%9D%A2"><span class="toc-text">光滑曲面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%9D%A2%E7%A7%AF%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对面积的曲面积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E6%9B%B2%E9%9D%A2%E7%9A%84%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0"><span class="toc-text">显式曲面的面积元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%9B%B2%E9%9D%A2%E7%9A%84%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0"><span class="toc-text">参数曲面的面积元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%AD%A5%E9%AA%A4"><span class="toc-text">计算步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="toc-text">对坐标的曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E6%9B%B2%E9%9D%A2"><span class="toc-text">有向曲面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8-3"><span class="toc-text">基本性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对坐标的曲面积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E5%BD%A2%E5%BC%8F"><span class="toc-text">参数方程形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E6%96%B9%E7%A8%8B%E5%BD%A2%E5%BC%8F"><span class="toc-text">显式方程形式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">高斯公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">使用条件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">斯托克斯公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">与格林公式的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6-2"><span class="toc-text">使用条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E4%B8%AD%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%8E%E8%B7%AF%E5%BE%84%E6%97%A0%E5%85%B3"><span class="toc-text">空间中曲线积分与路径无关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">外微分式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E7%A7%AF%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="toc-text">外积运算法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">外微分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">零次外微分式的外微分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">一次外微分式的外微分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">二次外微分式的外微分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E5%BE%AE%E5%88%86%E4%B8%8E%E4%B8%89%E5%A4%A7%E5%85%AC%E5%BC%8F"><span class="toc-text">外微分与三大公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F-2"><span class="toc-text">格林公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AF%E6%89%98%E5%85%8B%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="toc-text">斯托克斯公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="toc-text">高斯公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E5%88%A4%E6%96%AD"><span class="toc-text">符号判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BD%A2%E5%BC%8F"><span class="toc-text">统一形式</span></a></li></ol></li></ol>
-    
-  </div>
-</aside>
+</main>
 
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-  </div>
-  <footer class="footer">
-  © 2026 one
-  
-    <span> · </span>
-    
-    
-      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
-      
-    
-  
-  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
-</footer>
 
-  <div class="float-menu" id="float-menu">
-    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
-    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
-    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
-    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
-  </div>
+  <aside class="article-toc sidebar-right open" aria-label="文章目录">
+    <nav class="sidebar-right-inner"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">二重积分的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">三重积分的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">重积分的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%80%A7%E8%B4%A8"><span class="toc-text">线性性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%8F%AF%E5%8A%A0%E6%80%A7"><span class="toc-text">对积分区域的可加性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="toc-text">积分不等式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E5%8F%AF%E7%A7%AF%E6%80%A7"><span class="toc-text">绝对可积性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%B0%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">估值定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="toc-text">积分中值定理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">直角坐标系下二重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F%E7%B1%BB%E5%9E%8B"><span class="toc-text">积分区域类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#X-%E5%9E%8B%E5%8C%BA%E5%9F%9F"><span class="toc-text">X 型区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Y-%E5%9E%8B%E5%8C%BA%E5%9F%9F"><span class="toc-text">Y 型区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">一般区域的处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%96%E4%B8%BA%E4%BA%8C%E6%AC%A1%E7%A7%AF%E5%88%86%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">化为二次积分的步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">利用极坐标计算二重积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-text">极坐标变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-text">面积元素的来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%A7%AF%E5%88%86%E5%8C%BA%E5%9F%9F"><span class="toc-text">常见积分区域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9E%81%E5%9D%90%E6%A0%87%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF"><span class="toc-text">使用极坐标的常见场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E7%BB%93%E8%AE%BA"><span class="toc-text">对称性结论</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">二重积分的换元法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-text">坐标变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E5%85%83%E6%AD%A5%E9%AA%A4"><span class="toc-text">换元步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">直角坐标系下三重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-$z$-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $z$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-$x$-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $x$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E5%AF%B9-$y$-%E7%A7%AF%E5%88%86"><span class="toc-text">先对 $y$ 积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%96%E4%B8%BA%E4%B8%89%E6%AC%A1%E7%A7%AF%E5%88%86%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">化为三次积分的步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">利用柱面坐标计算三重积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9F%B1%E9%9D%A2%E5%9D%90%E6%A0%87%E7%9A%84%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF"><span class="toc-text">使用柱面坐标的常见场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">球面坐标系下三重积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">常见使用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%BC%A7%E9%95%BF%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86"><span class="toc-text">对弧长的曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="toc-text">几何意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8"><span class="toc-text">基本性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%BC%A7%E9%95%BF%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对弧长的曲线积分的计算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86"><span class="toc-text">对坐标的曲线积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E5%BD%A2%E5%BC%8F"><span class="toc-text">坐标形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89"><span class="toc-text">物理意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8-2"><span class="toc-text">基本性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对坐标的曲线积分的计算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">格林公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E8%BF%9E%E9%80%9A%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%A4%8D%E8%BF%9E%E9%80%9A%E5%8C%BA%E5%9F%9F"><span class="toc-text">单连通区域与复连通区域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E7%9A%84%E6%AD%A3%E6%96%B9%E5%90%91"><span class="toc-text">边界的正方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F"><span class="toc-text">格林公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">适用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8B%86%E5%88%86%E5%85%AC%E5%BC%8F"><span class="toc-text">常用拆分公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E7%89%9B%E9%A1%BF%E2%80%94%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%85%AC%E5%BC%8F%E7%9A%84%E7%B1%BB%E6%AF%94"><span class="toc-text">与牛顿—莱布尼茨公式的类比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B3%E9%9D%A2%E4%B8%8A%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%8E%E8%B7%AF%E5%BE%84%E6%97%A0%E5%85%B3"><span class="toc-text">平面上曲线积分与路径无关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">全微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E5%AE%9A%E6%9D%A1%E4%BB%B6"><span class="toc-text">判定条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF"><span class="toc-text">核心思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%9D%A2%E7%A7%AF%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="toc-text">对面积的曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E6%BB%91%E6%9B%B2%E9%9D%A2"><span class="toc-text">光滑曲面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E9%9D%A2%E7%A7%AF%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对面积的曲面积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E6%9B%B2%E9%9D%A2%E7%9A%84%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0"><span class="toc-text">显式曲面的面积元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%9B%B2%E9%9D%A2%E7%9A%84%E9%9D%A2%E7%A7%AF%E5%85%83%E7%B4%A0"><span class="toc-text">参数曲面的面积元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%AD%A5%E9%AA%A4"><span class="toc-text">计算步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86"><span class="toc-text">对坐标的曲面积分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E6%9B%B2%E9%9D%A2"><span class="toc-text">有向曲面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8-3"><span class="toc-text">基本性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%9D%90%E6%A0%87%E7%9A%84%E6%9B%B2%E9%9D%A2%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">对坐标的曲面积分的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E5%BD%A2%E5%BC%8F"><span class="toc-text">参数方程形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E6%96%B9%E7%A8%8B%E5%BD%A2%E5%BC%8F"><span class="toc-text">显式方程形式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">高斯公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">使用条件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">斯托克斯公式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">与格林公式的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6-2"><span class="toc-text">使用条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E4%B8%AD%E6%9B%B2%E7%BA%BF%E7%A7%AF%E5%88%86%E4%B8%8E%E8%B7%AF%E5%BE%84%E6%97%A0%E5%85%B3"><span class="toc-text">空间中曲线积分与路径无关</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">外微分式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E7%A7%AF%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="toc-text">外积运算法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">外微分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">零次外微分式的外微分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">一次外微分式的外微分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E6%AC%A1%E5%A4%96%E5%BE%AE%E5%88%86%E5%BC%8F%E7%9A%84%E5%A4%96%E5%BE%AE%E5%88%86"><span class="toc-text">二次外微分式的外微分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E5%BE%AE%E5%88%86%E4%B8%8E%E4%B8%89%E5%A4%A7%E5%85%AC%E5%BC%8F"><span class="toc-text">外微分与三大公式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F-2"><span class="toc-text">格林公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AF%E6%89%98%E5%85%8B%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="toc-text">斯托克斯公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="toc-text">高斯公式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E5%88%A4%E6%96%AD"><span class="toc-text">符号判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BD%A2%E5%BC%8F"><span class="toc-text">统一形式</span></a></li></ol></li></ol></nav>
+  </aside>
+
+
+
+  
+  
+  <script type="module" src="/js/article.mjs"></script>
+  
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="import('/js/article.mjs').then(function(article) { article.renderArticleMath(document, renderMathInElement, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], ignoredClasses: ['no-math'], strict: 'ignore', macros: { '\\iddots': '\\mathinner{\\raisebox{0.7em}{.}\\mkern-1mu\\raisebox{0.35em}{.}\\mkern-1mu.}' } }); });"></script>
   
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '$$', right: '$$', display: true},
-      {left: '$', right: '$', display: false}
-    ],
-    ignoredClasses: ['no-math']
-  });">
-</script>
-
-<script src="/js/main.js"></script>
 
 </body>
 </html>

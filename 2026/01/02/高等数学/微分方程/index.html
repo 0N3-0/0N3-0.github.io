@@ -1,41 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1419">
+  <script>
+    (function() {
+      var mode = 'dark';
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') mode = saved;
+      } catch (error) {}
+      document.documentElement.setAttribute('data-theme', mode);
+      document.querySelector('meta[name="theme-color"]').setAttribute(
+        'content', mode === 'light' ? '#c1c4c5' : '#0b1419'
+      );
+    })();
+  </script>
   <title>微分方程 | One&#39;s Blog</title>
-  <meta name="description" content="">
-  <style>
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
-      font-weight: 400;
-      font-style: italic;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
-      font-weight: 700;
-      font-style: italic;
-      font-display: swap;
-    }
-  </style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/Hack/HackNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link rel="stylesheet" href="/css/variables.css">
+
+  <link rel="stylesheet" href="/css/base.css">
+
+  <link rel="stylesheet" href="/css/article.css">
+
+  <link rel="stylesheet" href="/css/code.css">
+
+  <link rel="stylesheet" href="/css/math.css">
+
+  <link rel="stylesheet" href="/css/responsive.css">
+
+
+  
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+  
   <meta name="description" content="定义 含有位置函数的导数或微分的等式称为微分方程，未知函数是一元函数的微分方程称为常微分方程 微分方程中未知函数的导数的最高阶数，称为微分方程的阶 一般的 $n$ 阶微分方程可表示为 $F(x,y,y&#39;,\dots,y^{(n)})&#x3D;0$，其中 $y^{(n)}$ 必须出现，其他项可以不出现 关于未知函数及其各阶导数均为一次的方程称为线性微分方程，$n$ 阶微分方程的一般形式为 $\frac{d^">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微分方程">
@@ -50,74 +52,39 @@
 <meta name="twitter:card" content="summary">
 <meta name="generator" content="Hexo 8.1.2"></head>
 
-<body class="page">
-  <header class="header">
-  <div class="header-left">
-    <a class="header-logo" href="/">One&#39;s Blog</a>
-  </div>
-  <nav class="header-right">
-    <div class="header-nav">
+<body class="article-page" data-theme-name="one-terminal">
+  
+    
+<a class="article-return" href="/" aria-label="返回终端">&larr; terminal</a>
+<main class="article-shell"
+  data-schema-version="1"
+  data-build-id="a76b97e53de251e9"
+  data-article-id="post:8e1ecb4dae18"
+  data-article-url="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/"
+  data-root-url="/"
+  data-return-ttl-ms="43200000">
+  <article class="post-article">
+  <header class="post-header">
+    <h1 class="post-title">微分方程</h1>
+    <div class="post-meta">
+      <time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time>
       
-        <a href="/tags">标签</a>
-      
-        <a href="/categories">分类</a>
-      
-        <a href="/about">关于</a>
+        <span aria-hidden="true"> · </span>
+        
+          <a href="/categories/Math/">Math</a>
+        
       
     </div>
-    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
-      <span id="theme-icon">&#9788;</span>
-    </button>
-  </nav>
-</header>
-
-  <div class="page-body">
     
-
-<aside class="sidebar-left" id="sidebar-left">
-  <div class="sidebar-left-inner">
-    
-      <div id="tree-nav">
-        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
-      </div>
-    
-    <ul class="post-index" id="tree-list"></ul>
-  </div>
-</aside>
-
-
-<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
-<script>
-  var sidebarCurrentSource = '高等数学/微分方程';
-</script>
-<script src="/js/tree-nav.js"></script>
-
-
-    <main class="main">
-      <div class="main-inner">
+      <div class="article-tags" aria-label="文章标签">
         
-  <article>
-    <header class="post-header">
-      <h1 class="post-title">微分方程</h1>
-      <div class="post-meta">
-        <span>2026-01-02</span>
-        
-          <span> · </span>
-          
-            <a href="/categories/Math/">Math</a>
-          
+          <a class="tag" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>
         
       </div>
-      
-        <div class="article-tags">
-          
-            <a class="tag" href="/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/">微积分</a>
-          
-        </div>
-      
-    </header>
-    <div class="post-content">
-      <h1>定义</h1>
+    
+  </header>
+  <div class="post-content">
+    <h1>定义</h1>
 <p>含有位置函数的导数或微分的等式称为<strong>微分方程</strong>，未知函数是一元函数的微分方程称为<strong>常微分方程</strong></p>
 <p>微分方程中未知函数的导数的最高阶数，称为微分方程的<strong>阶</strong></p>
 <p>一般的 $n$ 阶微分方程可表示为 $F(x,y,y',\dots,y^{(n)})=0$，其中 $y^{(n)}$ 必须出现，其他项可以不出现</p>
@@ -193,9 +160,9 @@ $$</p>
 $$</p>
 <p>求出其通解后将 $z=y^{1-\alpha}$ 带回即可得到原方程的通解</p>
 <h1>高阶微分方程</h1>
-<h2 id="MIcuidO1C-pIPKSLcM-q-KdLnFVX99">$y^{(n)}=f(x)$</h2>
+<h2 id="$y^{(n)}=f(x)$">$y^{(n)}=f(x)$</h2>
 <p>对微分方程 $y^{(n)}=f(x)$，只需对两边进行 $n$ 次积分，即可得到 $y^{(n)}=f(x)$ 的通解</p>
-<h2 id="MIcuidO1C-pIPKSLcM-q-KdLnFVX103">$y'' = f(x,y')$</h2>
+<h2 id="$y'' = f(x,y')$">$y'' = f(x,y')$</h2>
 <p>微分方程 $y''=f(x,y')$ 的特点是不含未知函数 $y$。令 $y'=p(x),y''(x)=p'(x)$，则方程变成 $p'=f(x,p)$，即以 $p$ 为未知函数的一阶微分方程，若能求出其通解 $y'=p=\varphi(x,C_{1})$，则再对两边积分可得原方程通解 $y=\int \varphi(x,C_{1}) \, dx +C_{2}$</p>
 <h2 id="其他情形">其他情形</h2>
 <p>对特殊的二阶微分方程，可根据其形式采取一些特殊的简便解法，例如：对方程 $y''=f(y)$，两边同时乘 $2y'$，有 $2y'y''=2y'f(y)$，即 $\frac{d}{dx}(y'^2)=2f(y)\cdot \frac{dy}{dx}$，可得 $d(y'^2)=2f(y)dy$，故 $y'^2=2\int f(y) \, dy + C_{1}$，再两边积分即可得到通解</p>
@@ -221,7 +188,7 @@ $$</p>
 <li>设二阶非齐次线性微分方程的右端项 $f(x)$ 是几个函数之和，如 $y''+p(x)y'+q(x)y=f_{1}(x)+f_{2}(x)$，而 $y_{1}^*(x)$ 和 $y_{2}^*(x)$ 分别是方程 $y''+p(x)y'+q(x)y=f_{1}(x)$ 和 $y''+p(x)y'+q(x)y=f_{2}(x)$ 的特解，则 $y^*=y_{1}^*(x)+y_{2}^*(x)$ 是原方程的特解</li>
 </ol>
 <h2 id="解线性微分方程的常数变易法">解线性微分方程的常数变易法</h2>
-<h3 id="已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解-MIcuidO1C-pIPKSLcM-q-KdLnFVX150">已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解 $y_{1}(x)$</h3>
+<h3 id="已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解-$y_{1}(x)$">已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解 $y_{1}(x)$</h3>
 <p>令 $y(x)=y_{1}(x)u(x)$，则有</p>
 <p>$$
 y_{1}u''+(2y_{1}'+py_{1})u'+(y_{1}''+py_{1}'+qy_{1})u=f
@@ -441,71 +408,35 @@ $$</p>
 y = C_1 + C_2 x^3 + C_3 \frac{1}{x} - \frac{1}{2} x^2
 $$</p>
 
-    </div>
-  </article>
+  </div>
+</article>
 
+  
 
-
-
-
-
-  <nav class="pagination">
-    
-      <a class="prev" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/">微分</a>
-    
-    
-      <a class="next" href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/">无穷级数</a>
-    
+  <nav class="article-pagination" aria-label="文章导航">
+    <a class="prev" href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/" data-article-link><span aria-hidden="true">&larr; </span>微分</a>
+    <a class="next" href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/" data-article-link>无穷级数<span aria-hidden="true"> &rarr;</span></a>
   </nav>
 
 
-      </div>
-    </main>
-    
-<aside class="sidebar-right" id="sidebar-right">
-  <div class="sidebar-right-inner">
-    
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">一阶微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E7%9A%84%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">可分离变量的微分方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%8C%96%E4%B8%BA%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E5%9E%8B%E7%9A%84%E6%96%B9%E7%A8%8B"><span class="toc-text">可化为可分离变量型的方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">一阶线性微分方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%96%B9%E7%A8%8B"><span class="toc-text">伯努利方程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">高阶微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EE%80%81MIcuidO1C-pIPKSLcM-q-KdLnFVX99%EE%80%82"><span class="toc-text">$y^{(n)}&#x3D;f(x)$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EE%80%81MIcuidO1C-pIPKSLcM-q-KdLnFVX103%EE%80%82"><span class="toc-text">$y&#39;&#39; &#x3D; f(x,y&#39;)$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%83%85%E5%BD%A2"><span class="toc-text">其他情形</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">线性微分方程解的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">二阶齐次线性微分方程的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">二阶非齐次线性微分方程的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E5%B8%B8%E6%95%B0%E5%8F%98%E6%98%93%E6%B3%95"><span class="toc-text">解线性微分方程的常数变易法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B2%E7%9F%A5%E4%BA%8C%E9%98%B6%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%AF%B9%E5%BA%94%E7%9A%84%E4%BA%8C%E9%98%B6%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E4%B8%8D%E6%81%92%E4%B8%BA%E9%9B%B6%E7%9A%84%E8%A7%A3-%EE%80%81MIcuidO1C-pIPKSLcM-q-KdLnFVX150%EE%80%82"><span class="toc-text">已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解 $y_{1}(x)$</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">常系数线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">二阶常系数齐次线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AE%9E%E6%A0%B9"><span class="toc-text">两个不同实根</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%87%8D%E6%A0%B9"><span class="toc-text">二重根</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%95%B0%E6%A0%B9"><span class="toc-text">复数根</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">二阶常系数非齐次线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%BD%A2%E4%B8%80"><span class="toc-text">情形一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%BD%A2%E4%BA%8C"><span class="toc-text">情形二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E6%96%B9%E7%A8%8B"><span class="toc-text">欧拉方程</span></a></li></ol></li></ol>
-    
-  </div>
-</aside>
+</main>
 
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-  </div>
-  <footer class="footer">
-  © 2026 one
-  
-    <span> · </span>
-    
-    
-      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
-      
-    
-  
-  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
-</footer>
 
-  <div class="float-menu" id="float-menu">
-    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
-    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
-    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
-    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
-  </div>
+  <aside class="article-toc sidebar-right open" aria-label="文章目录">
+    <nav class="sidebar-right-inner"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">一阶微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E7%9A%84%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">可分离变量的微分方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%8C%96%E4%B8%BA%E5%8F%AF%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E5%9E%8B%E7%9A%84%E6%96%B9%E7%A8%8B"><span class="toc-text">可化为可分离变量型的方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">一阶线性微分方程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%96%B9%E7%A8%8B"><span class="toc-text">伯努利方程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">高阶微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#$y%5E%7B(n)%7D=f(x)$"><span class="toc-text">$y^{(n)}&#x3D;f(x)$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#$y''%20=%20f(x,y')$"><span class="toc-text">$y&#39;&#39; &#x3D; f(x,y&#39;)$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%83%85%E5%BD%A2"><span class="toc-text">其他情形</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">线性微分方程解的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">二阶齐次线性微分方程的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">二阶非齐次线性微分方程的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8-2"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E5%B8%B8%E6%95%B0%E5%8F%98%E6%98%93%E6%B3%95"><span class="toc-text">解线性微分方程的常数变易法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B2%E7%9F%A5%E4%BA%8C%E9%98%B6%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%AF%B9%E5%BA%94%E7%9A%84%E4%BA%8C%E9%98%B6%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E4%B8%8D%E6%81%92%E4%B8%BA%E9%9B%B6%E7%9A%84%E8%A7%A3-$y_%7B1%7D(x)$"><span class="toc-text">已知二阶非齐次线性微分方程对应的二阶齐次线性微分方程的一个不恒为零的解 $y_{1}(x)$</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">常系数线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">二阶常系数齐次线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E4%B8%8D%E5%90%8C%E5%AE%9E%E6%A0%B9"><span class="toc-text">两个不同实根</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%87%8D%E6%A0%B9"><span class="toc-text">二重根</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%95%B0%E6%A0%B9"><span class="toc-text">复数根</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-text">二阶常系数非齐次线性微分方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%BD%A2%E4%B8%80"><span class="toc-text">情形一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%85%E5%BD%A2%E4%BA%8C"><span class="toc-text">情形二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E6%96%B9%E7%A8%8B"><span class="toc-text">欧拉方程</span></a></li></ol></li></ol></nav>
+  </aside>
+
+
+
+  
+  
+  <script type="module" src="/js/article.mjs"></script>
+  
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="import('/js/article.mjs').then(function(article) { article.renderArticleMath(document, renderMathInElement, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], ignoredClasses: ['no-math'], strict: 'ignore', macros: { '\\iddots': '\\mathinner{\\raisebox{0.7em}{.}\\mkern-1mu\\raisebox{0.35em}{.}\\mkern-1mu.}' } }); });"></script>
   
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '$$', right: '$$', display: true},
-      {left: '$', right: '$', display: false}
-    ],
-    ignoredClasses: ['no-math']
-  });">
-</script>
-
-<script src="/js/main.js"></script>
 
 </body>
 </html>

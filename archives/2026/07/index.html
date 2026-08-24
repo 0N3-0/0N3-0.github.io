@@ -1,41 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1419">
+  <script>
+    (function() {
+      var mode = 'dark';
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') mode = saved;
+      } catch (error) {}
+      document.documentElement.setAttribute('data-theme', mode);
+      document.querySelector('meta[name="theme-color"]').setAttribute(
+        'content', mode === 'light' ? '#c1c4c5' : '#0b1419'
+      );
+    })();
+  </script>
   <title>One&#39;s Blog</title>
-  <meta name="description" content="">
-  <style>
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
-      font-weight: 400;
-      font-style: italic;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
-      font-weight: 700;
-      font-style: italic;
-      font-display: swap;
-    }
-  </style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/Hack/HackNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link rel="stylesheet" href="/css/variables.css">
+
+  <link rel="stylesheet" href="/css/base.css">
+
+  <link rel="stylesheet" href="/css/terminal.css">
+
+  <link rel="stylesheet" href="/css/completion.css">
+
+  <link rel="stylesheet" href="/css/responsive.css">
+
+
+  
   <meta property="og:type" content="website">
 <meta property="og:title" content="One&#39;s Blog">
 <meta property="og:url" content="http://0n3-0.github.io/archives/2026/07/index.html">
@@ -45,128 +42,40 @@
 <meta name="twitter:card" content="summary">
 <meta name="generator" content="Hexo 8.1.2"></head>
 
-<body class="page">
-  <header class="header">
-  <div class="header-left">
-    <a class="header-logo" href="/">One&#39;s Blog</a>
-  </div>
-  <nav class="header-right">
-    <div class="header-nav">
-      
-        <a href="/tags">标签</a>
-      
-        <a href="/categories">分类</a>
-      
-        <a href="/about">关于</a>
-      
-    </div>
-    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
-      <span id="theme-icon">&#9788;</span>
-    </button>
+<body class="terminal-route" data-theme-name="one-terminal">
+  
+    <main class="terminal-page" data-terminal-root="/">
+  <section class="terminal-fallback">
+  <nav class="terminal-fallback-nav" aria-label="Terminal navigation">
+    <a href="/">Home</a>
+    <a href="/posts/">Posts</a>
+    <a href="/archives/">Archives</a>
+    <a href="/tags/">Tags</a>
+    <a href="/categories/">Categories</a>
   </nav>
-</header>
+  
+<section class="terminal-fallback-content" data-terminal-route="archives">
+  <h1>ARCHIVES · 3 entries</h1>
+  <ul>
+    <li><time datetime="2026-07-09T07:37:24.000Z">2026-07-09</time> <a href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/">Chapter1：从一个简单的训练集开始</a></li>
+  
+    <li><time datetime="2026-07-09T07:35:21.000Z">2026-07-09</time> <a href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">Chapter0.5：什么是机器学习</a></li>
+  
+    <li><time datetime="2026-07-09T07:33:17.000Z">2026-07-09</time> <a href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/">Chapter0：启程</a></li>
+  </ul>
+</section>
 
-  <div class="page-body">
-    
+</section>
 
-<aside class="sidebar-left" id="sidebar-left">
-  <div class="sidebar-left-inner">
-    
-      <div id="tree-nav">
-        <button class="sidebar-back" id="tree-back">&larr; <span class="sidebar-back-label" id="tree-back-label"></span></button>
-      </div>
-    
-    <ul class="post-index" id="tree-list"></ul>
-  </div>
-</aside>
-
-
-<script id="tree-data" type="application/json">{"WriteUp":{"WHUCTF2025新生赛":{"_isFile":true,"url":"/2025/10/26/WriteUp/WHUCTF2025%E6%96%B0%E7%94%9F%E8%B5%9B/","title":"WHUCTF2025新生赛","source":"WriteUp/WHUCTF2025新生赛"},"WHUCTF2026校赛":{"_isFile":true,"url":"/2026/04/20/WriteUp/WHUCTF2026%E6%A0%A1%E8%B5%9B/","title":"WHUCTF2026校赛","source":"WriteUp/WHUCTF2026校赛"},"_isDir":true},"机器学习":{"Chapter0-0：启程":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/","title":"Chapter0：启程","source":"机器学习/Chapter0-0：启程"},"Chapter0-5：什么是机器学习":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/","title":"Chapter0.5：什么是机器学习","source":"机器学习/Chapter0-5：什么是机器学习"},"Chapter1：从一个简单的训练集开始":{"_isFile":true,"url":"/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/","title":"Chapter1：从一个简单的训练集开始","source":"机器学习/Chapter1：从一个简单的训练集开始"},"_isDir":true},"线性代数":{"n元排列":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/n%E5%85%83%E6%8E%92%E5%88%97/","title":"n元排列","source":"线性代数/n元排列"},"向量":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F/","title":"向量","source":"线性代数/向量"},"矩阵":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9F%A9%E9%98%B5/","title":"矩阵","source":"线性代数/矩阵"},"线性方程组":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84/","title":"线性方程组","source":"线性代数/线性方程组"},"行列式":{"_isFile":true,"url":"/2025/10/26/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E8%A1%8C%E5%88%97%E5%BC%8F/","title":"行列式","source":"线性代数/行列式"},"_isDir":true},"高等数学":{"函数性质":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/","title":"函数性质","source":"高等数学/函数性质"},"多元函数":{"_isFile":true,"url":"/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/","title":"多元函数","source":"高等数学/多元函数"},"导数":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/","title":"导数","source":"高等数学/导数"},"微分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/","title":"微分","source":"高等数学/微分"},"微分方程":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/","title":"微分方程","source":"高等数学/微分方程"},"无穷级数":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/","title":"无穷级数","source":"高等数学/无穷级数"},"极限":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/","title":"极限","source":"高等数学/极限"},"积分":{"_isFile":true,"url":"/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/","title":"积分","source":"高等数学/积分"},"空间解析几何":{"_isFile":true,"url":"/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/","title":"空间解析几何","source":"高等数学/空间解析几何"},"重积分":{"_isFile":true,"url":"/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/","title":"重积分","source":"高等数学/重积分"},"_isDir":true}}</script>
-<script>
-  var sidebarCurrentSource = '';
-</script>
-<script src="/js/tree-nav.js"></script>
-
-
-    <main class="main">
-      <div class="main-inner">
-        
+  <section class="terminal-enhanced" id="terminal-enhanced" hidden aria-label="博客终端"></section>
+  <div class="sr-status" id="terminal-status" aria-live="polite" aria-atomic="true"></div>
+  <script id="terminal-initial-state" type="application/json">{"schemaVersion":1,"kind":"archives","url":"/archives/2026/07/index.html","viewTarget":null,"returnUrl":"/","indexUrl":"/terminal-index.json","indexTimeoutMs":8000,"about":{"title":"One's Blog","author":"one","theme":"one-terminal","avatarUrl":"/images/avatar.jpg","github":{"label":"github.com/0N3-0","url":"https://github.com/0N3-0"},"email":"thehungedman@qq.com"},"paginationDir":"page","routes":{"root":"/","posts":"/posts/","archives":"/archives/","tags":"/tags/","categories":"/categories/"}}</script>
+</main>
 
   
   
-    <h2 class="archive-year">2026</h2>
-    
-  
-  <div class="archive-post">
-    <span class="date">2026-07-09</span>
-    <span class="title"><a href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter1%EF%BC%9A%E4%BB%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%AD%E7%BB%83%E9%9B%86%E5%BC%80%E5%A7%8B/">Chapter1：从一个简单的训练集开始</a></span>
-  </div>
+  <script type="module" src="/js/terminal/bootstrap.mjs"></script>
 
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-07-09</span>
-    <span class="title"><a href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-5%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">Chapter0.5：什么是机器学习</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-07-09</span>
-    <span class="title"><a href="/2026/07/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Chapter0-0%EF%BC%9A%E5%90%AF%E7%A8%8B/">Chapter0：启程</a></span>
-  </div>
-
-
-
-
-
-      </div>
-    </main>
-    
-<aside class="sidebar-right" id="sidebar-right">
-  <div class="sidebar-right-inner">
-    
-      <div class="toc-empty">暂无目录</div>
-    
-  </div>
-</aside>
-
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-  </div>
-  <footer class="footer">
-  © 2026 one
-  
-    <span> · </span>
-    
-    
-      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
-      
-    
-  
-  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
-</footer>
-
-  <div class="float-menu" id="float-menu">
-    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
-    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
-    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
-    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
-  </div>
-  
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '$$', right: '$$', display: true},
-      {left: '$', right: '$', display: false}
-    ],
-    ignoredClasses: ['no-math']
-  });">
-</script>
-
-<script src="/js/main.js"></script>
 
 </body>
 </html>

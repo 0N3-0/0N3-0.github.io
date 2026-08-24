@@ -1,41 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1419">
+  <script>
+    (function() {
+      var mode = 'dark';
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') mode = saved;
+      } catch (error) {}
+      document.documentElement.setAttribute('data-theme', mode);
+      document.querySelector('meta[name="theme-color"]').setAttribute(
+        'content', mode === 'light' ? '#c1c4c5' : '#0b1419'
+      );
+    })();
+  </script>
   <title>One&#39;s Blog</title>
-  <meta name="description" content="">
-  <style>
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
-      font-weight: 400;
-      font-style: italic;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
-      font-weight: 700;
-      font-style: italic;
-      font-display: swap;
-    }
-  </style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/Hack/HackNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link rel="stylesheet" href="/css/variables.css">
+
+  <link rel="stylesheet" href="/css/base.css">
+
+  <link rel="stylesheet" href="/css/terminal.css">
+
+  <link rel="stylesheet" href="/css/completion.css">
+
+  <link rel="stylesheet" href="/css/responsive.css">
+
+
+  
   <meta property="og:type" content="website">
 <meta property="og:title" content="One&#39;s Blog">
 <meta property="og:url" content="http://0n3-0.github.io/tags/%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/index.html">
@@ -45,212 +42,40 @@
 <meta name="twitter:card" content="summary">
 <meta name="generator" content="Hexo 8.1.2"></head>
 
-<body class="page tag-page">
-  <header class="header">
-  <div class="header-left">
-    <a class="header-logo" href="/">One&#39;s Blog</a>
-  </div>
-  <nav class="header-right">
-    <div class="header-nav">
-      
-        <a href="/tags">标签</a>
-      
-        <a href="/categories">分类</a>
-      
-        <a href="/about">关于</a>
-      
-    </div>
-    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
-      <span id="theme-icon">&#9788;</span>
-    </button>
+<body class="terminal-route" data-theme-name="one-terminal">
+  
+    <main class="terminal-page" data-terminal-root="/">
+  <section class="terminal-fallback">
+  <nav class="terminal-fallback-nav" aria-label="Terminal navigation">
+    <a href="/">Home</a>
+    <a href="/posts/">Posts</a>
+    <a href="/archives/">Archives</a>
+    <a href="/tags/">Tags</a>
+    <a href="/categories/">Categories</a>
   </nav>
-</header>
-
-  <div class="page-body">
+  
+<section class="terminal-fallback-content" data-terminal-route="tag">
+  <h1>TAG › 极限与连续</h1>
+  
+    <ul>
+      <li><time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time> <a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/">函数性质</a></li>
     
-
-<aside class="sidebar-left" id="sidebar-left" data-auto-open="false">
-  <div class="sidebar-left-inner">
-    
-    <ul class="post-index" id="tree-list"></ul>
-  </div>
-</aside>
-
-
-
-    <main class="main">
-      <div class="main-inner">
-        <h1 class="page-heading">标签</h1>
-
-<div id="tag-sphere"></div>
-
-
+      <li><time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time> <a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/">极限</a></li>
+    </ul>
   
+</section>
+
+</section>
+
+  <section class="terminal-enhanced" id="terminal-enhanced" hidden aria-label="博客终端"></section>
+  <div class="sr-status" id="terminal-status" aria-live="polite" aria-atomic="true"></div>
+  <script id="terminal-initial-state" type="application/json">{"schemaVersion":1,"kind":"tag","url":"/tags/%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/index.html","viewTarget":"极限与连续","returnUrl":"/","indexUrl":"/terminal-index.json","indexTimeoutMs":8000,"about":{"title":"One's Blog","author":"one","theme":"one-terminal","avatarUrl":"/images/avatar.jpg","github":{"label":"github.com/0N3-0","url":"https://github.com/0N3-0"},"email":"thehungedman@qq.com"},"paginationDir":"page","routes":{"root":"/","posts":"/posts/","archives":"/archives/","tags":"/tags/","categories":"/categories/"}}</script>
+</main>
 
   
   
-    <h2 class="archive-year">2026</h2>
-    
-  
-  <div class="archive-post">
-    <span class="date">2026-01-02</span>
-    <span class="title"><a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/">函数性质</a></span>
-  </div>
+  <script type="module" src="/js/terminal/bootstrap.mjs"></script>
 
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-01-02</span>
-    <span class="title"><a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/">极限</a></span>
-  </div>
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/TagCloud@2.5.0/dist/TagCloud.min.js"></script>
-<script>
-(function() {
-
-  var entries = [{"text":"微积分","weight":5,"link":"/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/"},{"text":"从零开始的机器学习","weight":3,"link":"/tags/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"},{"text":"矩阵与行列式","weight":3,"link":"/tags/%E7%9F%A9%E9%98%B5%E4%B8%8E%E8%A1%8C%E5%88%97%E5%BC%8F/"},{"text":"WriteUp","weight":2,"link":"/tags/WriteUp/"},{"text":"向量与方程组","weight":2,"link":"/tags/%E5%90%91%E9%87%8F%E4%B8%8E%E6%96%B9%E7%A8%8B%E7%BB%84/"},{"text":"极限与连续","weight":2,"link":"/tags/%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/"},{"text":"多元函数","weight":2,"link":"/tags/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/"},{"text":"空间解析几何","weight":1,"link":"/tags/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/"}];
-  if (!entries.length) return;
-
-  var tags = entries.map(function(e) {
-    return e.text;
-  });
-
-  var container = document.getElementById('tag-sphere');
-  var rect = container.getBoundingClientRect();
-  var radius = Math.min(280, Math.floor(rect.width / 2.2));
-
-  var instance = TagCloud('#tag-sphere', tags, {
-    radius: radius,
-    maxSpeed: 'normal',
-    initSpeed: 'fast',
-    direction: 135,
-    keep: true
-  });
-
-  // Scale font size by weight
-  var weights = entries.map(function(e) { return e.weight; });
-  var minW = Math.min.apply(null, weights);
-  var maxW = Math.max.apply(null, weights);
-  var items = container.querySelectorAll('.tagcloud--item');
-  items.forEach(function(el, i) {
-    var w = weights[i];
-    var size = 14 + ((w - minW) / Math.max(1, maxW - minW)) * 10;
-    el.style.fontSize = size + 'px';
-  });
-
-  var dragging = false, lastX, lastY;
-
-  function onStart(x, y, e) {
-    dragging = true;
-    lastX = x;
-    lastY = y;
-    if (instance) {
-      instance.mouseX0 = instance.mouseX;
-      instance.mouseY0 = instance.mouseY;
-    }
-    if (e.type === 'mousedown') {
-      e.preventDefault();
-    }
-  }
-
-  function onMove(x, y, e) {
-    if (!dragging || !instance) return;
-    var dx = x - lastX;
-    var dy = y - lastY;
-    instance.mouseX += dx * 0.8;
-    instance.mouseY += dy * 0.8;
-    instance.mouseX0 = instance.mouseX;
-    instance.mouseY0 = instance.mouseY;
-    lastX = x;
-    lastY = y;
-    e.stopPropagation();
-  }
-
-  function onEnd() {
-    dragging = false;
-  }
-
-  container.addEventListener('mousedown', function(e) {
-    onStart(e.clientX, e.clientY, e);
-  });
-  container.addEventListener('mousemove', function(e) {
-    onMove(e.clientX, e.clientY, e);
-  });
-  document.addEventListener('mouseup', onEnd);
-
-  container.addEventListener('touchstart', function(e) {
-    if (e.touches.length === 1) {
-      onStart(e.touches[0].clientX, e.touches[0].clientY, e);
-    }
-  }, { passive: false });
-  container.addEventListener('touchmove', function(e) {
-    if (e.touches.length === 1) {
-      onMove(e.touches[0].clientX, e.touches[0].clientY, e);
-    }
-  }, { passive: false });
-  container.addEventListener('touchend', onEnd);
-
-  // Click: navigate to tag page
-  container.addEventListener('click', function(e) {
-    if (dragging) return;
-    var target = e.target.closest('.tagcloud--item');
-    if (!target) return;
-    var idx = Array.from(container.querySelectorAll('.tagcloud--item')).indexOf(target);
-    if (idx >= 0 && entries[idx]) {
-      window.location.href = entries[idx].link;
-    }
-  });
-})();
-</script>
-
-      </div>
-    </main>
-    
-<aside class="sidebar-right" id="sidebar-right" data-auto-open="false">
-  <div class="sidebar-right-inner">
-    
-  </div>
-</aside>
-
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-  </div>
-  <footer class="footer">
-  © 2026 one
-  
-    <span> · </span>
-    
-    
-      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
-      
-    
-  
-  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
-</footer>
-
-  <div class="float-menu" id="float-menu">
-    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
-    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
-    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
-    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
-  </div>
-  
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '$$', right: '$$', display: true},
-      {left: '$', right: '$', display: false}
-    ],
-    ignoredClasses: ['no-math']
-  });">
-</script>
-
-<script src="/js/main.js"></script>
 
 </body>
 </html>

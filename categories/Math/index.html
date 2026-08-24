@@ -1,41 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1419">
+  <script>
+    (function() {
+      var mode = 'dark';
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') mode = saved;
+      } catch (error) {}
+      document.documentElement.setAttribute('data-theme', mode);
+      document.querySelector('meta[name="theme-color"]').setAttribute(
+        'content', mode === 'light' ? '#c1c4c5' : '#0b1419'
+      );
+    })();
+  </script>
   <title>One&#39;s Blog</title>
-  <meta name="description" content="">
-  <style>
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Regular.ttf");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Bold.ttf");
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-Italic.ttf");
-      font-weight: 400;
-      font-style: italic;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "HackNF";
-      src: url("/fonts/Hack/HackNerdFont-BoldItalic.ttf");
-      font-weight: 700;
-      font-style: italic;
-      font-display: swap;
-    }
-  </style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/Hack/HackNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link rel="stylesheet" href="/css/variables.css">
+
+  <link rel="stylesheet" href="/css/base.css">
+
+  <link rel="stylesheet" href="/css/terminal.css">
+
+  <link rel="stylesheet" href="/css/completion.css">
+
+  <link rel="stylesheet" href="/css/responsive.css">
+
+
+  
   <meta property="og:type" content="website">
 <meta property="og:title" content="One&#39;s Blog">
 <meta property="og:url" content="http://0n3-0.github.io/categories/Math/index.html">
@@ -45,175 +42,54 @@
 <meta name="twitter:card" content="summary">
 <meta name="generator" content="Hexo 8.1.2"></head>
 
-<body class="page">
-  <header class="header">
-  <div class="header-left">
-    <a class="header-logo" href="/">One&#39;s Blog</a>
-  </div>
-  <nav class="header-right">
-    <div class="header-nav">
-      
-        <a href="/tags">标签</a>
-      
-        <a href="/categories">分类</a>
-      
-        <a href="/about">关于</a>
-      
-    </div>
-    <button class="btn-theme" id="btn-theme" aria-label="Toggle theme" title="切换主题">
-      <span id="theme-icon">&#9788;</span>
-    </button>
+<body class="terminal-route" data-theme-name="one-terminal">
+  
+    <main class="terminal-page" data-terminal-root="/">
+  <section class="terminal-fallback">
+  <nav class="terminal-fallback-nav" aria-label="Terminal navigation">
+    <a href="/">Home</a>
+    <a href="/posts/">Posts</a>
+    <a href="/archives/">Archives</a>
+    <a href="/tags/">Tags</a>
+    <a href="/categories/">Categories</a>
   </nav>
-</header>
+  
+<section class="terminal-fallback-content" data-terminal-route="category">
+  <h1>CATEGORY › Math</h1>
+  <ul>
+    <li><time datetime="2026-06-23T13:10:47.000Z">2026-06-23</time> <a href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/">重积分</a></li>
+  
+    <li><time datetime="2026-06-23T13:10:36.000Z">2026-06-23</time> <a href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/">无穷级数</a></li>
+  
+    <li><time datetime="2026-03-12T11:59:22.000Z">2026-03-12</time> <a href="/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/">多元函数</a></li>
+  
+    <li><time datetime="2026-03-08T14:25:52.000Z">2026-03-08</time> <a href="/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/">空间解析几何</a></li>
+  
+    <li><time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time> <a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/">函数性质</a></li>
+  
+    <li><time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time> <a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/">导数</a></li>
+  
+    <li><time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time> <a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/">微分</a></li>
+  
+    <li><time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time> <a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">微分方程</a></li>
+  
+    <li><time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time> <a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/">极限</a></li>
+  
+    <li><time datetime="2026-01-02T14:51:16.000Z">2026-01-02</time> <a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/">积分</a></li>
+  </ul>
+</section>
 
-  <div class="page-body">
-    
+</section>
 
-<aside class="sidebar-left" id="sidebar-left" data-auto-open="false">
-  <div class="sidebar-left-inner">
-    
-    <ul class="post-index" id="tree-list"></ul>
-  </div>
-</aside>
-
-
-
-    <main class="main">
-      <div class="main-inner">
-        <h1 class="page-heading">Math</h1>
-
+  <section class="terminal-enhanced" id="terminal-enhanced" hidden aria-label="博客终端"></section>
+  <div class="sr-status" id="terminal-status" aria-live="polite" aria-atomic="true"></div>
+  <script id="terminal-initial-state" type="application/json">{"schemaVersion":1,"kind":"category","url":"/categories/Math/index.html","viewTarget":"Math","returnUrl":"/","indexUrl":"/terminal-index.json","indexTimeoutMs":8000,"about":{"title":"One's Blog","author":"one","theme":"one-terminal","avatarUrl":"/images/avatar.jpg","github":{"label":"github.com/0N3-0","url":"https://github.com/0N3-0"},"email":"thehungedman@qq.com"},"paginationDir":"page","routes":{"root":"/","posts":"/posts/","archives":"/archives/","tags":"/tags/","categories":"/categories/"}}</script>
+</main>
 
   
   
-    <h2 class="archive-year">2026</h2>
-    
-  
-  <div class="archive-post">
-    <span class="date">2026-06-23</span>
-    <span class="title"><a href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E9%87%8D%E7%A7%AF%E5%88%86/">重积分</a></span>
-  </div>
+  <script type="module" src="/js/terminal/bootstrap.mjs"></script>
 
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-06-23</span>
-    <span class="title"><a href="/2026/06/23/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/">无穷级数</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-03-12</span>
-    <span class="title"><a href="/2026/03/12/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/">多元函数</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-03-08</span>
-    <span class="title"><a href="/2026/03/08/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A9%BA%E9%97%B4%E8%A7%A3%E6%9E%90%E5%87%A0%E4%BD%95/">空间解析几何</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-01-02</span>
-    <span class="title"><a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8/">函数性质</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-01-02</span>
-    <span class="title"><a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86/">微分</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-01-02</span>
-    <span class="title"><a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%AF%BC%E6%95%B0/">导数</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-01-02</span>
-    <span class="title"><a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">微分方程</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-01-02</span>
-    <span class="title"><a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E6%9E%81%E9%99%90/">极限</a></span>
-  </div>
-
-  
-  
-  <div class="archive-post">
-    <span class="date">2026-01-02</span>
-    <span class="title"><a href="/2026/01/02/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/%E7%A7%AF%E5%88%86/">积分</a></span>
-  </div>
-
-
-
-  <nav class="pagination">
-    
-      <span></span>
-    
-    
-      <a class="next" href="/categories/Math/page/2/">下一页</a>
-    
-  </nav>
-
-
-
-      </div>
-    </main>
-    
-<aside class="sidebar-right" id="sidebar-right" data-auto-open="false">
-  <div class="sidebar-right-inner">
-    
-  </div>
-</aside>
-
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-  </div>
-  <footer class="footer">
-  © 2026 one
-  
-    <span> · </span>
-    
-    
-      <a target="_blank" rel="noopener" href="https://github.com/0N3-0">github</a>
-      
-    
-  
-  <span> · Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a></span>
-</footer>
-
-  <div class="float-menu" id="float-menu">
-    <a class="float-btn-sub float-btn" href="/" id="float-btn-home" title="首页">M</a>
-    <button class="float-btn-sub float-btn" id="float-btn-left" title="文章列表">L</button>
-    <button class="float-btn-sub float-btn" id="float-btn-right" title="文章目录">R</button>
-    <button class="float-btn-gear float-btn" id="float-btn-gear" title="菜单">&#9881;</button>
-  </div>
-  
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '$$', right: '$$', display: true},
-      {left: '$', right: '$', display: false}
-    ],
-    ignoredClasses: ['no-math']
-  });">
-</script>
-
-<script src="/js/main.js"></script>
 
 </body>
 </html>

@@ -1,159 +1,71 @@
-/* ===== Reset & Layout ===== */
-
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
-  font-size: 18px;
+  min-block-size: 100%;
+  background: var(--bg);
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + var(--header-scroll-offset));
-  overflow-x: hidden;
 }
 
 body {
-  font-family: var(--font-body);
+  min-block-size: 100vh;
+  margin: 0;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.75;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input {
+  color: inherit;
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
   color: var(--accent);
-  text-decoration: none;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
 }
+
 a:hover {
-  text-decoration: underline;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: var(--heading);
-  line-height: 1.4;
-}
-
-.post-content h1, .post-content h2, .post-content h3,
-.post-content h4, .post-content h5, .post-content h6 {
-  margin-bottom: 0.8em;
-}
-h1 { font-size: 1.75rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.1rem; }
-
-p { margin-bottom: 1em; }
-
-ol, ul {
-  padding-left: 1.5em;
-  margin-bottom: 1em;
-}
-
-strong { color: var(--heading); }
-
-/* ===== Page Shell ===== */
-
-.page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.page-body {
-  display: flex;
-  flex: 1;
-  position: relative;
-  margin-top: var(--header-height);
-}
-
-/* ===== Main Content ===== */
-
-.main {
-  flex: 1;
-  min-width: 0;
-  padding: 2rem var(--main-hpad);
-  transition: padding-left var(--trans-base) ease, padding-right var(--trans-base) ease;
-}
-
-.main-inner {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* ===== Blockquote ===== */
-
-blockquote {
-  border-left: 3px solid var(--accent);
-  padding: 0.6em 1em;
-  margin: 1em 0;
-  background: var(--bg-sidebar);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: var(--text-muted);
-}
-
-blockquote p {
-  margin: 0.4em 0;
-}
-blockquote p:first-child { margin-top: 0; }
-blockquote p:last-child  { margin-bottom: 0; }
-
-/* ===== Tags ===== */
-
-.tag, .tag-cloud-item {
-  display: inline-block;
-  background: var(--border);
   color: var(--text);
-  font-size: 0.75rem;
-  padding: 0.15em 0.6em;
-  border-radius: var(--radius-xl);
-  text-decoration: none;
-}
-.tag:hover {
-  text-decoration: none;
-  opacity: 0.85;
 }
 
-/* ===== Tables ===== */
+::selection {
+  background: var(--active-bg);
+  color: var(--active-text);
+}
 
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: var(--radius-lg);
-  margin: 1em 0;
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
-table thead tr:first-child th:first-child {
-  border-top-left-radius: var(--radius-lg);
-}
-table thead tr:first-child th:last-child {
-  border-top-right-radius: var(--radius-lg);
-}
-table tbody tr:last-child td:first-child {
-  border-bottom-left-radius: var(--radius-lg);
-}
-table tbody tr:last-child td:last-child {
-  border-bottom-right-radius: var(--radius-lg);
-}
-th, td {
-  padding: 0.5em 0.75em;
-  border: var(--border-thin);
-  text-align: center;
-  vertical-align: middle;
-}
-th { color: var(--heading); font-weight: 600; }
-td p { margin: 0; }
 
-/* ===== Utility ===== */
+[hidden] {
+  display: none !important;
+}
 
-.sr-only {
+.sr-only,
+.sr-status {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
+  border: 0;
 }

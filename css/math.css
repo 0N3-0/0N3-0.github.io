@@ -1,0 +1,9 @@
+.katex-display {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.katex-display > .katex {
+  max-inline-size: 100%;
+}
