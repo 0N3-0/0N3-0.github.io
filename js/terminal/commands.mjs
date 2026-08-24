@@ -6,7 +6,7 @@ import {
   resolvePathResult,
   resolveTarget
 } from './tree.mjs';
-import { DESTINATION_DESCRIPTIONS } from './copy.mjs';
+import { DEFAULT_LANGUAGE, normalizeLanguage, parseLanguage, translate } from '../i18n.mjs';
 
 const VIEW_TARGETS = Object.freeze({
   posts: { view: 'posts', viewNodeId: 'dir:posts' },
@@ -29,7 +29,17 @@ function renderView(target) {
 }
 
 function requireIndexContext(context) {
-  return context?.index && context?.tree ? null : error('INDEX_UNAVAILABLE', 'Terminal index is unavailable.');
+  return context?.index && context?.tree
+    ? null
+    : error('INDEX_UNAVAILABLE', translate(context?.state?.language, 'error.indexUnavailable'));
+}
+
+function languageOf(context) {
+  return context?.state?.language || DEFAULT_LANGUAGE;
+}
+
+function message(context, key, values) {
+  return translate(languageOf(context), key, values);
 }
 
 function resolveCanonical(context, target) {
@@ -87,7 +97,13 @@ function openCandidates(context) {
     const date = typeof post.date === 'string' ? post.date.slice(0, 10) : '';
     const duplicate = context.index.posts.some(other => other.id !== post.id && other.title === post.title);
     const value = duplicate ? post.target : commandArgument(post.title);
-    return candidate(post.id, 'post', post.title, value, date ? `文章 · ${date}` : '文章');
+    return candidate(
+      post.id,
+      'post',
+      post.title,
+      value,
+      message(context, date ? 'completion.articleDate' : 'completion.article', { date })
+    );
   });
 }
 
@@ -107,10 +123,17 @@ function commandArgument(value) {
   return String(value).replace(/[\\\t\n\v\f\r "']/gu, character => `\\${character}`);
 }
 
-function themeCandidates() {
+function themeCandidates(context) {
   return [
-    candidate('theme:dark', 'theme', 'dark', 'dark', '切换到暗色模式'),
-    candidate('theme:light', 'theme', 'light', 'light', '切换到亮色模式')
+    candidate('theme:dark', 'theme', 'dark', 'dark', message(context, 'completion.theme.dark')),
+    candidate('theme:light', 'theme', 'light', 'light', message(context, 'completion.theme.light'))
+  ];
+}
+
+function languageCandidates(context) {
+  return [
+    candidate('language:zh-CN', 'language', 'zh-CN', 'zh-CN', message(context, 'completion.language.zh-CN')),
+    candidate('language:en', 'language', 'en', 'en', message(context, 'completion.language.en'))
   ];
 }
 
@@ -139,7 +162,13 @@ function completeDirectoryPath(context, value) {
 }
 
 function register(registry, definition) {
-  registry.register({ aliases: [], complete() { return []; }, ...definition });
+  const descriptionKey = definition.descriptionKey;
+  registry.register({
+    aliases: [],
+    complete() { return []; },
+    ...definition,
+    ...(descriptionKey ? { description: translate(DEFAULT_LANGUAGE, descriptionKey) } : {})
+  });
 }
 
 export function registerBuiltins(registry) {
@@ -147,12 +176,18 @@ export function registerBuiltins(registry) {
     name: 'help',
     order: 10,
     usage: 'help',
-    description: '显示所有可用命令。',
-    execute() {
+    descriptionKey: 'command.help',
+    execute(context) {
+      const language = languageOf(context);
       return {
         type: 'render',
         view: 'help',
-        commands: registry.list().map(({ name, aliases, usage, description }) => ({ name, aliases: [...aliases], usage, description }))
+        commands: registry.list().map(({ name, aliases, usage, description, descriptionKey }) => ({
+          name,
+          aliases: [...aliases],
+          usage,
+          description: descriptionKey ? translate(language, descriptionKey) : description
+        }))
       };
     }
   });
@@ -161,7 +196,7 @@ export function registerBuiltins(registry) {
     name: 'clear',
     order: 20,
     usage: 'clear',
-    description: '清空终端输出。',
+    descriptionKey: 'command.clear',
     execute(context, args) {
       return args.length === 0 ? { type: 'clear' } : error('INVALID_ARGUMENTS', 'Usage: clear');
     }
@@ -171,7 +206,7 @@ export function registerBuiltins(registry) {
     name: 'ls',
     order: 30,
     usage: 'ls [path]',
-    description: '列出虚拟路径内容，不切换目录。',
+    descriptionKey: 'command.ls',
     complete(context, args) {
       if (!context?.tree || args.length > 1) return [];
       return completePath(context, args[0]);
@@ -183,10 +218,10 @@ export function registerBuiltins(registry) {
       const node = args.length === 0
         ? context.tree.nodes.get(context.cwdNodeId || context.tree.cwdNodeId)
         : resolvePath(context.tree, args[0], context.cwdNodeId);
-      if (isReservedAboutNode(node)) return error('ABOUT_RESERVED', 'Use the reserved about command.');
+      if (isReservedAboutNode(node)) return error('ABOUT_RESERVED', message(context, 'error.aboutReserved'));
       return node
         ? { type: 'render', view: 'ls', viewNodeId: node.id }
-        : error('PATH_NOT_FOUND', `Path not found: ${args[0]}`);
+        : error('PATH_NOT_FOUND', message(context, 'error.pathNotFound', { path: args[0] }));
     }
   });
 
@@ -194,7 +229,7 @@ export function registerBuiltins(registry) {
     name: 'cd',
     order: 40,
     usage: 'cd [path]',
-    description: '切换虚拟工作目录。',
+    descriptionKey: 'command.cd',
     complete(context, args) {
       if (!context?.tree || args.length > 1) return [];
       return completeDirectoryPath(context, args[0]);
@@ -205,11 +240,11 @@ export function registerBuiltins(registry) {
       if (args.length > 1) return error('INVALID_ARGUMENTS', 'Usage: cd [path]');
       const path = args.length === 0 ? '~' : args[0];
       const resolved = resolvePathResult(context.tree, path, context.cwdNodeId);
-      if (resolved.error === 'outside-root') return error('CWD_BOUNDARY', 'cd: cannot leave ~/blog/');
-      if (resolved.error === 'not-directory') return error('NOT_A_DIRECTORY', `cd: not a directory: ${path}`);
+      if (resolved.error === 'outside-root') return error('CWD_BOUNDARY', message(context, 'error.cwdBoundary'));
+      if (resolved.error === 'not-directory') return error('NOT_A_DIRECTORY', message(context, 'error.notDirectory', { path }));
       const node = resolved.node;
-      if (resolved.error || !node) return error('PATH_NOT_FOUND', `cd: no such directory: ${path}`);
-      if (!isDirectoryNode(node)) return error('NOT_A_DIRECTORY', `cd: not a directory: ${path}`);
+      if (resolved.error || !node) return error('PATH_NOT_FOUND', message(context, 'error.noDirectory', { path }));
+      if (!isDirectoryNode(node)) return error('NOT_A_DIRECTORY', message(context, 'error.notDirectory', { path }));
       return { type: 'cwd', cwdNodeId: node.id };
     }
   });
@@ -218,7 +253,7 @@ export function registerBuiltins(registry) {
     name: 'open',
     order: 50,
     usage: 'open <post>',
-    description: '打开一篇文章。',
+    descriptionKey: 'command.open',
     complete(context) {
       return openCandidates(context);
     },
@@ -227,7 +262,7 @@ export function registerBuiltins(registry) {
       const unavailable = requireIndexContext(context);
       if (unavailable) return unavailable;
       const node = resolvePost(context, args[0]);
-      if (!node) return error('TARGET_NOT_FOUND', `Post not found: ${args[0]}`);
+      if (!node) return error('TARGET_NOT_FOUND', message(context, 'error.postNotFound', { target: args[0] }));
       return { type: 'navigate', url: node.url, targetId: node.id };
     }
   });
@@ -236,7 +271,7 @@ export function registerBuiltins(registry) {
     name: 'posts',
     order: 60,
     usage: 'posts',
-    description: DESTINATION_DESCRIPTIONS.posts,
+    descriptionKey: 'command.posts',
     execute(context, args) {
       if (args.length > 0) return error('INVALID_ARGUMENTS', 'Usage: posts');
       const unavailable = requireIndexContext(context);
@@ -248,7 +283,7 @@ export function registerBuiltins(registry) {
     name: 'tags',
     order: 70,
     usage: 'tags [tag]',
-    description: DESTINATION_DESCRIPTIONS.tags,
+    descriptionKey: 'command.tags',
     complete(context) {
       return taxonomyCandidates(context, 'tag');
     },
@@ -260,7 +295,7 @@ export function registerBuiltins(registry) {
       const node = resolveTaxonomy(context, args[0], 'tag');
       return node?.type === 'tag'
         ? { type: 'render', view: 'tag', viewNodeId: node.id }
-        : error('TARGET_NOT_FOUND', `Tag not found: ${args[0]}`);
+        : error('TARGET_NOT_FOUND', message(context, 'error.tagNotFound', { target: args[0] }));
     }
   });
 
@@ -268,7 +303,7 @@ export function registerBuiltins(registry) {
     name: 'categories',
     order: 80,
     usage: 'categories [category]',
-    description: DESTINATION_DESCRIPTIONS.categories,
+    descriptionKey: 'command.categories',
     complete(context) {
       return taxonomyCandidates(context, 'category');
     },
@@ -280,7 +315,7 @@ export function registerBuiltins(registry) {
       const node = resolveTaxonomy(context, args[0], 'category');
       return node?.type === 'category'
         ? { type: 'render', view: 'category', viewNodeId: node.id }
-        : error('TARGET_NOT_FOUND', `Category not found: ${args[0]}`);
+        : error('TARGET_NOT_FOUND', message(context, 'error.categoryNotFound', { target: args[0] }));
     }
   });
 
@@ -288,9 +323,9 @@ export function registerBuiltins(registry) {
     name: 'theme',
     order: 90,
     usage: 'theme [dark|light]',
-    description: '切换终端与文章的明暗模式。',
+    descriptionKey: 'command.theme',
     complete(context, args) {
-      return args.length <= 1 ? themeCandidates() : [];
+      return args.length <= 1 ? themeCandidates(context) : [];
     },
     execute(context, args) {
       if (args.length > 1) return error('INVALID_ARGUMENTS', 'Usage: theme [dark|light]');
@@ -306,13 +341,33 @@ export function registerBuiltins(registry) {
 
   register(registry, {
     name: 'about',
-    order: 100,
+    order: 110,
     usage: 'about',
-    description: '以 fastfetch 风格显示博客概览。',
+    descriptionKey: 'command.about',
     execute(context, args) {
       if (args.length > 0) return error('INVALID_ARGUMENTS', 'Usage: about');
       const unavailable = requireIndexContext(context);
       return unavailable || { type: 'render', view: 'about' };
+    }
+  });
+
+  register(registry, {
+    name: 'language',
+    order: 100,
+    usage: 'language [zh-CN|en]',
+    descriptionKey: 'command.language',
+    complete(context, args) {
+      return args.length <= 1 ? languageCandidates(context) : [];
+    },
+    execute(context, args) {
+      if (args.length > 1) return error('INVALID_ARGUMENTS', 'Usage: language [zh-CN|en]');
+      const current = normalizeLanguage(context?.state?.language);
+      const requested = args.length === 0
+        ? current === 'zh-CN' ? 'en' : 'zh-CN'
+        : parseLanguage(args[0]);
+      return requested
+        ? { type: 'language', language: requested }
+        : error('INVALID_ARGUMENTS', 'Usage: language [zh-CN|en]');
     }
   });
 

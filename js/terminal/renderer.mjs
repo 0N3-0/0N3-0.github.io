@@ -5,7 +5,8 @@ import {
   shouldHandleInlineNavigation,
   TERMINAL_BRAND
 } from './views.mjs';
-import { DESTINATION_DESCRIPTIONS } from './copy.mjs';
+import { destinationDescription } from './copy.mjs';
+import { DEFAULT_LANGUAGE, translate } from '../i18n.mjs';
 
 const ROW_BATCH = 200;
 const COMPLETION_BATCH = 100;
@@ -54,11 +55,15 @@ const WELCOME_ASCII_COMPACT = (() => {
   const second = WELCOME_ASCII_LINES.map(line => line.slice(43).trimEnd());
   return [...first, '', ...second].join('\n');
 })();
-const WELCOME_DESTINATIONS = Object.freeze([
-  Object.freeze({ kind: 'posts', label: 'posts', description: DESTINATION_DESCRIPTIONS.posts }),
-  Object.freeze({ kind: 'categories', label: 'categories', description: DESTINATION_DESCRIPTIONS.categories }),
-  Object.freeze({ kind: 'tags', label: 'tags', description: DESTINATION_DESCRIPTIONS.tags })
-]);
+const WELCOME_DESTINATIONS = Object.freeze(['posts', 'categories', 'tags']);
+
+function languageOf(state) {
+  return state?.language || DEFAULT_LANGUAGE;
+}
+
+function message(state, key, values) {
+  return translate(languageOf(state), key, values);
+}
 
 function element(documentRef, name, className, text) {
   const node = documentRef.createElement(name);
@@ -133,24 +138,24 @@ function syncPromptPath(parentPath, currentPath, pathValue) {
 function renderWelcome(documentRef, handlers) {
   const welcome = element(documentRef, 'section', 'terminal-welcome');
   welcome.setAttribute('aria-labelledby', 'terminal-welcome-title');
-  const title = element(documentRef, 'h1', 'sr-only', "Welcome To One's Blog");
+  const title = element(documentRef, 'h1', 'sr-only');
   title.id = 'terminal-welcome-title';
-  const kicker = element(documentRef, 'p', 'terminal-welcome-kicker', 'Welcome to');
+  const kicker = element(documentRef, 'p', 'terminal-welcome-kicker');
   const wide = element(documentRef, 'pre', 'terminal-welcome-ascii terminal-welcome-ascii-wide', WELCOME_ASCII_WIDE);
   const compact = element(documentRef, 'pre', 'terminal-welcome-ascii terminal-welcome-ascii-compact', WELCOME_ASCII_COMPACT);
   wide.setAttribute('aria-hidden', 'true');
   compact.setAttribute('aria-hidden', 'true');
   const actions = element(documentRef, 'ul', 'terminal-results terminal-welcome-actions');
-  for (const destination of WELCOME_DESTINATIONS) {
+  for (const kind of WELCOME_DESTINATIONS) {
     const item = element(documentRef, 'li', 'terminal-row terminal-welcome-item');
     const button = element(documentRef, 'button', 'terminal-row-button terminal-welcome-button');
     button.type = 'button';
-    button.dataset.welcomeDestination = destination.kind;
+    button.dataset.welcomeDestination = kind;
     button.append(
-      element(documentRef, 'span', 'terminal-row-label', destination.label),
-      element(documentRef, 'span', 'terminal-row-meta', destination.description)
+      element(documentRef, 'span', 'terminal-row-label', kind),
+      element(documentRef, 'span', 'terminal-row-meta')
     );
-    button.addEventListener('click', () => handlers.welcomeNavigate?.(destination.kind));
+    button.addEventListener('click', () => handlers.welcomeNavigate?.(kind));
     item.append(button);
     actions.append(item);
   }
@@ -168,13 +173,27 @@ function renderWelcome(documentRef, handlers) {
     buttons[next].focus?.({ preventScroll: true });
   });
   welcome.append(title, kicker, wide, compact, actions);
+  syncWelcome(welcome, DEFAULT_LANGUAGE);
   return welcome;
 }
 
-function renderBreadcrumb(documentRef, values) {
+function syncWelcome(welcome, language) {
+  const state = { language };
+  const title = welcome.querySelector('#terminal-welcome-title');
+  const kicker = welcome.querySelector('.terminal-welcome-kicker');
+  if (title) title.textContent = message(state, 'renderer.welcomeTitle');
+  if (kicker) kicker.textContent = message(state, 'renderer.welcomeKicker');
+  for (const button of welcome.querySelectorAll('[data-welcome-destination]')) {
+    const kind = button.dataset.welcomeDestination;
+    const meta = button.querySelector('.terminal-row-meta');
+    if (meta) meta.textContent = destinationDescription(kind, language);
+  }
+}
+
+function renderBreadcrumb(documentRef, values, state) {
   if (!Array.isArray(values) || values.length <= 3) return null;
   const nav = element(documentRef, 'nav', 'terminal-breadcrumb');
-  nav.setAttribute('aria-label', 'Terminal path');
+  nav.setAttribute('aria-label', message(state, 'renderer.terminalPath'));
   nav.textContent = [values[2].toUpperCase(), ...values.slice(3)].join(' › ');
   return nav;
 }
@@ -194,14 +213,14 @@ function renderSummary(documentRef, value) {
   return summary;
 }
 
-function renderAbout(documentRef, model) {
+function renderAbout(documentRef, model, state) {
   const about = element(documentRef, 'section', 'terminal-about');
-  about.setAttribute('aria-label', '博客概览');
+  about.setAttribute('aria-label', message(state, 'renderer.blogOverview'));
   const identity = element(documentRef, 'div', 'terminal-about-identity');
   if (model.avatarUrl) {
     const avatar = element(documentRef, 'img', 'terminal-about-avatar');
     avatar.src = model.avatarUrl;
-    avatar.alt = `${model.title} 头像`;
+    avatar.alt = message(state, 'renderer.avatar', { title: model.title });
     avatar.loading = 'eager';
     avatar.decoding = 'async';
     identity.append(avatar);
@@ -229,10 +248,10 @@ function renderAbout(documentRef, model) {
   }
   const palette = element(documentRef, 'div', 'terminal-about-palette');
   palette.setAttribute('role', 'img');
-  palette.setAttribute('aria-label', '当前模式实际使用的 8 组 16 色源');
+  palette.setAttribute('aria-label', message(state, 'renderer.palette'));
   for (const [name, label] of ABOUT_PALETTE) {
     const swatch = element(documentRef, 'span', `terminal-about-swatch terminal-about-swatch-${name}`);
-    swatch.title = label;
+    swatch.title = languageOf(state) === 'en' ? name.replace('-', ' · ') : label;
     palette.append(swatch);
   }
   details.append(facts, palette);
@@ -308,7 +327,12 @@ function renderRows(documentRef, model, state, handlers, interactive) {
   for (const [start, end] of ranges) append(start, end);
   if (visibleCount < model.rows.length && interactive && model.rowNavigation) {
     const item = element(documentRef, 'li', 'terminal-row terminal-load-more');
-    const button = element(documentRef, 'button', 'terminal-load-more-button', `more (${model.rows.length - visibleCount})`);
+    const button = element(
+      documentRef,
+      'button',
+      'terminal-load-more-button',
+      message(state, 'renderer.more', { count: model.rows.length - visibleCount })
+    );
     button.type = 'button';
     button.addEventListener('click', () => {
       append(visibleCount, Math.min(model.rows.length, visibleCount + ROW_BATCH));
@@ -598,7 +622,7 @@ function promptArrow(documentRef, fontFallback) {
   return arrow;
 }
 
-function renderHistoryEntry(documentRef, entry, index) {
+function renderHistoryEntry(documentRef, entry, index, state) {
   const history = element(documentRef, 'section', 'terminal-history-entry');
   history.dataset.entryId = entry.id;
   history.dataset.entryStatus = entry.status;
@@ -613,7 +637,7 @@ function renderHistoryEntry(documentRef, entry, index) {
   prompt.append(context, line);
   history.append(prompt);
   syncHistoryMarker(documentRef, history, entry.marker);
-  syncHistoryResult(documentRef, history, entry, index);
+  syncHistoryResult(documentRef, history, entry, index, state);
   return history;
 }
 
@@ -634,7 +658,7 @@ function syncHistoryFont(history, fontFallback) {
   if (arrow) arrow.textContent = fontFallback ? ' >' : ' ➤';
 }
 
-function syncHistoryResult(documentRef, history, entry, index) {
+function syncHistoryResult(documentRef, history, entry, index, currentState) {
   const current = history.querySelector('.terminal-history-result');
   current?.remove();
   if (!entry.result) return;
@@ -644,6 +668,7 @@ function syncHistoryResult(documentRef, history, entry, index) {
     activeItemId: null,
     indexStatus: 'ready',
     indexError: null,
+    language: languageOf(currentState),
     output: { ownerId: entry.id, phase: 'settled', result: entry.result }
   };
   const region = element(documentRef, 'div', 'terminal-history-result');
@@ -652,7 +677,7 @@ function syncHistoryResult(documentRef, history, entry, index) {
   history.append(region);
 }
 
-function syncTranscript(documentRef, transcript, nodes, entries, index) {
+function syncTranscript(documentRef, transcript, nodes, entries, index, state) {
   const fontFallback = documentRef.documentElement?.classList.contains('font-fallback');
   const remaining = new Set(entries.map(entry => entry.id));
   for (const [id, record] of nodes) {
@@ -663,7 +688,7 @@ function syncTranscript(documentRef, transcript, nodes, entries, index) {
   for (const entry of entries) {
     const current = nodes.get(entry.id);
     if (!current) {
-      const node = renderHistoryEntry(documentRef, entry, index);
+      const node = renderHistoryEntry(documentRef, entry, index, state);
       transcript.append(node);
       nodes.set(entry.id, {
         node,
@@ -685,13 +710,13 @@ function syncTranscript(documentRef, transcript, nodes, entries, index) {
       current.marker = entry.marker;
     }
     if (current.result !== entry.result) {
-      syncHistoryResult(documentRef, current.node, entry, index);
+      syncHistoryResult(documentRef, current.node, entry, index, state);
       current.result = entry.result;
     }
   }
 }
 
-function renderResultHint(documentRef, handlers) {
+function renderResultHint(documentRef, state, handlers) {
   const hint = element(documentRef, 'p', 'terminal-result-hint');
   const action = (key, label, keyLabel = key) => {
     const button = element(documentRef, 'button', 'terminal-result-key');
@@ -700,7 +725,11 @@ function renderResultHint(documentRef, handlers) {
     button.addEventListener('click', () => handlers.resultKey?.(key));
     return button;
   };
-  hint.append(action('q', '返回上一步'), element(documentRef, 'span', 'terminal-result-hint-separator', '·'), action('Escape', '中断', 'esc'));
+  hint.append(
+    action('q', message(state, 'renderer.back')),
+    element(documentRef, 'span', 'terminal-result-hint-separator', '·'),
+    action('Escape', message(state, 'renderer.interrupt'), 'esc')
+  );
   return hint;
 }
 
@@ -708,21 +737,21 @@ function renderOutput(documentRef, state, model, handlers) {
   const fragment = documentRef.createDocumentFragment();
   if (!state.output) return fragment;
   const preview = element(documentRef, 'section', 'terminal-current-preview');
-  const breadcrumb = renderBreadcrumb(documentRef, model.breadcrumb);
+  const breadcrumb = renderBreadcrumb(documentRef, model.breadcrumb, state);
   const interactive = state.output.phase === 'interactive';
   if (breadcrumb) preview.append(breadcrumb);
   if (model.summary !== TERMINAL_BRAND) preview.append(renderSummary(documentRef, model.summary));
   if (model.emptyMessage) preview.append(element(documentRef, 'p', 'terminal-empty', model.emptyMessage));
   if (state.indexStatus === 'error') {
-    const retry = element(documentRef, 'button', 'terminal-retry', 'retry');
+    const retry = element(documentRef, 'button', 'terminal-retry', message(state, 'renderer.retry'));
     retry.type = 'button';
     retry.disabled = !interactive;
     retry.addEventListener('click', () => { if (interactive) handlers.retryIndex?.(); });
     preview.append(retry);
   }
-  if (model.about) preview.append(renderAbout(documentRef, model.about));
+  if (model.about) preview.append(renderAbout(documentRef, model.about, state));
   if (model.rows.length) preview.append(renderRows(documentRef, model, state, handlers, interactive));
-  if (interactive) preview.append(renderResultHint(documentRef, handlers));
+  if (interactive) preview.append(renderResultHint(documentRef, state, handlers));
   fragment.append(preview);
   return fragment;
 }
@@ -730,7 +759,8 @@ function renderOutput(documentRef, state, model, handlers) {
 function outputIdentity(state) {
   return JSON.stringify([
     state.output?.ownerId ?? null, state.output?.phase ?? null, state.output?.result ?? null,
-    state.route?.kind ?? null, state.viewNodeId ?? null, state.indexStatus, state.indexError, state.buildId
+    state.route?.kind ?? null, state.viewNodeId ?? null, state.indexStatus, state.indexError, state.buildId,
+    languageOf(state)
   ]);
 }
 
@@ -754,7 +784,7 @@ function createActivePrompt(documentRef, handlers) {
   const node = element(documentRef, 'section', 'terminal-prompt terminal-prompt-active');
   const { context, glyph, fontFallback, parentPath, currentPath } = promptContext(documentRef, { active: true });
   const line = element(documentRef, 'div', 'terminal-input-line');
-  const label = element(documentRef, 'label', 'sr-only', 'Terminal command');
+  const label = element(documentRef, 'label', 'sr-only', translate(DEFAULT_LANGUAGE, 'renderer.commandLabel'));
   label.htmlFor = 'terminal-command-input';
   const inputWrap = element(documentRef, 'span', 'terminal-input-wrap');
   const input = element(documentRef, 'input', 'terminal-command-input');
@@ -763,7 +793,7 @@ function createActivePrompt(documentRef, handlers) {
   input.autocomplete = 'off';
   input.autocapitalize = 'off';
   input.spellcheck = false;
-  input.placeholder = '输入命令，或按 Tab 浏览';
+  input.placeholder = translate(DEFAULT_LANGUAGE, 'renderer.placeholder');
   input.dataset.terminalInput = 'true';
   const trail = element(documentRef, 'span', 'terminal-caret-trail');
   trail.setAttribute('aria-hidden', 'true');
@@ -798,7 +828,7 @@ function createActivePrompt(documentRef, handlers) {
   line.append(arrow, inputWrap);
   node.append(context, line);
   return {
-    node, input, caret, trail, measure, glyph, arrow, parentPath, currentPath, fontFallback, completion: null, updateCaret,
+    node, input, label, caret, trail, measure, glyph, arrow, parentPath, currentPath, fontFallback, completion: null, updateCaret,
     rendered: false, pathReady: false, pathIndex: null, pathNodeId: null,
     get destroyed() { return destroyed; },
     destroy() {
@@ -823,6 +853,8 @@ function syncPrompt(documentRef, prompt, state, index, handlers) {
     || (firstRender && (!activeElement || activeElement === documentRef.body || activeElement === prompt.input))
   );
   prompt.node.hidden = hidden;
+  prompt.label.textContent = message(state, 'renderer.commandLabel');
+  prompt.input.placeholder = message(state, 'renderer.placeholder');
   const fontFallback = documentRef.documentElement?.classList.contains('font-fallback');
   if (fontFallback !== prompt.fontFallback) {
     prompt.glyph.textContent = fontFallback ? 'time' : '';
@@ -871,7 +903,8 @@ export function createTerminalRenderer(root, handlers = {}) {
   const transcript = element(documentRef, 'div', 'terminal-transcript');
   const output = element(documentRef, 'div', 'terminal-output');
   const prompt = createActivePrompt(documentRef, handlers);
-  brand.setAttribute('aria-label', '博客标题');
+  brand.setAttribute('aria-label', translate(DEFAULT_LANGUAGE, 'renderer.brandLabel'));
+  brand.setAttribute('translate', 'no');
   runtime.append(brand, welcome, transcript, output, prompt.node);
   root.replaceChildren(runtime);
   let lastModel = null;
@@ -887,12 +920,14 @@ export function createTerminalRenderer(root, handlers = {}) {
       try {
         if (index) void index.posts;
         const model = createViewModel(state, index);
+        brand.setAttribute('aria-label', message(state, 'renderer.brandLabel'));
+        syncWelcome(welcome, languageOf(state));
         const entries = state.transcript || [];
         if (!welcomeDismissed && (
           state.route?.kind !== 'root' || entries.length > 0 || state.foreground !== null || state.output !== null
         )) welcomeDismissed = true;
         welcome.hidden = welcomeDismissed;
-        syncTranscript(documentRef, transcript, transcriptNodes, entries, index);
+        syncTranscript(documentRef, transcript, transcriptNodes, entries, index, state);
         const nextKey = outputIdentity(state);
         if (nextKey !== outputKey) {
           const nextOutput = renderOutput(documentRef, state, model, handlers);

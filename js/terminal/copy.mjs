@@ -1,5 +1,11 @@
+import { DEFAULT_LANGUAGE, translate } from '../i18n.mjs';
+
+export function destinationDescription(kind, language = DEFAULT_LANGUAGE) {
+  return translate(language, `destination.${kind}`);
+}
+
 export const DESTINATION_DESCRIPTIONS = Object.freeze({
-  posts: '按时间浏览所有文章',
-  categories: '按分类浏览文章',
-  tags: '按标签浏览文章'
+  posts: destinationDescription('posts'),
+  categories: destinationDescription('categories'),
+  tags: destinationDescription('tags')
 });

@@ -1,3 +1,5 @@
+import { translate } from '../i18n.mjs';
+
 export const TAB_STORAGE_KEY = 'one-terminal:tab:v1';
 
 const DEFAULT_METRICS = Object.freeze({ radius: 26, margin: 12 });
@@ -156,15 +158,30 @@ function safeAreaMetrics(windowRef, button) {
   };
 }
 
-export function mountMobileTab({ root, controller, storage = null, visualViewport = null } = {}) {
-  if (!root?.ownerDocument || typeof controller?.handleKey !== 'function') return () => {};
+export function mountFloatingControl({
+  root,
+  storage = null,
+  visualViewport = null,
+  className = 'mobile-tab',
+  text = '',
+  ariaLabel = '',
+  onActivate,
+  subscribe = null,
+  findObstacle = null
+} = {}) {
+  if (!root?.ownerDocument || typeof onActivate !== 'function') return () => {};
   const documentRef = root.ownerDocument;
   const windowRef = documentRef.defaultView;
   const button = documentRef.createElement('button');
   button.setAttribute('type', 'button');
-  button.setAttribute('aria-label', '终端 Tab 下一项');
-  button.className = 'mobile-tab';
-  button.textContent = 'Tab';
+  button.setAttribute('translate', 'no');
+  const syncLabel = () => button.setAttribute(
+    'aria-label',
+    String(typeof ariaLabel === 'function' ? ariaLabel() : ariaLabel)
+  );
+  syncLabel();
+  button.className = className;
+  button.textContent = text;
   root.append(button);
 
   const currentMetrics = () => safeAreaMetrics(windowRef, button);
@@ -195,9 +212,7 @@ export function mountMobileTab({ root, controller, storage = null, visualViewpor
   };
 
   const focusedObstacle = () => {
-    const active = documentRef.activeElement;
-    if (active?.matches?.('[data-terminal-input], .terminal-completion-option[aria-selected="true"], [data-row-id][tabindex="0"]')) return active;
-    return root.querySelector?.('.terminal-completion-option[aria-selected="true"], [data-row-id][tabindex="0"]') ?? null;
+    try { return typeof findObstacle === 'function' ? findObstacle() : null; } catch { return null; }
   };
 
   const avoidFocusedOverlap = (viewport, metrics) => {
@@ -288,7 +303,7 @@ export function mountMobileTab({ root, controller, storage = null, visualViewpor
     const gesture = classifyPointerGesture(activePointer.start, current, false);
     if (gesture === 'click') {
       restoreCommitted();
-      controller.handleKey({ key: 'Tab', preventDefault() {} });
+      onActivate();
     } else if (gesture === 'drag') {
       const viewport = viewportFrom(visualViewport, windowRef);
       const metrics = currentMetrics();
@@ -309,16 +324,17 @@ export function mountMobileTab({ root, controller, storage = null, visualViewpor
       return;
     }
     suppressPointerClick = false;
-    controller.handleKey({ key: 'Tab', preventDefault() {} });
+    onActivate();
   };
 
   const onFocusChange = () => restoreForViewport();
-  const onControllerChange = () => {
+  const onStateChange = () => {
+    syncLabel();
     queueMicrotask(() => {
       if (!removed) restoreForViewport();
     });
   };
-  const unsubscribeController = controller.subscribe?.(onControllerChange) ?? (() => {});
+  const unsubscribe = typeof subscribe === 'function' ? subscribe(onStateChange) : (() => {});
   const listeners = [
     [button, 'pointerdown', onPointerDown],
     [button, 'pointermove', onPointerMove],
@@ -340,8 +356,28 @@ export function mountMobileTab({ root, controller, storage = null, visualViewpor
   return () => {
     removed = true;
     cancelPointer();
-    unsubscribeController();
+    unsubscribe?.();
     for (const [target, type, listener] of listeners) target.removeEventListener(type, listener);
     button.remove();
   };
+}
+
+export function mountMobileTab({ root, controller, storage = null, visualViewport = null } = {}) {
+  if (!root?.ownerDocument || typeof controller?.handleKey !== 'function') return () => {};
+  const documentRef = root.ownerDocument;
+  const findObstacle = () => {
+    const active = documentRef.activeElement;
+    if (active?.matches?.('[data-terminal-input], .terminal-completion-option[aria-selected="true"], [data-row-id][tabindex="0"]')) return active;
+    return root.querySelector?.('.terminal-completion-option[aria-selected="true"], [data-row-id][tabindex="0"]') ?? null;
+  };
+  return mountFloatingControl({
+    root,
+    storage,
+    visualViewport,
+    text: 'Tab',
+    ariaLabel: () => translate(controller.state?.language, 'mobileTab.next'),
+    onActivate: () => controller.handleKey({ key: 'Tab', preventDefault() {} }),
+    subscribe: listener => controller.subscribe?.(listener) ?? (() => {}),
+    findObstacle
+  });
 }

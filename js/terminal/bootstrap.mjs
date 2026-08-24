@@ -8,6 +8,7 @@ import { consumeReturnRecord, hasReturnRecord } from './session.mjs';
 import { createVirtualTree } from './tree.mjs';
 import { createViewModel } from './views.mjs';
 import { createTerminalRenderer } from './renderer.mjs';
+import { normalizeLanguage, translate } from '../i18n.mjs';
 
 const RETURN_TTL_MS = 43_200_000;
 const THEME_COLORS = Object.freeze({ dark: '#0b1419', light: '#c1c4c5' });
@@ -18,6 +19,15 @@ export function applyColorMode(documentRef, value) {
   const meta = documentRef.querySelector('meta[name="theme-color"]');
   if (meta) meta.content = THEME_COLORS[mode];
   return mode;
+}
+
+export function applyLanguage(documentRef, value) {
+  const language = normalizeLanguage(value);
+  documentRef.documentElement.dataset.language = language;
+  for (const node of documentRef.querySelectorAll?.('.terminal-enhanced') || []) {
+    node.setAttribute('aria-label', translate(language, 'renderer.terminalLabel'));
+  }
+  return language;
 }
 
 function optionalStorage(windowRef, name) {
@@ -266,6 +276,7 @@ export async function startTerminal({ documentRef = document, windowRef = window
     localStorage,
     sessionStorage,
     applyTheme: adapters.applyTheme ?? (mode => applyColorMode(documentRef, mode)),
+    applyLanguage: adapters.applyLanguage ?? (language => applyLanguage(documentRef, language)),
     getCommandContext,
     requestAnimationFrame: windowRef.requestAnimationFrame?.bind(windowRef),
     cancelAnimationFrame: windowRef.cancelAnimationFrame?.bind(windowRef),
@@ -273,6 +284,7 @@ export async function startTerminal({ documentRef = document, windowRef = window
     announce(message) { if (!cleanedUp) setStatus(status, message, () => !cleanedUp); }
   });
   applyColorMode(documentRef, controller.state.colorMode);
+  applyLanguage(documentRef, controller.state.language);
 
   const activate = () => {
     if (cleanedUp) return;

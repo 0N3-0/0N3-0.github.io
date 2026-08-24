@@ -14,6 +14,14 @@ import {
   createTranscriptEntry,
   settleTranscriptEntry
 } from './transcript.mjs';
+import {
+  DEFAULT_LANGUAGE,
+  isSupportedLanguage,
+  normalizeLanguage,
+  readLanguage,
+  translate,
+  writeLanguage
+} from '../i18n.mjs';
 
 const HISTORY_KEY = 'one-terminal:history:v1';
 const THEME_KEY = 'theme';
@@ -43,11 +51,13 @@ const STABLE_ACTIONS = new Set([
 const RENDER_VIEWS = new Set(['help', 'ls', 'about', 'posts', 'archives', 'tags', 'categories', 'tag', 'category']);
 const NODE_OWNED_VIEWS = new Set(['ls', 'posts', 'tags', 'categories', 'tag', 'category']);
 const HISTORICAL_VIEWS = new Set(['help', 'ls', 'about']);
-const INVALID_RESULT = Object.freeze({
-  type: 'error',
-  code: 'INVALID_RESULT',
-  message: 'Command returned an invalid result.'
-});
+function invalidResult(language = DEFAULT_LANGUAGE) {
+  return Object.freeze({
+    type: 'error',
+    code: 'INVALID_RESULT',
+    message: translate(language, 'error.invalidResult')
+  });
+}
 
 function deepFreeze(value, seen = new Set()) {
   if (!value || typeof value !== 'object' || Object.isFrozen(value) || seen.has(value)) return value;
@@ -162,6 +172,7 @@ function baseInitialState(route) {
     indexStatus: 'idle',
     indexError: null,
     colorMode: 'dark',
+    language: DEFAULT_LANGUAGE,
     buildId: null,
     targetArticleUrl: null,
     restore: { focusTarget: null, scrollTop: 0 },
@@ -269,19 +280,20 @@ function normalizeHelpCommands(commands) {
   return snapshot;
 }
 
-function normalizeResult(result) {
+function normalizeResult(result, language = DEFAULT_LANGUAGE) {
+  const invalid = invalidResult(language);
   try {
-    if (!result || typeof result !== 'object' || Array.isArray(result)) return INVALID_RESULT;
+    if (!result || typeof result !== 'object' || Array.isArray(result)) return invalid;
     if (result.type === 'error') {
       return nonBlankString(result.code) && typeof result.message === 'string'
         ? deepFreeze({ type: 'error', code: result.code, message: result.message })
-        : INVALID_RESULT;
+        : invalid;
     }
     if (result.type === 'navigate') {
       const targetValid = result.targetId === undefined
         || result.targetId === null
         || nonBlankString(result.targetId);
-      if (!nonBlankString(result.url) || !targetValid) return INVALID_RESULT;
+      if (!nonBlankString(result.url) || !targetValid) return invalid;
       return deepFreeze({
         type: 'navigate',
         url: result.url,
@@ -289,12 +301,12 @@ function normalizeResult(result) {
       });
     }
     if (result.type === 'render') {
-      if (typeof result.view !== 'string' || !RENDER_VIEWS.has(result.view)) return INVALID_RESULT;
+      if (typeof result.view !== 'string' || !RENDER_VIEWS.has(result.view)) return invalid;
       const commands = result.view === 'help' ? normalizeHelpCommands(result.commands) : null;
-      if (result.view === 'help' && commands === null) return INVALID_RESULT;
+      if (result.view === 'help' && commands === null) return invalid;
       const nodeOwned = NODE_OWNED_VIEWS.has(result.view);
-      if (nodeOwned && !nonBlankString(result.viewNodeId)) return INVALID_RESULT;
-      if (!nodeOwned && result.viewNodeId !== undefined) return INVALID_RESULT;
+      if (nodeOwned && !nonBlankString(result.viewNodeId)) return invalid;
+      if (!nodeOwned && result.viewNodeId !== undefined) return invalid;
       return deepFreeze({
         type: 'render',
         view: result.view,
@@ -305,20 +317,25 @@ function normalizeResult(result) {
     if (result.type === 'cwd') {
       return nonBlankString(result.cwdNodeId)
         ? deepFreeze({ type: 'cwd', cwdNodeId: result.cwdNodeId })
-        : INVALID_RESULT;
+        : invalid;
     }
     if (result.type === 'theme') {
       return ['dark', 'light'].includes(result.mode) && Object.keys(result).length === 2
         ? deepFreeze({ type: 'theme', mode: result.mode })
-        : INVALID_RESULT;
+        : invalid;
+    }
+    if (result.type === 'language') {
+      return isSupportedLanguage(result.language) && Object.keys(result).length === 2
+        ? deepFreeze({ type: 'language', language: result.language })
+        : invalid;
     }
     if (result.type === 'clear' && Object.keys(result).length === 1) {
       return deepFreeze({ type: 'clear' });
     }
   } catch {
-    return INVALID_RESULT;
+    return invalid;
   }
-  return INVALID_RESULT;
+  return invalid;
 }
 
 function completeRun(state, action, status = 'completed') {
@@ -513,7 +530,7 @@ function reduce(state, action) {
     }
     case 'RESOLVE_RUN': {
       if (!matchingForeground(state, action.runId)) return { state, effects: [] };
-      const result = normalizeResult(action.result);
+      const result = normalizeResult(action.result, state.language);
       if (result.type === 'render') {
         if (HISTORICAL_VIEWS.has(result.view)) {
           return { state: completeRun(state, { ...action, result }), effects: [] };
@@ -547,6 +564,12 @@ function reduce(state, action) {
           effects: [{ type: 'APPLY_THEME', mode: result.mode }]
         };
       }
+      if (result.type === 'language') {
+        return {
+          state: { ...completeRun(state, { ...action, result: null }), language: result.language },
+          effects: [{ type: 'APPLY_LANGUAGE', language: result.language }]
+        };
+      }
       return { state: completeRun(state, { ...action, result }), effects: [] };
     }
     case 'REJECT_RUN':
@@ -561,7 +584,7 @@ function reduce(state, action) {
           result: {
             type: 'error',
             code: 'COMMAND_FAILED',
-            message: action.error?.message || 'Command failed.'
+            message: action.error?.message || translate(state.language, 'error.commandFailed')
           }
         }),
         effects: []
@@ -692,7 +715,8 @@ export class TerminalController {
     const sessionStorage = adapters.sessionStorage ?? adapters.storage ?? null;
     const commandHistory = emptyHistory(readHistory(localStorage));
     const colorMode = readColorMode(localStorage);
-    this.#state = deepFreeze({ ...initialState, commandHistory, colorMode });
+    const language = readLanguage(localStorage);
+    this.#state = deepFreeze({ ...initialState, commandHistory, colorMode, language });
     this.#adapters = Object.freeze({ ...adapters, localStorage, sessionStorage });
     this.#execution = new ExecutionManager({ AbortControllerImpl: adapters.AbortController });
   }
@@ -936,13 +960,21 @@ export class TerminalController {
     }
     const parsed = parseCommand(value, this.#state.input.selectionStart);
     if (parsed.error) {
-      this.#runCommand(value, parsed, () => ({ type: 'error', code: parsed.error.code, message: 'Invalid command syntax.' }), []);
+      this.#runCommand(value, parsed, () => ({
+        type: 'error',
+        code: parsed.error.code,
+        message: translate(this.#state.language, 'error.invalidSyntax')
+      }), []);
       return;
     }
     let definition;
     try { definition = this.#adapters.registry?.resolve?.(parsed.command); } catch { definition = null; }
     if (!definition || typeof definition.execute !== 'function') {
-      this.#runCommand(value, parsed, () => ({ type: 'error', code: 'COMMAND_NOT_FOUND', message: `Unknown command: ${parsed.command}` }), []);
+      this.#runCommand(value, parsed, () => ({
+        type: 'error',
+        code: 'COMMAND_NOT_FOUND',
+        message: translate(this.#state.language, 'error.unknownCommand', { command: parsed.command })
+      }), []);
       return;
     }
     this.#runCommand(value, parsed, definition.execute, parsed.args);
@@ -961,7 +993,9 @@ export class TerminalController {
         this.dispatch({ type: 'REJECT_RUN', runId, error, aborted });
         if (!aborted) this.#execution.finish(runId);
         if (!aborted) {
-          try { this.#adapters.announce?.(error?.message || 'Command failed.'); } catch { /* Announcement is optional. */ }
+          try {
+            this.#adapters.announce?.(error?.message || translate(this.#state.language, 'error.commandFailed'));
+          } catch { /* Announcement is optional. */ }
         }
       }
     });
@@ -969,7 +1003,7 @@ export class TerminalController {
 
   #consumeResult(runId, result) {
     if (!matchingForeground(this.#state, runId)) return;
-    let snapshot = normalizeResult(result);
+    let snapshot = normalizeResult(result, this.#state.language);
     if (snapshot.type === 'cwd') {
       let node = null;
       try { node = this.#commandContext().tree?.nodes?.get?.(snapshot.cwdNodeId); } catch { node = null; }
@@ -977,7 +1011,7 @@ export class TerminalController {
         snapshot = {
           type: 'error',
           code: 'INVALID_CWD_RESULT',
-          message: 'Command returned an unavailable working directory.'
+          message: translate(this.#state.language, 'error.invalidCwd')
         };
       }
     }
@@ -987,7 +1021,11 @@ export class TerminalController {
         let indexed = null;
         try { indexed = snapshot.viewNodeId ? this.#commandContext().tree?.nodes?.get?.(snapshot.viewNodeId) : null; } catch { indexed = null; }
         if (['tag', 'category'].includes(snapshot.view) && (!indexed || typeof indexed.url !== 'string' || indexed.url.length === 0)) {
-          snapshot = { type: 'error', code: 'VIEW_NOT_FOUND', message: `Indexed ${snapshot.view} view is unavailable.` };
+          snapshot = {
+            type: 'error',
+            code: 'VIEW_NOT_FOUND',
+            message: translate(this.#state.language, 'error.viewUnavailable', { view: snapshot.view })
+          };
         } else {
           this.dispatch({ type: 'RESOLVE_RUN', runId, result: snapshot });
           this.dispatch({
@@ -1025,6 +1063,10 @@ export class TerminalController {
       else if (effect.type === 'APPLY_THEME') {
         writeColorMode(this.#adapters.localStorage, effect.mode);
         this.#adapters.applyTheme?.(effect.mode);
+      }
+      else if (effect.type === 'APPLY_LANGUAGE') {
+        writeLanguage(this.#adapters.localStorage, effect.language);
+        this.#adapters.applyLanguage?.(normalizeLanguage(effect.language));
       }
       else if (effect.type === 'WRITE_RETURN') {
         this.#cancelReturnFrame();

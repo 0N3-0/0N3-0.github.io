@@ -1,4 +1,5 @@
 import { isReservedAboutNode } from './tree.mjs';
+import { DEFAULT_LANGUAGE, translate } from '../i18n.mjs';
 
 export const TERMINAL_BRAND = "One's Blog";
 
@@ -35,6 +36,14 @@ function dateLabel(value) {
   return typeof value === 'string' ? value.slice(0, 10) : '';
 }
 
+function languageOf(state) {
+  return state?.language || DEFAULT_LANGUAGE;
+}
+
+function message(state, key, values) {
+  return translate(languageOf(state), key, values);
+}
+
 function postRow(post) {
   return row(post.id, 'article', post.title, dateLabel(post.date), post.url, {
     type: 'article',
@@ -42,15 +51,15 @@ function postRow(post) {
   });
 }
 
-function pageRow(page) {
-  return row(page.id, 'page', page.label, 'page', page.url, {
+function pageRow(page, state) {
+  return row(page.id, 'page', page.label, message(state, 'view.page'), page.url, {
     type: 'document',
     targetId: page.id
   });
 }
 
-function directoryRow(id, label) {
-  return row(id, 'directory', label, 'directory', null, {
+function directoryRow(id, label, state) {
+  return row(id, 'directory', label, message(state, 'view.directory'), null, {
     type: 'view',
     view: 'ls',
     viewNodeId: id
@@ -85,13 +94,13 @@ function categoryCounts(index, category) {
   };
 }
 
-function categoryRow(index, category) {
+function categoryRow(index, category, state) {
   const counts = categoryCounts(index, category);
   return row(
     category.id,
     'category',
     category.label,
-    `${counts.direct} direct · ${counts.total} total`,
+    message(state, 'view.directTotal', counts),
     category.url,
     { type: 'route', kind: 'category', viewNodeId: category.id, url: category.url }
   );
@@ -112,14 +121,14 @@ function taxonomyBreadcrumb(index, node, rootName) {
   return [...values, ...chain];
 }
 
-function collectionModel(kind, index) {
+function collectionModel(kind, state, index) {
   const posts = postsOf(index);
   if (kind === 'posts' || kind === 'archives') {
     const title = kind === 'posts' ? 'POSTS' : 'ARCHIVES';
     return {
       breadcrumb: ['~', 'blog', kind],
-      summary: `${title} · ${posts.length} entries`,
-      emptyMessage: posts.length ? null : 'No posts found.',
+      summary: `${title} · ${message(state, 'view.entries', { count: posts.length })}`,
+      emptyMessage: posts.length ? null : message(state, 'view.noPosts'),
       rows: posts.map(postRow)
     };
   }
@@ -127,13 +136,13 @@ function collectionModel(kind, index) {
     const tags = nodesOf(index, 'tag');
     return {
       breadcrumb: ['~', 'blog', 'tags'],
-      summary: `TAGS · ${tags.length} entries`,
-      emptyMessage: tags.length ? null : 'No tags found.',
+      summary: `TAGS · ${message(state, 'view.entries', { count: tags.length })}`,
+      emptyMessage: tags.length ? null : message(state, 'view.noTags'),
       rows: tags.map(tag => row(
         tag.id,
         'tag',
         tag.label,
-        `${postsFor(index, 'tagIds', tag.id).length} posts`,
+        message(state, 'view.posts', { count: postsFor(index, 'tagIds', tag.id).length }),
         tag.url,
         { type: 'route', kind: 'tag', viewNodeId: tag.id, url: tag.url }
       ))
@@ -143,9 +152,9 @@ function collectionModel(kind, index) {
   const roots = categories.filter(category => !category.parentId);
   return {
     breadcrumb: ['~', 'blog', 'categories'],
-    summary: `CATEGORIES · ${roots.length} directories · ${posts.length} posts`,
-    emptyMessage: roots.length || posts.length ? null : 'No categories found.',
-    rows: roots.map(category => categoryRow(index, category))
+    summary: `CATEGORIES · ${message(state, 'view.directoriesPosts', { directories: roots.length, posts: posts.length })}`,
+    emptyMessage: roots.length || posts.length ? null : message(state, 'view.noCategories'),
+    rows: roots.map(category => categoryRow(index, category, state))
   };
 }
 
@@ -154,8 +163,8 @@ function detailModel(kind, state, index) {
   if (!node) {
     return {
       breadcrumb: ['~', 'blog', `${kind}s`],
-      summary: `one: ${kind}: indexed view unavailable`,
-      emptyMessage: 'No posts found.',
+      summary: `one: ${kind}: ${message(state, 'view.indexedUnavailable')}`,
+      emptyMessage: message(state, 'view.noPosts'),
       rows: []
     };
   }
@@ -163,8 +172,8 @@ function detailModel(kind, state, index) {
     const posts = postsFor(index, 'tagIds', node.id);
     return {
       breadcrumb: taxonomyBreadcrumb(index, node, 'tags'),
-      summary: `${node.label} · ${posts.length} entries`,
-      emptyMessage: posts.length ? null : 'No posts found.',
+      summary: `${node.label} · ${message(state, 'view.entries', { count: posts.length })}`,
+      emptyMessage: posts.length ? null : message(state, 'view.noPosts'),
       rows: posts.map(postRow)
     };
   }
@@ -173,19 +182,19 @@ function detailModel(kind, state, index) {
   const counts = categoryCounts(index, node);
   return {
     breadcrumb: taxonomyBreadcrumb(index, node, 'categories'),
-    summary: `${node.label} · ${counts.direct} direct · ${counts.total} total`,
-    emptyMessage: children.length || directPosts.length ? null : 'No posts found.',
-    rows: [...children.map(child => categoryRow(index, child)), ...directPosts.map(postRow)]
+    summary: `${node.label} · ${message(state, 'view.directTotal', counts)}`,
+    emptyMessage: children.length || directPosts.length ? null : message(state, 'view.noPosts'),
+    rows: [...children.map(child => categoryRow(index, child, state)), ...directPosts.map(postRow)]
   };
 }
 
-function helpModel(result) {
+function helpModel(result, state) {
   const commands = Array.isArray(result?.commands) ? result.commands : [];
   return {
     rowNavigation: false,
     breadcrumb: ['~', 'blog', 'help'],
-    summary: `HELP · ${commands.length} commands`,
-    emptyMessage: commands.length ? null : 'No commands registered.',
+    summary: `HELP · ${message(state, 'view.commands', { count: commands.length })}`,
+    emptyMessage: commands.length ? null : message(state, 'view.noCommands'),
     rows: commands.map(command => row(
       `command:${command.name}`,
       'command',
@@ -197,21 +206,21 @@ function helpModel(result) {
   };
 }
 
-function aboutModel(index) {
+function aboutModel(index, state) {
   const posts = postsOf(index);
   const profile = index?.about || {};
   const latest = posts.reduce((value, post) => (
     typeof post.date === 'string' && post.date > value ? post.date : value
   ), '');
   const facts = [
-    { label: '作者', value: profile.author || '—' },
-    { label: '主题', value: profile.theme || 'one-terminal' },
-    { label: '文章', value: String(posts.length) },
-    { label: '分类', value: String(nodesOf(index, 'category').length) },
-    { label: '标签', value: String(nodesOf(index, 'tag').length) },
-    { label: '最近更新', value: dateLabel(latest) || '—' },
+    { label: message(state, 'about.author'), value: profile.author || '—' },
+    { label: message(state, 'about.theme'), value: profile.theme || 'one-terminal' },
+    { label: message(state, 'about.posts'), value: String(posts.length) },
+    { label: message(state, 'about.categories'), value: String(nodesOf(index, 'category').length) },
+    { label: message(state, 'about.tags'), value: String(nodesOf(index, 'tag').length) },
+    { label: message(state, 'about.updated'), value: dateLabel(latest) || '—' },
     profile.github ? { label: 'GitHub', value: profile.github.label, href: profile.github.url } : null,
-    profile.email ? { label: '邮箱', value: profile.email, href: `mailto:${profile.email}` } : null
+    profile.email ? { label: message(state, 'about.email'), value: profile.email, href: `mailto:${profile.email}` } : null
   ].filter(Boolean);
   return {
     rowNavigation: false,
@@ -236,26 +245,26 @@ function lsModel(state, index) {
   if (state.viewNodeId === 'dir:root') {
     const pages = nodesOf(index, 'page').filter(page => !isReservedAboutNode(page));
     const rows = [
-      directoryRow('dir:posts', 'posts'),
-      directoryRow('dir:tags', 'tags'),
-      directoryRow('dir:categories', 'categories'),
-      ...pages.map(pageRow)
+      directoryRow('dir:posts', 'posts', state),
+      directoryRow('dir:tags', 'tags', state),
+      directoryRow('dir:categories', 'categories', state),
+      ...pages.map(page => pageRow(page, state))
     ];
     return {
       breadcrumb: ['~', 'blog'],
-      summary: `BLOG · ${rows.length} directories`,
+      summary: `BLOG · ${message(state, 'view.directories', { count: rows.length })}`,
       emptyMessage: null,
       rows
     };
   }
-  if (state.viewNodeId === 'dir:posts') return collectionModel('posts', index);
-  if (state.viewNodeId === 'dir:tags') return collectionModel('tags', index);
-  if (state.viewNodeId === 'dir:categories') return collectionModel('categories', index);
+  if (state.viewNodeId === 'dir:posts') return collectionModel('posts', state, index);
+  if (state.viewNodeId === 'dir:tags') return collectionModel('tags', state, index);
+  if (state.viewNodeId === 'dir:categories') return collectionModel('categories', state, index);
   const post = postsOf(index).find(item => item.id === state.viewNodeId);
   if (post) {
     return {
       breadcrumb: ['~', 'blog', 'posts', post.title],
-      summary: 'POST · 1 entry',
+      summary: `POST · ${message(state, 'view.oneEntry')}`,
       emptyMessage: null,
       rows: [postRow(post)]
     };
@@ -264,29 +273,29 @@ function lsModel(state, index) {
   if (node?.type === 'page') {
     return {
       breadcrumb: ['~', 'blog', 'pages', node.label],
-      summary: 'PAGE · 1 entry',
+      summary: `PAGE · ${message(state, 'view.oneEntry')}`,
       emptyMessage: null,
-      rows: [pageRow(node)]
+      rows: [pageRow(node, state)]
     };
   }
   if (node?.type === 'tag' || node?.type === 'category') return detailModel(node.type, state, index);
   return {
     breadcrumb: ['~', 'blog'],
     summary: 'one: ls: indexed path unavailable',
-    emptyMessage: 'No entries found.',
+    emptyMessage: message(state, 'view.noEntries'),
     rows: []
   };
 }
 
 export function createViewModel(state, index) {
   if (state?.indexStatus === 'loading') {
-    return navigableModel({ breadcrumb: ['~', 'blog'], summary: 'loading terminal-index.json…', emptyMessage: null, rows: [] });
+    return navigableModel({ breadcrumb: ['~', 'blog'], summary: message(state, 'view.loadingIndex'), emptyMessage: null, rows: [] });
   }
   if (state?.indexStatus === 'error') {
     return navigableModel({
       breadcrumb: ['~', 'blog'],
       summary: `one: terminal-index: ${state.indexError || 'unavailable'}`,
-      emptyMessage: 'Use the native links below or retry.',
+      emptyMessage: message(state, 'view.nativeFallback'),
       rows: []
     });
   }
@@ -297,15 +306,15 @@ export function createViewModel(state, index) {
   const requested = result?.type === 'render' ? result.view : null;
   const routeKind = state?.route?.kind || 'root';
   const kind = requested ?? routeKind;
-  if (kind === 'help') return helpModel(result);
-  if (kind === 'about') return aboutModel(index);
+  if (kind === 'help') return helpModel(result, state);
+  if (kind === 'about') return aboutModel(index, state);
   if (kind === 'posts' || kind === 'archives' || kind === 'tags' || kind === 'categories') {
-    return navigableModel(collectionModel(kind, index));
+    return navigableModel(collectionModel(kind, state, index));
   }
   if (kind === 'tag' || kind === 'category') return navigableModel(detailModel(kind, state, index));
   if (kind === 'ls') return navigableModel(lsModel(state, index));
   if (kind === 'page' || kind === 'document') {
-    return navigableModel({ breadcrumb: ['~', 'blog', 'page'], summary: 'DOCUMENT', emptyMessage: null, rows: [] });
+    return navigableModel({ breadcrumb: ['~', 'blog', 'page'], summary: message(state, 'view.document').toUpperCase(), emptyMessage: null, rows: [] });
   }
   return navigableModel({ breadcrumb: ['~', 'blog'], summary: TERMINAL_BRAND, emptyMessage: null, rows: [] });
 }

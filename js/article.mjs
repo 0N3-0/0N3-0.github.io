@@ -1,11 +1,35 @@
 import { validateIndex, validateNavigationUrl } from './terminal/model.mjs';
+import { mountFloatingControl } from './terminal/mobile-tab.mjs';
 import { readReturnRecord, writeReturnRecord } from './terminal/session.mjs';
+import { DEFAULT_LANGUAGE, readLanguage, translate } from './i18n.mjs';
 
 const BUILD_ID = /^[0-9a-f]{16}$/u;
 const ARTICLE_ID = /^post:[0-9a-f]{12}$/u;
 const UNSIGNED_INTEGER = /^(?:0|[1-9][0-9]*)$/u;
 const articleMounts = new WeakMap();
 let controlSequence = 0;
+
+export function mountArticleTopControl({ documentObject, windowObject, language = DEFAULT_LANGUAGE } = {}) {
+  const root = documentObject?.body;
+  if (!root || typeof windowObject?.scrollTo !== 'function') return () => {};
+  let storage = null;
+  try { storage = windowObject.localStorage; } catch { storage = null; }
+  let behavior = 'smooth';
+  try {
+    if (windowObject.matchMedia?.('(prefers-reduced-motion: reduce)').matches) behavior = 'auto';
+  } catch {
+    behavior = 'auto';
+  }
+  return mountFloatingControl({
+    root,
+    storage,
+    visualViewport: windowObject.visualViewport,
+    className: 'mobile-tab article-top-control',
+    text: '↑',
+    ariaLabel: translate(language, 'article.backToTop'),
+    onActivate: () => windowObject.scrollTo({ top: 0, left: 0, behavior })
+  });
+}
 
 function integer(value) {
   const input = String(value ?? '');
@@ -192,7 +216,8 @@ export function enhanceCodeBlocks(root, {
   clipboard = globalThis.navigator?.clipboard,
   collapseHeight = 320,
   setTimeoutImpl = globalThis.setTimeout,
-  clearTimeoutImpl = globalThis.clearTimeout
+  clearTimeoutImpl = globalThis.clearTimeout,
+  language = DEFAULT_LANGUAGE
 } = {}) {
   const documentObject = root?.ownerDocument || root;
   if (!documentObject?.createElement || !root?.querySelectorAll) return () => {};
@@ -203,11 +228,16 @@ export function enhanceCodeBlocks(root, {
   for (const figure of root.querySelectorAll('figure.highlight')) {
     if (figure.dataset.articleCodeMounted === 'true') continue;
     figure.dataset.articleCodeMounted = 'true';
-    const language = codeLanguage(figure);
+    const codeLanguageValue = codeLanguage(figure);
     let copy = directChild(figure, 'highlight-bar');
     if (!copy) {
-      copy = button(documentObject, 'highlight-bar', `复制 ${language} 代码`, language);
-      copy.dataset.lang = language;
+      copy = button(
+        documentObject,
+        'highlight-bar',
+        translate(language, 'article.copy', { language: codeLanguageValue }),
+        codeLanguageValue
+      );
+      copy.dataset.lang = codeLanguageValue;
       figure.appendChild(copy);
     }
 
@@ -229,7 +259,7 @@ export function enhanceCodeBlocks(root, {
 
     let expand = directChild(figure, 'code-expand');
     if (!expand) {
-      expand = button(documentObject, 'code-expand', '展开代码块', '▼');
+      expand = button(documentObject, 'code-expand', translate(language, 'article.expandCode'), '▼');
       expand.setAttribute('aria-expanded', 'false');
       figure.appendChild(expand);
     }
@@ -249,13 +279,15 @@ export function enhanceCodeBlocks(root, {
         if (!active) return;
         copy.textContent = 'done';
         copy.classList.add('copied');
-        copy.setAttribute('aria-label', '代码已复制');
+        copy.setAttribute('aria-label', translate(language, 'article.copied'));
         if (typeof setTimeoutImpl !== 'function') return;
         const timer = setTimeoutImpl(() => {
           timers.delete(timer);
           copy.textContent = copy.dataset.lang || 'code';
           copy.classList.remove('copied');
-          copy.setAttribute('aria-label', `复制 ${copy.dataset.lang || 'code'} 代码`);
+          copy.setAttribute('aria-label', translate(language, 'article.copy', {
+            language: copy.dataset.lang || 'code'
+          }));
         }, 1500);
         timers.add(timer);
       }).catch(() => {});
@@ -265,7 +297,10 @@ export function enhanceCodeBlocks(root, {
       const expanded = body.classList.toggle('expanded');
       expand.textContent = expanded ? '▲' : '▼';
       expand.setAttribute('aria-expanded', String(expanded));
-      expand.setAttribute('aria-label', expanded ? '收起代码块' : '展开代码块');
+      expand.setAttribute('aria-label', translate(
+        language,
+        expanded ? 'article.collapseCode' : 'article.expandCode'
+      ));
     };
     copy.addEventListener('click', onCopy);
     expand.addEventListener('click', onExpand);
@@ -287,7 +322,8 @@ export function enhanceCodeBlocks(root, {
 
 export function enhanceArticleToc(root, {
   IntersectionObserverImpl = globalThis.IntersectionObserver,
-  matchMediaImpl = globalThis.matchMedia
+  matchMediaImpl = globalThis.matchMedia,
+  language = DEFAULT_LANGUAGE
 } = {}) {
   const tocRoot = root?.matches?.('.article-toc') ? root : root?.querySelector?.('.article-toc');
   if (!tocRoot || tocRoot.dataset.articleTocMounted === 'true') return () => {};
@@ -321,7 +357,7 @@ export function enhanceArticleToc(root, {
 
       let toggle = directChild(item, 'tree-toggle');
       if (!toggle) {
-        toggle = button(documentObject, 'tree-toggle', '收起子目录', '▼');
+        toggle = button(documentObject, 'tree-toggle', translate(language, 'article.collapseBranch'), '▼');
         toggle.setAttribute('aria-expanded', 'true');
         item.insertBefore(toggle, link);
       }
@@ -343,7 +379,10 @@ export function enhanceArticleToc(root, {
         else childList.removeAttribute('aria-hidden');
         toggle.textContent = expanded ? '▶' : '▼';
         toggle.setAttribute('aria-expanded', String(!expanded));
-        toggle.setAttribute('aria-label', expanded ? '展开子目录' : '收起子目录');
+        toggle.setAttribute('aria-label', translate(
+          language,
+          expanded ? 'article.expandBranch' : 'article.collapseBranch'
+        ));
       };
       toggle.addEventListener('click', onToggle);
       childList.addEventListener('transitionend', onBranchTransitionEnd);
@@ -357,7 +396,7 @@ export function enhanceArticleToc(root, {
   let tocToggle = directChild(tocRoot, 'article-toc-toggle');
   if (tocViewport) {
     if (!tocToggle) {
-      tocToggle = button(documentObject, 'article-toc-toggle', '隐藏文章目录', '›');
+      tocToggle = button(documentObject, 'article-toc-toggle', translate(language, 'article.hideToc'), '›');
       tocRoot.insertBefore(tocToggle, tocViewport);
     }
     tocToggle.setAttribute('aria-controls', ensureControlId(tocViewport, 'article-toc'));
@@ -368,7 +407,10 @@ export function enhanceArticleToc(root, {
       else tocViewport.removeAttribute('aria-hidden');
       tocToggle.textContent = hidden ? '‹' : '›';
       tocToggle.setAttribute('aria-expanded', String(!hidden));
-      tocToggle.setAttribute('aria-label', hidden ? '显示文章目录' : '隐藏文章目录');
+      tocToggle.setAttribute('aria-label', translate(
+        language,
+        hidden ? 'article.showToc' : 'article.hideToc'
+      ));
     };
     const onTocToggle = () => {
       const hidden = !tocRoot.classList.contains('article-toc-hidden');
@@ -511,11 +553,16 @@ async function mountArticlePage({
   setTimeoutImpl = globalThis.setTimeout,
   clearTimeoutImpl = globalThis.clearTimeout
 } = {}) {
+  let language = DEFAULT_LANGUAGE;
+  try { language = readLanguage(windowObject?.localStorage); } catch { language = DEFAULT_LANGUAGE; }
+  applyArticleLanguage(documentObject, language);
   const cleanups = [
-    enhanceCodeBlocks(documentObject),
+    mountArticleTopControl({ documentObject, windowObject, language }),
+    enhanceCodeBlocks(documentObject, { language }),
     enhanceArticleToc(documentObject, {
       IntersectionObserverImpl: windowObject?.IntersectionObserver,
-      matchMediaImpl: windowObject?.matchMedia?.bind?.(windowObject)
+      matchMediaImpl: windowObject?.matchMedia?.bind?.(windowObject),
+      language
     })
   ];
   const cleanup = () => cleanups.splice(0).forEach(dispose => dispose());
@@ -581,6 +628,28 @@ async function mountArticlePage({
   cleanups.push(() => returnLink.removeEventListener('click', onReturnClick));
   cleanups.push(() => windowObject.removeEventListener?.('pageshow', onPageShow));
   return cleanup;
+}
+
+export function applyArticleLanguage(documentObject, language = DEFAULT_LANGUAGE) {
+  if (!documentObject?.documentElement) return language;
+  documentObject.documentElement.dataset.language = language;
+  const labels = [
+    ['.article-return', 'article.return'],
+    ['.article-tags', 'article.tags'],
+    ['.article-pagination', 'article.navigation'],
+    ['.article-toc', 'article.toc']
+  ];
+  for (const [selector, key] of labels) {
+    const element = documentObject.querySelector?.(selector);
+    element?.setAttribute?.('aria-label', translate(language, key));
+    element?.setAttribute?.('data-ui-language', language);
+  }
+  const returnLink = documentObject.querySelector?.('.article-return');
+  if (returnLink) {
+    returnLink.textContent = `← ${translate(language, 'article.returnText')}`;
+    returnLink.setAttribute?.('translate', 'no');
+  }
+  return language;
 }
 
 export function initializeArticlePage(options = {}) {

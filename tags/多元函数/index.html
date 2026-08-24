@@ -15,6 +15,12 @@
       document.querySelector('meta[name="theme-color"]').setAttribute(
         'content', mode === 'light' ? '#c1c4c5' : '#0b1419'
       );
+      var language = 'zh-CN';
+      try {
+        var savedLanguage = localStorage.getItem('language');
+        if (savedLanguage === 'en' || savedLanguage === 'zh-CN') language = savedLanguage;
+      } catch (error) {}
+      document.documentElement.setAttribute('data-language', language);
     })();
   </script>
   <title>One&#39;s Blog</title>
@@ -67,7 +73,7 @@
 
 </section>
 
-  <section class="terminal-enhanced" id="terminal-enhanced" hidden aria-label="博客终端"></section>
+  <section class="terminal-enhanced" id="terminal-enhanced" hidden aria-label="博客终端" translate="no"></section>
   <div class="sr-status" id="terminal-status" aria-live="polite" aria-atomic="true"></div>
   <script id="terminal-initial-state" type="application/json">{"schemaVersion":1,"kind":"tag","url":"/tags/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0/index.html","viewTarget":"多元函数","returnUrl":"/","indexUrl":"/terminal-index.json","indexTimeoutMs":8000,"about":{"title":"One's Blog","author":"one","theme":"one-terminal","avatarUrl":"/images/avatar.jpg","github":{"label":"github.com/0N3-0","url":"https://github.com/0N3-0"},"email":"thehungedman@qq.com"},"paginationDir":"page","routes":{"root":"/","posts":"/posts/","archives":"/archives/","tags":"/tags/","categories":"/categories/"}}</script>
 </main>

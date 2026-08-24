@@ -168,6 +168,7 @@
 }
 
 .article-toc.sidebar-right {
+  display: none;
   inline-size: min(100% - 2rem, 52rem);
   max-inline-size: 52rem;
   margin: 0 auto var(--space-4);
@@ -285,6 +286,7 @@
 
 @media (min-width: 80rem) {
   .article-toc.sidebar-right {
+    display: block;
     position: fixed;
     inset-block-start: 4.5rem;
     inset-inline-end: 1rem;

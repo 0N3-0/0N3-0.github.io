@@ -15,6 +15,12 @@
       document.querySelector('meta[name="theme-color"]').setAttribute(
         'content', mode === 'light' ? '#c1c4c5' : '#0b1419'
       );
+      var language = 'zh-CN';
+      try {
+        var savedLanguage = localStorage.getItem('language');
+        if (savedLanguage === 'en' || savedLanguage === 'zh-CN') language = savedLanguage;
+      } catch (error) {}
+      document.documentElement.setAttribute('data-language', language);
     })();
   </script>
   <title>WHUCTF2026校赛 | One&#39;s Blog</title>
@@ -62,7 +68,7 @@
 <body class="article-page" data-theme-name="one-terminal">
   
     
-<a class="article-return" href="/" aria-label="返回终端">&larr; terminal</a>
+<a class="article-return" href="/" aria-label="返回终端" translate="no">&larr; 终端</a>
 <main class="article-shell"
   data-schema-version="1"
   data-build-id="a76b97e53de251e9"

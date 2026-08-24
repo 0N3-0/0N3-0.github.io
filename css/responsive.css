@@ -9,12 +9,12 @@
   }
 
   .article-return {
+    position: static;
     margin-block: var(--space-1);
     margin-inline: max(var(--space-1), env(safe-area-inset-left, 0px)) var(--space-1);
   }
 
-  .article-shell,
-  .article-toc {
+  .article-shell {
     inline-size: min(100% - 1.5rem, 52rem);
   }
 
@@ -30,7 +30,7 @@
   .post-content h4,
   .post-content h5,
   .post-content h6 {
-    scroll-margin-block-start: calc(44px + var(--space-2));
+    scroll-margin-block-start: var(--space-2);
   }
 
   .article-pagination {
@@ -91,6 +91,7 @@
     min-block-size: var(--touch-target);
     padding: 0;
     border: 1px solid var(--border);
+    border-radius: var(--radius-control);
     background: var(--surface);
     color: var(--text);
     cursor: grab;
@@ -102,14 +103,22 @@
     cursor: grabbing;
   }
 
+  .article-top-control {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
   .terminal-page {
     padding: 1rem 0.875rem;
-    padding-top: calc(3.75rem + env(safe-area-inset-top));
+    padding-top: calc(1rem + env(safe-area-inset-top));
     padding-bottom: calc(var(--float-size) + 24px + env(safe-area-inset-bottom));
   }
 
-  .terminal-command-input {
-    font-size: 17px;
+  .terminal-brand {
+    position: static;
+    display: block;
+    inline-size: max-content;
+    margin-block-end: clamp(2.5rem, 8vw, 4rem);
   }
 
   .terminal-welcome-ascii-wide {

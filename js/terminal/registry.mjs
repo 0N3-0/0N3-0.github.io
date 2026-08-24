@@ -1,3 +1,5 @@
+import { translate } from '../i18n.mjs';
+
 function asciiLower(value) {
   return String(value).replace(/[A-Z]/gu, character => character.toLowerCase());
 }
@@ -31,6 +33,9 @@ function normalizeDefinition(definition) {
   }
   if (typeof definition.usage !== 'string') throw new TypeError('Invalid command usage');
   if (typeof definition.description !== 'string') throw new TypeError('Invalid command description');
+  if (definition.descriptionKey !== undefined && (typeof definition.descriptionKey !== 'string' || !definition.descriptionKey)) {
+    throw new TypeError('Invalid command description key');
+  }
   if (typeof definition.complete !== 'function') throw new TypeError('Invalid command complete');
   if (typeof definition.execute !== 'function') throw new TypeError('Invalid command execute');
   const showInCompletion = definition.showInCompletion !== false;
@@ -93,7 +98,9 @@ export class CommandRegistry {
         type: 'command',
         label: command.name,
         value: command.name,
-        description: command.description
+        description: command.descriptionKey
+          ? translate(context?.state?.language, command.descriptionKey)
+          : command.description
       }));
     }
 
